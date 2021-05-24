@@ -21,13 +21,11 @@ namespace ScriptEditor
 
 			//個数(イメージ読込時に使用)
 			int numImage = int.Parse ( elemImageList.Attributes[ 0 ].Value );
-
-//			int indexImageList = 0;
 			foreach ( Element elemImage in elemImageList.Elements )
 			{
 				string name = elemImage.Attributes[ 0 ].Value;
 				ImageData imageData = new ImageData ( name, null );
-				chara.behavior.ListImage.Add ( name,imageData );
+				chara.behavior.BD_Image.Add ( imageData );
 			}
 
 			//Efイメージリスト
@@ -35,13 +33,11 @@ namespace ScriptEditor
 
 			//個数(イメージ読込時に使用)
 			int numEfImage = int.Parse ( elemEfImageList.Attributes[ 0 ].Value );
-
-//			int indexEfImageList = 0;
 			foreach ( Element elemEfImage in elemEfImageList.Elements )
 			{
 				string name = elemEfImage.Attributes[ 0 ].Value;
 				ImageData imageData = new ImageData ( name, null );
-				chara.garnish.ListImage.Add ( name, imageData );
+				chara.garnish.BD_Image.Add ( imageData );
 			}
 
 			LoadScript ( document, chara );
@@ -81,12 +77,12 @@ namespace ScriptEditor
 
 				//アクションに設定
 //				chara.behavior.ListSequence.Add ( action );
-				chara.behavior.Bldct_sqc.Add ( action );
+				chara.behavior.BD_Sequence.Add ( action );
 			}
 
 			//一度アクションリストを作成してから指定し直す
 //			BL_Sqc blsqc = chara.behavior.ListSequence;
-			BL_Sqc blsqc = chara.behavior.Bldct_sqc.GetBindingList ();
+			BL_Sqc blsqc = chara.behavior.BD_Sequence.GetBindingList ();
 			foreach ( Action action  in blsqc )
 			{
 				//"次アクション"
@@ -110,15 +106,15 @@ namespace ScriptEditor
 
 				//エフェクトに設定
 //				chara.garnish.Bldct_sqc.GetBindingList().Add ( effect );
-				chara.garnish.Bldct_sqc.Add ( effect );
+				chara.garnish.BD_Sequence.Add ( effect );
 			}
 
 			//読込時　エフェクトの数が０のときダミーを作成
-			if ( 0 == chara.garnish.Bldct_sqc.GetBindingList().Count )
+			if ( 0 == chara.garnish.BD_Sequence.GetBindingList().Count )
 			{
 //				chara.garnish.Bldct_sqc.GetBindingList().Add ( new Effect () );
 				Effect effect = new Effect ();
-				chara.garnish.Bldct_sqc.Add ( effect );
+				chara.garnish.BD_Sequence.Add ( effect );
 			}
 
 
@@ -184,7 +180,7 @@ namespace ScriptEditor
 			}
 
 			//ブランチリストのコマンドとアクションを登録
-			foreach ( Action action in chara.behavior.Bldct_sqc.GetBindingList() )
+			foreach ( Action action in chara.behavior.BD_Sequence.GetBindingList() )
 			{
 				foreach ( Script script in action.ListScript )
 				{

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace ScriptEditor
 {
-	using BL_DCT_Sqc = BindingDictionary < Sequence >;
-	using BL_Sqc = BindingList < Sequence >;
+	using BD_SQC = BindingDictionary < Sequence >;
+	using BL_SQC = BindingList < Sequence >;
+	using DCT_SQC = Dictionary < string, Sequence >;
 
 	//================================================================
 	//	<コンペンド> 		【一覧】シークエンスの継承であるアクションやエフェクトのリストを扱う
@@ -14,23 +16,23 @@ namespace ScriptEditor
 	{
 		//---------------------------------------------------------------------
 		//シークエンスリスト	
-		public BL_DCT_Sqc Bldct_sqc = new BL_DCT_Sqc ();
+		public BD_SQC BD_Sequence = new BD_SQC ();
 
 		//イメージリスト
-		public ImageList ListImage { get; } = new ImageList ();
+		public BindingDictionary < ImageData > BD_Image = new BindingDictionary<ImageData> ();
 
 		//---------------------------------------------------------------------
 		//クリア
 		public void Clear ()
 		{
-			BL_Sqc bl_sqc = Bldct_sqc.GetBindingList ();
+			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
 			foreach ( Sequence seq in bl_sqc )
 			{
 				seq.Clear ();
 			}
-			Bldct_sqc.Clear ();
+			BD_Sequence.Clear ();
 
-			ListImage.Clear ();
+			BD_Image.Clear ();
 		}
 
 		//コピー
@@ -38,12 +40,21 @@ namespace ScriptEditor
 		{
 			Clear ();
 
-			BL_Sqc bl_sqc = Bldct_sqc.GetBindingList ();
-			BL_Sqc src_bl_sqc = srcCompend.Bldct_sqc.GetBindingList ();
+			//手動でディープコピーする
+			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
+			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
 			foreach ( Sequence seq in bl_sqc )
 			{
 				bl_sqc.Add ( new Sequence ( seq ) );
 			}
+			DCT_SQC dct_sqc = BD_Sequence.GetDictionary ();
+			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
+			foreach ( KeyValuePair < string, Sequence > kvp in dct_sqc )
+			{
+				Sequence seq = (Sequence)kvp.Value;
+				bl_sqc.Add ( new Sequence ( seq ) );
+			}
+
 			CopyImageList ( srcCompend );
 		}
 
@@ -51,11 +62,10 @@ namespace ScriptEditor
 		public void CopyImageList ( Compend srcCompend )
 		{
 			//イメージデータはディープコピーする
-			BindingList < ImageData > bl_imgdt = srcCompend.ListImage.GetBindingList();
+			BindingList < ImageData > bl_imgdt = srcCompend.BD_Image.GetBindingList();
 			foreach ( ImageData imageData in bl_imgdt )
 			{
-				ImageData tempImageData = new ImageData ( imageData );
-				this.ListImage.Add ( tempImageData.Name, tempImageData );
+				this.BD_Image.Add ( new ImageData ( imageData ) );
 			}
 		}
 
@@ -63,7 +73,7 @@ namespace ScriptEditor
 		public int MaxNumScript ()
 		{
 			int maxNumScript = 0;
-			BL_Sqc bl_sqc = Bldct_sqc.GetBindingList ();
+			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
 			foreach ( Sequence seq in bl_sqc )
 			{
 				if ( maxNumScript < seq.ListScript.Count )
@@ -85,19 +95,30 @@ namespace ScriptEditor
 		//Action型指定 インデクサ
 		public Action this [ int i ]
 		{
-			set { base.Bldct_sqc.GetBindingList () [ i ] = value; }
-			get { return base.Bldct_sqc.GetBindingList () [ i ] as Action; }
+			set { base.BD_Sequence.GetBindingList () [ i ] = value; }
+			get { return base.BD_Sequence.GetBindingList () [ i ] as Action; }
 		}
 
 		//Action型指定 コピー
 		public override void Copy ( Compend srcCompend )
 		{
+			//ディープコピー
 			base.Clear ();
-			BL_Sqc src_bl_sqc = srcCompend.Bldct_sqc.GetBindingList ();
-			foreach ( Action ac in src_bl_sqc )
+
+			BL_SQC bl_sqc = base.BD_Sequence.GetBindingList ();
+			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
+			foreach ( Action act in src_bl_sqc )
 			{
-				base.Bldct_sqc.GetBindingList ().Add ( new Action ( ac ) );
+				bl_sqc.Add ( new Action ( act ) );
 			}
+			DCT_SQC dct_sqc = base.BD_Sequence.GetDictionary ();
+			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
+			foreach ( KeyValuePair < string, Sequence > kvp in src_dct_sqc )
+			{
+				Action a = (Action)kvp.Value;
+				dct_sqc.Add ( a.Name, new Action ( a ) );
+			}
+
 			CopyImageList ( srcCompend );
 		}
 	}
@@ -112,19 +133,30 @@ namespace ScriptEditor
 		//Effect型指定 インデクサ
 		public Effect this [ int i ]
 		{
-			set { base.Bldct_sqc.GetBindingList () [ i ] = value; }
-			get { return base.Bldct_sqc.GetBindingList () [ i ] as Effect; }
+			set { base.BD_Sequence.GetBindingList () [ i ] = value; }
+			get { return base.BD_Sequence.GetBindingList () [ i ] as Effect; }
 		}
 
 		//Effect型指定 コピー
 		public override void Copy ( Compend srcCompend )
 		{
 			base.Clear ();
-			BL_Sqc src_bl_sqc = srcCompend.Bldct_sqc.GetBindingList ();
-			foreach ( Effect ac in src_bl_sqc )
+
+			BL_SQC bl_sqc = base.BD_Sequence.GetBindingList ();
+			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
+			foreach ( Effect ef in src_bl_sqc )
 			{
-				base.Bldct_sqc.GetBindingList ().Add ( new Effect ( ac ) );
+				bl_sqc.Add ( new Effect ( ef ) );
 			}
+
+			DCT_SQC dct_sqc = base.BD_Sequence.GetDictionary ();
+			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
+			foreach ( KeyValuePair < string, Sequence > kvp in src_dct_sqc )
+			{
+				Effect e = (Effect)kvp.Value;
+				dct_sqc.Add ( e.Name, new Effect ( e ) );
+			}
+
 			CopyImageList ( srcCompend );
 		}
 	}

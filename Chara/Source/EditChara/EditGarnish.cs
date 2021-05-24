@@ -27,17 +27,17 @@
 		public override void Add ()
 		{
 //			Compend.ListSequence.Add ( new Effect ( "new Effect" ) );
-			Compend.Bldct_sqc.Add ( new Effect ( "new Effect" ) );
+			Compend.BD_Sequence.Add ( new Effect ( "new Effect" ) );
 		}
 		public void AddEffect ()
 		{
 //			Compend.ListSequence.Add ( new Effect ( "new Effect" ) );
-			Compend.Bldct_sqc.Add ( new Effect ( "new Effect" ) );
+			Compend.BD_Sequence.Add ( new Effect ( "new Effect" ) );
 		}
 		public void AddEffect ( Effect effect )
 		{
 //			Compend.ListSequence.Add ( effect );
-			Compend.Bldct_sqc.Add ( effect );
+			Compend.BD_Sequence.Add ( effect );
 		}
 
 		//挿入

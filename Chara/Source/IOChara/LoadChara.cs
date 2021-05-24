@@ -23,7 +23,8 @@ namespace ScriptEditor
 			catch ( ArgumentException e )
 			{
 				//仮データ
-//				TestChara testChara = new TestChara ( chara, EditChara );
+				TestChara testChara = new TestChara ();
+				testChara.Test ( chara );
 
 				MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
 			}
@@ -133,9 +134,9 @@ namespace ScriptEditor
 				imgdt.Img = Image.FromStream ( mstrmImage );
 			}
 #endif
-			LoadImageList ( biReaderFile, chara.behavior.ListImage );
+			LoadImageList ( biReaderFile, chara.behavior.BD_Image );
 			//※ 読込位置はそのまま次へ
-			LoadImageList ( biReaderFile, chara.garnish.ListImage );
+			LoadImageList ( biReaderFile, chara.garnish.BD_Image );
 
 			//==========================================================================
 			//終了
@@ -144,7 +145,7 @@ namespace ScriptEditor
 		}
 
 		//イメージリストの読込
-		private void LoadImageList ( BinaryReader br, ImageList imagelist )
+		private void LoadImageList ( BinaryReader br, BindingDictionary < ImageData > imagelist )
 		{
 			IEnumerable list =  imagelist.GetBindingList ();
 			foreach ( ImageData imgdt in list )

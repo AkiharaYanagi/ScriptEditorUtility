@@ -26,11 +26,11 @@
 		//追加
 		public void AddAction ()
 		{
-			Compend.Bldct_sqc.Add ( new Action ( "new Action" ) );
+			Compend.BD_Sequence.Add ( new Action ( "new Action" ) );
 		}
 		public void AddAction ( Action action )
 		{
-			Compend.Bldct_sqc.Add ( action );
+			Compend.BD_Sequence.Add ( action );
 		}
 
 		//挿入

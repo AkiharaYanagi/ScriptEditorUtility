@@ -48,11 +48,10 @@ namespace ScriptEditor
 		public int SelectedSpanEnd { get; set; } = 0;
 
 		//---------------------------------------------------------------------
-
 		//数値指定(範囲チェック付)
 		public void SelectScript ( int sequence, int frame )
 		{
-			BL_Sqc ls = Compend.Bldct_sqc.GetBindingList ();
+			BL_Sqc ls = Compend.BD_Sequence.GetBindingList ();
 			if ( sequence < 0 || ls.Count <= sequence ) { return; }
 			SelectedSequence = ls [ sequence ];
 
@@ -77,7 +76,7 @@ namespace ScriptEditor
 		//シークエンスのみ選択
 		public void SelectSequence ( int sequence )
 		{
-			BL_Sqc ls = Compend.Bldct_sqc.GetBindingList ();
+			BL_Sqc ls = Compend.BD_Sequence.GetBindingList ();
 			if ( sequence < 0 || ls.Count <= sequence ) { return; }
 			SelectedSequence = ls [ sequence ];
 
@@ -91,7 +90,7 @@ namespace ScriptEditor
 		public void SelectSequence ( string name )
 		{
 			//アクション名以外のとき何もしない
-			Sequence sq = Compend.Bldct_sqc.Get ( name );
+			Sequence sq = Compend.BD_Sequence.Get ( name );
 			if ( null == sq ) { return; }
 
 			SelectedSequence = sq;
@@ -123,7 +122,7 @@ namespace ScriptEditor
 		//末尾にシークエンス追加
 		public void AddSequence ( Sequence s )
 		{
-			Compend.Bldct_sqc.Add ( s );
+			Compend.BD_Sequence.Add ( s );
 		}
 
 		public virtual void Add ()
@@ -131,7 +130,7 @@ namespace ScriptEditor
 		}
 		public void Add ( Sequence s )
 		{
-			Compend.Bldct_sqc.Add ( s );
+			Compend.BD_Sequence.Add ( s );
 		}
 
 		//選択している後にシークエンス挿入
@@ -139,20 +138,20 @@ namespace ScriptEditor
 		{
 //			BL_DCT_Sqc bldct_sqc = Compend.Bldct_sqc;
 //			int i = bldct_sqc.GetBindingList().IndexOf ( SelectedSequence );
-			Compend.Bldct_sqc.Insert ( s.Name, s );
+			Compend.BD_Sequence.Insert ( s.Name, s );
 		}
 		public virtual void Insert ()
 		{
 //			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
 //			Compend.ListSequence.Insert ( i, new Sequence ( "new Inserted Sequence" ) );
 			string name = "new Inserted Sequence";
-			Compend.Bldct_sqc.Insert ( name, new Sequence ( name ) );
+			Compend.BD_Sequence.Insert ( name, new Sequence ( name ) );
 		}
 		public void Insert ( Sequence s )
 		{
 //			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
 //			Compend.ListSequence.Insert ( i, s );
-			Compend.Bldct_sqc.Insert ( s.Name, s );
+			Compend.BD_Sequence.Insert ( s.Name, s );
 		}
 
 		//選択中のシークエンスを削除
@@ -160,13 +159,13 @@ namespace ScriptEditor
 		{
 //			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
 //			Compend.ListSequence.RemoveAt ( i );
-			Compend.Bldct_sqc.Remove ( SelectedSequence.Name );
+			Compend.BD_Sequence.Remove ( SelectedSequence.Name );
 		}
 		public void Remove ()
 		{
 //			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
 //			Compend.ListSequence.RemoveAt ( i );
-			Compend.Bldct_sqc.Remove ( SelectedSequence.Name );
+			Compend.BD_Sequence.Remove ( SelectedSequence.Name );
 		}
 
 		//---------------------------------------------------------------------
@@ -232,7 +231,7 @@ namespace ScriptEditor
 		private Script GetCopiedScript ()
 		{
 			//対象シークエンス
-			BL_Sqc bl_sqc = Compend.Bldct_sqc.GetBindingList ();
+			BL_Sqc bl_sqc = Compend.BD_Sequence.GetBindingList ();
 			int s = copiedScript.sequence;
 			if ( s < 0 || bl_sqc.Count <= s ) { return null; }
 			Sequence seq = bl_sqc [ s ];

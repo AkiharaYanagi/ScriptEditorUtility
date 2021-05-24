@@ -73,8 +73,8 @@ namespace ScriptEditor
 			MemoryStream mstrmImage = new MemoryStream ();
 			BinaryWriter biWriterImage = new BinaryWriter ( mstrmImage );
 
-			WriteListImage ( biWriterImage, chara.behavior.ListImage );
-			WriteListImage ( biWriterImage, chara.garnish.ListImage );
+			WriteListImage ( biWriterImage, chara.behavior.BD_Image );
+			WriteListImage ( biWriterImage, chara.garnish.BD_Image );
 
 			biWriterImage.Flush ();
 
@@ -134,7 +134,7 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//イメージリスト
-			ImageList imageList = chara.behavior.ListImage;
+			BindingDictionary < ImageData > imageList = chara.behavior.BD_Image;
 			strmWriter.Write ( "<ImageList Num=\"" + imageList.GetBindingList().Count + "\">\n" );
 			foreach ( ImageData imageData in imageList.GetBindingList() )
 			{
@@ -144,7 +144,7 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//Efイメージリスト
-			ImageList efImageList = chara.garnish.ListImage;
+			BindingDictionary < ImageData > efImageList = chara.garnish.BD_Image;
 			strmWriter.Write ( "<EfImageList Num=\"" + efImageList.GetBindingList().Count + "\">\n" );
 			foreach ( ImageData imageData in efImageList.GetBindingList () )
 			{
@@ -154,10 +154,10 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//アクションリスト
-			strmWriter.Write ( "<ActionList Num=\"" + chara.behavior.Bldct_sqc.GetBindingList().Count + "\">\n" );
+			strmWriter.Write ( "<ActionList Num=\"" + chara.behavior.BD_Sequence.GetBindingList().Count + "\">\n" );
 
 			//アクション
-			foreach ( Action action in chara.behavior.Bldct_sqc.GetBindingList() )
+			foreach ( Action action in chara.behavior.BD_Sequence.GetBindingList() )
 			{
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Action" );
@@ -177,10 +177,10 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//エフェクトリスト
-			strmWriter.Write ( "<EfList Num=\"" + chara.garnish.Bldct_sqc.GetBindingList().Count + "\">\n" );
+			strmWriter.Write ( "<EfList Num=\"" + chara.garnish.BD_Sequence.GetBindingList().Count + "\">\n" );
 
 			//エフェクト
-			foreach ( Effect effect in chara.garnish.Bldct_sqc.GetBindingList() )
+			foreach ( Effect effect in chara.garnish.BD_Sequence.GetBindingList() )
 			{
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Effect" );
@@ -269,7 +269,7 @@ namespace ScriptEditor
 
 
 		//イメージリストの書出
-		private void WriteListImage ( BinaryWriter biWriterImage, ImageList imagelist )
+		private void WriteListImage ( BinaryWriter biWriterImage, BindingDictionary < ImageData > imagelist )
 		{
 			//ストリーム読込→書出用
 			const int size = 4096;	//バッファサイズ
@@ -331,7 +331,7 @@ namespace ScriptEditor
 					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
 					strmWriter.Write ( " CommandName=\"" + chara.ListCommand[ branch.IndexCommand ] + "\"" );
 					strmWriter.Write ( " Action=\"" + branch.IndexAction + "\"" );
-					strmWriter.Write ( " ActionName=\"" + chara.behavior.Bldct_sqc.GetBindingList()[ branch.IndexAction ] + "\"" );
+					strmWriter.Write ( " ActionName=\"" + chara.behavior.BD_Sequence.GetBindingList()[ branch.IndexAction ] + "\"" );
 					strmWriter.Write ( " Frame=\"" + branch.Frame + "\"" );
 					strmWriter.Write ( "></Branch>\n" );
 				}

@@ -55,7 +55,6 @@
     <Compile Include="Source\CharaData\Effect.cs" />
     <Compile Include="Source\CharaData\EffectGenerate.cs" />
     <Compile Include="Source\CharaData\ImageData.cs" />
-    <Compile Include="Source\CharaData\ImageList.cs" />
     <Compile Include="Source\CharaData\Script.cs" />
     <Compile Include="Source\CharaData\Sequence.cs" />
     <Compile Include="Source\EditChara\EditAction.cs" />
@@ -76,6 +75,7 @@
     <Compile Include="Source\IOChara\IOChara.cs" />
     <Compile Include="Source\IOChara\LoadChara.cs" />
     <Compile Include="Source\IOChara\LoadTextChara.cs" />
+    <Compile Include="Source\TestChara\ConstCharaData.cs" />
     <Compile Include="Source\TestChara\MakeSourceTestCharaData.cs" />
     <Compile Include="Source\TestChara\MakeTestCharaData.cs" />
     <Compile Include="Source\TestChara\TestCharaData.cs" />

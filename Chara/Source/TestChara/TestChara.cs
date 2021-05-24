@@ -41,8 +41,8 @@ namespace ScriptEditor
 			//test chara.Clear()
 			//		データ個数が０に初期化されているかテスト
 			chara.Clear ();
-			Debug.Assert ( 0 == chara.behavior.Bldct_sqc.GetBindingList().Count );
-			Debug.Assert ( 0 == chara.garnish.Bldct_sqc.GetBindingList().Count );
+			Debug.Assert ( 0 == chara.behavior.BD_Sequence.Count() );
+			Debug.Assert ( 0 == chara.garnish.BD_Sequence.Count() );
 			Debug.Assert ( 0 == chara.ListCommand.Count );
 		}
 
@@ -52,10 +52,16 @@ namespace ScriptEditor
 			dstChara.Copy ( srcChara );
 
 			//リスト個数が同数かテスト
-			Debug.Assert ( srcChara.behavior.Bldct_sqc.GetBindingList().Count == dstChara.behavior.Bldct_sqc.GetBindingList().Count );
-			Debug.Assert ( srcChara.behavior.ListImage.GetBindingList().Count == dstChara.behavior.ListImage.GetBindingList().Count );
-			Debug.Assert ( srcChara.garnish.Bldct_sqc.GetBindingList().Count == dstChara.garnish.Bldct_sqc.GetBindingList().Count );
-			Debug.Assert ( srcChara.garnish.ListImage.GetBindingList().Count == dstChara.garnish.ListImage.GetBindingList().Count );
+			Behavior bhv0 = srcChara.behavior;
+			Behavior bhv1 = dstChara.behavior;
+			Debug.Assert ( bhv0.BD_Sequence.Count() == bhv1.BD_Sequence.Count() );
+			Debug.Assert ( bhv0.BD_Image.Count() == bhv1.BD_Image.Count() );
+
+			Garnish g0 = srcChara.garnish;
+			Garnish g1 = dstChara.garnish;
+			Debug.Assert ( g0.BD_Sequence.GetBindingList().Count == g1.BD_Sequence.GetBindingList().Count );
+			Debug.Assert ( g0.BD_Image.Count() == g1.BD_Image.Count() );
+
 			Debug.Assert ( srcChara.ListCommand.Count == dstChara.ListCommand.Count );
 		}
 

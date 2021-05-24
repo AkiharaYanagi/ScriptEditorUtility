@@ -46,7 +46,7 @@ namespace ScriptEditor
 			strmWriter.Write ( "\t\t\t// VER:" + CONST.VER.ToString() + "\n" );
 			
 			//ビヘイビア(アクションリスト)
-			BindingList<Sequence> la = chara.behavior.Bldct_sqc.GetBindingList ();
+			BindingList<Sequence> la = chara.behavior.BD_Sequence.GetBindingList ();
 
 			//アクションの数だけループ
 			strmWriter.Write ( "\t\t\t" + "// SIZE_ACTION = " + la.Count + "; \n" );
