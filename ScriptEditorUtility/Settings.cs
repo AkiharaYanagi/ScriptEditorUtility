@@ -8,10 +8,9 @@ namespace ScriptEditor
 	//----------------------------------------------------------
 	public class Settings
 	{
-		public string SettingFilename { set; get; } = "setting.xml";
-
-		public string LastDirectory { set; get; } //前回のディレクトリ
-		public string LastFilename { set; get; }  = "chara.dat";	//前回のファイル
+		public string SettingFilename { set; get; } = "setting.xml";	//ファイル名
+		public string LastDirectory { set; get; } = "";					//前回のディレクトリ
+		public string LastFilename { set; get; } = "chara.dat";			//前回のファイル
 
 		public void Save ()
 		{
