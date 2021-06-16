@@ -27,7 +27,7 @@ namespace ScriptEditor
 	}
 
 	//スクリプトの構造を以て、上記クラスをまとめて持つ
-	//コンストラクタで各パラメータの設定用デリゲートをラムダ式で初期化する
+	//コンストラクタで各パラメータの設定用デリゲート(セッタ,ゲッタ)をラムダ式で初期化する
 	public class ScriptSetter
 	{
 		public PrmInt imageIndex = new PrmInt ( (s, i)=> s.ImgIndex = i, s=> s.ImgIndex );

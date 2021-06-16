@@ -82,8 +82,5 @@
     <Compile Include="Source\IOChara\SaveChara.cs" />
     <Compile Include="Source\TestChara\TestChara.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\CharaData\Script.cs.bak" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

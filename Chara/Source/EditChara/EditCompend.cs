@@ -101,14 +101,16 @@ namespace ScriptEditor
 			SelectFrame ( 0 );
 		}
 
-		//関連付け(選択からの大元)
+		//関連付け(選択時に同期するオブジェクト)
 		public void Assosiate ()
 		{
 			L_Scp lscp = SelectedSequence.ListScript;
+
+			//グループ
+			EditScript.Restruct ( lscp, SelectedScript.Frame );
 #if false
 			//関連付け
 			Ctrl_Cmpd.Assosiate ( SelectedScript );
-			EditScript.Restruct ( lscp, SelectedScript.Frame );
 			FormRect.Inst.Assosiate ( SelectedScript );
 			FormEfGnrt.Inst.Assosiate ( SelectedScript );
 

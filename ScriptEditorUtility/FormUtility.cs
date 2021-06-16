@@ -34,6 +34,13 @@ namespace ScriptEditor
 		}
 
 		//==============================================================
+		//上のディレクトリ
+		public static string UpDirectory ( string path )
+		{
+			return path.Substring ( 0, path.LastIndexOf ( @"\" ) + 1 );
+		}
+
+		//==============================================================
 		//ステータスバー表示
 		public static ToolStripStatusLabel ToolStripStatusLabel { get; set; } = null;
 

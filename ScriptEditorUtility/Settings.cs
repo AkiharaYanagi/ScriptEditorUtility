@@ -31,23 +31,23 @@ namespace ScriptEditor
 				//デフォルトファイルの作成
 				LastDirectory = Directory.GetCurrentDirectory ();
 				Save ();
+				return;
 			}
 
 			//XMLファイルの設定
 			XmlSerializer serializer = new XmlSerializer ( typeof ( Settings ) );
 
 			//読込
-			FileStream fs = new FileStream ( SettingFilename, FileMode.Open );
+			using ( FileStream fs = new FileStream ( SettingFilename, FileMode.Open ) )
+			{
+				Settings tempSettings = ( Settings ) serializer.Deserialize ( fs );
+				this.SettingFilename = tempSettings.SettingFilename;
+				this.LastDirectory = tempSettings.LastDirectory;
+				this.LastFilename = tempSettings.LastFilename;
 
-			Settings tempSettings = ( Settings ) serializer.Deserialize ( fs );
-			this.SettingFilename = tempSettings.SettingFilename;
-			this.LastDirectory = tempSettings.LastDirectory;
-			this.LastFilename = tempSettings.LastFilename;
-
-			//カレントディレクトリの移動
-			Directory.SetCurrentDirectory ( LastDirectory );
-
-			fs.Close ();
+				//カレントディレクトリの移動
+				Directory.SetCurrentDirectory ( LastDirectory );
+			}
 		}
 	}
 
