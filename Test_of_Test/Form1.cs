@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 
+
 namespace ScriptEditor
 {
 	public partial class Form1 :Form
@@ -31,5 +32,8 @@ namespace ScriptEditor
 			textBox1.Text = str;
 		}
 
+		private void フォルダToolStripMenuItem_Click ( object sender, System.EventArgs e )
+		{
+		}
 	}
 }
