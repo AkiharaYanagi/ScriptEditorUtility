@@ -28,6 +28,12 @@ namespace ScriptEditor
 		public void SetCharaData ( Compend cmpd )
 		{
 			Compend = cmpd;
+
+			BindingList < Sequence > BL_Seq = Compend.BD_Sequence.GetBindingList ();
+			if ( 0 == BL_Seq.Count ) { return; }
+			SelectedSequence = BL_Seq [0];
+			if ( 0 == SelectedSequence.ListScript.Count ) { return; }
+			SelectedScript = SelectedSequence.ListScript [ 0 ];
 		}
 
 		//---------------------------------------------------------------------
