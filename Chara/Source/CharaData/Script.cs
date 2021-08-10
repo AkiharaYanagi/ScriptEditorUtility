@@ -43,9 +43,8 @@ namespace ScriptEditor
 		public int Group { get; set; } = 0;
 
 		//--------------------------------------------------------------------
-		//位置　(参照型：テキストボックスで数値を指定するためintの参照型が必要)
+		//位置
 		//--------------------------------------------------------------------
-
 		//キャラ内のイメージリストにおけるインデックス
 		public int ImgIndex { get; set; } = 0;
 		public string ImgName { get; set; } = "ImgName";
@@ -53,7 +52,6 @@ namespace ScriptEditor
 		//--------------------------------------------------------------------
 		//位置
 		//--------------------------------------------------------------------
-		//デリゲートでコントロールから設定する
 		public Point Pos { get; set; } = new Point ( 0, 0 );
 		public void SetPos ( int x, int y ) { Pos = new Point ( x, y ); }
 		public void SetPosX ( int x ) { Pos = new Point ( x, Pos.Y ); }
@@ -73,7 +71,7 @@ namespace ScriptEditor
 		public CLC_ST CalcState { get; set; } = new CLC_ST ();
 
 		//------------------------------------------------
-		//分岐
+		//スクリプト分岐
 		//------------------------------------------------
 		//ブランチリスト
 		public BindingList<Branch> ListBranch { get; set; } = new BindingList<Branch> ();
@@ -98,6 +96,21 @@ namespace ScriptEditor
 		//------------------------------------------------
 		public BindingList<EffectGenerate> ListGenerateEf { get; set; } = new BindingList<EffectGenerate> ();
 
+		//------------------------------------------------
+		//強制変更アクション(相手)
+		//------------------------------------------------
+//		public string ForceActionName { get; set; } = "";
+			
+		//------------------------------------------------
+		//暗転[F]
+		//------------------------------------------------
+//		public int BlackOut { get; set; } = 0;
+			
+		//------------------------------------------------
+		//振動[F]
+		//------------------------------------------------
+//		public int Vibration { get; set; } = 0;
+			
 
 		//================================================================
 		//コンストラクタ
@@ -161,6 +174,7 @@ namespace ScriptEditor
 		}
 
 
+		//同値比較
 		public override bool Equals ( object obj )
 		{
 			//(Object)型で比較する
@@ -191,6 +205,7 @@ namespace ScriptEditor
 			return true;
 		}
 
+		//Equals用ハッシュコード
 		public override int GetHashCode ()
 		{
 			int i0  = Frame;
