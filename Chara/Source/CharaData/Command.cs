@@ -22,10 +22,11 @@ namespace ScriptEditor
 	//------------------------------------------------------------------
 	using GK_Cmd = GameKeyCommand;
 
-	public class Command
+	public class Command : IName
 	{
 		//名前
-		public string Name { set; get; } = "command name";
+		public string Name { set; get; } = "";
+		public string GetName () { return Name; }
 		public override string ToString () { return Name; }
 
 		//ゲームキーコマンド配列
@@ -37,13 +38,13 @@ namespace ScriptEditor
 		//コンストラクタ
 		public Command ()
 		{
-			this.Name = "blank";
+			this.Name = "New Command";
 		}
 
 		//引数付コンストラクタ
-		public Command ( string str )
+		public Command ( string name )
 		{
-			Name = str;
+			Name = name;
 		}
 
 		//コピーコンストラクタ
@@ -59,7 +60,7 @@ namespace ScriptEditor
 		}
 
 
-		//比較
+		//コマンド比較
 		//引数：現在フレームから遡って記録されたゲームキー配列
 		public bool Compare ( GameKeyData[] aryGKData, bool dirRight )
 		{
@@ -91,6 +92,8 @@ namespace ScriptEditor
 		}
 
 		//======================================================================================
+
+		//オブジェクト比較
 		public override bool Equals ( object obj )
 		{
 			//(Object)型で比較する

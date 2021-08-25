@@ -6,7 +6,7 @@
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 
-namespace ScriptEditorUtility
+namespace ScriptEditor
 {
 	//-------------------------------------------------------
 	// WindowsAPICodePackを利用したフォルダダイアログ

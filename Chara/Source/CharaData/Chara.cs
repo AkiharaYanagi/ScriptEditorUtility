@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace ScriptEditor
+﻿namespace ScriptEditor
 {
 	//==================================================================================
 	//	キャラ 実行上データ ver106
@@ -14,6 +12,10 @@ namespace ScriptEditor
 	//
 	//	イメージリストはコンペンド(キャラのビヘイビアとガーニッシュ)が持つように変更
 	//==================================================================================
+	using BD_Cmd = BindingDictionary < Command >;
+	using BD_Brc = BindingDictionary < Branch0 >;
+	using BD_Rut= BindingDictionary < Route >;
+
 	public class Chara
 	{
 		//---------------------------------------------------------------------
@@ -21,14 +23,20 @@ namespace ScriptEditor
 		public Behavior behavior = new Behavior ();		//アクションの集合
 		public Garnish garnish = new Garnish ();        //エフェクトの集合
 
-		//---------------------------------------------------------------------
 		//コマンドリスト
-		public BindingList<Command> ListCommand { get; } = new BindingList<Command> ();
+		public BD_Cmd BD_Command { get; } = new BD_Cmd ();
 
-#if false
+		//---------------------------------------------------------------------
+		//エディタ 一時変数
+		public BD_Brc BD_Branch { get; } = new BD_Brc ();		//ブランチリスト
+		public BD_Rut BD_Route { get; } = new BD_Rut ();		//ルートリスト
+
+		//---------------------------------------------------------------------
+
 		//@todo 基本状態アクションIDをアクションリストの先頭から固定番号配置にする
 		//		-> 基本状態アクションID項目の削除
 		//		別位置で順番を定義する必要がある
+#if false
 		//---------------------------------------------------------------------
 		//基本状態アクションID
 		public enum BasicAction
@@ -42,18 +50,9 @@ namespace ScriptEditor
 		//コンストラクタ
 		public Chara ()
 		{
-#if false
-			//ダミー
-			//必ずアクション、エフェクト、コマンドが各一つ以上存在する
-			// 引数(名前)付きコンストラクタはScriptも生成される
-			//（空）コンストラクタはScriptを生成しない
-			// コピー等で必要なClear()のあとは手動で追加する
-			behavior.Bldct_sqc.Add ( new Action ( "testAction0" ) );
-			garnish.Bldct_sqc.Add ( new Effect ( "testEffect0" ) );
-			ListCommand.Add ( new Command ( "testCommand0" ) );
-#endif
 			//空(null)状態を許容する
-			//各生成、受取時にチェックする
+			//ダミーを用いない
+			//各生成、受取時に１つ以上あるかチェックする
 
 #if false
 			//基本状態アクションID
@@ -69,15 +68,14 @@ namespace ScriptEditor
 		//コピーコンストラクタ
 		public Chara ( Chara srcChara )
 		{
-			this.Clear ();
+			Clear ();
 
-			this.behavior.Copy ( srcChara.behavior );
-			this.garnish.Copy ( srcChara.garnish );
+			behavior.Copy ( srcChara.behavior );
+			garnish.Copy ( srcChara.garnish );
 
-			foreach ( Command cmd in srcChara.ListCommand )
-			{
-				this.ListCommand.Add ( new Command ( cmd ) );
-			}
+			BD_Command.Copy ( srcChara.BD_Command );
+			BD_Branch.Copy ( srcChara.BD_Branch );
+			BD_Route.Copy ( srcChara.BD_Route );
 		}
 
 		//クリア
@@ -86,7 +84,7 @@ namespace ScriptEditor
 		{
 			behavior.Clear ();
 			garnish.Clear ();
-			ListCommand.Clear ();
+			BD_Command.Clear ();
 
 #if false
 			//個数は不変かつ、RefIntは即値のみなのでメモリは解放しない
@@ -102,21 +100,20 @@ namespace ScriptEditor
 		{
 			behavior.Clear ();
 			garnish.Clear ();
-			ListCommand.Clear ();
+			BD_Command.Clear ();
 		}
 
 		//コピー
-		public void Copy ( Chara chara )
+		public void Copy ( Chara ch )
 		{
-			this.Clear ();
+			Clear ();
 
-			this.behavior.Copy ( chara.behavior );
-			this.garnish.Copy ( chara.garnish );
+			behavior.Copy ( ch.behavior );
+			garnish.Copy ( ch.garnish );
 
-			foreach ( Command cmd in chara.ListCommand )
-			{
-				this.ListCommand.Add ( new Command ( cmd ) );
-			}
+			BD_Command.Copy ( ch.BD_Command );
+			BD_Branch.Copy ( ch.BD_Branch );
+			BD_Route.Copy ( ch.BD_Route );
 
 #if false
 			//個数は不変、RefIntの即値だけコピー

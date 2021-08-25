@@ -51,6 +51,18 @@
   <ItemGroup>
     <Compile Include="BindingDictionary.cs" />
     <Compile Include="DefineColor.cs" />
+    <Compile Include="EditListbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditListbox.Designer.cs">
+      <DependentUpon>EditListbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditListbox_0.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditListbox_0.Designer.cs">
+      <DependentUpon>EditListbox_0.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="FormUtility.cs" />
     <Compile Include="OpenFolder_CodePack.cs" />
@@ -62,9 +74,23 @@
     <Compile Include="TB_Number.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="testCmp.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="testCmp.Designer.cs">
+      <DependentUpon>testCmp.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EditListbox.resx">
+      <DependentUpon>EditListbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditListbox_0.resx">
+      <DependentUpon>EditListbox_0.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

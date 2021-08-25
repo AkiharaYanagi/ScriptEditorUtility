@@ -1,14 +1,11 @@
-﻿//
-//※ #defineはソースの先頭のみ
+﻿//※ #defineはソースの先頭のみ
 //#define MAKE_CHARA_FROM_SOURCE
-
-
+//
 using System.Diagnostics;
 using System.IO;
 using System.Drawing;
 using System.ComponentModel;
 using System.Collections.Generic;
-
 
 namespace ScriptEditor
 {
@@ -78,10 +75,11 @@ namespace ScriptEditor
 
 			//スクリプト再設定
 			BindingList < Sequence > bl_s = chara.behavior.BD_Sequence.GetBindingList ();
+			//スクリプトはList < Script >型で保持
 			bl_s[ 0 ].ListScript[ 0 ].Copy ( script0 );
 
 			//コマンド
-			MakeCommand ( chara.ListCommand );
+			MakeCommand ( chara.BD_Command );
 
 			//ブランチ
 			MakeBranch ( chara, script0 );
@@ -294,7 +292,7 @@ namespace ScriptEditor
 		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
 		{
 			BindingList < Branch > BL_Brc = sc.ListBranch;
-			BindingList < Command > BL_Cmd = ch.ListCommand;
+			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
 			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
 			int ic = indexCommand;
 			int ia = indexAction;
@@ -304,26 +302,25 @@ namespace ScriptEditor
 
 
 		//Command
-		private void MakeCommand ( BindingList < Command > bl_c )
+		private void MakeCommand ( BindingDictionary < Command > bd_c )
 		{
 			//コマンド名から作成
 			int SIZE_COMMAND = NAME_COMMAND.Length;
 			for ( int i = 0; i < SIZE_COMMAND; ++i )
 			{
-				EditChara.Inst.AddCommand ();
-				bl_c[ i ].Name = NAME_COMMAND[ i ];
-				bl_c[ i ].ListGameKeyCommand.Add ( new GameKeyCommand () );
+				EditChara.Inst.AddCommand ( NAME_COMMAND[ i ] );
+				bd_c.GetBindingList()[ i ].ListGameKeyCommand.Add ( new GameKeyCommand () );
 			}
-			SetCommand ( bl_c, 0, 0 );		// L : Btn0
-			SetCommand ( bl_c, 1, 1 );		// M : Btn1
-			SetCommand ( bl_c, 2, 2 );		// H : Btn2
+			SetCommand ( bd_c, 0, 0 );		// L : Btn0
+			SetCommand ( bd_c, 1, 1 );		// M : Btn1
+			SetCommand ( bd_c, 2, 2 );		// H : Btn2
 		}
 
-		private void SetCommand ( BindingList < Command > bl_c, int indexCmd, int btn )
+		private void SetCommand ( BindingDictionary < Command > bd_c, int indexCmd, int btn )
 		{
-			bl_c[ indexCmd ].ListGameKeyCommand.Add ( new GameKeyCommand () );
-			bl_c[ indexCmd ].ListGameKeyCommand[ 1 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
-			bl_c[ indexCmd ].LimitTime = 2;
+			bd_c.GetBindingList()[ indexCmd ].ListGameKeyCommand.Add ( new GameKeyCommand () );
+			bd_c.GetBindingList()[ indexCmd ].ListGameKeyCommand[ 1 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
+			bd_c.GetBindingList()[ indexCmd ].LimitTime = 2;
 		}
 
 
@@ -333,7 +330,7 @@ namespace ScriptEditor
 			//----------------------
 			//test Branch
 			Action action_B = ( Action ) chara.behavior.BD_Sequence.GetBindingList()[ 0 ];
-			script0.ListBranch.Add ( new Branch ( 0, chara.ListCommand[ 0 ], 0, action_B ) );
+			script0.ListBranch.Add ( new Branch ( 0, chara.BD_Command.GetBindingList () [ 0 ], 0, action_B ) );
 
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 

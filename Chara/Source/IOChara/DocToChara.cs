@@ -176,7 +176,7 @@ namespace ScriptEditor
 				}
 
 				//キャラに登録
-				chara.ListCommand.Add ( command );
+				chara.BD_Command.Add ( command );
 			}
 
 			//ブランチリストのコマンドとアクションを登録
@@ -186,7 +186,8 @@ namespace ScriptEditor
 				{
 					foreach ( Branch branch in script.ListBranch )
 					{
-						branch.Condition = chara.ListCommand[ branch.IndexCommand ];
+						BindingList < Command > ls = chara.BD_Command.GetBindingList();
+						branch.Condition = ls [ branch.IndexCommand ];
 						branch.Transit = chara.behavior[ branch.IndexAction ];
 					}
 				}

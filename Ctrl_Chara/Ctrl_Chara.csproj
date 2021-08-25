@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}</ProjectGuid>
+    <ProjectGuid>{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chara</RootNamespace>
-    <AssemblyName>Chara</AssemblyName>
+    <RootNamespace>Ctrl_Chara</RootNamespace>
+    <AssemblyName>Ctrl_Chara</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chara">
+      <HintPath>..\Chara\bin\Debug\Chara.dll</HintPath>
+    </Reference>
     <Reference Include="ScriptEditorUtility">
       <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
     </Reference>
@@ -46,43 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ctrl_Branch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ctrl_Branch.Designer.cs">
+      <DependentUpon>Ctrl_Branch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\CharaData\Action.cs" />
-    <Compile Include="Source\CharaData\Branch.cs" />
-    <Compile Include="Source\CharaData\Branch0.cs" />
-    <Compile Include="Source\CharaData\Chara.cs" />
-    <Compile Include="Source\CharaData\Route.cs" />
-    <Compile Include="Source\CharaData\Command.cs" />
-    <Compile Include="Source\CharaData\Compend.cs" />
-    <Compile Include="Source\CharaData\Effect.cs" />
-    <Compile Include="Source\CharaData\EffectGenerate.cs" />
-    <Compile Include="Source\CharaData\ImageData.cs" />
-    <Compile Include="Source\CharaData\Script.cs" />
-    <Compile Include="Source\CharaData\Sequence.cs" />
-    <Compile Include="Source\EditChara\EditAction.cs" />
-    <Compile Include="Source\EditChara\EditBehavior.cs" />
-    <Compile Include="Source\EditChara\EditChara.cs" />
-    <Compile Include="Source\EditChara\EditChara_Command.cs" />
-    <Compile Include="Source\EditChara\EditCompend.cs" />
-    <Compile Include="Source\EditChara\EditEffect.cs" />
-    <Compile Include="Source\EditChara\EditGarnish.cs" />
-    <Compile Include="Source\EditChara\EditScript.cs" />
-    <Compile Include="Source\EditChara\EditScript_Group.cs" />
-    <Compile Include="Source\EditChara\EditSequence.cs" />
-    <Compile Include="Source\EditChara\SelectedScript.cs" />
-    <Compile Include="Source\GameKey.cs" />
-    <Compile Include="Source\GameKeyCommand.cs" />
-    <Compile Include="Source\IOChara\DocToChara.cs" />
-    <Compile Include="Source\IOChara\Document.cs" />
-    <Compile Include="Source\IOChara\IOChara.cs" />
-    <Compile Include="Source\IOChara\LoadChara.cs" />
-    <Compile Include="Source\IOChara\LoadTextChara.cs" />
-    <Compile Include="Source\TestChara\ConstCharaData.cs" />
-    <Compile Include="Source\TestChara\MakeSourceTestCharaData.cs" />
-    <Compile Include="Source\TestChara\MakeTestCharaData.cs" />
-    <Compile Include="Source\TestChara\TestCharaData.cs" />
-    <Compile Include="Source\IOChara\SaveChara.cs" />
-    <Compile Include="Source\TestChara\TestChara.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ctrl_Branch.resx">
+      <DependentUpon>Ctrl_Branch.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

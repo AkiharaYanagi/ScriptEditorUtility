@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
@@ -196,9 +197,10 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//コマンドリスト
-			strmWriter.Write ( "<CommandList Num=\"" + chara.ListCommand.Count + "\">\n" );
+			BindingList < Command > ls = chara.BD_Command.GetBindingList ();
+			strmWriter.Write ( "<CommandList Num=\"" + ls.Count + "\">\n" );
 			//コマンド
-			foreach ( Command command in chara.ListCommand )
+			foreach ( Command command in ls )
 			{
 				strmWriter.Write ( "\t<Command Name=\"" + command.Name + "\"" );
 				strmWriter.Write ( " Limit=\"" + command.LimitTime.ToString () + "\">\n" );
@@ -329,7 +331,7 @@ namespace ScriptEditor
 				{
 					strmWriter.Write ( "\t\t\t\t<Branch" );
 					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
-					strmWriter.Write ( " CommandName=\"" + chara.ListCommand[ branch.IndexCommand ] + "\"" );
+					strmWriter.Write ( " CommandName=\"" + chara.BD_Command.GetBindingList () [ branch.IndexCommand ] + "\"" );
 					strmWriter.Write ( " Action=\"" + branch.IndexAction + "\"" );
 					strmWriter.Write ( " ActionName=\"" + chara.behavior.BD_Sequence.GetBindingList()[ branch.IndexAction ] + "\"" );
 					strmWriter.Write ( " Frame=\"" + branch.Frame + "\"" );

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -15,27 +15,34 @@ namespace ScriptEditor
 		//コマンドを追加
 		public void AddCommand ()
 		{
-			Chara.ListCommand.Add ( new Command ( "newCommand" ) );
+			Chara.BD_Command.Add ( new Command ( "newCommand" ) );
+		}
+
+		public void AddCommand ( string name )
+		{
+			Chara.BD_Command.Add ( new Command ( name ) );
 		}
 
 		//指定コマンドを削除
 		public void RemoveCommand ( Command command )
 		{
-			Chara.ListCommand.Remove ( command );
+			Chara.BD_Command.GetBindingList().Remove ( command );
 		}
 
 		//末尾のコマンドを削除
 		public void RemoveCommand ()
 		{
-			Chara.ListCommand.RemoveAt ( Chara.ListCommand.Count - 1 );
+			BindingList < Command > ls = Chara.BD_Command.GetBindingList();
+			ls.RemoveAt ( ls.Count - 1 );
 		}
 
 		//変更の通知
 		public void ResetCommand ()
 		{
-			for ( int i = 0; i < Chara.ListCommand.Count; ++i )
+			BindingList < Command > ls = Chara.BD_Command.GetBindingList();
+			for ( int i = 0; i < ls.Count; ++i )
 			{
-				Chara.ListCommand.ResetItem ( i );
+				ls.ResetItem ( i );
 			}
 		}
 

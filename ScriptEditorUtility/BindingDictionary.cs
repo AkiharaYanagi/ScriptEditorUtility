@@ -10,7 +10,8 @@ namespace ScriptEditor
 	//	検索名であるNameを扱うインターフェースを持つクラスを対象としたジェネリクス
 	//	< T > where T: IName
 	//	主に名前で検索し、リストボックスに表示する項目を扱う
-	//	追加・削除は２つのデータを同期する
+	//	追加・削除は２つのデータを同期するため、専用のAddとDelを用いる
+	//	対象データT t はバインディングリストまたはディクショナリのどちらで取得後も同一オブジェクトであり変更可能
 	//=============================================================
 	public interface IName
 	{
@@ -91,6 +92,16 @@ namespace ScriptEditor
 		public Dictionary < string, T > GetDictionary ()
 		{
 			return DCT_t;
+		}
+
+		//ディープコピー
+		public void Copy ( BindingDictionary < T > bd_t )
+		{
+			Clear ();
+			foreach ( T t in bd_t.BL_t )
+			{
+				this.Add ( t );
+			}
 		}
 
 		public void Insert ( string name, T t )

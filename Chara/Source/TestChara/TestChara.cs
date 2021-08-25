@@ -4,7 +4,7 @@ namespace ScriptEditor
 {
 	//==================================================================================
 	//	キャラデータのテスト (IO, Edit)
-	//		対象データは変更されるためテスト用データを外部から設定する
+	//		対象データは変更されるため、テスト用データを外部から設定する
 	//==================================================================================
 	public class TestChara
 	{
@@ -43,7 +43,7 @@ namespace ScriptEditor
 			chara.Clear ();
 			Debug.Assert ( 0 == chara.behavior.BD_Sequence.Count() );
 			Debug.Assert ( 0 == chara.garnish.BD_Sequence.Count() );
-			Debug.Assert ( 0 == chara.ListCommand.Count );
+			Debug.Assert ( 0 == chara.BD_Command.Count () );
 		}
 
 		//コピーテスト
@@ -62,7 +62,7 @@ namespace ScriptEditor
 			Debug.Assert ( g0.BD_Sequence.GetBindingList().Count == g1.BD_Sequence.GetBindingList().Count );
 			Debug.Assert ( g0.BD_Image.Count() == g1.BD_Image.Count() );
 
-			Debug.Assert ( srcChara.ListCommand.Count == dstChara.ListCommand.Count );
+			Debug.Assert ( srcChara.BD_Command.Count () == dstChara.BD_Command.Count () );
 		}
 
 	}
