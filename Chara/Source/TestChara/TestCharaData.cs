@@ -230,16 +230,16 @@ namespace ScriptEditor
 			//"Damaged", 
 			//"Down", 
 			Action actionDown = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 14 ];
-			actionDown.NextIndex = 15;
+//			actionDown.NextIndex = 15;
 			//"DownDuration", 
 			Action actionDownDuration = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 15 ];
-			actionDownDuration.NextIndex = 15;
+//			actionDownDuration.NextIndex = 15;
 			//"Win", 
 			Action actionWin = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 16 ];
-			actionWin.NextIndex = 17;
+//			actionWin.NextIndex = 17;
 			//"WinDuration", 
 			Action actionWinDuration = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 17 ];
-			actionWinDuration.NextIndex = 17;
+//			actionWinDuration.NextIndex = 17;
 
 		}
 
@@ -291,13 +291,14 @@ namespace ScriptEditor
 
 		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
 		{
-			BindingList < Branch > BL_Brc = sc.ListBranch;
+			BindingList < Branch0 > BL_Brc = sc.ListBranch;
 			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
 			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
 			int ic = indexCommand;
 			int ia = indexAction;
 
-			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
+//			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
+			BL_Brc.Add ( new Branch0 () );
 		}
 
 
@@ -330,7 +331,7 @@ namespace ScriptEditor
 			//----------------------
 			//test Branch
 			Action action_B = ( Action ) chara.behavior.BD_Sequence.GetBindingList()[ 0 ];
-			script0.ListBranch.Add ( new Branch ( 0, chara.BD_Command.GetBindingList () [ 0 ], 0, action_B ) );
+//			script0.ListBranch.Add ( new Branch ( 0, chara.BD_Command.GetBindingList () [ 0 ], 0, action_B ) );
 
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 

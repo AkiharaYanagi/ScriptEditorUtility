@@ -57,7 +57,7 @@ namespace ScriptEditor
 					"Action action = NewAction ( " 
 					 + "chara"
 					 + ", \"" + a.Name + "\""
-					 + "," + a.NextIndex
+//					 + "," + a.NextIndex
 					 + "," + (int)a.Category
 					 + "," + (int)a.Posture
 					 + "," + a._Balance
@@ -83,14 +83,14 @@ namespace ScriptEditor
 					strmWriter.Write ( " ); \n" );
 
 					//ブランチを必要個数確保
-					BindingList<Branch> lb = s.ListBranch;
+					BindingList<Branch0> lb = s.ListBranch;
 					if ( 0 < lb.Count ) { strmWriter.Write ( "\t\t\t\t\t" + "/* SIZE_BRANCH = " + lb.Count + "; */ { " ); }
 					for ( int iBranch = 0; iBranch > lb.Count; ++iBranch )
 					{
-						Branch b = lb[ iBranch ];
+						Branch0 b = lb[ iBranch ];
 						strmWriter.Write ( "Branch branch = new Branch ();" );
-						strmWriter.Write ( "branch.IndexCommand = " + b.IndexCommand + "; " );
-						strmWriter.Write ( "branch.IndexAction = " + b.IndexAction + "; " );
+//						strmWriter.Write ( "branch.IndexCommand = " + b.IndexCommand + "; " );
+//						strmWriter.Write ( "branch.IndexAction = " + b.IndexAction + "; " );
 						strmWriter.Write ( "script.ListBranch.Add ( branch ); " );
 					}
 					if ( 0 < lb.Count ) { strmWriter.Write ( "}\n" ); }
@@ -182,7 +182,6 @@ namespace ScriptEditor
 			Action action = new Action
 			{
 				Name = name,
-				NextIndex = nextIndex,
 				Category = ( ActionCategory ) category,
 				Posture = ( ActionPosture ) posture,
 				_Balance = balance

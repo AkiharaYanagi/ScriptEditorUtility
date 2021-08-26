@@ -92,50 +92,8 @@ namespace ScriptEditor
 
 			//==========================================================================
 			//イメージバイナリデータ読込
-#if false
-			//メインイメージ部 読込
-			IEnumerable list =  chara.behavior.ListImage.GetBindingList ();
-
-			foreach ( ImageData imgdt in list )
-			{
-				//uint固定長でイメージサイズ読込
-				uint imageSize = biReaderFile.ReadUInt32 ();
-
-				//実データ読込
-				byte[] imageBuffer = new byte[ imageSize ];
-				biReaderFile.Read ( imageBuffer, 0, ( int ) imageSize );
-
-				//メモリストリームに一時書出
-				MemoryStream mstrmImage = new MemoryStream ();
-				mstrmImage.Write ( imageBuffer, 0, ( int ) imageSize );
-
-				//イメージ型の作成
-				imgdt.Img = Image.FromStream ( mstrmImage );
-			}
-
-			//※ 読込位置はそのまま次へ
-
-			//Efイメージ部 読込
-			IEnumerable eflist =  chara.garnish.ListImage.GetBindingList ();
-			foreach ( ImageData imgdt in eflist )
-			{
-				//uint固定長でイメージサイズ読込
-				uint imageSize = biReaderFile.ReadUInt32 ();
-
-				//実データ読込
-				byte[] imageBuffer = new byte[ imageSize ];
-				biReaderFile.Read ( imageBuffer, 0, ( int ) imageSize );
-
-				//メモリストリームに一時書出
-				MemoryStream mstrmImage = new MemoryStream ();
-				mstrmImage.Write ( imageBuffer, 0, ( int ) imageSize );
-
-				//イメージ型の作成
-				imgdt.Img = Image.FromStream ( mstrmImage );
-			}
-#endif
 			LoadImageList ( biReaderFile, chara.behavior.BD_Image );
-			//※ 読込位置はそのまま次へ
+			//※ 読込位置はそのまま次のエフェクトイメージへ
 			LoadImageList ( biReaderFile, chara.garnish.BD_Image );
 
 			//==========================================================================

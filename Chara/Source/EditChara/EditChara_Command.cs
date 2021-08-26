@@ -1,12 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-
 
 namespace ScriptEditor
 {
-
 	public partial class EditChara 
 	{
 		//---------------------------------------------------------------------

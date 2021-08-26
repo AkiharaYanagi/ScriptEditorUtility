@@ -14,15 +14,8 @@
 		//条件　コマンド名
 		public string NameCommand { get; set; } = "NameCommand";
 
-		//条件　コマンドの参照
-		public Command Condition { get; set; } = null;
-
 		//遷移先　アクション名
 		public string NameAction { get; set; } = "NameAction";
-
-		//遷移先　アクションの参照
-		public Action Transit { get; set; } = null;
-
 
 		//遷移先　フレーム指定
 		public int Frame { get; set; } = 0;
@@ -33,12 +26,10 @@
 		{
 		}
 
-		public Branch0 ( string strCommand, Command command, string strAction, Action action )
+		public Branch0 ( string strCommand, string strAction )
 		{
 			NameCommand = strCommand;
-			Condition = command;
 			NameAction = strAction;
-			Transit = action;
 		}
 
 

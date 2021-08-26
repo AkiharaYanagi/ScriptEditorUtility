@@ -38,10 +38,8 @@
 			this.ctrl_Branch1.BD_Branch = bindingDictionary_11;
 			this.ctrl_Branch1.Location = new System.Drawing.Point(-3, 0);
 			this.ctrl_Branch1.Name = "ctrl_Branch1";
-			branch1.Condition = null;
 			branch1.Frame = 0;
 			branch1.Name = "BrcName";
-			branch1.Transit = null;
 			this.ctrl_Branch1.SelectedBranch = branch1;
 			this.ctrl_Branch1.Size = new System.Drawing.Size(864, 446);
 			this.ctrl_Branch1.TabIndex = 0;

@@ -273,13 +273,13 @@ namespace ScriptEditor
 //			InsertScript ( new Script ( GetCopiedScript () ) );
 		}
 
-		//ブランチ
+		//ブランチのコピー
 		public void SetBranch ( Script scp )
 		{
-			BindingList < Branch > bl_brc = scp.ListBranch;
+			BindingList < Branch0 > bl_brc = scp.ListBranch;
 			foreach ( Script s in SelectedSequence.ListScript )
 			{
-				s.ListBranch = new BindingList<Branch> ( bl_brc );
+				s.ListBranch = new BindingList<Branch0> ( bl_brc );
 			}
 		}
 

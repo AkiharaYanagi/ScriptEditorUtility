@@ -61,7 +61,7 @@ namespace ScriptEditor
 
 			//キャラに変換
 			DocToChara dtoc = new DocToChara ();
-			dtoc.LoadScript ( document, chara );
+			dtoc.LoadScriptData ( document, chara );
 
 			fstrm.Dispose ();
 		}

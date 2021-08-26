@@ -74,7 +74,8 @@ namespace ScriptEditor
 		//スクリプト分岐
 		//------------------------------------------------
 		//ブランチリスト
-		public BindingList<Branch> ListBranch { get; set; } = new BindingList<Branch> ();
+//		public BindingList<Branch> ListBranch { get; set; } = new BindingList<Branch> ();
+		public BindingList<Branch0> ListBranch { get; set; } = new BindingList<Branch0> ();
 
 		//------------------------------------------------
 		//枠
@@ -129,7 +130,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BindingList < Branch > ( s.ListBranch );
+			ListBranch = new BindingList < Branch0 > ( s.ListBranch );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
@@ -164,7 +165,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BindingList < Branch > ( s.ListBranch );
+			ListBranch = new BindingList < Branch0 > ( s.ListBranch );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );

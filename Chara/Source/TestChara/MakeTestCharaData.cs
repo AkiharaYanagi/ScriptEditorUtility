@@ -14,7 +14,6 @@ namespace ScriptEditor
 			Action action = new Action
 			{
 				Name = name,
-				NextIndex = nextIndex,
 				Category = ( ActionCategory ) category,
 				Posture = ( ActionPosture ) posture,
 				_Balance = balance,

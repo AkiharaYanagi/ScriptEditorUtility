@@ -35,7 +35,7 @@
 	public class Action : Sequence 
 	{
 		//次アクションID
-		public int NextIndex { get; set; } = 0;
+//		public int NextIndex { get; set; } = 0;
 
 		//次アクション名
 		public string NextActionName { get; set; } = "Next";
@@ -50,7 +50,6 @@
 		public ActionPosture Posture { get; set; } = ActionPosture.STAND;
 
 		//消費バランス
-//		public RefInt Balance { get; set; } = new RefInt ( 0 );
 		public int _Balance { get; set; } = 0;
 
 
@@ -63,7 +62,7 @@
 		//引数付きコンストラクタ
 		public Action ( string str ) : base ( str )
 		{
-			//baseのコンストラクタの後でbase.Clear()が呼ばれてしまうのでClear()を用いない
+			//@info baseのコンストラクタの後でbase.Clear()が呼ばれてしまうのでClear()を用いない
 //			Clear ();
 		}
 
@@ -72,7 +71,7 @@
 		{
 			base.Copy ( action );
 
-			this.NextIndex = action.NextIndex;
+//			this.NextIndex = action.NextIndex;
 			this.NextActionName = action.NextActionName;
 			this.Category = action.Category;
 			this.Posture = action.Posture;
@@ -82,7 +81,7 @@
 		//クリア
 		public override void Clear ()
 		{
-			NextIndex = 0;
+//			NextIndex = 0;
 			NextActionName = "Next";
 			Category = ActionCategory.NEUTRAL;
 			Posture = ActionPosture.STAND;
@@ -96,7 +95,7 @@
 		{
 			base.Copy ( action );
 
-			this.NextIndex = action.NextIndex;
+//			this.NextIndex = action.NextIndex;
 			this.NextActionName = action.NextActionName;
 			this.Category = action.Category;
 			this.Posture = action.Posture;

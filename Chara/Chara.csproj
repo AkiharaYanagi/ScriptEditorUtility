@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\CharaData\Action.cs" />
-    <Compile Include="Source\CharaData\Branch.cs" />
     <Compile Include="Source\CharaData\Branch0.cs" />
     <Compile Include="Source\CharaData\Chara.cs" />
     <Compile Include="Source\CharaData\Route.cs" />

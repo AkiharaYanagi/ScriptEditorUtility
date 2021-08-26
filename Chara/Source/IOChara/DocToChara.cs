@@ -40,10 +40,12 @@ namespace ScriptEditor
 				chara.garnish.BD_Image.Add ( imageData );
 			}
 
-			LoadScript ( document, chara );
+			//スクリプト部
+			LoadScriptData ( document, chara );
 		}
 
-		public void LoadScript ( Document document, Chara chara )
+		//キャラデータにおけるスクリプト部の読込
+		public void LoadScriptData ( Document document, Chara chara )
 		{
 			//Root直下のChara操作用一時エレメント
 			List < Element > listElementChara = document.Root.Elements [ 0 ].Elements;
@@ -59,7 +61,7 @@ namespace ScriptEditor
 				action.Name = elemAction.Attributes[ (int)ATTR_ACTION.ELAC_NAME ].Value;
 
 				//"次アクション" (終了時における次アクションのリスト内インデックス)
-				action.NextIndex = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_NEXT );
+//				action.NextIndex = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_NEXT );
 
 				//アクション属性
 				int nCategory = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
@@ -76,17 +78,16 @@ namespace ScriptEditor
 				ReadScriptList ( action, elemAction.Elements );
 
 				//アクションに設定
-//				chara.behavior.ListSequence.Add ( action );
 				chara.behavior.BD_Sequence.Add ( action );
 			}
 
 			//一度アクションリストを作成してから指定し直す
-//			BL_Sqc blsqc = chara.behavior.ListSequence;
 			BL_Sqc blsqc = chara.behavior.BD_Sequence.GetBindingList ();
 			foreach ( Action action  in blsqc )
 			{
 				//"次アクション"
-				action.NextAction = (Action)blsqc [ action.NextIndex ];
+//				action.NextAction = (Action)blsqc [ action.NextIndex ];
+				action.NextAction = (Action)chara.behavior.BD_Sequence.Get ( action.NextActionName );
 			}
 
 			//Efリスト
@@ -179,12 +180,14 @@ namespace ScriptEditor
 				chara.BD_Command.Add ( command );
 			}
 
+#if false
+
 			//ブランチリストのコマンドとアクションを登録
 			foreach ( Action action in chara.behavior.BD_Sequence.GetBindingList() )
 			{
 				foreach ( Script script in action.ListScript )
 				{
-					foreach ( Branch branch in script.ListBranch )
+					foreach ( Branch0 branch in script.ListBranch )
 					{
 						BindingList < Command > ls = chara.BD_Command.GetBindingList();
 						branch.Condition = ls [ branch.IndexCommand ];
@@ -192,6 +195,7 @@ namespace ScriptEditor
 					}
 				}
 			}
+#endif
 
 #if false
 
@@ -267,8 +271,9 @@ namespace ScriptEditor
 				foreach ( Element elemBranch in elemBranchList.Elements )
 				{
 					//代入用に新規作成
-					Branch branch = new Branch ();
+					Branch0 branch = new Branch0 ();
 
+#if false
 					//CommandId
 					int ic = ( int ) ELEMENT_BRANCH.ELBR_COMMAND_INDEX;
 					branch.IndexCommand = int.Parse ( elemBranch.Attributes[ ic ].Value );
@@ -276,6 +281,13 @@ namespace ScriptEditor
 					//ActionId
 					int ia = ( int ) ELEMENT_BRANCH.ELBR_ACTION_INDEX;
 					branch.IndexAction = int.Parse ( elemBranch.Attributes[ ia ].Value );
+#endif
+					//CommandName
+					int ic = ( int ) ELEMENT_BRANCH.ELBR_COMMAND_NAME;
+					branch.NameCommand = elemBranch.Attributes[ ic ].Value;
+					//ActionName
+					int ia = ( int ) ELEMENT_BRANCH.ELBR_ACTION_NAME;
+					branch.NameAction = elemBranch.Attributes[ ia ].Value;
 
 					//Frame
 					int iFrame = ( int ) ELEMENT_BRANCH.ELBR_FRAME;

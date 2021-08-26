@@ -163,7 +163,7 @@ namespace ScriptEditor
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Action" );
 				strmWriter.Write ( " Name=\"" + action.Name + "\"" );				//名前
-				strmWriter.Write ( " NextIndex=\"" + action.NextIndex + "\"" );		//次アクションID
+//				strmWriter.Write ( " NextIndex=\"" + action.NextIndex + "\"" );		//次アクションID
 				strmWriter.Write ( " Category=\"" + (int)action.Category + "\"" );		//アクション属性
 				strmWriter.Write ( " Posture=\"" + (int)action.Posture + "\"" );			//アクション体勢
 				strmWriter.Write ( " Balance=\"" + action._Balance + "\"" );		//消費バランス値
@@ -327,13 +327,13 @@ namespace ScriptEditor
 				//ブランチリスト
 				strmWriter.Write ( "\t\t\t<BranchList Num=\"" + script.ListBranch.Count + "\">\n" );
 				//ブランチ
-				foreach ( Branch branch in script.ListBranch )
+				foreach ( Branch0 branch in script.ListBranch )
 				{
 					strmWriter.Write ( "\t\t\t\t<Branch" );
-					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
-					strmWriter.Write ( " CommandName=\"" + chara.BD_Command.GetBindingList () [ branch.IndexCommand ] + "\"" );
-					strmWriter.Write ( " Action=\"" + branch.IndexAction + "\"" );
-					strmWriter.Write ( " ActionName=\"" + chara.behavior.BD_Sequence.GetBindingList()[ branch.IndexAction ] + "\"" );
+//					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
+					strmWriter.Write ( " CommandName=\"" + branch.NameCommand + "\"" );
+//					strmWriter.Write ( " Action=\"" + branch.IndexAction + "\"" );
+					strmWriter.Write ( " ActionName=\"" + branch.NameAction + "\"" );
 					strmWriter.Write ( " Frame=\"" + branch.Frame + "\"" );
 					strmWriter.Write ( "></Branch>\n" );
 				}

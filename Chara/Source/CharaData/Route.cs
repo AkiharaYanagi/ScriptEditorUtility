@@ -10,6 +10,6 @@
 		public string GetName () { return Name; }
 
 		//ブランチ
-		public BindingDictionary < Branch > BD_Branch { get; set; } = new BindingDictionary<Branch> ();
+		public BindingDictionary < Branch0 > BD_Branch { get; set; } = new BindingDictionary<Branch0> ();
 	}
 }
