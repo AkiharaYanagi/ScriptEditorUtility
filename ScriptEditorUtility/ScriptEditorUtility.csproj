@@ -74,12 +74,6 @@
     <Compile Include="TB_Number.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="testCmp.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="testCmp.Designer.cs">
-      <DependentUpon>testCmp.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

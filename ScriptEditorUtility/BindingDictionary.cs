@@ -31,6 +31,18 @@ namespace ScriptEditor
 		private Dictionary < string, T > DCT_t { get; set; } = new Dictionary < string, T > ();
 		//----------------------------------------
 
+		//コンストラクタ
+		public BindingDictionary ()
+		{
+		}
+	
+		public BindingDictionary ( BindingDictionary < T > bd_t )
+		{
+			BL_t = new BindingList < T > ( bd_t.BL_t );
+			DCT_t = new Dictionary < string, T > ( bd_t.DCT_t );
+		}
+	
+
 		//名前が存在するかどうか
 		public bool ContainKey ( string name )
 		{
@@ -64,6 +76,12 @@ namespace ScriptEditor
 			return DCT_t.TryGetValue ( name, out T t ) ? t : default ( T );
 		}
 
+		public T Get ( int index )
+		{
+			if ( index < 0 || BL_t.Count < index ) { return default ( T ); }
+			return BL_t [ index ];
+		}
+
 		public void RemoveAt ( int index )
 		{
 			if ( index < 0 || BL_t.Count <= index ) { return; }
@@ -76,6 +94,11 @@ namespace ScriptEditor
 		{
 			BL_t.Remove ( DCT_t [ name ] );
 			DCT_t.Remove ( name );
+		}
+
+		public void Remove ( T t )
+		{
+			Remove ( t.Name );
 		}
 
 		public void Clear ()
@@ -104,11 +127,11 @@ namespace ScriptEditor
 			}
 		}
 
-		public void Insert ( string name, T t )
+		public void Insert ( T t )
 		{
 			int i = BL_t.IndexOf ( t );
 			BL_t.Insert ( i, t );
-			DCT_t.Add ( name, t );
+			DCT_t.Add ( t.Name, t );
 		}
 
 		public int Count ()
@@ -155,6 +178,19 @@ namespace ScriptEditor
 			BL_t.RemoveAt ( index );
 
 			//ディクショナリは変更無し
+		}
+
+		//比較
+		public bool SequenceEqual ( BindingDictionary < T > bd_t )
+		{
+			BindingList < T > tgt = bd_t.GetBindingList ();
+			if ( BL_t.Count != tgt.Count ) { return false; }
+
+			for ( int i = 0; i < BL_t.Count; ++ i )
+			{
+				if ( BL_t[ i ].Name != tgt[ i ].Name ) { return false; }
+			}
+			return true;
 		}
 	}
 }

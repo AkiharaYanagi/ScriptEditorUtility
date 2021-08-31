@@ -14,8 +14,12 @@ namespace ScriptEditor
 	//		データファイルの復旧や、バージョンが異なるときにソースから作成できる状態にしておく
 	//==================================================================================
 	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+
+	using BD_Seq = BindingDictionary < Sequence >;
 	using BL_Sequence = BindingList < Sequence >;
 	using BL_Script = List < Script >;
+
+	delegate void FuncEditScript ( Script scp );
 
 	//-----------------------
 	//テストデータの作成
@@ -73,10 +77,18 @@ namespace ScriptEditor
 			//アクション内の値を指定
 			SetAction ();
 
+			//===================================================================
+			//@info 手動操作はBindingListではなく、BindingDictionaryを用いる
+			//===================================================================
+			BD_Seq bd_seq = chara.behavior.BD_Sequence;
 			//スクリプト再設定
+#if false
 			BindingList < Sequence > bl_s = chara.behavior.BD_Sequence.GetBindingList ();
 			//スクリプトはList < Script >型で保持
 			bl_s[ 0 ].ListScript[ 0 ].Copy ( script0 );
+#endif
+			Script scp0 = bd_seq.Get ( 0 ).ListScript [ 0 ];
+			scp0.Copy ( script0 );
 
 			//コマンド
 			MakeCommand ( chara.BD_Command );
@@ -85,6 +97,7 @@ namespace ScriptEditor
 			MakeBranch ( chara, script0 );
 
 			//すべてのアクションにおけるスクリプトへの変更
+#if false
 			BL_Sequence blsqc = chara.behavior.BD_Sequence.GetBindingList();
 			foreach ( Sequence sqc in blsqc )
 			{
@@ -94,6 +107,9 @@ namespace ScriptEditor
 					sc.ImgName = "dummy.png";
 				}
 			}
+#endif
+			void f_editScp ( Script scp ) { scp.ImgName = "dummy.png"; }
+			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
 
 			//--------------------------------------------
 			//エディット（ガーニッシュ）のテスト
@@ -214,9 +230,9 @@ namespace ScriptEditor
 
 			//"Attack_L", 
 			SetScript ( 6, 12 );
-			Action actionAttack_L = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 6 ];
+			Action actionAttack_L = ( Action ) eb.Compend.BD_Sequence.Get ( 6 );
 			Script scriptAttack_L_0 = actionAttack_L.ListScript[ 0 ];
-			scriptAttack_L_0.ImgIndex = 10;
+//			scriptAttack_L_0.ImgIndex = 10;
 
 			//"Attack_M", 
 			SetScript ( 7, 12 );
@@ -252,7 +268,7 @@ namespace ScriptEditor
 			script0.ListHRect.Add ( new Rectangle ( -100, -200, 200, 350 ) );
 			script0.ListARect.Add ( new Rectangle ( 60, -150, 80, 20 ) );
 			script0.ListORect.Add ( new Rectangle ( 0, -280, 40, 60 ) );
-			script0.ListGenerateEf.Add ( new EffectGenerate () );
+			script0.BD_EfGnrt.Add ( new EffectGenerate () );
 
 			//コピー
 			Script script1 = new Script ( script0 );
@@ -291,11 +307,11 @@ namespace ScriptEditor
 
 		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
 		{
-			BindingList < Branch0 > BL_Brc = sc.ListBranch;
-			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
-			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
-			int ic = indexCommand;
-			int ia = indexAction;
+			BindingDictionary < Branch0 > BL_Brc = sc.ListBranch;
+//			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
+//			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
+//			int ic = indexCommand;
+//			int ia = indexAction;
 
 //			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
 			BL_Brc.Add ( new Branch0 () );
@@ -405,27 +421,35 @@ namespace ScriptEditor
 			//エディット（ガーニッシュ）のテスト
 			//test Effect
 			EditGarnish eg = EditChara.Inst.EditGarnish;
+
+			//エフェクト
 			eg.AddEffect ( new Effect ( "testEffect0" ) );
 			eg.AddEffect ( new Effect ( "testEffect1" ) );
 
-			if ( null == eg.SelectedSequence ) { return; }
-			eg.SelectedSequence.ListScript[ 0 ].SetPos ( -120, -220 );
+			//選択
+			eg.SelectSequence ( 0 );
+			eg.SelectedScript.SetPos ( -120, -220 );
 
+			//新規
 			Script efScript = new Script ();
-//			efScript.RefPt.Set ( -120, -240 );
-
 			eg.AddScript ( efScript );
 
-			chara.garnish.BD_Sequence.GetBindingList()[ 1 ].ListScript[ 0 ].ImgIndex = 1;
+			//値設定
+//			chara.garnish.BD_Sequence.GetBindingList()[ 1 ].ListScript[ 0 ].ImgIndex = 1;
 //			chara.garnish.ListSequence[ 1 ].ListScript[ 0 ].RefPt.Set ( -140, -240 );
 
 			//スクリプトでエフェクト生成を指定する
-			Script sc_ef = chara.behavior.BD_Sequence.GetBindingList()[ 0 ].ListScript[ 0 ];
-			EffectGenerate efGnrt = sc_ef.ListGenerateEf[ 0 ];
+//			Script sc_ef = chara.behavior.BD_Sequence.GetBindingList()[ 0 ].ListScript[ 0 ];
+			eg.SelectScript ( 0, 0 );
+			EffectGenerate efGnrt = new EffectGenerate
+			{
+				Name = "Effect0",
+				EfName = chara.garnish.BD_Sequence.Get ( 0 ).Name,
+				Pt = new Point ( -20, -50 )
+			};
 
-			efGnrt.Id = 0;
-			efGnrt.Name = chara.garnish.BD_Sequence.GetBindingList()[ efGnrt.Id ].Name;
-			efGnrt.Pt = new Point ( -20, -50 );
+			Script main_scp = chara.behavior.BD_Sequence.Get ( 0 ).ListScript [ 0 ];
+			main_scp.BD_EfGnrt.Add ( efGnrt );
 		}
 
 	}

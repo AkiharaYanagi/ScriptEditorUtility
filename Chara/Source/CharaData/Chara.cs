@@ -1,14 +1,16 @@
 ﻿namespace ScriptEditor
 {
 	//==================================================================================
-	//	キャラ 実行上データ ver106
+	//	キャラ データ ver110
 	//==================================================================================
 
 	//==================================================================================
 	//	◆キャラ	
-	//		┣ビヘイビア ( []アクション )
-	//		┣ガーニッシュ ( []エフェクト )
-	//		┣[]コマンド
+	//		┣ビヘイビア  ( [] アクション )
+	//		┣ガーニッシュ( [] エフェクト )
+	//		┣[] コマンド
+	//		┣[] ブランチ
+	//		┣[] ルート
 	//
 	//	イメージリストはコンペンド(キャラのビヘイビアとガーニッシュ)が持つように変更
 	//==================================================================================
@@ -23,12 +25,11 @@
 		public Behavior behavior = new Behavior ();		//アクションの集合
 		public Garnish garnish = new Garnish ();        //エフェクトの集合
 
-		//コマンドリスト
-		public BD_Cmd BD_Command { get; } = new BD_Cmd ();
+		public BD_Cmd BD_Command { get; } = new BD_Cmd ();		//コマンドリスト
+		public BD_Brc BD_Branch { get; } = new BD_Brc ();		//ブランチリスト
 
 		//---------------------------------------------------------------------
 		//エディタ 一時変数
-		public BD_Brc BD_Branch { get; } = new BD_Brc ();		//ブランチリスト
 		public BD_Rut BD_Route { get; } = new BD_Rut ();		//ルートリスト
 
 		//---------------------------------------------------------------------
@@ -53,7 +54,6 @@
 			//空(null)状態を許容する
 			//ダミーを用いない
 			//各生成、受取時に１つ以上あるかチェックする
-
 #if false
 			//基本状態アクションID
 			BsAction = new RefInt[ Enum.GetNames ( typeof ( BasicAction ) ).Length ];
@@ -85,6 +85,8 @@
 			behavior.Clear ();
 			garnish.Clear ();
 			BD_Command.Clear ();
+			BD_Branch.Clear ();
+			BD_Route.Clear ();
 
 #if false
 			//個数は不変かつ、RefIntは即値のみなのでメモリは解放しない
@@ -101,6 +103,8 @@
 			behavior.Clear ();
 			garnish.Clear ();
 			BD_Command.Clear ();
+			BD_Branch.Clear ();
+			BD_Route.Clear ();
 		}
 
 		//コピー

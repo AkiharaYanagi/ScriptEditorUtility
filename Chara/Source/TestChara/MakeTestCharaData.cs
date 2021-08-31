@@ -25,7 +25,7 @@ namespace ScriptEditor
 		{
 			Script script = new Script
 			{
-				ImgIndex = imgIndex,
+//				ImgIndex = imgIndex,
 				Pos = pt,
 				Vel = vel,
 				Acc = acc,

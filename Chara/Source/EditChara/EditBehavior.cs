@@ -45,6 +45,18 @@
 			base.RemoveSequence ();
 		}
 
+		//すべてのスクリプトの編集
+		internal void EditAllScript ( Behavior behavior, FuncEditScript f_editScp )
+		{
+			foreach ( Sequence sqc in behavior.BD_Sequence.GetBindingList () )
+			{
+				foreach ( Script scp in sqc.ListScript )
+				{
+					f_editScp ( scp );
+				}
+			}
+		}
+
 #if false
 
 		//スクリプトの選択

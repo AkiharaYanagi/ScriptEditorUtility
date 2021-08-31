@@ -61,6 +61,8 @@
     <Compile Include="Source\EditChara\EditAction.cs" />
     <Compile Include="Source\EditChara\EditBehavior.cs" />
     <Compile Include="Source\EditChara\EditChara.cs" />
+    <Compile Include="Source\EditChara\EditChara_Route.cs" />
+    <Compile Include="Source\EditChara\EditChara_Branch.cs" />
     <Compile Include="Source\EditChara\EditChara_Command.cs" />
     <Compile Include="Source\EditChara\EditCompend.cs" />
     <Compile Include="Source\EditChara\EditEffect.cs" />

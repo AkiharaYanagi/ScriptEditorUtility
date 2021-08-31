@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace ScriptEditor
 {
+	using BD_Brc = BindingDictionary < Branch0 >;
+	using BD_EfGn = BindingDictionary < EffectGenerate >;
+
 	//計算状態
 	public enum CLC_ST
 	{
@@ -46,7 +49,7 @@ namespace ScriptEditor
 		//位置
 		//--------------------------------------------------------------------
 		//キャラ内のイメージリストにおけるインデックス
-		public int ImgIndex { get; set; } = 0;
+//		public int ImgIndex { get; set; } = 0;
 		public string ImgName { get; set; } = "ImgName";
 
 		//--------------------------------------------------------------------
@@ -74,8 +77,7 @@ namespace ScriptEditor
 		//スクリプト分岐
 		//------------------------------------------------
 		//ブランチリスト
-//		public BindingList<Branch> ListBranch { get; set; } = new BindingList<Branch> ();
-		public BindingList<Branch0> ListBranch { get; set; } = new BindingList<Branch0> ();
+		public BD_Brc ListBranch { get; set; } = new BD_Brc ();
 
 		//------------------------------------------------
 		//枠
@@ -95,7 +97,8 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//エフェクト生成
 		//------------------------------------------------
-		public BindingList<EffectGenerate> ListGenerateEf { get; set; } = new BindingList<EffectGenerate> ();
+//		public BindingList<EffectGenerate> ListGenerateEf { get; set; } = new BindingList<EffectGenerate> ();
+		public BD_EfGn BD_EfGnrt { get; set; } = new BD_EfGn ();
 
 		//------------------------------------------------
 		//強制変更アクション(相手)
@@ -124,26 +127,26 @@ namespace ScriptEditor
 		public Script ( Script s )
 		{
 			this.Frame = s.Frame;
-			this.ImgIndex = s.ImgIndex;
+//			this.ImgIndex = s.ImgIndex;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BindingList < Branch0 > ( s.ListBranch );
+			ListBranch = new BD_Brc ( s.ListBranch );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
 			ListORect = new List < Rectangle > ( s.ListORect );
 			this.Power = s.Power;
-			ListGenerateEf = new BindingList < EffectGenerate > ( s.ListGenerateEf );
+			BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
 		}
 
 		//初期化
 		public void Clear ()
 		{
 			Frame = 0;
-			ImgIndex = 0;
+//			ImgIndex = 0;
 			ImgName = "Clear";
 			CalcState = CLC_ST.CLC_MAINTAIN;
 			ListBranch.Clear ();
@@ -152,26 +155,26 @@ namespace ScriptEditor
 			ListHRect.Clear ();
 			ListORect.Clear ();
 			Power = 0;
-			ListGenerateEf.Clear ();
+			BD_EfGnrt.Clear ();
 		}
 
 		//コピー
 		public void Copy ( Script s )
 		{
 			this.Frame = s.Frame;
-			this.ImgIndex = s.ImgIndex;
+//			this.ImgIndex = s.ImgIndex;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BindingList < Branch0 > ( s.ListBranch );
+			ListBranch = new BD_Brc ( s.ListBranch );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
 			ListORect = new List < Rectangle > ( s.ListORect );
 			this.Power = s.Power;
-			ListGenerateEf = new BindingList < EffectGenerate > ( s.ListGenerateEf );
+			BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
 		}
 
 
@@ -189,7 +192,7 @@ namespace ScriptEditor
 			Script s = (Script)obj;
 
 			if ( this.Frame != s.Frame ) { return false; }
-			if ( this.ImgIndex != s.ImgIndex ) { return false; }
+//			if ( this.ImgIndex != s.ImgIndex ) { return false; }
 			if ( this.ImgName != s.ImgName ) { return false; }
 			if ( this.Pos != s.Pos ) { return false; }
 			if ( this.Vel != s.Vel ) { return false; }
@@ -201,7 +204,7 @@ namespace ScriptEditor
 			if ( ! this.ListARect.SequenceEqual ( s.ListARect ) ) { return false; }
 			if ( ! this.ListORect.SequenceEqual ( s.ListORect ) ) { return false; }
 			if ( this.Power != s.Power ) { return false; }
-			if ( ! this.ListGenerateEf.SequenceEqual ( s.ListGenerateEf ) ) { return false; }
+			if ( ! this.BD_EfGnrt.SequenceEqual ( s.BD_EfGnrt ) ) { return false; }
 
 			return true;
 		}
@@ -210,8 +213,8 @@ namespace ScriptEditor
 		public override int GetHashCode ()
 		{
 			int i0  = Frame;
-			int i1  = i0  ^ ImgIndex;
-			int i2  = i1  ^ ImgName.GetHashCode ();
+//			int i1  = i0  ^ ImgIndex;
+			int i2  = i0  ^ ImgName.GetHashCode ();
 			int i3  = i2  ^ Pos.GetHashCode ();
 			int i4  = i3  ^ Vel.GetHashCode ();
 			int i5  = i4  ^ Acc.GetHashCode ();

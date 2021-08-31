@@ -26,6 +26,11 @@
 		{
 		}
 
+		public Branch0 ( string name )
+		{
+			Name = name;
+		}
+
 		public Branch0 ( string strCommand, string strAction )
 		{
 			NameCommand = strCommand;

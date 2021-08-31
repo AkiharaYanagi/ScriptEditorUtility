@@ -10,11 +10,6 @@ namespace ScriptEditor
 		{
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
-
-			EditListbox < int > EL_i = new EditListbox<int> ();
-			Controls.Add ( EL_i );
-
-			editListbox_01.Make = Make_Fc;
 		}
 
 		public object Make_Fc ()

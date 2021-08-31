@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace ScriptEditorUtility
+namespace ScriptEditor
 {
 	public partial class EditListbox_0 :UserControl
 	{

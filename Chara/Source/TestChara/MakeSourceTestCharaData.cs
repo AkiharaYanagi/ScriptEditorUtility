@@ -73,7 +73,7 @@ namespace ScriptEditor
 					strmWriter.Write ( "\t\t\t\t{\n" );
 					strmWriter.Write ( "\t\t\t\t\t" );
 					strmWriter.Write ( "Script script = NewScript ( " );
-					strmWriter.Write ( s.ImgIndex );
+//					strmWriter.Write ( s.ImgIndex );
 					strmWriter.Write ( ", " + s.Pos.X );
 					strmWriter.Write ( ", " + s.Pos.Y );
 					strmWriter.Write ( ", " + s.Vel.X );
@@ -83,7 +83,7 @@ namespace ScriptEditor
 					strmWriter.Write ( " ); \n" );
 
 					//ブランチを必要個数確保
-					BindingList<Branch0> lb = s.ListBranch;
+					BindingList<Branch0> lb = s.ListBranch.GetBindingList ();
 					if ( 0 < lb.Count ) { strmWriter.Write ( "\t\t\t\t\t" + "/* SIZE_BRANCH = " + lb.Count + "; */ { " ); }
 					for ( int iBranch = 0; iBranch > lb.Count; ++iBranch )
 					{
@@ -96,13 +96,13 @@ namespace ScriptEditor
 					if ( 0 < lb.Count ) { strmWriter.Write ( "}\n" ); }
 
 					//Efジェネレートを必要個数確保
-					BindingList<EffectGenerate> le = s.ListGenerateEf;
+					BindingList<EffectGenerate> le = s.BD_EfGnrt.GetBindingList ();
 					if ( 0 < le.Count ) { strmWriter.Write ( "\t\t\t\t\t" + "/* SIZE_EFGNRT = " + le.Count + "; */ { " ); }	
 					for ( int iEfGnrt = 0; iEfGnrt < le.Count; ++iEfGnrt )
 					{
 						EffectGenerate eg = le[ iEfGnrt ];
 						strmWriter.Write ( "EffectGenerate efGnrt = new EffectGenerate (); " );
-						strmWriter.Write ( "efGnrt.id.i = " + eg.Id + "; " );
+//						strmWriter.Write ( "efGnrt.id.i = " + eg.Id + "; " );
 						strmWriter.Write ( "efGnrt.ptGnrt.x.i = " + eg.Pt.X + "; " );
 						strmWriter.Write ( "efGnrt.ptGnrt.y.i = " + eg.Pt.Y + "; " );
 						strmWriter.Write ( "script.ListGenerateEf.Add ( efGnrt ); " );

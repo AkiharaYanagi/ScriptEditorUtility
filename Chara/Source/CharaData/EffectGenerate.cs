@@ -6,7 +6,7 @@ namespace ScriptEditor
 	//	スクリプト内でエフェクトを生成するクラス
 	//---------------------------------------------------------------------
 	
-	public class EffectGenerate
+	public class EffectGenerate : IName
 	{
 		public string Name { get; set; } = "EfGnrt";    //表示用エフェクト名
 #if false
@@ -14,7 +14,9 @@ namespace ScriptEditor
 		public RefPt ptGnrt { get; set; }	//生成位置
 		public RefFlaot z { get; set; }		//グラフィック描画Z位置
 #endif
-		public int Id { get; set; } = 0;
+//		public int Id { get; set; } = 0;
+		public string EfName { get; set; } = "Effect";
+
 		public Point Pt { get; set; } = new Point ( 0, 0 );
 		public int Z = 50;	//100分の１でfloat
 

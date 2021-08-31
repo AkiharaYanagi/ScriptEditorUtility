@@ -311,8 +311,12 @@ namespace ScriptEditor
 					efGnrt.Name = elemEfGenerate.Attributes[ iName ].Value;
 
 					//EfIDを読込
-					int efid = ( int ) ELEMENT_EFGNRT.ELEG_EFID;
-					efGnrt.Id = int.Parse ( elemEfGenerate.Attributes[ efid ].Value );
+//					int efid = ( int ) ELEMENT_EFGNRT.ELEG_EFID;
+//					efGnrt.Id = int.Parse ( elemEfGenerate.Attributes[ efid ].Value );
+
+					//EfIDを読込
+					int efname = ( int ) ELEMENT_EFGNRT.ELEG_EFNAME;
+					efGnrt.EfName = elemEfGenerate.Attributes[ efname ].Value;
 
 					//PtGnrtを読込
 					int iptx = ( int ) ELEMENT_EFGNRT.ELEG_PT_X;
@@ -338,7 +342,7 @@ namespace ScriptEditor
 					efGnrt.Sync = bool.Parse ( elemEfGenerate.Attributes[ isync ].Value );
 
 					//スクリプトに設定
-					script.ListGenerateEf.Add ( efGnrt );
+					script.BD_EfGnrt.Add ( efGnrt );
 				}
 
 				//-----------------------------------------------------------------------------

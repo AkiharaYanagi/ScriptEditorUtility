@@ -325,9 +325,9 @@ namespace ScriptEditor
 				strmWriter.Write ( ">\n" );
 
 				//ブランチリスト
-				strmWriter.Write ( "\t\t\t<BranchList Num=\"" + script.ListBranch.Count + "\">\n" );
+				strmWriter.Write ( "\t\t\t<BranchList Num=\"" + script.ListBranch.Count() + "\">\n" );
 				//ブランチ
-				foreach ( Branch0 branch in script.ListBranch )
+				foreach ( Branch0 branch in script.ListBranch.GetBindingList () )
 				{
 					strmWriter.Write ( "\t\t\t\t<Branch" );
 //					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
@@ -341,13 +341,14 @@ namespace ScriptEditor
 
 
 				//Efジェネレートリスト
-				strmWriter.Write ( "\t\t\t<EfGenerateList Num=\"" + script.ListGenerateEf.Count + "\">\n" );
+				strmWriter.Write ( "\t\t\t<EfGenerateList Num=\"" + script.BD_EfGnrt.Count() + "\">\n" );
 				//Efジェネレート
-				foreach ( EffectGenerate efGnrt in script.ListGenerateEf )
+				foreach ( EffectGenerate efGnrt in script.BD_EfGnrt.GetBindingList () )
 				{
 					strmWriter.Write ( "\t\t\t\t<EfGenerate" );
 					strmWriter.Write ( " EfName=\"" + efGnrt.Name + "\"" );
-					strmWriter.Write ( " EfId=\"" + efGnrt.Id + "\"" );
+//					strmWriter.Write ( " EfId=\"" + efGnrt.Id + "\"" );
+					strmWriter.Write ( " EfName=\"" + efGnrt.EfName + "\"" );
 					strmWriter.Write ( " EfGnrt_PtX=\"" + efGnrt.Pt.X + "\"" );
 					strmWriter.Write ( " EfGnrt_PtY=\"" + efGnrt.Pt.Y + "\"" );
 					strmWriter.Write ( " EfGnrt_PtZ=\"" + efGnrt.Z + "\"" );

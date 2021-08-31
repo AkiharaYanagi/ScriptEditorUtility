@@ -30,7 +30,7 @@ namespace ScriptEditor
 	//コンストラクタで各パラメータの設定用デリゲート(セッタ,ゲッタ)をラムダ式で初期化する
 	public class ScriptSetter
 	{
-		public PrmInt imageIndex = new PrmInt ( (s, i)=> s.ImgIndex = i, s=> s.ImgIndex );
+//		public PrmInt imageIndex = new PrmInt ( (s, i)=> s.ImgIndex = i, s=> s.ImgIndex );
 
 		public PrmInt pos_x = new PrmInt ( (s, i)=> s.SetPosX ( i ), s=>s.Pos.X );
 		public PrmInt pos_y = new PrmInt ( (s, i)=> s.SetPosY ( i ), s=>s.Pos.Y );
@@ -75,7 +75,7 @@ namespace ScriptEditor
 		}
 
 		//各グループセッタの呼出
-		public void GroupSetterImageIndex ( int v ) { DoGroupSetter ( ScpSetter.imageIndex.Setter, v ); }
+//		public void GroupSetterImageIndex ( int v ) { DoGroupSetter ( ScpSetter.imageIndex.Setter, v ); }
 		public void GroupSetterPosX ( int v ) { DoGroupSetter ( ScpSetter.pos_x.Setter, v ); }
 		public void GroupSetterPosY ( int v ) { DoGroupSetter ( ScpSetter.pos_y.Setter, v ); }
 		public void GroupSetterVelX ( int v ) { DoGroupSetter ( ScpSetter.vel_x.Setter, v ); }

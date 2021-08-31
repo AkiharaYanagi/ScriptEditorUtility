@@ -22,14 +22,13 @@ namespace ScriptEditor
 		//指定コマンドを削除
 		public void RemoveCommand ( Command command )
 		{
-			Chara.BD_Command.GetBindingList().Remove ( command );
+			Chara.BD_Command.Remove ( command );
 		}
 
 		//末尾のコマンドを削除
 		public void RemoveCommand ()
 		{
-			BindingList < Command > ls = Chara.BD_Command.GetBindingList();
-			ls.RemoveAt ( ls.Count - 1 );
+			Chara.BD_Command.RemoveAt ( Chara.BD_Command.Count () - 1 );
 		}
 
 		//変更の通知

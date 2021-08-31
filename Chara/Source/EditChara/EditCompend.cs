@@ -6,6 +6,10 @@ namespace ScriptEditor
 	using BL_Sqc = BindingList<Sequence>;
 	using L_Scp = List<Script>;
 
+
+	//@todo Edit系　すべてをBindingListからBindingDictionaryに変更
+
+
 	//---------------------------------------------------------------------
 	// コンペンド(アクション/エフェクトの集合)を受けて編集する
 	//	選択中のシークエンスとスクリプト位置を保持
@@ -144,35 +148,25 @@ namespace ScriptEditor
 		//選択している後にシークエンス挿入
 		public void InsertSequence ( Sequence s )
 		{
-//			BL_DCT_Sqc bldct_sqc = Compend.Bldct_sqc;
-//			int i = bldct_sqc.GetBindingList().IndexOf ( SelectedSequence );
-			Compend.BD_Sequence.Insert ( s.Name, s );
+			Compend.BD_Sequence.Insert ( s );
 		}
 		public virtual void Insert ()
 		{
-//			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
-//			Compend.ListSequence.Insert ( i, new Sequence ( "new Inserted Sequence" ) );
 			string name = "new Inserted Sequence";
-			Compend.BD_Sequence.Insert ( name, new Sequence ( name ) );
+			Compend.BD_Sequence.Insert ( new Sequence ( name ) );
 		}
 		public void Insert ( Sequence s )
 		{
-//			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
-//			Compend.ListSequence.Insert ( i, s );
-			Compend.BD_Sequence.Insert ( s.Name, s );
+			Compend.BD_Sequence.Insert ( s );
 		}
 
 		//選択中のシークエンスを削除
 		public void RemoveSequence ()
 		{
-//			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
-//			Compend.ListSequence.RemoveAt ( i );
 			Compend.BD_Sequence.Remove ( SelectedSequence.Name );
 		}
 		public void Remove ()
 		{
-//			int i = Compend.ListSequence.IndexOf ( SelectedSequence );
-//			Compend.ListSequence.RemoveAt ( i );
 			Compend.BD_Sequence.Remove ( SelectedSequence.Name );
 		}
 
@@ -206,22 +200,6 @@ namespace ScriptEditor
 		{
 			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
 			SelectedSequence.ListScript.RemoveAt ( i );
-#if false
-
-			//左に移項
-			if ( 1 < selectedScript.frame )
-			{
-				--( selectedScript.frame );
-			}
-#endif
-
-#if false
-			SELECTED_SCRIPT_SPAN sss = selectedSpan;
-			if ( 1 < sss.end && 1 < sss.start )
-			{
-				SetSpan ( sss.sequence, sss.start - 1, sss.end - 1 );
-			}
-#endif
 		}
 
 		//	コピー用スクリプト
@@ -276,10 +254,9 @@ namespace ScriptEditor
 		//ブランチのコピー
 		public void SetBranch ( Script scp )
 		{
-			BindingList < Branch0 > bl_brc = scp.ListBranch;
 			foreach ( Script s in SelectedSequence.ListScript )
 			{
-				s.ListBranch = new BindingList<Branch0> ( bl_brc );
+				s.ListBranch.Copy ( scp.ListBranch );
 			}
 		}
 

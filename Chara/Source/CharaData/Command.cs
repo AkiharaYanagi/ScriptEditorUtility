@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.Serialization;
 
 namespace ScriptEditor
 {
@@ -22,6 +23,7 @@ namespace ScriptEditor
 	//------------------------------------------------------------------
 	using GK_Cmd = GameKeyCommand;
 
+	[Serializable]
 	public class Command : IName
 	{
 		//名前

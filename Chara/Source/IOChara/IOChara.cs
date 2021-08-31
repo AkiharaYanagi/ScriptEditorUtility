@@ -81,7 +81,8 @@
 	public enum ELEMENT_EFGNRT
 	{
 		ELEG_NAME,
-		ELEG_EFID,
+//		ELEG_EFID,
+		ELEG_EFNAME,
 		ELEG_PT_X,
 		ELEG_PT_Y,
 		ELEG_PT_Z,

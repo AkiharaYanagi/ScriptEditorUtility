@@ -1,4 +1,4 @@
-﻿namespace ScriptEditorUtility
+﻿namespace ScriptEditor
 {
 	partial class EditListbox_0
 	{
