@@ -31,8 +31,8 @@ namespace ScriptEditor
 		}
 
 
-		//スクリプトを読み込み、Document形式でキャラに保存
-		//Charaを指定ドキュメントファイルからロード
+		//対象ファイルを読み込み、Document形式で一時保存
+		//その後、キャラデータを指定ドキュメントから変換
 		private void _Load ( string filename, Chara chara )
 		{
 			//ファイルが存在しないとき何もしない

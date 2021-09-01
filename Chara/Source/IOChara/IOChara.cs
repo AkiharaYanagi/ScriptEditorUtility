@@ -11,7 +11,7 @@
 		public const uint VER = 110;
 	}
 
-	//配列添字取得用INDEX
+	//配列添字取得用
 	public static class IOChara 
 	{
 		public static int Parse ( Element e, int enumName ) 
@@ -28,13 +28,15 @@
 		EF_IMAGE_LIST,
 		ACTION_LIST,
 		EF_LIST,
-		COMMAND_LIST
+		COMMAND_LIST,
+		BRANCH_LIST,
+		ROUTE_LIST,
 	}
 
 	public enum ATTR_ACTION
 	{
 		ELAC_NAME,
-//		ELAC_NEXT,
+		ELAC_NEXT_NAME,
 		ELAC_CATEGORY,
 		ELAC_POSTURE,
 		ELAC_BALANCE,
@@ -76,6 +78,22 @@
 //		ELBR_ACTION_INDEX,
 		ELBR_ACTION_NAME,
 		ELBR_FRAME,
+	}
+
+	public enum ATTR_BRANCH
+	{
+		NAME,
+		CMD_N,
+		ACT_N,
+		FRAME,
+	}
+
+	public enum ATTR_ROUTE
+	{
+		NAME,
+		CMD_N,
+		ACT_N,
+		FRAME,
 	}
 
 	public enum ELEMENT_EFGNRT

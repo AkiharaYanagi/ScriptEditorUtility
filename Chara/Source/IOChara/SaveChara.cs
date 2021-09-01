@@ -11,8 +11,8 @@ namespace ScriptEditor
 	//==================================================================================
 	//	SaveChara
 	//		キャラのスクリプトをDocument形式、
-	//		イメージアーカイブをpngのbinaryで、
-	//		.datファイルに保存する
+	//		イメージアーカイブをpngのbinary形式で、
+	//		両方を.datファイルに書出する
 	//==================================================================================
 	public partial class SaveChara
 	{
@@ -162,10 +162,10 @@ namespace ScriptEditor
 			{
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Action" );
-				strmWriter.Write ( " Name=\"" + action.Name + "\"" );				//名前
-//				strmWriter.Write ( " NextIndex=\"" + action.NextIndex + "\"" );		//次アクションID
+				strmWriter.Write ( " Name=\"" + action.Name + "\"" );					//名前
+				strmWriter.Write ( " NextName=\"" + action.NextActionName + "\"" );		//次アクション名
 				strmWriter.Write ( " Category=\"" + (int)action.Category + "\"" );		//アクション属性
-				strmWriter.Write ( " Posture=\"" + (int)action.Posture + "\"" );			//アクション体勢
+				strmWriter.Write ( " Posture=\"" + (int)action.Posture + "\"" );		//アクション体勢
 				strmWriter.Write ( " Balance=\"" + action._Balance + "\"" );		//消費バランス値
 				strmWriter.Write ( ">\n" );
 
@@ -215,7 +215,6 @@ namespace ScriptEditor
 
 					//レバー
 #if false
-
 					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
 					{
 						strmWriter.Write ( " Key_" + i.ToString() + "=\"" );
@@ -239,6 +238,44 @@ namespace ScriptEditor
 			}
 			strmWriter.Write ( "</CommandList>\n" );
 
+
+			//-------------------------------------------------------
+			//ブランチリスト
+			BindingList < Branch0 > bl_brc = chara.BD_Branch.GetBindingList ();
+			strmWriter.Write ( "<BranchList Num=\"" + bl_brc.Count + "\">\n" );
+			//ブランチ
+			foreach ( Branch0 brc in bl_brc )
+			{
+				strmWriter.Write ( "\t<Branch" );
+				strmWriter.Write ( " Name=\"" + brc.Name + "\"" );					//名前
+				strmWriter.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
+				strmWriter.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名
+				strmWriter.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
+				strmWriter.Write ( ">\n" );
+				strmWriter.Write ( "\t</Branch>\n" );
+			}
+			strmWriter.Write ( "</BranchList>\n" );
+
+			//-------------------------------------------------------
+			//ルートリスト
+			BindingList < Route > bl_rut = chara.BD_Route.GetBindingList ();
+			strmWriter.Write ( "<RouteList>\n" );
+			//ルート
+			foreach ( Route rut in bl_rut )
+			{
+				strmWriter.Write ( "\t<Route Name=\"" + rut.Name + "\" >\n" );
+				//ブランチネームリスト
+				BindingList < string > bl_brrt = rut.BL_BranchName;
+				strmWriter.Write ( "<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
+				foreach ( string name in bl_brrt )
+				{
+					strmWriter.Write ( "<BranchName Name=\"" + name + "\">" );
+					strmWriter.Write ( "</BranchName>\n" );
+				}
+				strmWriter.Write ( "</BranchNameList>\n" );
+				strmWriter.Write ( "\t</Route>\n" );
+			}
+			strmWriter.Write ( "</RouteList>\n" );
 
 			//-------------------------------------------------------
 			//基本状態アクションID

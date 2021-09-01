@@ -23,8 +23,11 @@ namespace ScriptEditor
 			SaveChara saveChara = new SaveChara ( filename, ch_test );
 			Chara ch_load = new Chara ();
 			LoadChara loadChara = new LoadChara ( filename, ch_load );
-			testChara.TestCopyChara ( ch_test, ch_load );
 
+			//セーブ・ロード後に等しいか比較
+			testChara.Equal ( ch_test, ch_load );
+
+			//エディットに登録
 			EditChara.Inst.SetCharaDara ( ch_test );
 			EditChara.Inst.AddBranch();
 

@@ -7,6 +7,7 @@ using System.Linq;
 namespace ScriptEditor
 {
 	using BD_Brc = BindingDictionary < Branch0 >;
+	using BD_Rut = BindingDictionary < Route >;
 	using BD_EfGn = BindingDictionary < EffectGenerate >;
 
 	//計算状態
@@ -78,6 +79,9 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//ブランチリスト
 		public BD_Brc ListBranch { get; set; } = new BD_Brc ();
+
+		//ルートリスト
+		public BD_Rut BD_Rut { get; set; } = new BD_Rut ();
 
 		//------------------------------------------------
 		//枠

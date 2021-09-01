@@ -35,7 +35,8 @@ namespace ScriptEditor
 			EditChara.Inst.AddRoute ( "地上通常技", "立ち状態から出る通常技全般" );
 			Route rut = EditChara.Inst.Chara.BD_Route.Get ( 0 );
 			Branch0 br = EditChara.Inst.Chara.BD_Branch.Get ( 0 );
-			rut.BD_Branch.Add ( br );
+//			rut.BD_Branch.Add ( br );
+			rut.BL_BranchName.Add ( br.Name );
 
 			//コントロールに渡してテスト
 			ctrl_Route1.SetCharaData  ( ch_test );

@@ -118,7 +118,7 @@ namespace ScriptEditor
 
 		public void SetRoute ( Route rut )
 		{
-			BD_Branch = rut.BD_Branch;
+//			BD_Branch = rut.BD_Branch;
 			EL_Branch.SetData ( BD_Branch );
 			Tb_Summary.Text = rut.Summary;
 		}

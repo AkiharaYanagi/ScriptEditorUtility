@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-
-
 using System.IO;
-
 
 namespace ScriptEditor
 {
-
+	//================================================
+	//◆アトリビュート
+	//<Element Attribute.Name="Attribute.Value"></Element>
+	//
+	//Element内の属性を表す
+	//名前と値を持つ
+	//================================================
 	public class Attribute
 	{
-		//Element内の属性を表す
-		//名前と値を持つ
-
 		private string _name;
 		public string Name
 		{
@@ -42,9 +41,17 @@ namespace ScriptEditor
 	}
 
 
+	//================================================
+	//◆エレメント
+	//<Element Attribute.Name="Attribute.Value">
+	//	<Elem0> ... </Elem0>
+	//</Element>
+	//
+	//<タグ>で囲まれた名前と構造
+	//AttributeとElementを持つことができる
+	//================================================
 	public class Element
 	{
-		//AttributeとElementを持つことができる
 
 		private string _name;
 		public string Name
@@ -101,15 +108,13 @@ namespace ScriptEditor
 
 
 	//------------------------------------------------------------
-	//ドキュメント
+	//◆ドキュメント
 	//	データのまとまり
 	//	木構造をなすエレメントのルートを持つ
 	//------------------------------------------------------------
 	public class Document
 	{
-		//木構造の根
-		private Element root = new Element ( "root" );
-		public Element Root { get { return root; } }
+		public Element Root { get; } = new Element ( "root" );
 
 		//読取状態
 		enum STATE
@@ -155,7 +160,7 @@ namespace ScriptEditor
 			string strAttributeValue = "";
 			STATE mode = STATE.START;
 
-			Element element = root;
+			Element element = Root;
 			Element nextElement;
 
 			while ( ( str = strmRdr.ReadLine () ) != null )

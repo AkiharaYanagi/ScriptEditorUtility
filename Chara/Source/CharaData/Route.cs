@@ -1,9 +1,11 @@
-﻿namespace ScriptEditor
+﻿using System.ComponentModel;
+
+namespace ScriptEditor
 {
 	//--------------------------------------------
 	//	選択、スクリプト内で可能なブランチの集合
 	//--------------------------------------------
-	using BD_Brc = BindingDictionary < Branch0 >;
+//	using BD_Brc = BindingDictionary < Branch0 >;
 
 	public class Route : IName
 	{
@@ -11,13 +13,13 @@
 		public string Name { get; set; } = "RutName";
 		public string GetName () { return Name; }
 
-		//ブランチ
-		public BD_Brc BD_Branch { get; set; } = new BD_Brc ();
+		//ブランチネームリスト
+//		public BD_Brc BD_Branch { get; set; } = new BD_Brc ();
+		public BindingList < string > BL_BranchName { get; set; } = new BindingList < string > ();
 
 		//コンストラクタ
 		public Route ()
 		{
-
 		}
 
 		public Route ( string name )

@@ -59,7 +59,7 @@ namespace ScriptEditor
 			//イメージリスト(メイン,Ef)を残しスクリプトだけクリア
 			chara.ClearScript ();
 
-			//キャラに変換
+			//キャラに変換(スクリプト部のみ)
 			DocToChara dtoc = new DocToChara ();
 			dtoc.LoadScriptData ( document, chara );
 

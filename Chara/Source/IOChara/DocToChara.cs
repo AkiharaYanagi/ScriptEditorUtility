@@ -8,7 +8,9 @@ namespace ScriptEditor
 	using BL_Sqc = BindingList < Sequence >;
 	using GKC_ST = GameKeyCommand.GameKeyCommandState;
 
-	//ドキュメント型からキャラへ変換する
+	//==================================================
+	//	ドキュメント型からキャラへ変換する
+	//==================================================
 	public class DocToChara
 	{
 		public void Load ( Document document, Chara chara )
@@ -16,42 +18,78 @@ namespace ScriptEditor
 			//Root直下のChara操作用一時エレメント
 			List < Element > listElementChara = document.Root.Elements [ 0 ].Elements;
 
+			//--------------------------------------
+			//イメージ部ヘッダ
+
+			//メインイメージリスト
+			Element elemImageList = listElementChara[ ( int ) ELEMENT_CHARA.MAIN_IMAGE_LIST ];
+			LoadImageHeader ( elemImageList, chara.behavior );
+			//Efイメージリスト
+			Element elemEfImageList = listElementChara[ ( int ) ELEMENT_CHARA.EF_IMAGE_LIST ];
+			LoadImageHeader ( elemEfImageList, chara.garnish );
+#if false
 			//イメージリスト
 			Element elemImageList = listElementChara[ ( int ) ELEMENT_CHARA.MAIN_IMAGE_LIST ];
 
-			//個数(イメージ読込時に使用)
+			//イメージ個数(イメージ読込時に使用)
 			int numImage = int.Parse ( elemImageList.Attributes[ 0 ].Value );
+			//イメージデータ(名前と実体)
 			foreach ( Element elemImage in elemImageList.Elements )
 			{
 				string name = elemImage.Attributes[ 0 ].Value;
-				ImageData imageData = new ImageData ( name, null );
+				ImageData imageData = new ImageData ( name, null );	//実体は空(後で読み込む)
 				chara.behavior.BD_Image.Add ( imageData );
 			}
 
 			//Efイメージリスト
 			Element elemEfImageList = listElementChara[ ( int ) ELEMENT_CHARA.EF_IMAGE_LIST ];
 
-			//個数(イメージ読込時に使用)
+			//イメージ個数(イメージ読込時に使用)
 			int numEfImage = int.Parse ( elemEfImageList.Attributes[ 0 ].Value );
+			//イメージ名
 			foreach ( Element elemEfImage in elemEfImageList.Elements )
 			{
 				string name = elemEfImage.Attributes[ 0 ].Value;
 				ImageData imageData = new ImageData ( name, null );
 				chara.garnish.BD_Image.Add ( imageData );
 			}
-
+#endif
+			//--------------------------------------
 			//スクリプト部
-			LoadScriptData ( document, chara );
+			LoadScriptData ( listElementChara, chara );
+		}
+
+		//イメージヘッダ読込
+		private void LoadImageHeader ( Element elemImageList, Compend cmp )
+		{
+			//イメージ個数(イメージ読込時に使用)
+			int numImage = int.Parse ( elemImageList.Attributes[ 0 ].Value );
+			//イメージデータ(名前と実体)
+			foreach ( Element elemImage in elemImageList.Elements )
+			{
+				string name = elemImage.Attributes[ 0 ].Value;
+				ImageData imageData = new ImageData ( name, null );	//実体は空(後で読み込む)
+				cmp.BD_Image.Add ( imageData );
+			}
+		}
+
+		//キャラデータにおけるスクリプト部のみの読込
+		public void LoadScriptData ( Document doc, Chara chara )
+		{
+			//Root直下のChara操作用一時エレメント
+			List < Element > listElementChara = doc.Root.Elements [ 0 ].Elements;
+
+			//イメージリストは飛ばし、スクリプト部のみ読込
+			LoadScriptData ( listElementChara, chara );
 		}
 
 		//キャラデータにおけるスクリプト部の読込
-		public void LoadScriptData ( Document document, Chara chara )
+		public void LoadScriptData ( List < Element > listElementChara, Chara chara )
 		{
-			//Root直下のChara操作用一時エレメント
-			List < Element > listElementChara = document.Root.Elements [ 0 ].Elements;
-
 			//アクションリスト
 			Element elemActionList = listElementChara[ ( int ) ELEMENT_CHARA.ACTION_LIST ];
+			LoadActionList ( elemActionList, chara );
+#if false
 			foreach ( Element elemAction in elemActionList.Elements )
 			{
 				//代入用
@@ -60,8 +98,8 @@ namespace ScriptEditor
 				//アクション "名前"
 				action.Name = elemAction.Attributes[ (int)ATTR_ACTION.ELAC_NAME ].Value;
 
-				//"次アクション" (終了時における次アクションのリスト内インデックス)
-//				action.NextIndex = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_NEXT );
+				//"次アクション" (終了時における次アクション)
+				action.NextActionName = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_NAME ].Value;
 
 				//アクション属性
 				int nCategory = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
@@ -81,6 +119,7 @@ namespace ScriptEditor
 				chara.behavior.BD_Sequence.Add ( action );
 			}
 
+#if false
 			//一度アクションリストを作成してから指定し直す
 			BL_Sqc blsqc = chara.behavior.BD_Sequence.GetBindingList ();
 			foreach ( Action action  in blsqc )
@@ -89,9 +128,13 @@ namespace ScriptEditor
 //				action.NextAction = (Action)blsqc [ action.NextIndex ];
 				action.NextAction = (Action)chara.behavior.BD_Sequence.Get ( action.NextActionName );
 			}
+#endif
+#endif
 
 			//Efリスト
 			Element elemEfList = listElementChara[ ( int ) ELEMENT_CHARA.EF_LIST ];
+			LoadEffectList ( elemEfList, chara );
+#if false
 
 			//<Effect>[]
 			foreach ( Element elemEf in elemEfList.Elements )
@@ -117,11 +160,12 @@ namespace ScriptEditor
 				Effect effect = new Effect ();
 				chara.garnish.BD_Sequence.Add ( effect );
 			}
-
+#endif
 
 			//コマンドリスト
 			Element elemCommandList = listElementChara[ ( int ) ELEMENT_CHARA.COMMAND_LIST ];
-
+			LoadCommandList ( elemCommandList, chara );
+#if false
 			//個数
 			int numCommand = int.Parse ( elemCommandList.Attributes[ 0 ].Value );
 
@@ -179,6 +223,7 @@ namespace ScriptEditor
 				//キャラに登録
 				chara.BD_Command.Add ( command );
 			}
+#endif
 
 #if false
 
@@ -197,6 +242,14 @@ namespace ScriptEditor
 			}
 #endif
 
+			//ブランチリスト
+			Element elemBranchList = listElementChara[ ( int ) ELEMENT_CHARA.BRANCH_LIST ];
+			LoadBranchList ( elemBranchList, chara );
+
+			//ルートリスト
+			Element elemRouteList = listElementChara[ ( int ) ELEMENT_CHARA.ROUTE_LIST ];
+			LoadRouteList ( elemRouteList, chara );
+
 #if false
 
 			//特殊状態アクションID (nameは飛ばす)
@@ -211,8 +264,60 @@ namespace ScriptEditor
 			}
 
 #endif
+		}
 
-			//終了
+
+		//アクションリスト読込
+		private void LoadActionList ( Element elemActionList, Chara chara )
+		{
+			foreach ( Element elemAction in elemActionList.Elements )
+			{
+				//代入用
+				Action action = new Action ();
+
+				//アクション "名前"
+				action.Name = elemAction.Attributes[ (int)ATTR_ACTION.ELAC_NAME ].Value;
+
+				//"次アクション" (終了時における次アクション)
+				action.NextActionName = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_NAME ].Value;
+
+				//アクション属性
+				int nCategory = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
+				action.Category = (ActionCategory) nCategory;
+
+				//アクション体勢
+				int nPosture = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_POSTURE );
+				action.Posture = (ActionPosture) nPosture;
+
+				//消費バランス値
+				action._Balance = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_BALANCE );
+
+				//子Element <Script> 数は不定
+				ReadScriptList ( action, elemAction.Elements );
+
+				//アクションに設定
+				chara.behavior.BD_Sequence.Add ( action );
+			}
+		}
+
+		//エフェクトリスト読込
+		private void LoadEffectList ( Element elemActionList, Chara chara )
+		{
+			//<Effect>[]
+			foreach ( Element elemEf in elemActionList.Elements )
+			{
+				//代入用
+				Effect effect = new Effect ();
+
+				//エフェクト "名前"
+				effect.Name = elemEf.Attributes[ 0 ].Value;
+
+				//子Element <Script> 数は不定
+				ReadScriptList ( effect, elemEf.Elements );
+
+				//エフェクトに設定
+				chara.garnish.BD_Sequence.Add ( effect );
+			}
 		}
 
 
@@ -232,8 +337,7 @@ namespace ScriptEditor
 				//グループ
 				script.Group = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.GROUP );
 
-				//イメージID
-//				script.ImgIndex = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.IMG );
+				//イメージ名
 				script.ImgName =  elemScript.Attributes[ (int)ATTRIBUTE_SCRIPT.IMG_NAME ].Value;
 
 				//X, Y
@@ -380,5 +484,105 @@ namespace ScriptEditor
 				listRect.Add ( rect );
 			}
 		}
+
+
+		//コマンドリスト読込
+		private void LoadCommandList ( Element elemCommandList, Chara chara )
+		{
+			//個数
+			int numCommand = int.Parse ( elemCommandList.Attributes[ 0 ].Value );
+
+			//[]<Command>
+			foreach ( Element elemCommand in elemCommandList.Elements )
+			{
+				//代入用新規作成
+				Command command = new Command ();
+
+				//attributeは２つ
+				//コマンド "名前"
+				command.Name = elemCommand.Attributes[ ( int ) ATTRIBUTE_COMMAND.NAME ].Value;
+
+				//コマンド "制限時間"
+				command.LimitTime = int.Parse ( elemCommand.Attributes[ ( int ) ATTRIBUTE_COMMAND.LIMIT_TIME ].Value );
+
+				//子ElementはGameKeyを保持
+				foreach ( Element elemKey in elemCommand.Elements )
+				{
+					//代入用新規作成
+					GameKeyCommand gameKey = new GameKeyCommand ();
+
+					//アトリビュートインデックス
+					int atrbIndex = 0;
+
+					//否定
+					gameKey.Not = elemKey.Attributes[ atrbIndex ].Value.CompareTo ( "True" ) == 0;
+
+					//レバー
+					int id = IOChara.Parse ( elemKey, ++ atrbIndex );
+					gameKey.IdLvr = id;
+
+					string vLvr = elemKey.Attributes[ ++ atrbIndex ].Value;
+					gameKey.Lvr [ id ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), vLvr );
+
+					//ボタン
+					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
+					{
+						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
+						gameKey.Btn [ i ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), v );
+					}
+
+					//コマンドに加える
+					command.ListGameKeyCommand.Add ( gameKey );
+				}
+
+				//キャラに登録
+				chara.BD_Command.Add ( command );
+			}
+		}
+
+
+		//ブランチリスト読込
+		private void LoadBranchList ( Element elemBranchList, Chara chara )
+		{
+			//[]<Branch>
+			foreach ( Element elemBrc in elemBranchList.Elements )
+			{
+				//代入用新規作成
+				Branch0 brc = new Branch0
+				{
+					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
+					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_N ].Value,
+					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_N ].Value,
+					Frame = 0
+				};
+
+				//キャラに登録
+				chara.BD_Branch.Add ( brc );
+			}
+		}
+
+		//ルートリスト読込
+		private void LoadRouteList ( Element elemRouteList, Chara chara )
+		{
+			//[]<Route>
+			foreach ( Element elemRut in elemRouteList.Elements )
+			{
+				//代入用新規作成
+				Route rut = new Route
+				{
+					Name = elemRut.Attributes [ 0 ].Value,
+				};
+
+				//ブランチネーム
+				foreach ( Element elemBrcName in elemRut.Elements )
+				{
+					rut.BL_BranchName.Add ( elemBrcName.Attributes [ 0 ].Value );
+				}
+
+				//キャラに登録
+				chara.BD_Route.Add ( rut );
+			}
+		}
+
 	}
 }

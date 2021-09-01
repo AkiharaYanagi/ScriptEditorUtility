@@ -51,18 +51,25 @@ namespace ScriptEditor
 		{
 			dstChara.Copy ( srcChara );
 
+			Equal ( dstChara, srcChara );
+		}
+
+		public void Equal ( Chara ch0, Chara ch1 )
+		{
 			//リスト個数が同数かテスト
-			Behavior bhv0 = srcChara.behavior;
-			Behavior bhv1 = dstChara.behavior;
+			Behavior bhv0 = ch0.behavior;
+			Behavior bhv1 = ch1.behavior;
 			Debug.Assert ( bhv0.BD_Sequence.Count() == bhv1.BD_Sequence.Count() );
 			Debug.Assert ( bhv0.BD_Image.Count() == bhv1.BD_Image.Count() );
 
-			Garnish g0 = srcChara.garnish;
-			Garnish g1 = dstChara.garnish;
+			Garnish g0 = ch0.garnish;
+			Garnish g1 = ch1.garnish;
 			Debug.Assert ( g0.BD_Sequence.GetBindingList().Count == g1.BD_Sequence.GetBindingList().Count );
 			Debug.Assert ( g0.BD_Image.Count() == g1.BD_Image.Count() );
 
-			Debug.Assert ( srcChara.BD_Command.Count () == dstChara.BD_Command.Count () );
+			Debug.Assert ( ch0.BD_Command.Count () == ch1.BD_Command.Count () );
+			Debug.Assert ( ch0.BD_Branch.Count () == ch1.BD_Branch.Count () );
+			Debug.Assert ( ch0.BD_Route.Count () == ch1.BD_Route.Count () );
 		}
 
 	}

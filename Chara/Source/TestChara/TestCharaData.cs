@@ -96,6 +96,9 @@ namespace ScriptEditor
 			//ブランチ
 			MakeBranch ( chara, script0 );
 
+			//@todo
+			//ルート
+
 			//すべてのアクションにおけるスクリプトへの変更
 #if false
 			BL_Sequence blsqc = chara.behavior.BD_Sequence.GetBindingList();
@@ -305,19 +308,6 @@ namespace ScriptEditor
 			}
 		}
 
-		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
-		{
-			BindingDictionary < Branch0 > BL_Brc = sc.ListBranch;
-//			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
-//			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
-//			int ic = indexCommand;
-//			int ia = indexAction;
-
-//			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
-			BL_Brc.Add ( new Branch0 () );
-		}
-
-
 		//Command
 		private void MakeCommand ( BindingDictionary < Command > bd_c )
 		{
@@ -344,6 +334,22 @@ namespace ScriptEditor
 		//Branch
 		private void MakeBranch ( Chara chara, Script script0 )
 		{
+			//テスト用ブランチの作成
+			foreach ( Command cmd in chara.BD_Command.GetBindingList () )
+			{
+				Branch0 br0 = new Branch0 ()
+				{
+					Name = cmd.Name,
+					NameCommand = cmd.Name,
+				};
+				chara.BD_Branch.Add ( br0 );
+			}
+
+			BD_Seq bd_seq = chara.behavior.BD_Sequence;
+			chara.BD_Branch.Get ( 0 ).NameAction = bd_seq.Get ( "Attack_L" ).Name; 
+			chara.BD_Branch.Get ( 1 ).NameAction = bd_seq.Get ( "Attack_M" ).Name; 
+			chara.BD_Branch.Get ( 2 ).NameAction = bd_seq.Get ( "Attack_H" ).Name; 
+#if false
 			//----------------------
 			//test Branch
 			Action action_B = ( Action ) chara.behavior.BD_Sequence.GetBindingList()[ 0 ];
@@ -412,7 +418,21 @@ namespace ScriptEditor
 
 			//EditCompendの選択位置を元に戻す
 			eb.SelectScript ( 0, 0 );
+#endif
 		}
+
+		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
+		{
+			BindingDictionary < Branch0 > BL_Brc = sc.ListBranch;
+//			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
+//			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
+//			int ic = indexCommand;
+//			int ia = indexAction;
+
+//			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
+//			BL_Brc.Add ( new Branch0 () );
+		}
+
 
 
 		//garnish
