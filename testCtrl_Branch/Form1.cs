@@ -14,6 +14,7 @@ namespace ScriptEditor
 		{
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
+			this.Text = "Test Branch";
 
 			//キャラデータの設定
 			Chara ch_test = new Chara ();

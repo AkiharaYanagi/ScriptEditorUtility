@@ -6,10 +6,6 @@ namespace ScriptEditor
 	using BL_Sqc = BindingList<Sequence>;
 	using L_Scp = List<Script>;
 
-
-	//@todo Edit系　すべてをBindingListからBindingDictionaryに変更
-
-
 	//---------------------------------------------------------------------
 	// コンペンド(アクション/エフェクトの集合)を受けて編集する
 	//	選択中のシークエンスとスクリプト位置を保持
@@ -33,17 +29,17 @@ namespace ScriptEditor
 		{
 			Compend = cmpd;
 
-			BindingList < Sequence > BL_Seq = Compend.BD_Sequence.GetBindingList ();
+			BindingList<Sequence> BL_Seq = Compend.BD_Sequence.GetBindingList ();
 			if ( 0 == BL_Seq.Count ) { return; }
-			SelectedSequence = BL_Seq [0];
+			SelectedSequence = BL_Seq [ 0 ];
 			if ( 0 == SelectedSequence.ListScript.Count ) { return; }
 			SelectedScript = SelectedSequence.ListScript [ 0 ];
 		}
 
 		//---------------------------------------------------------------------
-		public bool IsCopy { get; set; } = false;		//	コピー中フラグ
-		public bool AllScript { get; set; } = false;	//	スクリプト全体の変更トグル
-		public bool SpanScript { get; set; } = false;	//	スクリプト範囲の変更トグル
+		public bool IsCopy { get; set; } = false;       //	コピー中フラグ
+		public bool AllScript { get; set; } = false;    //	スクリプト全体の変更トグル
+		public bool SpanScript { get; set; } = false;   //	スクリプト範囲の変更トグル
 
 		//---------------------------------------------------------------------
 		//	選択
@@ -78,7 +74,7 @@ namespace ScriptEditor
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( frame < 0 || lscp.Count <= frame ) { return; }
 			SelectedScriptIndex = frame;
-			SelectedScript =  lscp [ frame ];
+			SelectedScript = lscp [ frame ];
 
 			Assosiate ();
 		}
@@ -209,7 +205,7 @@ namespace ScriptEditor
 		//対象スクリプトを保存
 		public void CopyTargetScript ()
 		{
-//			copiedScript.Copy ( selectedScript );
+			//			copiedScript.Copy ( selectedScript );
 			IsCopy = true;
 		}
 
@@ -226,7 +222,7 @@ namespace ScriptEditor
 			int f = copiedScript.frame;
 			if ( f < 0 || seq.ListScript.Count <= f ) { return null; }
 
-			return seq.ListScript[ f ];
+			return seq.ListScript [ f ];
 		}
 
 		//ペースト
@@ -235,28 +231,38 @@ namespace ScriptEditor
 			//範囲にコピー
 			for ( int i = SelectedSpanStart; i < SelectedSpanEnd + 1; ++i )
 			{
-				Script script = SelectedSequence.ListScript[ i ];
+				Script script = SelectedSequence.ListScript [ i ];
 				script.Copy ( new Script ( GetCopiedScript () ) );
 			}
 		}
 		//追加してペースト
 		public void AddAndPasteScript ()
 		{
-//			AddScript ( new Script ( GetCopiedScript () ) );
+			//			AddScript ( new Script ( GetCopiedScript () ) );
 		}
 
 		//挿入してペースト
 		public void InsertAndPasteScript ()
 		{
-//			InsertScript ( new Script ( GetCopiedScript () ) );
+			//			InsertScript ( new Script ( GetCopiedScript () ) );
 		}
 
+#if false
 		//ブランチのコピー
 		public void SetBranch ( Script scp )
 		{
 			foreach ( Script s in SelectedSequence.ListScript )
 			{
 				s.ListBranch.Copy ( scp.ListBranch );
+			}
+		}
+#endif
+		//ルートのコピー
+		public void CopyRoute ( Script scp )
+		{
+			foreach ( Script s in SelectedSequence.ListScript )
+			{
+				s.BL_RutName = new BindingList < string > ( s.BL_RutName );
 			}
 		}
 

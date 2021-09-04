@@ -34,12 +34,6 @@
 	//アクション
 	public class Action : Sequence 
 	{
-		//次アクションID
-//		public int NextIndex { get; set; } = 0;
-
-		//次アクション(オブジェクトで指定)
-//		public Action NextAction { get; set; } = null;
-
 		//次アクション名
 		public string NextActionName { get; set; } = "Next";
 

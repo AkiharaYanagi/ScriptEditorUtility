@@ -5,8 +5,6 @@ namespace ScriptEditor
 	//--------------------------------------------
 	//	選択、スクリプト内で可能なブランチの集合
 	//--------------------------------------------
-//	using BD_Brc = BindingDictionary < Branch0 >;
-
 	public class Route : IName
 	{
 		//名前
@@ -14,7 +12,6 @@ namespace ScriptEditor
 		public string GetName () { return Name; }
 
 		//ブランチネームリスト
-//		public BD_Brc BD_Branch { get; set; } = new BD_Brc ();
 		public BindingList < string > BL_BranchName { get; set; } = new BindingList < string > ();
 
 		//コンストラクタ

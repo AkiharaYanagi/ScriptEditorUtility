@@ -45,7 +45,6 @@
 	public enum ATTRIBUTE_SCRIPT
 	{
 		GROUP,
-//		IMG,
 		IMG_NAME,
 		X, Y, 
 		VX, VY,
@@ -56,7 +55,7 @@
 
 	public enum ELEMENT_SCRIPT
 	{
-		ELSC_BRANCH,
+		ELSC_ROUTE,
 		ELSC_EFGNRT,
 		ELSC_CRECT,
 		ELSC_ARECT,
@@ -73,9 +72,7 @@
 
 	public enum ELEMENT_BRANCH
 	{
-//		ELBR_COMMAND_INDEX,
 		ELBR_COMMAND_NAME,
-//		ELBR_ACTION_INDEX,
 		ELBR_ACTION_NAME,
 		ELBR_FRAME,
 	}
@@ -91,15 +88,12 @@
 	public enum ATTR_ROUTE
 	{
 		NAME,
-		CMD_N,
-		ACT_N,
-		FRAME,
+		SUMMARY,
 	}
 
 	public enum ELEMENT_EFGNRT
 	{
 		ELEG_NAME,
-//		ELEG_EFID,
 		ELEG_EFNAME,
 		ELEG_PT_X,
 		ELEG_PT_Y,

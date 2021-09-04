@@ -23,12 +23,12 @@ namespace ScriptEditor
 		//----------------------------------------
 		//メインデータ
 		//	各種操作のときに同期する
-
-		//表示用バインディングリスト
-		private BindingList < T > BL_t { get; set; } = new BindingList < T > ();
 		
 		//検索用ディクショナリ
 		private Dictionary < string, T > DCT_t { get; set; } = new Dictionary < string, T > ();
+
+		//表示用バインディングリスト
+		private BindingList < T > BL_t { get; set; } = new BindingList < T > ();
 		//----------------------------------------
 
 		//コンストラクタ
@@ -38,8 +38,19 @@ namespace ScriptEditor
 	
 		public BindingDictionary ( BindingDictionary < T > bd_t )
 		{
-			BL_t = new BindingList < T > ( bd_t.BL_t );
 			DCT_t = new Dictionary < string, T > ( bd_t.DCT_t );
+			BL_t = new BindingList < T > ( bd_t.BL_t );
+		}
+	
+		//バインディングリストから生成
+		public BindingDictionary ( BindingList < T > bl_t )
+		{
+			DCT_t = new Dictionary < string, T > ();
+			foreach ( T t in bl_t )
+			{
+				DCT_t.Add ( t.Name, t );
+			}
+			BL_t = new BindingList < T > ( bl_t );
 		}
 	
 
@@ -58,14 +69,14 @@ namespace ScriptEditor
 			string name = t.Name;
 			while ( DCT_t.ContainsKey ( name ) )
 			{
-				name = "script" + i.ToString ();
+				name = t.GetType().Name + i.ToString ();
 				++ i;
 			}
 			t.Name = name;
 
 			//追加
-			BL_t.Add ( t );
 			DCT_t.Add ( name, t );
+			BL_t.Add ( t );
 		}
 
 		public T Get ( string name )
@@ -86,14 +97,17 @@ namespace ScriptEditor
 		{
 			if ( index < 0 || BL_t.Count <= index ) { return; }
 			string name = BL_t [ index ].Name;
-			BL_t.RemoveAt ( index );
 			DCT_t.Remove ( name );
+			BL_t.RemoveAt ( index );
+			//@info BindingListの前にDictionaryを削除しないと
+			//　バインドされたコントロールのイベントが途中で発生する
+			// -> Countなどの値がずれてAssertする
 		}
 
 		public void Remove ( string name )
 		{
-			BL_t.Remove ( DCT_t [ name ] );
 			DCT_t.Remove ( name );
+			BL_t.Remove ( DCT_t [ name ] );
 		}
 
 		public void Remove ( T t )

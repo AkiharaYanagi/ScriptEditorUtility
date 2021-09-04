@@ -1,193 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Text;
+using System.ComponentModel;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Diagnostics;
-using System.Drawing.Imaging;
 
 namespace ScriptEditor
 {
 	using BD_IDT = BindingDictionary < ImageData >;
+	using BD_SQC = BindingDictionary < Sequence >;
+	using BL_SQC = BindingList < Sequence >;
+	using BD_CMD = BindingDictionary < Command >;
+	using BD_BRC = BindingDictionary < Branch >;
+	using BD_RUT = BindingDictionary < Route >;
 
-	//==================================================================================
-	//	SaveChara
-	//		キャラのスクリプトをDocument形式、
-	//		イメージアーカイブをpngのbinary形式で、
-	//		両方を.datファイルに書出する
-	//		また、確認用にDocumentのみテキストファイルにも書出する
-	//==================================================================================
-	public partial class SaveChara
+	//============================================================
+	//キャラからをスクリプトの対象となる値を読み込み、
+	//キャラスクリプトとしてテキストメモリストリームに変換
+	//============================================================
+	public class CharaToMem
 	{
-		//-------------------------------------------------------------
-		//コンストラクタ
-		//引数　filename : 保存ファイル名, chara : 保存対象キャラ
-		//-------------------------------------------------------------
-		public SaveChara ( string filename, Chara chara )
+		public MemoryStream Run ( Chara chara )
 		{
-			//データが無かったら何もしない
-			if ( chara == null ) { return; }
-
-			//キャラスクリプトをDocument形式でテキストメモリストリームに変換
-//			MemoryStream mstrmChara = GetTextMemoryStream ( chara );
-			CharaToMem chtom = new CharaToMem ();
-			MemoryStream mstrmChara = chtom.Run ( chara );
-
-			//ストリームリーダにセット
-			StreamReader strmReaderChara = new StreamReader ( mstrmChara, Encoding.UTF8 );
-
-			//==========================================================================
-			//確認用テキストファイル(.txt)書出
-
-			//ファイル名の拡張子を.datから.txtに変える
-			string filenameTxt = Path.GetFileNameWithoutExtension ( filename ) + ".txt";
-
-			//ファイルにテキスト書出用ストリームを設定する
-			StreamWriter strmWriter = new StreamWriter ( filenameTxt, false, Encoding.UTF8 );
-
-			//書出
-			mstrmChara.Seek ( 0, SeekOrigin.Begin );			//先頭から
-			strmWriter.Write ( strmReaderChara.ReadToEnd () );	//最後まで書出し
-			strmWriter.Close ();
-
-
-			//==========================================================================
-			//(スクリプト + イメージ) メモリストリーム書出
-
-			//------------------------------
-			//スクリプト部
-			//メモリストリーム
-			MemoryStream mstrmScript = new MemoryStream ();
-
-#if false
-			BinaryWriter biWriterScript = new BinaryWriter ( mstrmScript, Encoding.UTF8 );
-
-			//キャラスクリプトを先頭から読み、ファイル書出用にバイナリで書き込む
-			mstrmChara.Seek ( 0, SeekOrigin.Begin );
-			BinaryReader biReaderChara = new BinaryReader ( mstrmChara, Encoding.UTF8 );
-
-			//byte毎に読み込む
-			int buf = 0;
-			while ( -1 != ( buf = biReaderChara.Read () ) )
-			{
-				biWriterScript.Write ( ( byte ) buf );
-			}
-			biWriterScript.Flush ();
-#endif
-			//マルチバイト文字を扱うためStreamWriterとUTF8を用いる
-			StreamWriter strmWriterScp = new StreamWriter ( mstrmScript, Encoding.UTF8 );
-
-			//キャラスクリプトを先頭から読み、ファイル書出用にバイナリで書き込む
-			mstrmChara.Seek ( 0, SeekOrigin.Begin );
-			strmWriterScp.Write ( strmReaderChara.ReadToEnd () );
-			strmWriterScp.Flush ();
-
-
-			//------------------------------
-			//イメージバイナリデータ部
-			//メモリストリーム
-			MemoryStream mstrmImage = new MemoryStream ();
-			BinaryWriter biWriterImage = new BinaryWriter ( mstrmImage );
-
-			WriteListImage ( biWriterImage, chara.behavior.BD_Image );
-			WriteListImage ( biWriterImage, chara.garnish.BD_Image );
-
-			biWriterImage.Flush ();
-
-
-			//==========================================================================
-			//(スクリプト + イメージ) ファイル(.dat)書出
-
-			//書出対象ファイル
-			FileStream fstrm = new FileStream ( filename, FileMode.Create, FileAccess.Write );
-//			BinaryWriter biWriterFile = new BinaryWriter ( fstrm, Encoding.ASCII );
-			BinaryWriter biWriterFile = new BinaryWriter ( fstrm, Encoding.UTF8 );
-
-			//ストリーム読書用一時領域
-			const int size = 4096;	//バッファサイズ
-			byte[] buffer = new byte[ size ];	//バッファ
-			int numBytes;		//バイト数
-
-			//ver書出
-			biWriterFile.Write ( ( uint ) CONST.VER );
-
-			//スクリプト部・サイズ書出
-			biWriterFile.Write ( ( uint ) mstrmScript.Length );
-
-			//スクリプト部・ストリーム書出
-			mstrmScript.Seek ( 0, SeekOrigin.Begin );
-			while ( ( numBytes = mstrmScript.Read ( buffer, 0, size ) ) > 0 )
-			{
-				biWriterFile.Write ( buffer, 0, numBytes );
-			}
-
-			//イメージ部・ストリーム書出
-			mstrmImage.Seek ( 0, SeekOrigin.Begin );
-			while ( ( numBytes = mstrmImage.Read ( buffer, 0, size ) ) > 0 )
-			{
-				biWriterFile.Write ( buffer, 0, numBytes );
-			}
-
-			Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
-
-			//終了
-			biWriterFile.Close ();
-//			biWriterScript.Close ();
-			biWriterImage.Close ();
-			strmReaderChara.Close ();
-		}
-
-		//イメージリストの書出
-		private void WriteListImage ( BinaryWriter biWriterImage, BD_IDT imagelist )
-		{
-			//ストリーム読込→書出用
-			const int size = 4096;	//バッファサイズ
-			byte[] buffer = new byte[ size ];	//バッファ
-			int numBytes;		//バイト数
-
-			//イメージリスト
-			IEnumerable list =  imagelist.GetBindingList ();
-			foreach ( ImageData imageData in list )
-			{
-				//各イメージを一時領域に書出
-				MemoryStream tempMstrm = new MemoryStream ();
-				imageData.Img.Save ( tempMstrm, ImageFormat.Png );
-
-				//サイズの書込
-				biWriterImage.Write ( ( uint ) tempMstrm.Length );
-
-				Debug.Write ( imageData.Name + ", " + ( uint ) tempMstrm.Length );
-
-				//実データの書込
-				tempMstrm.Seek ( 0, SeekOrigin.Begin );
-				int sumBytes = 0;
-				while ( ( numBytes = tempMstrm.Read ( buffer, 0, size ) ) > 0 )
-				{
-					biWriterImage.Write ( buffer, 0, numBytes );
-					sumBytes += numBytes;
-				}
-				
-				//Debug.Write ( " : sumBytes = " + sumBytes + "\n" );
-				tempMstrm.Close ();
-			}
-		}
-
-#if false
-		//キャラからをスクリプトの対象となる値を読み込み、
-		//キャラスクリプトとしてテキストメモリストリームに変換
-		private MemoryStream GetTextMemoryStream ( Chara chara )
-		{
+			//対象メモリストリーム
 			MemoryStream mstrm = new MemoryStream ();
-			StreamWriter strmWriter = new StreamWriter ( mstrm, Encoding.UTF8 );
 
-			//-------------------------------------------------------
+			StreamWriter strmWriter = new StreamWriter ( mstrm, Encoding.UTF8 );
+//			using ( StreamWriter strmWriter = new StreamWriter ( mstrm, Encoding.UTF8 ) )
+			{
 			//全体タグとバージョン
 			strmWriter.Write ( "<Chara>\n" );
 			strmWriter.Write ( "<ver>" + CONST.VER + "</ver>\n\n" );
 
+			//メインイメージリストヘッダ
+			WriteListImageHeader ( strmWriter, chara.behavior.BD_Image, "Image" );
+			//EFイメージリストヘッダ
+			WriteListImageHeader ( strmWriter, chara.garnish.BD_Image, "EfImage" );
+#if false
 			//-------------------------------------------------------
-			//イメージリスト
-			BindingDictionary < ImageData > imageList = chara.behavior.BD_Image;
+			//メインイメージリストヘッダ
+			BD_T imageList = chara.behavior.BD_Image;
 			strmWriter.Write ( "<ImageList Num=\"" + imageList.GetBindingList().Count + "\">\n" );
 			foreach ( ImageData imageData in imageList.GetBindingList() )
 			{
@@ -196,21 +50,27 @@ namespace ScriptEditor
 			strmWriter.Write ( "</ImageList>\n" );
 
 			//-------------------------------------------------------
-			//Efイメージリスト
-			BindingDictionary < ImageData > efImageList = chara.garnish.BD_Image;
+			//Efイメージリストヘッダ
+			BD_T efImageList = chara.garnish.BD_Image;
 			strmWriter.Write ( "<EfImageList Num=\"" + efImageList.GetBindingList().Count + "\">\n" );
 			foreach ( ImageData imageData in efImageList.GetBindingList () )
 			{
 				strmWriter.Write ( "\t<EfImage Name=\"" + imageData.Name + "\"></EfImage>\n" );
 			}
 			strmWriter.Write ( "</EfImageList>\n" );
-
+#endif
+			//アクションリスト
+			WriteSequence ( strmWriter, chara.behavior.BD_Sequence, "Action", Func_WriteAction );
+			//エフェクトリスト
+			WriteSequence ( strmWriter, chara.garnish.BD_Sequence, "Effect", Func_WriteEffect );
+#if false
 			//-------------------------------------------------------
 			//アクションリスト
-			strmWriter.Write ( "<ActionList Num=\"" + chara.behavior.BD_Sequence.GetBindingList().Count + "\">\n" );
+			BL_SQC BL_Act = chara.behavior.BD_Sequence.GetBindingList();
+			strmWriter.Write ( "<ActionList Num=\"" + BL_Act.Count + "\">\n" );
 
 			//アクション
-			foreach ( Action action in chara.behavior.BD_Sequence.GetBindingList() )
+			foreach ( Action action in BL_Act )
 			{
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Action" );
@@ -222,7 +82,7 @@ namespace ScriptEditor
 				strmWriter.Write ( ">\n" );
 
 				//スクリプト
-				WriteListScript ( strmWriter, chara, action.ListScript );
+				WriteListScript ( strmWriter, action.ListScript );
 
 				strmWriter.Write ( "\t</Action>\n" );
 			}
@@ -230,10 +90,11 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//エフェクトリスト
-			strmWriter.Write ( "<EfList Num=\"" + chara.garnish.BD_Sequence.GetBindingList().Count + "\">\n" );
+			BL_SQC BL_Ef = chara.behavior.BD_Sequence.GetBindingList();
+			strmWriter.Write ( "<EfList Num=\"" + BL_Ef.Count + "\">\n" );
 
 			//エフェクト
-			foreach ( Effect effect in chara.garnish.BD_Sequence.GetBindingList() )
+			foreach ( Effect effect in BL_Ef )
 			{
 				//attribute値はダブルクォーテーションで囲む
 				strmWriter.Write ( "\t<Effect" );
@@ -241,12 +102,15 @@ namespace ScriptEditor
 				strmWriter.Write ( ">\n" );
 
 				//スクリプト
-				WriteListScript ( strmWriter, chara, effect.ListScript );
+				WriteListScript ( strmWriter, effect.ListScript );
 
 				strmWriter.Write ( "\t</Effect>\n" );
 			}
 			strmWriter.Write ( "</EfList>\n" );
-
+#endif
+			//コマンドリスト
+			WriteCommandList ( strmWriter, chara.BD_Command );
+#if false
 			//-------------------------------------------------------
 			//コマンドリスト
 			BindingList < Command > ls = chara.BD_Command.GetBindingList ();
@@ -289,8 +153,10 @@ namespace ScriptEditor
 				strmWriter.Write ( "\t</Command>\n" );
 			}
 			strmWriter.Write ( "</CommandList>\n" );
-
-
+#endif
+			//ブランチリスト
+			WriteBranchList ( strmWriter, chara.BD_Branch );
+#if false
 			//-------------------------------------------------------
 			//ブランチリスト
 			BindingList < Branch > bl_brc = chara.BD_Branch.GetBindingList ();
@@ -307,8 +173,10 @@ namespace ScriptEditor
 				strmWriter.Write ( "\t</Branch>\n" );
 			}
 			strmWriter.Write ( "</BranchList>\n" );
-
-			//-------------------------------------------------------
+#endif
+			//ルートリスト
+			WriteRouteList ( strmWriter, chara.BD_Route );
+#if false
 			//ルートリスト
 			BindingList < Route > bl_rut = chara.BD_Route.GetBindingList ();
 			strmWriter.Write ( "<RouteList>\n" );
@@ -329,8 +197,8 @@ namespace ScriptEditor
 				strmWriter.Write ( "\t</Route>\n" );
 			}
 			strmWriter.Write ( "</RouteList>\n" );
+#endif
 
-			//-------------------------------------------------------
 			//基本状態アクションID
 #if false
 			strmWriter.Write ( "<BasicAction>\n" );
@@ -348,21 +216,78 @@ namespace ScriptEditor
 
 			strmWriter.Write ( "</BasicAction>\n" );
 #endif
-
-			//-------------------------------------------------------
 			//全体タグ
 			strmWriter.Write ( "</Chara>\n" );
 
-			//終了
+			} //using strmWriter
 			strmWriter.Flush ();
 
 			return mstrm;
 		}
 
 
+		//=================================================================================
+		//個別項目
+
+		//イメージリストヘッダの書出
+		private void WriteListImageHeader ( StreamWriter strmWriter, BD_IDT imageList, string tagname )
+		{
+			string tn0 = tagname;
+			string tn_l = tagname + "List";
+			strmWriter.Write ( "<" + tn_l + " Num=\"" + imageList.GetBindingList().Count + "\">\n" );
+			foreach ( ImageData imageData in imageList.GetBindingList() )
+			{
+				strmWriter.Write ( "\t<" + tn0 + " Name=\"" + imageData.Name + "\"></" + tn0 + ">\n" );
+			}
+			strmWriter.Write ( "</" + tn_l + ">\n" );
+		}
+
+
+		//シークエンス(アクション, エフェクト)リストの書出
+		private delegate void Func_WriteSqc ( StreamWriter sw, Sequence sqc );
+		private void WriteSequence ( StreamWriter sw, BD_SQC bd_sqc, string tagname, Func_WriteSqc fws )
+		{
+			BL_SQC bl_sqc = bd_sqc.GetBindingList ();
+			string tn = tagname;
+			string tn_l = tagname + "List";
+
+			//シークエンスリスト
+			sw.Write ( "<" + tn_l + " Num=\"" + bl_sqc.Count + "\">\n" );
+			foreach ( Sequence sqc in bl_sqc )
+			{
+				sw.Write ( "\t<" + tn );
+				fws ( sw, sqc );	//(アクション, エフェクト)個別アトリビュート
+				WriteListScript ( sw, sqc.ListScript );	//スクリプト
+				sw.Write ( "\t</" + tn + ">\n" );
+			}
+			sw.Write ( "</" + tn_l + ">\n" );
+		}
+
+		//アクションの書出
+		private void Func_WriteAction ( StreamWriter sw, Sequence sqc )
+		{
+			Action act = (Action)sqc;
+
+			sw.Write ( " Name=\"" + act.Name + "\"" );					//名前
+			sw.Write ( " NextName=\"" + act.NextActionName + "\"" );		//次アクション名
+			sw.Write ( " Category=\"" + (int)act.Category + "\"" );		//アクション属性
+			sw.Write ( " Posture=\"" + (int)act.Posture + "\"" );		//アクション体勢
+			sw.Write ( " Balance=\"" + act._Balance + "\"" );		//消費バランス値
+			sw.Write ( ">\n" );
+		}
+
+		//エフェクトの書出
+		private void Func_WriteEffect ( StreamWriter sw, Sequence sqc )
+		{
+			Effect ef = (Effect)sqc;
+
+			sw.Write ( " Name=\"" + ef.Name + "\"" );					//名前
+			sw.Write ( ">\n" );
+		}
+
 
 		//スクリプトの書出
-		private void WriteListScript ( StreamWriter strmWriter, Chara chara, List<Script> listScript )
+		private void WriteListScript ( StreamWriter strmWriter, List<Script> listScript )
 		{
 			//スクリプト
 			foreach ( Script script in listScript )
@@ -377,8 +302,8 @@ namespace ScriptEditor
 				strmWriter.Write ( " power=\"" + script.Power + "\"" );
 				strmWriter.Write ( ">\n" );
 
-#if false
 				//ブランチリスト
+#if false
 				strmWriter.Write ( "\t\t\t<BranchList Num=\"" + script.ListBranch.Count() + "\">\n" );
 				//ブランチ
 				foreach ( Branch0 branch in script.ListBranch.GetBindingList () )
@@ -448,8 +373,95 @@ namespace ScriptEditor
 				strmWriter.Write ( "></" + name + ">\n" );
 			}
 			strmWriter.Write ( "\t\t\t</" + name + "List>\n" );
-
 		}
+
+		//コマンドリスト
+		private void WriteCommandList ( StreamWriter sw, BD_CMD bd_cmd )
+		{
+			BindingList < Command > ls = bd_cmd.GetBindingList ();
+			sw.Write ( "<CommandList Num=\"" + ls.Count + "\">\n" );
+			//コマンド
+			foreach ( Command command in ls )
+			{
+				sw.Write ( "\t<Command Name=\"" + command.Name + "\"" );
+				sw.Write ( " Limit=\"" + command.LimitTime.ToString () + "\">\n" );
+
+				//キー
+				foreach ( GameKeyCommand gameKey in command.ListGameKeyCommand )
+				{
+					sw.Write ( "\t\t<Key" );
+					
+					//否定
+					sw.Write ( " Not=\"" + gameKey.Not.ToString () + "\"" );
+
+					//レバー
+#if false
+					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+					{
+						strmWriter.Write ( " Key_" + i.ToString() + "=\"" );
+						strmWriter.Write ( gameKey.Lvr[i].ToString () + "\"" );
+					}
 #endif
+					sw.Write ( " IdLvr =\"" );
+					sw.Write ( gameKey.IdLvr + "\"" );
+					sw.Write ( " Lvr =\"" + gameKey.Lvr[gameKey.IdLvr].ToString () + "\"" );
+
+					//ボタン
+					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
+					{
+						sw.Write ( " Btn_" + i.ToString () + " =\"" + gameKey.Btn[ i ].ToString () + "\"" );
+					}
+					sw.Write ( ">" );
+
+					sw.Write ( "</Key>\n" );
+				}
+				sw.Write ( "\t</Command>\n" );
+			}
+			sw.Write ( "</CommandList>\n" );
+		}
+		
+		//ブランチリスト
+		private void WriteBranchList ( StreamWriter sw, BD_BRC bd_cmd )
+		{
+			BindingList < Branch > ls = bd_cmd.GetBindingList ();
+			sw.Write ( "<BranchList Num=\"" + ls.Count + "\">\n" );
+			//ブランチ
+			foreach ( Branch brc in ls )
+			{
+				sw.Write ( "\t<Branch" );
+				sw.Write ( " Name=\"" + brc.Name + "\"" );					//名前
+				sw.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
+				sw.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名
+				sw.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
+				sw.Write ( ">\n" );
+				sw.Write ( "\t</Branch>\n" );
+			}
+			sw.Write ( "</BranchList>\n" );
+		}
+		
+		//ルートリスト
+		private void WriteRouteList ( StreamWriter sw, BD_RUT bd_rut )
+		{
+			BindingList < Route > ls = bd_rut.GetBindingList ();
+			sw.Write ( "<RouteList Num=\"" + ls.Count + "\">\n" );
+			//ブランチ
+			foreach ( Route rut in ls )
+			{
+				sw.Write ( "\t<Route Name=\"" + rut.Name + "\"" );
+				sw.Write ( " Summary=\"" + rut.Summary + "\" >\n" );
+				//ブランチネームリスト
+				BindingList < string > bl_brrt = rut.BL_BranchName;
+				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
+				foreach ( string name in bl_brrt )
+				{
+					sw.Write ( "\t\t\t<BranchName Name=\"" + name + "\">" );
+					sw.Write ( "</BranchName>\n" );
+				}
+				sw.Write ( "\t\t</BranchNameList>\n" );
+				sw.Write ( "\t</Route>\n" );
+			}
+			sw.Write ( "</RouteList>\n" );
+		}
+
 	}
 }

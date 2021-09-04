@@ -61,7 +61,8 @@ namespace ScriptEditor
 			//==========================================================================
 			//スクリプト部分のメモリストリームを作成
 			MemoryStream mstrmScript = new MemoryStream ();
-			StreamWriter strmWrtScript = new StreamWriter ( mstrmScript, Encoding.ASCII );
+//			StreamWriter strmWrtScript = new StreamWriter ( mstrmScript, Encoding.ASCII );
+			StreamWriter strmWrtScript = new StreamWriter ( mstrmScript, Encoding.UTF8 );
 			fstrm.Seek ( 0, SeekOrigin.Begin );
 
 			//バージョンの取得
@@ -82,7 +83,7 @@ namespace ScriptEditor
 			//ドキュメントの読込
 			Document document = new Document ( mstrmScript );
 
-			strmWrtScript.Close ();
+//			strmWrtScript.Close ();
 //			mstrmScript.Close ();
 			
 			//ドキュメント型からキャラへスクリプト部を変換

@@ -81,19 +81,20 @@ namespace ScriptEditor
 					strmWriter.Write ( ", " + s.Acc.X );
 					strmWriter.Write ( ", " + s.Acc.Y );
 					strmWriter.Write ( " ); \n" );
-
+#if false
 					//ブランチを必要個数確保
-					BindingList<Branch0> lb = s.ListBranch.GetBindingList ();
+					BindingList<Branch> lb = s.ListBranch.GetBindingList ();
 					if ( 0 < lb.Count ) { strmWriter.Write ( "\t\t\t\t\t" + "/* SIZE_BRANCH = " + lb.Count + "; */ { " ); }
 					for ( int iBranch = 0; iBranch > lb.Count; ++iBranch )
 					{
-						Branch0 b = lb[ iBranch ];
+						Branch b = lb[ iBranch ];
 						strmWriter.Write ( "Branch branch = new Branch ();" );
 //						strmWriter.Write ( "branch.IndexCommand = " + b.IndexCommand + "; " );
 //						strmWriter.Write ( "branch.IndexAction = " + b.IndexAction + "; " );
 						strmWriter.Write ( "script.ListBranch.Add ( branch ); " );
 					}
 					if ( 0 < lb.Count ) { strmWriter.Write ( "}\n" ); }
+#endif
 
 					//Efジェネレートを必要個数確保
 					BindingList<EffectGenerate> le = s.BD_EfGnrt.GetBindingList ();

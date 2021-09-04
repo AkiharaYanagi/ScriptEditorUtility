@@ -33,7 +33,6 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.Cb_Action = new System.Windows.Forms.ComboBox();
 			this.Cb_Command = new System.Windows.Forms.ComboBox();
-			this.Tb_Name = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// label3
@@ -65,29 +64,23 @@
 			// 
 			// Cb_Action
 			// 
+			this.Cb_Action.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.Cb_Action.FormattingEnabled = true;
 			this.Cb_Action.Location = new System.Drawing.Point(264, 108);
 			this.Cb_Action.Name = "Cb_Action";
 			this.Cb_Action.Size = new System.Drawing.Size(199, 20);
 			this.Cb_Action.TabIndex = 17;
+			this.Cb_Action.SelectionChangeCommitted += new System.EventHandler(this.Cb_Action_SelectionChangeCommitted);
 			// 
 			// Cb_Command
 			// 
+			this.Cb_Command.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.Cb_Command.FormattingEnabled = true;
 			this.Cb_Command.Location = new System.Drawing.Point(264, 57);
 			this.Cb_Command.Name = "Cb_Command";
 			this.Cb_Command.Size = new System.Drawing.Size(199, 20);
 			this.Cb_Command.TabIndex = 16;
 			this.Cb_Command.SelectionChangeCommitted += new System.EventHandler(this.Cb_Command_SelectionChangeCommitted);
-			// 
-			// Tb_Name
-			// 
-			this.Tb_Name.Location = new System.Drawing.Point(264, 3);
-			this.Tb_Name.Name = "Tb_Name";
-			this.Tb_Name.Size = new System.Drawing.Size(199, 19);
-			this.Tb_Name.TabIndex = 15;
-			this.Tb_Name.Text = "Name";
-			this.Tb_Name.TextChanged += new System.EventHandler(this.Tb_Name_TextChanged);
 			// 
 			// Ctrl_Branch
 			// 
@@ -98,7 +91,6 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Cb_Action);
 			this.Controls.Add(this.Cb_Command);
-			this.Controls.Add(this.Tb_Name);
 			this.Name = "Ctrl_Branch";
 			this.Size = new System.Drawing.Size(501, 452);
 			this.ResumeLayout(false);
@@ -113,6 +105,5 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox Cb_Action;
 		private System.Windows.Forms.ComboBox Cb_Command;
-		private System.Windows.Forms.TextBox Tb_Name;
 	}
 }

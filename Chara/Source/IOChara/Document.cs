@@ -14,29 +14,18 @@ namespace ScriptEditor
 	//================================================
 	public class Attribute
 	{
-		private string _name;
-		public string Name
-		{
-			set { this._name = value; }
-			get { return this._name; }
-		}
-
-		private string _value;
-		public string Value
-		{
-			set { this._value = value; }
-			get { return this._value; }
-		}
+		public string Name { set; get; }
+		public string Value { set; get; }
 
 		public Attribute ( string name, string strValue )
 		{
-			_name = name;
-			_value = strValue;
+			Name = name;
+			Value = strValue;
 		}
 
 		public void Print ()
 		{
-			Console.Write ( "\t( " + _name + " = " + _value + " )\n" );
+			Console.Write ( "\t( " + Name + " = " + Value + " )\n" );
 		}
 	}
 
@@ -52,54 +41,37 @@ namespace ScriptEditor
 	//================================================
 	public class Element
 	{
-
-		private string _name;
-		public string Name
-		{
-			set { this._name = value; }
-			get { return this._name; }
-		}
-
-		private List<Attribute> attributes = new List<Attribute> ();
-		public List<Attribute> Attributes { get { return attributes; } }
+		public string Name { set; get; }
+		public List<Attribute> Attributes { get; } = new List<Attribute> ();
 
 		public void AddAttribute ( Attribute attribute )
 		{
-			attributes.Add ( attribute );
+			Attributes.Add ( attribute );
 		}
-
-		private List<Element> elements = new List<Element> ();
-		public List<Element> Elements { get { return elements; } }
+		public List<Element> Elements { get; } = new List<Element> ();
 
 
 		//コンストラクタ
 		public Element () { }
 		public Element ( string name )
 		{
-			_name = name;
+			Name = name;
 		}
 		public void AddElement ( Element element )
 		{
-			elements.Add ( element );
+			Elements.Add ( element );
 		}
-
-		//親Elementの参照
-		private Element _parent;
-		public Element Parent
-		{
-			set { this._parent = value; }
-			get { return this._parent; }
-		}
+		public Element Parent { set; get; }
 
 
 		public void Print ()
 		{
-			Console.Write ( _name + "\n" );
-			foreach ( Attribute attribute in attributes )
+			Console.Write ( Name + "\n" );
+			foreach ( Attribute attribute in Attributes )
 			{
 				attribute.Print ();
 			}
-			foreach ( Element element in elements )
+			foreach ( Element element in Elements )
 			{
 				element.Print ();
 			}
@@ -147,7 +119,7 @@ namespace ScriptEditor
 		//引数：ストリーム
 		public Document ( Stream stream )
 		{
-			StreamReader streamReader = new StreamReader ( stream );
+			StreamReader streamReader = new StreamReader ( stream, Encoding.UTF8 );
 			DocumentFromStream ( streamReader );
 		}
 

@@ -15,7 +15,7 @@
 	//	イメージリストはコンペンド(キャラのビヘイビアとガーニッシュ)が持つように変更
 	//==================================================================================
 	using BD_Cmd = BindingDictionary < Command >;
-	using BD_Brc = BindingDictionary < Branch0 >;
+	using BD_Brc = BindingDictionary < Branch >;
 	using BD_Rut= BindingDictionary < Route >;
 
 	public class Chara

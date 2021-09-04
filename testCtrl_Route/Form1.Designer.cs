@@ -28,18 +28,16 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			ScriptEditor.BindingDictionary<ScriptEditor.Branch0> bindingDictionary_11 = new ScriptEditor.BindingDictionary<ScriptEditor.Branch0>();
+			ScriptEditor.BindingDictionary<ScriptEditor.Branch> bindingDictionary_11 = new ScriptEditor.BindingDictionary<ScriptEditor.Branch>();
 			ScriptEditor.BindingDictionary<ScriptEditor.Route> bindingDictionary_12 = new ScriptEditor.BindingDictionary<ScriptEditor.Route>();
 			this.ctrl_Route1 = new ScriptEditor.Ctrl_Route();
 			this.SuspendLayout();
 			// 
 			// ctrl_Route1
 			// 
-			this.ctrl_Route1.BD_Branch = bindingDictionary_11;
-			this.ctrl_Route1.BD_Route = bindingDictionary_12;
 			this.ctrl_Route1.Location = new System.Drawing.Point(0, 0);
 			this.ctrl_Route1.Name = "ctrl_Route1";
-			this.ctrl_Route1.Size = new System.Drawing.Size(675, 587);
+			this.ctrl_Route1.Size = new System.Drawing.Size(813, 528);
 			this.ctrl_Route1.TabIndex = 0;
 			// 
 			// Form1

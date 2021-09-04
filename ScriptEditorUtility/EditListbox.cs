@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace ScriptEditor
 {
+	//==========================================================
+	//	BindingDictionaryを受けて表示と編集をするコントロール
+	//==========================================================
 	public partial class EditListbox < T >  : UserControl where T : IName, new ()
 	{
 		//対象
@@ -45,6 +48,8 @@ namespace ScriptEditor
 		private void Btn_Add_Click ( object sender, System.EventArgs e )
 		{
 			BD_T.Add ( new T () );
+			//末尾を選択
+			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			ResetItems ();
 		}
 
@@ -116,8 +121,6 @@ namespace ScriptEditor
 			SelectedIndexChanged?.Invoke ();
 		}
 
-
-
 		//イベント：追加時
 		public Event Add { get; set; } = null;
 		private void listBox1_Add ( object sender, System.EventArgs e )
@@ -136,6 +139,7 @@ namespace ScriptEditor
 			_TextChanged?.Invoke ();
 		}
 
+		//イベント：キー押下時
 		public Event Tb_KeyPress { get; set; } = null;
 		private void Tb_Name_KeyPress ( object sender, KeyPressEventArgs e )
 		{
@@ -143,7 +147,14 @@ namespace ScriptEditor
 			{
 				e.Handled = true;
 			}
-			Tb_KeyPress?.Invoke ();
+			if ( e.KeyChar == (char)Keys.Enter )
+			{
+				T t = (T)listBox1.SelectedItem;
+				t.Name = Tb_Name.Text;
+				ResetItems ();
+
+				Tb_KeyPress?.Invoke ();
+			}
 		}
 	}
 

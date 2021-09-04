@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ScriptEditor
 {
@@ -8,6 +9,7 @@ namespace ScriptEditor
 	//		┣[]スクリプト
 	//		┣汎用パラメータ(SqcParamを継承)
 	//================================================================
+	[Serializable]
 	public class Sequence : IName
 	{
 		//名前

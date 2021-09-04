@@ -54,6 +54,7 @@ namespace ScriptEditor
 			Equal ( dstChara, srcChara );
 		}
 
+		//同値テスト
 		public void Equal ( Chara ch0, Chara ch1 )
 		{
 			//リスト個数が同数かテスト
@@ -70,6 +71,19 @@ namespace ScriptEditor
 			Debug.Assert ( ch0.BD_Command.Count () == ch1.BD_Command.Count () );
 			Debug.Assert ( ch0.BD_Branch.Count () == ch1.BD_Branch.Count () );
 			Debug.Assert ( ch0.BD_Route.Count () == ch1.BD_Route.Count () );
+		}
+
+		//名前指定テスト
+		public void TestNameAssign ( Chara ch )
+		{
+			foreach ( Route rut in ch.BD_Route.GetBindingList () )
+			{
+				foreach ( string name in rut.BL_BranchName )
+				{
+					Branch brc = ch.BD_Branch.Get ( name );
+					Debug.Assert ( ! ( brc is null ) );
+				}
+			}
 		}
 
 	}

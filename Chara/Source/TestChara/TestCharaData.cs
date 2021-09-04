@@ -81,14 +81,10 @@ namespace ScriptEditor
 			//@info 手動操作はBindingListではなく、BindingDictionaryを用いる
 			//===================================================================
 			BD_Seq bd_seq = chara.behavior.BD_Sequence;
-			//スクリプト再設定
-#if false
-			BindingList < Sequence > bl_s = chara.behavior.BD_Sequence.GetBindingList ();
-			//スクリプトはList < Script >型で保持
-			bl_s[ 0 ].ListScript[ 0 ].Copy ( script0 );
-#endif
-			Script scp0 = bd_seq.Get ( 0 ).ListScript [ 0 ];
-			scp0.Copy ( script0 );
+
+			//スクリプトコピー
+			Script scp_cpy = bd_seq.Get ( 0 ).ListScript [ 0 ];
+			scp_cpy.Copy ( script0 );
 
 			//コマンド
 			MakeCommand ( chara.BD_Command );
@@ -96,8 +92,8 @@ namespace ScriptEditor
 			//ブランチ
 			MakeBranch ( chara, script0 );
 
-			//@todo
 			//ルート
+			MakeRoute ( chara, script0 );
 
 			//すべてのアクションにおけるスクリプトへの変更
 #if false
@@ -337,7 +333,7 @@ namespace ScriptEditor
 			//テスト用ブランチの作成
 			foreach ( Command cmd in chara.BD_Command.GetBindingList () )
 			{
-				Branch0 br0 = new Branch0 ()
+				Branch br0 = new Branch ()
 				{
 					Name = cmd.Name,
 					NameCommand = cmd.Name,
@@ -420,10 +416,10 @@ namespace ScriptEditor
 			eb.SelectScript ( 0, 0 );
 #endif
 		}
-
+#if false
 		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
 		{
-			BindingDictionary < Branch0 > BL_Brc = sc.ListBranch;
+//			BindingDictionary < Branch > BL_Brc = sc.ListBranch;
 //			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
 //			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
 //			int ic = indexCommand;
@@ -432,7 +428,18 @@ namespace ScriptEditor
 //			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
 //			BL_Brc.Add ( new Branch0 () );
 		}
+#endif
 
+		private void MakeRoute ( Chara chara, Script scp )
+		{
+			Route rut = new Route ( "地上通常技", "立ち状態で移行する技全般" );
+//			Route rut = new Route ( "test", "test0" );
+			rut.BL_BranchName.Add ( "Attack_L" );
+			rut.BL_BranchName.Add ( "Attack_M" );
+			rut.BL_BranchName.Add ( "Attack_H" );
+
+			chara.BD_Route.Add ( rut );
+		}
 
 
 		//garnish

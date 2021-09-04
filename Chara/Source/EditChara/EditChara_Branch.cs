@@ -11,16 +11,16 @@ namespace ScriptEditor
 		//ブランチを追加
 		public void AddBranch ()
 		{
-			Chara.BD_Branch.Add ( new Branch0 ( "newBranch" ) );
+			Chara.BD_Branch.Add ( new Branch ( "newBranch" ) );
 		}
 
 		public void AddBranch ( string name )
 		{
-			Chara.BD_Branch.Add ( new Branch0 ( name ) );
+			Chara.BD_Branch.Add ( new Branch ( name ) );
 		}
 
 		//指定ブランチを削除
-		public void RemoveBranch ( Branch0 brc )
+		public void RemoveBranch ( Branch brc )
 		{
 			Chara.BD_Branch.Remove ( brc );
 		}
@@ -28,14 +28,14 @@ namespace ScriptEditor
 		//末尾のブランチを削除
 		public void RemoveBranch ()
 		{
-			BindingList < Branch0 > ls = Chara.BD_Branch.GetBindingList();
+			BindingList < Branch > ls = Chara.BD_Branch.GetBindingList();
 			ls.RemoveAt ( ls.Count - 1 );
 		}
 
 		//変更の通知
 		public void ResetBranch ()
 		{
-			BindingList < Branch0 > ls = Chara.BD_Branch.GetBindingList();
+			BindingList < Branch > ls = Chara.BD_Branch.GetBindingList();
 			for ( int i = 0; i < ls.Count; ++i )
 			{
 				ls.ResetItem ( i );

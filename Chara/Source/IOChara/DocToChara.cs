@@ -10,6 +10,7 @@ namespace ScriptEditor
 
 	//==================================================
 	//	ドキュメント型からキャラへ変換する
+	//		主にLoadChara, LoadTextCharaで用いる
 	//==================================================
 	public class DocToChara
 	{
@@ -365,6 +366,7 @@ namespace ScriptEditor
 				//-----------------------------------------------------------------------------
 				//Script以下のElement
 
+#if false
 				//ブランチリスト
 				Element elemBranchList = elemScript.Elements[ ( int ) ELEMENT_SCRIPT.ELSC_BRANCH ];
 
@@ -401,12 +403,18 @@ namespace ScriptEditor
 					//(Command,Actionの参照は最後に登録する)
 					script.ListBranch.Add ( branch );
 				}
+#endif
+				//ルートネームリスト
+				Element elemRutList = elemScript.Elements [( int ) ELEMENT_SCRIPT.ELSC_ROUTE ];
+				foreach ( Element elemRut in elemRutList.Elements )
+				{
+					script.BL_RutName.Add ( elemRut.Attributes [ 0 ].Value );
+				}
 
 				//-----------------------------------------------------------------------------
 				//Efジェネレートリスト
-				Element elemEfGenerateList = elemScript.Elements[ ( int ) ELEMENT_SCRIPT.ELSC_EFGNRT ];
-
-				foreach ( Element elemEfGenerate in elemEfGenerateList.Elements )
+				Element elemEfGnrtList = elemScript.Elements[ ( int ) ELEMENT_SCRIPT.ELSC_EFGNRT ];
+				foreach ( Element elemEfGenerate in elemEfGnrtList.Elements )
 				{
 					EffectGenerate efGnrt = new EffectGenerate ();
 					
@@ -548,7 +556,7 @@ namespace ScriptEditor
 			foreach ( Element elemBrc in elemBranchList.Elements )
 			{
 				//代入用新規作成
-				Branch0 brc = new Branch0
+				Branch brc = new Branch
 				{
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_N ].Value,
@@ -570,7 +578,8 @@ namespace ScriptEditor
 				//代入用新規作成
 				Route rut = new Route
 				{
-					Name = elemRut.Attributes [ 0 ].Value,
+					Name = elemRut.Attributes [ (int)ATTR_ROUTE.NAME ].Value,
+					Summary = elemRut.Attributes [ (int)ATTR_ROUTE.SUMMARY ].Value,
 				};
 
 				//ブランチネーム

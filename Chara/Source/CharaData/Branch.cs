@@ -1,6 +1,8 @@
 ﻿namespace ScriptEditor
 {
-	//各種条件によるアクション分岐
+	//------------------------------------------------
+	//	コマンドによるアクション分岐
+	//------------------------------------------------
 	public class Branch : IName
 	{
 		//------------------------------------------------
@@ -9,32 +11,11 @@
 		public string GetName () { return Name; }
 		//------------------------------------------------
 
-		//------------------------------------------------
-		//コマンドとアクションは実行上において参照を用いるが、
-		//スクリプトをテキストファイルに書き出すため、インデックスも保存する
-		//	->名前で検索に変更
-		//------------------------------------------------
-
-		//条件　コマンドリストの添字 indexCommand
-		public int IndexCommand { get; set; } = 0;
-		public string NameCommand { get; set; } = "NameCommand";
 		//条件　コマンド名
-//		public BindingDictionary < Command > BD_Command = new BindingDictionary < Command > ();
+		public string NameCommand { get; set; } = "NameCommand";
 
-		//条件　コマンドの参照
-		public Command Condition { get; set; } = null;
-
-
-		//遷移先　アクションリストの添字 indexAction
-		public int IndexAction { get; set; } = 0;
-		public string NameAction { get; set; } = "NameAction";
 		//遷移先　アクション名
-//		public BindingDictionary < Action > BD_Action = new BindingDictionary < Action > ();
-
-
-		//遷移先　アクションの参照
-		public Action Transit { get; set; } = null;
-
+		public string NameAction { get; set; } = "NameAction";
 
 		//遷移先　フレーム指定
 		public int Frame { get; set; } = 0;
@@ -45,20 +26,15 @@
 		{
 		}
 
-		public Branch ( int indexCommand, Command command, int indexAction, Action action )
+		public Branch ( string name )
 		{
-			IndexCommand = indexCommand;
-			Condition = command;
-			IndexAction = indexAction;
-			Transit = action;
+			Name = name;
 		}
 
-		public Branch ( string strCommand, Command command, string strAction, Action action )
+		public Branch ( string strCommand, string strAction )
 		{
 			NameCommand = strCommand;
-			Condition = command;
 			NameAction = strAction;
-			Transit = action;
 		}
 
 

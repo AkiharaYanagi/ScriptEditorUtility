@@ -3,10 +3,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 
-
 namespace ScriptEditor
 {
-	using BD_Brc = BindingDictionary < Branch0 >;
+	using BD_Brc = BindingDictionary < Branch >;
 	using BD_Rut = BindingDictionary < Route >;
 	using BD_EfGn = BindingDictionary < EffectGenerate >;
 
@@ -49,8 +48,7 @@ namespace ScriptEditor
 		//--------------------------------------------------------------------
 		//位置
 		//--------------------------------------------------------------------
-		//キャラ内のイメージリストにおけるインデックス
-//		public int ImgIndex { get; set; } = 0;
+		//キャラ内のイメージリストにおけるイメージ名
 		public string ImgName { get; set; } = "ImgName";
 
 		//--------------------------------------------------------------------
@@ -77,11 +75,9 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//スクリプト分岐
 		//------------------------------------------------
-		//ブランチリスト
-		public BD_Brc ListBranch { get; set; } = new BD_Brc ();
 
-		//ルートリスト
-		public BD_Rut BD_Rut { get; set; } = new BD_Rut ();
+		//ルートネームリスト
+		public BindingList < string > BL_RutName = new BindingList<string> ();
 
 		//------------------------------------------------
 		//枠
@@ -131,13 +127,12 @@ namespace ScriptEditor
 		public Script ( Script s )
 		{
 			this.Frame = s.Frame;
-//			this.ImgIndex = s.ImgIndex;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BD_Brc ( s.ListBranch );
+			BL_RutName = new BindingList<string> ( s.BL_RutName );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
@@ -150,10 +145,9 @@ namespace ScriptEditor
 		public void Clear ()
 		{
 			Frame = 0;
-//			ImgIndex = 0;
 			ImgName = "Clear";
 			CalcState = CLC_ST.CLC_MAINTAIN;
-			ListBranch.Clear ();
+			BL_RutName.Clear ();
 			ListCRect.Clear ();
 			ListARect.Clear ();
 			ListHRect.Clear ();
@@ -172,7 +166,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			ListBranch = new BD_Brc ( s.ListBranch );
+			BL_RutName = new BindingList<string> ( s.BL_RutName );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
@@ -202,7 +196,7 @@ namespace ScriptEditor
 			if ( this.Vel != s.Vel ) { return false; }
 			if ( this.Acc != s.Acc ) { return false; }
 			if ( this.CalcState != s.CalcState ) { return false; }
-			if ( ! this.ListBranch.SequenceEqual ( s.ListBranch ) ) { return false; }
+			if ( ! this.BL_RutName.SequenceEqual ( s.BL_RutName ) ) { return false; }
 			if ( ! this.ListCRect.SequenceEqual ( s.ListCRect ) ) { return false; }
 			if ( ! this.ListHRect.SequenceEqual ( s.ListHRect ) ) { return false; }
 			if ( ! this.ListARect.SequenceEqual ( s.ListARect ) ) { return false; }
@@ -223,7 +217,7 @@ namespace ScriptEditor
 			int i4  = i3  ^ Vel.GetHashCode ();
 			int i5  = i4  ^ Acc.GetHashCode ();
 			int i6  = i5  ^ CalcState.GetHashCode ();
-			int i7  = i6  ^ ListBranch.GetHashCode ();
+			int i7  = i6  ^ BL_RutName.GetHashCode ();
 			int i8  = i7  ^ ListCRect.GetHashCode ();
 			int i9  = i8  ^ ListHRect.GetHashCode ();
 			int i10 = i9  ^ ListARect.GetHashCode ();
