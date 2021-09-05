@@ -450,11 +450,11 @@ namespace ScriptEditor
 				sw.Write ( "\t<Route Name=\"" + rut.Name + "\"" );
 				sw.Write ( " Summary=\"" + rut.Summary + "\" >\n" );
 				//ブランチネームリスト
-				BindingList < string > bl_brrt = rut.BL_BranchName;
+				BindingList < TName > bl_brrt = rut.BL_BranchName;
 				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
-				foreach ( string name in bl_brrt )
+				foreach ( TName tn in bl_brrt )
 				{
-					sw.Write ( "\t\t\t<BranchName Name=\"" + name + "\">" );
+					sw.Write ( "\t\t\t<BranchName Name=\"" + tn.Name + "\">" );
 					sw.Write ( "</BranchName>\n" );
 				}
 				sw.Write ( "\t\t</BranchNameList>\n" );

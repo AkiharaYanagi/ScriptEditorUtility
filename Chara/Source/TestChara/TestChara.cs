@@ -78,9 +78,9 @@ namespace ScriptEditor
 		{
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
-				foreach ( string name in rut.BL_BranchName )
+				foreach ( TName tn in rut.BL_BranchName )
 				{
-					Branch brc = ch.BD_Branch.Get ( name );
+					Branch brc = ch.BD_Branch.Get ( tn.Name );
 					Debug.Assert ( ! ( brc is null ) );
 				}
 			}

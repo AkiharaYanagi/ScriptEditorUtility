@@ -28,15 +28,9 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			ScriptEditor.BindingDictionary<ScriptEditor.Branch> bindingDictionary_11 = new ScriptEditor.BindingDictionary<ScriptEditor.Branch>();
-			ScriptEditor.BindingDictionary<ScriptEditor.Command> bindingDictionary_12 = new ScriptEditor.BindingDictionary<ScriptEditor.Command>();
-			ScriptEditor.BindingDictionary<ScriptEditor.Sequence> bindingDictionary_13 = new ScriptEditor.BindingDictionary<ScriptEditor.Sequence>();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ctrl_Route));
-			ScriptEditor.Branch branch1 = new ScriptEditor.Branch();
 			this.Lbl_Route = new System.Windows.Forms.Label();
 			this.Tb_Summary = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.ctrl_Branch1 = new ScriptEditor.Ctrl_Branch();
 			this.SuspendLayout();
 			// 
 			// Lbl_Route
@@ -71,25 +65,10 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "ブランチ";
 			// 
-			// ctrl_Branch1
-			// 
-			this.ctrl_Branch1.BD_Branch = bindingDictionary_11;
-			this.ctrl_Branch1.BD_Command = bindingDictionary_12;
-			this.ctrl_Branch1.BD_Sequence = bindingDictionary_13;
-			this.ctrl_Branch1.Location = new System.Drawing.Point(242, 70);
-			this.ctrl_Branch1.Name = "ctrl_Branch1";
-			branch1.Frame = 0;
-			branch1.Name = "BrcName";
-			branch1.NameAction = "NameAction";
-			branch1.NameCommand = "NameCommand";
-			this.ctrl_Branch1.Size = new System.Drawing.Size(473, 532);
-			this.ctrl_Branch1.TabIndex = 6;
-			// 
 			// Ctrl_Route
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.ctrl_Branch1);
 			this.Controls.Add(this.Tb_Summary);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Lbl_Route);
@@ -104,7 +83,6 @@
 
 		private System.Windows.Forms.Label Lbl_Route;
 		private System.Windows.Forms.TextBox Tb_Summary;
-		private Ctrl_Branch ctrl_Branch1;
 		private System.Windows.Forms.Label label1;
 	}
 }

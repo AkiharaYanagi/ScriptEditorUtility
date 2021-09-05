@@ -11,8 +11,12 @@ namespace ScriptEditor
 		public string Name { get; set; } = "RutName";
 		public string GetName () { return Name; }
 
+		//摘要
+		public string Summary { get; set; } = "摘要";
+
 		//ブランチネームリスト
-		public BindingList < string > BL_BranchName { get; set; } = new BindingList < string > ();
+		public BindingList < TName > BL_BranchName { get; set; } = new BindingList < TName > ();
+
 
 		//コンストラクタ
 		public Route ()
@@ -29,8 +33,5 @@ namespace ScriptEditor
 			Name = name;
 			Summary = summary;
 		}
-
-		//摘要
-		public string Summary { get; set; } = "摘要";
 	}
 }

@@ -585,7 +585,7 @@ namespace ScriptEditor
 				//ブランチネーム
 				foreach ( Element elemBrcName in elemRut.Elements )
 				{
-					rut.BL_BranchName.Add ( elemBrcName.Attributes [ 0 ].Value );
+					rut.BL_BranchName.Add ( new TName ( elemBrcName.Attributes [ 0 ].Value ) );
 				}
 
 				//キャラに登録

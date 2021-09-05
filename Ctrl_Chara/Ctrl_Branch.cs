@@ -59,14 +59,16 @@ namespace ScriptEditor
 
 		public void SetRoute ( Route rut )
 		{
+#if false
 			//ルートからBD_Brcを作成
 			BD_Brc bd_Brc = new BD_Brc ();
-			foreach ( string s in rut.BL_BranchName )
+			foreach ( TName tn in rut.BL_BranchName )
 			{
-				bd_Brc.Add ( BD_Branch.Get ( s ) );
+				bd_Brc.Add ( BD_Branch.Get ( tn.Name ) );
 			}
+#endif
 			//コントロールに設定
-			EL_Branch.SetData ( bd_Brc );
+//			EL_Branch.SetData ( rut.BL_BranchName );
 			EL_Branch.ResetItems ();
 
 			//選択

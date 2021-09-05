@@ -7,12 +7,21 @@ namespace ScriptEditor
 	//	ルートを編集するコントロール
 	//---------------------------------------------------
 	using BD_Rot = BindingDictionary < Route >;
+	using BD_Brc = BindingDictionary < Branch >;
 
 	public partial class Ctrl_Route : UserControl
 	{
-		//コントロール
+		//コントロール(ルート)
 		EditListbox < Route > EL_Route = new EditListbox < Route > ();
 
+		//コントロール(ブランチ)
+		EditListbox < TName > EL_Branch = new EditListbox < TName > ();
+
+		//ブランチ参照
+		BD_Brc BD_Branch = new BD_Brc ();
+
+
+		//コンストラクタ
 		public Ctrl_Route ()
 		{
 			InitializeComponent ();
@@ -20,7 +29,8 @@ namespace ScriptEditor
 			//==============================================================
 			//エディットリストボックスの設定
 
-			//コントロール
+			//----------------------------------
+			//コントロール(ルート)
 			EL_Route.Location = new Point ( 3, 70 );
 			this.Controls.Add ( EL_Route );
 
@@ -34,12 +44,18 @@ namespace ScriptEditor
 			{
 				SetRoute ( EL_Route.Get() );
 			};
+
+			//----------------------------------
+			//コントロール(ブランチ)
+			EL_Branch.Location = new Point ( 303, 70 );
+			this.Controls.Add ( EL_Branch );
+
 		}
 
 		public void SetCharaData ( Chara ch )
 		{
-			//キャラデータの保存
-			ctrl_Branch1.SetCharaData ( ch );
+			//保存
+			BD_Branch = ch.BD_Branch;
 
 			//リストに登録
 			EL_Route.SetData ( ch.BD_Route );
@@ -51,7 +67,7 @@ namespace ScriptEditor
 		public void SetRoute ( Route rut )
 		{
 			Tb_Summary.Text = rut.Summary;
-			ctrl_Branch1.SetRoute ( rut );
+			EL_Branch.SetData ( rut.BL_BranchName );
 		}
 	}
 }

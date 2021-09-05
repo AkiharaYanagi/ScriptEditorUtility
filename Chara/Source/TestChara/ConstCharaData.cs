@@ -65,5 +65,14 @@ namespace ScriptEditor
 			"VerticalJump", "FrontJump", "BackJump", 
 		};
 
+		//デフォルトブランチ名
+		private readonly string[] NAME_BRANCH = new string[] 
+		{
+			"立L", "立M", "立H", 
+			"FrontMove", "BackMove", 
+			"FrontDuration", "BackDuration", "FrontDash", "BackDash", 
+			"VerticalJump", "FrontJump", "BackJump", 
+		};
+
 	}
 }

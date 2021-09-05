@@ -10,7 +10,8 @@ namespace ScriptEditor
 	public partial class EditListbox < T >  : UserControl where T : IName, new ()
 	{
 		//対象
-		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
+//		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
+		public BindingList < T > BL_T { get; set; } = new BindingList < T > ();
 
 		public ListBox GetListBox () { return listBox1; }
 		public T Get () { return ( T ) listBox1.SelectedItem; }
@@ -18,8 +19,12 @@ namespace ScriptEditor
 		public EditListbox ()
 		{
 			InitializeComponent ();
-			listBox1.DataSource = BD_T.GetBindingList ();
+//			listBox1.DataSource = BD_T.GetBindingList ();
+			listBox1.DataSource = BL_T;
 			listBox1.DisplayMember = "Name";
+
+			T t = new T ();
+			Tb_Name.Text = t.GetType().Name;
 
 			//イベント
 			Btn_Add.Click += new EventHandler ( listBox1_Add );
@@ -27,41 +32,46 @@ namespace ScriptEditor
 
 		public void ResetItems ()
 		{
-			for ( int i = 0; i < BD_T.Count (); ++ i )
+			for ( int i = 0; i < BL_T.Count; ++ i )
 			{
-				BD_T.GetBindingList ().ResetItem ( i );
+				BL_T.ResetItem ( i );
 			}
 		}
 
 		public void SetData ( BindingDictionary < T > bd_t )
 		{
-			BD_T = bd_t;
-			listBox1.DataSource = bd_t.GetBindingList ();
+			SetData ( bd_t.GetBindingList () );
+		}
+
+		public void SetData ( BindingList < T > bl_t )
+		{
+			BL_T = bl_t;
+			listBox1.DataSource = bl_t;
 			
 			int i = listBox1.SelectedIndex;
 			if ( i > 0 )
 			{
-				Tb_Name.Text = BD_T.Get ( i ).Name;
+				Tb_Name.Text = bl_t [ i ].Name;
 			}
 		}
 
-		private void Btn_Add_Click ( object sender, System.EventArgs e )
+		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
-			BD_T.Add ( new T () );
+			BL_T.Add ( new T () );
 			//末尾を選択
 			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			ResetItems ();
 		}
 
-		private void Btn_Del_Click ( object sender, System.EventArgs e )
+		private void Btn_Del_Click ( object sender, EventArgs e )
 		{
 			if ( listBox1.Items.Count <= 0 ) { return; }
 
-			BD_T.RemoveAt ( listBox1.SelectedIndex );
+			BL_T.RemoveAt ( listBox1.SelectedIndex );
 		}
 
 		//上へ移動
-		private void Btn_Up_Click ( object sender, System.EventArgs e )
+		private void Btn_Up_Click ( object sender, EventArgs e )
 		{
 			//--------------------------------------------------------------------
 			//動作条件　下記の条件時は何もしない
@@ -69,8 +79,6 @@ namespace ScriptEditor
 			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
 			if ( listBox1.SelectedIndex <= 0 ) { return; }			//選択が先頭のとき
 			//--------------------------------------------------------------------
-
-			BindingList < T > BL_T = BD_T.GetBindingList ();
 
 			//１つ前の位置
 			int i = listBox1.SelectedIndex - 1;
@@ -84,7 +92,8 @@ namespace ScriptEditor
 			listBox1.SelectedIndex = i;
 		}
 
-		private void Btn_Down_Click ( object sender, System.EventArgs e )
+		//下へ移動
+		private void Btn_Down_Click ( object sender, EventArgs e )
 		{
 			//--------------------------------------------------------------------
 			//動作条件　下記の条件時は何もしない
@@ -93,8 +102,6 @@ namespace ScriptEditor
 			if ( n <= 0 ) { return; }	//選択されていない
 			if ( listBox1.SelectedIndex >= listBox1.Items.Count - 1) { return; }	//選択が末尾のとき
 			//--------------------------------------------------------------------
-
-			BindingList < T > BL_T = BD_T.GetBindingList ();
 
 			//１つ次の位置
 			int i = listBox1.SelectedIndex + 2;

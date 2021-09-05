@@ -73,6 +73,7 @@
     <Compile Include="TB_Number.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

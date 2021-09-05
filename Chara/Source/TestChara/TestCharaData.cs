@@ -331,6 +331,11 @@ namespace ScriptEditor
 		private void MakeBranch ( Chara chara, Script script0 )
 		{
 			//テスト用ブランチの作成
+			EditChara.Inst.AddBranch ( NAME_BRANCH [ 0 ] );
+			EditChara.Inst.AddBranch ( NAME_BRANCH [ 1 ] );
+			EditChara.Inst.AddBranch ( NAME_BRANCH [ 2 ] );
+#if false
+			//テスト用ブランチの作成
 			foreach ( Command cmd in chara.BD_Command.GetBindingList () )
 			{
 				Branch br0 = new Branch ()
@@ -345,7 +350,6 @@ namespace ScriptEditor
 			chara.BD_Branch.Get ( 0 ).NameAction = bd_seq.Get ( "Attack_L" ).Name; 
 			chara.BD_Branch.Get ( 1 ).NameAction = bd_seq.Get ( "Attack_M" ).Name; 
 			chara.BD_Branch.Get ( 2 ).NameAction = bd_seq.Get ( "Attack_H" ).Name; 
-#if false
 			//----------------------
 			//test Branch
 			Action action_B = ( Action ) chara.behavior.BD_Sequence.GetBindingList()[ 0 ];
@@ -434,9 +438,9 @@ namespace ScriptEditor
 		{
 			Route rut = new Route ( "地上通常技", "立ち状態で移行する技全般" );
 //			Route rut = new Route ( "test", "test0" );
-			rut.BL_BranchName.Add ( "Attack_L" );
-			rut.BL_BranchName.Add ( "Attack_M" );
-			rut.BL_BranchName.Add ( "Attack_H" );
+			rut.BL_BranchName.Add ( new TName ( "立L" ) );
+			rut.BL_BranchName.Add ( new TName ( "立M" ) );
+			rut.BL_BranchName.Add ( new TName ( "立H" ) );
 
 			chara.BD_Route.Add ( rut );
 		}
