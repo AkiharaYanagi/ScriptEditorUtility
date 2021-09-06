@@ -206,6 +206,21 @@ namespace ScriptEditor
 			}
 			return true;
 		}
+
+		//バインドの更新
+		public void ResetItems ()
+		{
+			for ( int i = 0 ; i < BL_t.Count; ++ i )
+			{
+				BL_t.ResetItem ( i );
+			}
+		}
+
+		//バインドの解除
+		public void ResetBindings ()
+		{
+			BL_t.ResetBindings ();
+		}
 	}
 }
 
