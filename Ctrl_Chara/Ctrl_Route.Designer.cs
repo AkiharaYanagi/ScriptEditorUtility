@@ -31,6 +31,7 @@
 			this.Lbl_Route = new System.Windows.Forms.Label();
 			this.Tb_Summary = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.CB_Branch = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// Lbl_Route
@@ -59,16 +60,27 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(240, 3);
+			this.label1.Location = new System.Drawing.Point(302, 3);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(40, 12);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "ブランチ";
 			// 
+			// CB_Branch
+			// 
+			this.CB_Branch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CB_Branch.FormattingEnabled = true;
+			this.CB_Branch.Location = new System.Drawing.Point(558, 86);
+			this.CB_Branch.Name = "CB_Branch";
+			this.CB_Branch.Size = new System.Drawing.Size(184, 20);
+			this.CB_Branch.TabIndex = 3;
+			this.CB_Branch.SelectionChangeCommitted += new System.EventHandler(this.CB_Branch_SelectionChangeCommitted);
+			// 
 			// Ctrl_Route
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.CB_Branch);
 			this.Controls.Add(this.Tb_Summary);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Lbl_Route);
@@ -84,5 +96,6 @@
 		private System.Windows.Forms.Label Lbl_Route;
 		private System.Windows.Forms.TextBox Tb_Summary;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ComboBox CB_Branch;
 	}
 }

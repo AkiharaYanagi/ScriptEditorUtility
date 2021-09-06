@@ -82,7 +82,7 @@
 			// 
 			this.Btn_Down.Location = new System.Drawing.Point(165, 226);
 			this.Btn_Down.Name = "Btn_Down";
-			this.Btn_Down.Size = new System.Drawing.Size(30, 178);
+			this.Btn_Down.Size = new System.Drawing.Size(30, 218);
 			this.Btn_Down.TabIndex = 3;
 			this.Btn_Down.Text = "↓";
 			this.Btn_Down.UseVisualStyleBackColor = true;

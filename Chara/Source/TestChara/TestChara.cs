@@ -29,6 +29,9 @@ namespace ScriptEditor
 			//コピーテスト
 			Chara copyChara = new Chara ();
 			TestCopyChara ( copyChara, ch );
+
+			//名前指定
+			TestNameAssign ( ch );
 		}
 
 

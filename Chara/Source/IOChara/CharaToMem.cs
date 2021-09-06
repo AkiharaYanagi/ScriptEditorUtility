@@ -38,166 +38,20 @@ namespace ScriptEditor
 			WriteListImageHeader ( strmWriter, chara.behavior.BD_Image, "Image" );
 			//EFイメージリストヘッダ
 			WriteListImageHeader ( strmWriter, chara.garnish.BD_Image, "EfImage" );
-#if false
-			//-------------------------------------------------------
-			//メインイメージリストヘッダ
-			BD_T imageList = chara.behavior.BD_Image;
-			strmWriter.Write ( "<ImageList Num=\"" + imageList.GetBindingList().Count + "\">\n" );
-			foreach ( ImageData imageData in imageList.GetBindingList() )
-			{
-				strmWriter.Write ( "\t<Image Name=\"" + imageData.Name + "\"></Image>\n" );
-			}
-			strmWriter.Write ( "</ImageList>\n" );
 
-			//-------------------------------------------------------
-			//Efイメージリストヘッダ
-			BD_T efImageList = chara.garnish.BD_Image;
-			strmWriter.Write ( "<EfImageList Num=\"" + efImageList.GetBindingList().Count + "\">\n" );
-			foreach ( ImageData imageData in efImageList.GetBindingList () )
-			{
-				strmWriter.Write ( "\t<EfImage Name=\"" + imageData.Name + "\"></EfImage>\n" );
-			}
-			strmWriter.Write ( "</EfImageList>\n" );
-#endif
 			//アクションリスト
 			WriteSequence ( strmWriter, chara.behavior.BD_Sequence, "Action", Func_WriteAction );
 			//エフェクトリスト
 			WriteSequence ( strmWriter, chara.garnish.BD_Sequence, "Effect", Func_WriteEffect );
-#if false
-			//-------------------------------------------------------
-			//アクションリスト
-			BL_SQC BL_Act = chara.behavior.BD_Sequence.GetBindingList();
-			strmWriter.Write ( "<ActionList Num=\"" + BL_Act.Count + "\">\n" );
 
-			//アクション
-			foreach ( Action action in BL_Act )
-			{
-				//attribute値はダブルクォーテーションで囲む
-				strmWriter.Write ( "\t<Action" );
-				strmWriter.Write ( " Name=\"" + action.Name + "\"" );					//名前
-				strmWriter.Write ( " NextName=\"" + action.NextActionName + "\"" );		//次アクション名
-				strmWriter.Write ( " Category=\"" + (int)action.Category + "\"" );		//アクション属性
-				strmWriter.Write ( " Posture=\"" + (int)action.Posture + "\"" );		//アクション体勢
-				strmWriter.Write ( " Balance=\"" + action._Balance + "\"" );		//消費バランス値
-				strmWriter.Write ( ">\n" );
-
-				//スクリプト
-				WriteListScript ( strmWriter, action.ListScript );
-
-				strmWriter.Write ( "\t</Action>\n" );
-			}
-			strmWriter.Write ( "</ActionList>\n" );
-
-			//-------------------------------------------------------
-			//エフェクトリスト
-			BL_SQC BL_Ef = chara.behavior.BD_Sequence.GetBindingList();
-			strmWriter.Write ( "<EfList Num=\"" + BL_Ef.Count + "\">\n" );
-
-			//エフェクト
-			foreach ( Effect effect in BL_Ef )
-			{
-				//attribute値はダブルクォーテーションで囲む
-				strmWriter.Write ( "\t<Effect" );
-				strmWriter.Write ( " Name=\"" + effect.Name + "\"" );	//名前
-				strmWriter.Write ( ">\n" );
-
-				//スクリプト
-				WriteListScript ( strmWriter, effect.ListScript );
-
-				strmWriter.Write ( "\t</Effect>\n" );
-			}
-			strmWriter.Write ( "</EfList>\n" );
-#endif
 			//コマンドリスト
 			WriteCommandList ( strmWriter, chara.BD_Command );
-#if false
-			//-------------------------------------------------------
-			//コマンドリスト
-			BindingList < Command > ls = chara.BD_Command.GetBindingList ();
-			strmWriter.Write ( "<CommandList Num=\"" + ls.Count + "\">\n" );
-			//コマンド
-			foreach ( Command command in ls )
-			{
-				strmWriter.Write ( "\t<Command Name=\"" + command.Name + "\"" );
-				strmWriter.Write ( " Limit=\"" + command.LimitTime.ToString () + "\">\n" );
 
-				//キー
-				foreach ( GameKeyCommand gameKey in command.ListGameKeyCommand )
-				{
-					strmWriter.Write ( "\t\t<Key" );
-					
-					//否定
-					strmWriter.Write ( " Not=\"" + gameKey.Not.ToString () + "\"" );
-
-					//レバー
-#if false
-					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
-					{
-						strmWriter.Write ( " Key_" + i.ToString() + "=\"" );
-						strmWriter.Write ( gameKey.Lvr[i].ToString () + "\"" );
-					}
-#endif
-					strmWriter.Write ( " IdLvr =\"" );
-					strmWriter.Write ( gameKey.IdLvr + "\"" );
-					strmWriter.Write ( " Lvr =\"" + gameKey.Lvr[gameKey.IdLvr].ToString () + "\"" );
-
-					//ボタン
-					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
-					{
-						strmWriter.Write ( " Btn_" + i.ToString () + " =\"" + gameKey.Btn[ i ].ToString () + "\"" );
-					}
-					strmWriter.Write ( ">" );
-
-					strmWriter.Write ( "</Key>\n" );
-				}
-				strmWriter.Write ( "\t</Command>\n" );
-			}
-			strmWriter.Write ( "</CommandList>\n" );
-#endif
 			//ブランチリスト
 			WriteBranchList ( strmWriter, chara.BD_Branch );
-#if false
-			//-------------------------------------------------------
-			//ブランチリスト
-			BindingList < Branch > bl_brc = chara.BD_Branch.GetBindingList ();
-			strmWriter.Write ( "<BranchList Num=\"" + bl_brc.Count + "\">\n" );
-			//ブランチ
-			foreach ( Branch brc in bl_brc )
-			{
-				strmWriter.Write ( "\t<Branch" );
-				strmWriter.Write ( " Name=\"" + brc.Name + "\"" );					//名前
-				strmWriter.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
-				strmWriter.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名
-				strmWriter.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
-				strmWriter.Write ( ">\n" );
-				strmWriter.Write ( "\t</Branch>\n" );
-			}
-			strmWriter.Write ( "</BranchList>\n" );
-#endif
+
 			//ルートリスト
 			WriteRouteList ( strmWriter, chara.BD_Route );
-#if false
-			//ルートリスト
-			BindingList < Route > bl_rut = chara.BD_Route.GetBindingList ();
-			strmWriter.Write ( "<RouteList>\n" );
-			//ルート
-			foreach ( Route rut in bl_rut )
-			{
-				strmWriter.Write ( "\t<Route Name=\"" + rut.Name + "\"" );
-				strmWriter.Write ( " Summary=\"" + rut.Summary + "\" >\n" );
-				//ブランチネームリスト
-				BindingList < string > bl_brrt = rut.BL_BranchName;
-				strmWriter.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
-				foreach ( string name in bl_brrt )
-				{
-					strmWriter.Write ( "\t\t\t<BranchName Name=\"" + name + "\">" );
-					strmWriter.Write ( "</BranchName>\n" );
-				}
-				strmWriter.Write ( "\t\t</BranchNameList>\n" );
-				strmWriter.Write ( "\t</Route>\n" );
-			}
-			strmWriter.Write ( "</RouteList>\n" );
-#endif
 
 			//基本状態アクションID
 #if false
@@ -302,22 +156,6 @@ namespace ScriptEditor
 				strmWriter.Write ( " power=\"" + script.Power + "\"" );
 				strmWriter.Write ( ">\n" );
 
-				//ブランチリスト
-#if false
-				strmWriter.Write ( "\t\t\t<BranchList Num=\"" + script.ListBranch.Count() + "\">\n" );
-				//ブランチ
-				foreach ( Branch0 branch in script.ListBranch.GetBindingList () )
-				{
-					strmWriter.Write ( "\t\t\t\t<Branch" );
-//					strmWriter.Write ( " Command=\"" + branch.IndexCommand + "\"" );
-					strmWriter.Write ( " CommandName=\"" + branch.NameCommand + "\"" );
-//					strmWriter.Write ( " Action=\"" + branch.IndexAction + "\"" );
-					strmWriter.Write ( " ActionName=\"" + branch.NameAction + "\"" );
-					strmWriter.Write ( " Frame=\"" + branch.Frame + "\"" );
-					strmWriter.Write ( "></Branch>\n" );
-				}
-				strmWriter.Write ( "\t\t\t</BranchList>\n" );
-#endif
 				//ルートリスト
 				strmWriter.Write ( "\t\t\t<RouteList>\n" );
 				//ルート
@@ -448,7 +286,7 @@ namespace ScriptEditor
 			foreach ( Route rut in ls )
 			{
 				sw.Write ( "\t<Route Name=\"" + rut.Name + "\"" );
-				sw.Write ( " Summary=\"" + rut.Summary + "\" >\n" );
+				sw.Write ( " Summary=\"" + rut.Summary + "\">\n" );
 				//ブランチネームリスト
 				BindingList < TName > bl_brrt = rut.BL_BranchName;
 				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );

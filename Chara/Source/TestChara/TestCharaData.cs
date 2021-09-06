@@ -60,9 +60,7 @@ namespace ScriptEditor
 #else
 			//手動でキャラデータを作成
 			_MakeCharaData ( ch );
-
 #endif	//MAKE_CHARA_FROM_SOURCE
-
 		}
 
 		//手動でキャラデータを作成
@@ -90,23 +88,12 @@ namespace ScriptEditor
 			MakeCommand ( chara.BD_Command );
 
 			//ブランチ
-			MakeBranch ( chara, script0 );
+			MakeBranch ( chara );
 
 			//ルート
-			MakeRoute ( chara, script0 );
+			MakeRoute ( chara );
 
 			//すべてのアクションにおけるスクリプトへの変更
-#if false
-			BL_Sequence blsqc = chara.behavior.BD_Sequence.GetBindingList();
-			foreach ( Sequence sqc in blsqc )
-			{
-				BL_Script blsc = sqc.ListScript;
-				foreach ( Script sc in blsc )
-				{
-					sc.ImgName = "dummy.png";
-				}
-			}
-#endif
 			void f_editScp ( Script scp ) { scp.ImgName = "dummy.png"; }
 			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
 
@@ -327,122 +314,40 @@ namespace ScriptEditor
 		}
 
 
-		//Branch
-		private void MakeBranch ( Chara chara, Script script0 )
+		//テスト用ブランチの作成
+		private void MakeBranch ( Chara chara )
 		{
-			//テスト用ブランチの作成
-			EditChara.Inst.AddBranch ( NAME_BRANCH [ 0 ] );
-			EditChara.Inst.AddBranch ( NAME_BRANCH [ 1 ] );
-			EditChara.Inst.AddBranch ( NAME_BRANCH [ 2 ] );
-#if false
-			//テスト用ブランチの作成
-			foreach ( Command cmd in chara.BD_Command.GetBindingList () )
+			foreach ( string str in NAME_BRANCH )
 			{
-				Branch br0 = new Branch ()
-				{
-					Name = cmd.Name,
-					NameCommand = cmd.Name,
-				};
-				chara.BD_Branch.Add ( br0 );
+				EditChara.Inst.AddBranch ( str );
 			}
-
-			BD_Seq bd_seq = chara.behavior.BD_Sequence;
-			chara.BD_Branch.Get ( 0 ).NameAction = bd_seq.Get ( "Attack_L" ).Name; 
-			chara.BD_Branch.Get ( 1 ).NameAction = bd_seq.Get ( "Attack_M" ).Name; 
-			chara.BD_Branch.Get ( 2 ).NameAction = bd_seq.Get ( "Attack_H" ).Name; 
-			//----------------------
-			//test Branch
-			Action action_B = ( Action ) chara.behavior.BD_Sequence.GetBindingList()[ 0 ];
-//			script0.ListBranch.Add ( new Branch ( 0, chara.BD_Command.GetBindingList () [ 0 ], 0, action_B ) );
-
-			EditBehavior eb = EditChara.Inst.EditBehavior;
-
-			//Stand
-			eb.SelectScript ( 0, 0 );
-			
-			List < Script > ls0 = eb.GetAction ().ListScript;
-			foreach ( Script script in ls0 )
-			{
-				SetBranch ( chara, script, 0, 6 );
-				SetBranch ( chara, script, 1, 7 );
-				SetBranch ( chara, script, 2, 8 );
-				SetBranch ( chara, script, 7, 3 );
-				SetBranch ( chara, script, 8, 5 );
-				SetBranch ( chara, script, 3, 1 );
-				SetBranch ( chara, script, 4, 2 );
-			}
-
-			//FrontMove
-			eb.SelectScript ( 1, 0 );
-			List < Script > ls1 = eb.GetAction ().ListScript;
-			foreach ( Script script in ls1 )
-			{
-				SetBranch ( chara, script, 0, 6 );
-				SetBranch ( chara, script, 1, 7 );
-				SetBranch ( chara, script, 2, 8 );
-				SetBranch ( chara, script, 5, 0 );
-			}
-
-			//BackMove
-			eb.SelectScript ( 2, 0 );
-			List < Script > ls2 = eb.GetAction ().ListScript;
-			foreach ( Script script in ls2 )
-			{
-				SetBranch ( chara, script, 0, 6 );
-				SetBranch ( chara, script, 1, 7 );
-				SetBranch ( chara, script, 2, 8 );
-				SetBranch ( chara, script, 6, 0 );
-			}
-
-			//FrontDash
-			eb.SelectScript ( 3, 0 );
-			List < Script > ls3 = eb.GetAction ().ListScript;
-			foreach ( Script script in ls3 )
-			{
-				SetBranch ( chara, script, 0, 6 );
-				SetBranch ( chara, script, 1, 7 );
-				SetBranch ( chara, script, 2, 8 );
-				SetBranch ( chara, script, 5, 0 );
-			}
-
-			//FrontDashDuration
-			eb.SelectScript ( 4, 0 );
-			List < Script > ls4 = eb.GetAction ().ListScript;
-			foreach ( Script script in ls4 )
-			{
-				SetBranch ( chara, script, 0, 6 );
-				SetBranch ( chara, script, 1, 7 );
-				SetBranch ( chara, script, 2, 8 );
-				SetBranch ( chara, script, 5, 0 );
-			}
-
-			//EditCompendの選択位置を元に戻す
-			eb.SelectScript ( 0, 0 );
-#endif
+			Branch br0 = chara.BD_Branch.Get ( 0 );
+			br0.NameCommand = "Attack_L";
+			br0.NameAction = "Attack_L";
+			Branch br1 = chara.BD_Branch.Get ( 0 );
+			br1.NameCommand = "Attack_M";
+			br1.NameAction = "Attack_M";
+			Branch br2 = chara.BD_Branch.Get ( 0 );
+			br2.NameCommand = "Attack_H";
+			br2.NameAction = "Attack_H";
 		}
-#if false
-		private void SetBranch ( Chara ch, Script sc, int indexCommand, int indexAction )
+
+		//ルート
+		private void MakeRoute ( Chara chara )
 		{
-//			BindingDictionary < Branch > BL_Brc = sc.ListBranch;
-//			BindingList < Command > BL_Cmd = ch.BD_Command.GetBindingList ();
-//			BindingList < Sequence > BL_Sqc = ch.behavior.BD_Sequence.GetBindingList();
-//			int ic = indexCommand;
-//			int ia = indexAction;
+			Route rut0 = new Route ( "地上通常技", "立ち状態で移行する技全般" );
+			rut0.BL_BranchName.Add ( new TName ( "L → 立L" ) );
+			rut0.BL_BranchName.Add ( new TName ( "M → 立M" ) );
+			rut0.BL_BranchName.Add ( new TName ( "H → 立H" ) );
+			chara.BD_Route.Add ( rut0 );
 
-//			BL_Brc.Add ( new Branch ( ic, BL_Cmd[ ic ], ia, (Action)BL_Sqc[ ia ] ) );
-//			BL_Brc.Add ( new Branch0 () );
-		}
-#endif
-
-		private void MakeRoute ( Chara chara, Script scp )
-		{
-			Route rut = new Route ( "地上通常技", "立ち状態で移行する技全般" );
-//			Route rut = new Route ( "test", "test0" );
-			rut.BL_BranchName.Add ( new TName ( "立L" ) );
-			rut.BL_BranchName.Add ( new TName ( "立M" ) );
-			rut.BL_BranchName.Add ( new TName ( "立H" ) );
-
-			chara.BD_Route.Add ( rut );
+			Route rut1 = new Route ( "地上移動", "立ち状態から出る移動全般" );
+			rut1.BL_BranchName.Add ( new TName ( "6 → FrontMove" ) );
+			rut1.BL_BranchName.Add ( new TName ( "4 → BackMove" ) );
+			rut1.BL_BranchName.Add ( new TName ( "8 → VerticalJump" ) );
+			rut1.BL_BranchName.Add ( new TName ( "9 → FrontJump" ) );
+			rut1.BL_BranchName.Add ( new TName ( "7 → BackJump" ) );
+			chara.BD_Route.Add ( rut1 );
 		}
 
 

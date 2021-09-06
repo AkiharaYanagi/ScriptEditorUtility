@@ -57,16 +57,15 @@ namespace ScriptEditor
 			Cb_Command.DataSource = ch.BD_Command.GetBindingList ();
 		}
 
+#if false
 		public void SetRoute ( Route rut )
 		{
-#if false
 			//ルートからBD_Brcを作成
 			BD_Brc bd_Brc = new BD_Brc ();
 			foreach ( TName tn in rut.BL_BranchName )
 			{
 				bd_Brc.Add ( BD_Branch.Get ( tn.Name ) );
 			}
-#endif
 			//コントロールに設定
 //			EL_Branch.SetData ( rut.BL_BranchName );
 			EL_Branch.ResetItems ();
@@ -86,6 +85,7 @@ namespace ScriptEditor
 				Cb_Action.SelectedValue = br.NameAction;
 			}
 		}
+#endif
 
 
 		//コンボボックスユーザ選択時

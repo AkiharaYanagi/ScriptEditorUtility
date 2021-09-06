@@ -78,6 +78,7 @@ namespace ScriptEditor
 
 		//ルートネームリスト
 		public BindingList < string > BL_RutName = new BindingList<string> ();
+//		public BindingList < TName > BL_RutName = new BindingList<string> ();
 
 		//------------------------------------------------
 		//枠

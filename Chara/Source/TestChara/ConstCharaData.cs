@@ -68,10 +68,10 @@ namespace ScriptEditor
 		//デフォルトブランチ名
 		private readonly string[] NAME_BRANCH = new string[] 
 		{
-			"立L", "立M", "立H", 
-			"FrontMove", "BackMove", 
+			"L → 立L", "M → 立M", "H → 立H", 
+			"6 → FrontMove", "4 → BackMove", 
 			"FrontDuration", "BackDuration", "FrontDash", "BackDash", 
-			"VerticalJump", "FrontJump", "BackJump", 
+			"8 → VerticalJump", "9 → FrontJump", "7 → BackJump", 
 		};
 
 	}

@@ -49,13 +49,22 @@ namespace ScriptEditor
 			//コントロール(ブランチ)
 			EL_Branch.Location = new Point ( 303, 70 );
 			this.Controls.Add ( EL_Branch );
+			EL_Branch.SelectedIndexChanged = ()=>
+			{
+				SelectBranch ();
+			};
+			//==============================================================
 
+//			CB_Branch.DisplayMember = "Name";
+			CB_Branch.ValueMember = "Name";
 		}
 
+		//キャラデータの設定
 		public void SetCharaData ( Chara ch )
 		{
 			//保存
 			BD_Branch = ch.BD_Branch;
+			CB_Branch.DataSource = BD_Branch.GetBindingList ();
 
 			//リストに登録
 			EL_Route.SetData ( ch.BD_Route );
@@ -64,10 +73,31 @@ namespace ScriptEditor
 			SetRoute ( EL_Route.Get() );
 		}
 
+		//ルートの設定
 		public void SetRoute ( Route rut )
 		{
 			Tb_Summary.Text = rut.Summary;
 			EL_Branch.SetData ( rut.BL_BranchName );
+
+			//ブランチの選択
+			SelectBranch ();
+		}
+
+		//ブランチの選択
+		private void SelectBranch ()
+		{
+			//ブランチの選択
+			if ( 0 == EL_Branch.GetListBox().Items.Count ) { return; }
+			TName tn = EL_Branch.Get ();
+			CB_Branch.SelectedValue = tn.Name;
+		}
+
+		//コンボボックス選択時
+		private void CB_Branch_SelectionChangeCommitted ( object sender, System.EventArgs e )
+		{
+			TName tn = EL_Branch.Get ();
+			tn.Name = ((Branch)CB_Branch.SelectedItem).Name;
+			EL_Branch.ResetItems ();
 		}
 	}
 }
