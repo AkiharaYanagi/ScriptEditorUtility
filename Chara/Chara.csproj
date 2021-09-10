@@ -73,7 +73,7 @@
     <Compile Include="Source\EditChara\SelectedScript.cs" />
     <Compile Include="Source\GameKey.cs" />
     <Compile Include="Source\GameKeyCommand.cs" />
-    <Compile Include="Source\IOChara\CharaToMem.cs" />
+    <Compile Include="Source\IOChara\CharaToDoc.cs" />
     <Compile Include="Source\IOChara\DocToChara.cs" />
     <Compile Include="Source\IOChara\Document.cs" />
     <Compile Include="Source\IOChara\IOChara.cs" />

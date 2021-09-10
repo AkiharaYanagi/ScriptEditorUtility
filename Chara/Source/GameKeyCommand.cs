@@ -9,7 +9,7 @@ namespace ScriptEditor
 	// ◆方向要素入力(2E, 6E, 8E, 4E)も判定する
 	// ◆レバーは内部的に全方位別で記録されるが、外部からのコマンド的には１方向を指定する
 	// ◆方向(右正)、否定もチェックする
-	// コマンドとして「否定」フラグ→「指定のゲームキー状態でなくなったとき」
+	// ◆コマンドとして「否定」フラグとは「指定のゲームキー状態でなくなったとき」
 	//------------------------------------------------------------------
 	//下方向要素(2E)	前方向要素(6E)	上方向要素(8E)	後方向要素(4E)
 	//  * * *		  * * 9			  7 8 9			  7 * *
@@ -43,46 +43,51 @@ namespace ScriptEditor
 		//キー入力状態
 		public enum GameKeyCommandState
 		{
-			KEY_OFF = 0,		// 入力無
-			KEY_ON = 1,			// 入力有
-			KEY_PUSH = 2,		// 押した瞬間
-			KEY_RELE = 3,		// 離した瞬間
-			KEY_WILD = 4,		// どの状態でも
-			KEY_IS = 5,			// 現在のみ押した状態
-			KEY_NIS = 6,		// 現在のみ離した状態
+			KEY_OFF = 0,		// [__] 入力無
+			KEY_ON = 1,			// [--] 入力有
+			KEY_PUSH = 2,		// [-_] 押した瞬間
+			KEY_RELE = 3,		// [_-] 離した瞬間
+			KEY_WILD = 4,		// [**] どの状態でも
+			KEY_IS = 5,			// [*_] 現在のみ押した状態
+			KEY_NIS = 6,		// [*-] 現在のみ離した状態
 		}
-		//@define	using GKC_ST = GameKeyCommand.GameKeyCommandState;
 
 		//---------------------------------------------------
 		//レバー入力種類
+		//矢印テンキー表示を[1]から１回転
+		//  7 8 9
+		//  4 N 6
+		//  1→2 3
 		public enum LeverCommand
 		{
 			//方向
-			LVR_CMD_N = 0,	//入力無
-			LVR_CMD_1 = 1,
-			LVR_CMD_2 = 2,
-			LVR_CMD_3 = 3,
-			LVR_CMD_6 = 4,
-			LVR_CMD_9 = 5,
-			LVR_CMD_8 = 6,
-			LVR_CMD_7 = 7,
-			LVR_CMD_4 = 8,
+//			C_N = 0,	//入力無
+			C_1 = 0,
+			C_2 = 1,
+			C_3 = 2,
+			C_6 = 3,
+			C_9 = 4,
+			C_8 = 5,
+			C_7 = 6,
+			C_4 = 7,
 
 			//方向要素(Element)(いずれか)
-			LVR_CMD_2E = 9,
-			LVR_CMD_6E = 10,
-			LVR_CMD_8E = 11,
-			LVR_CMD_4E = 12,
+			C_2E = 8,
+			C_6E = 9,
+			C_8E = 10,
+			C_4E = 11,
+
+			//未指定
+			C_N = 12,
 		}
-		//@define	using GK_L = GameKeyCommand.LeverCommand;
-		public const int LeverCommandNum = 13;
+		public const int LeverCommandNum = 12;
 
 		//======================================================================================
 		//レバー判定状態
 		public GKC_ST [] Lvr { set; get; } = new GKC_ST [ LeverCommandNum ];
 
 		//現在レバーインデックス
-		public int IdLvr { get; set; } = 0;
+//		public GK_L IdLvr { get; set; } = 0;
 
 		//---------------------------------------------------
 		//ボタン状態
@@ -98,6 +103,7 @@ namespace ScriptEditor
 		//コンストラクタ
 		public GameKeyCommand ()
 		{
+			//enum 値型なのでforeachは使わない
 			for ( int i = 0; i < LeverCommandNum; ++ i )
 			{
 				Lvr [ i ] = GKC_ST.KEY_WILD;
@@ -110,65 +116,76 @@ namespace ScriptEditor
 
 
 		//---------------------------------------------------
-#if false
-
-		//現在の対象レバーインデックスを取得
-		public int GetIndexLever ()
-		{
-			for ( int i = 0; i < LeverCommandNum; ++ i )
-			{
-				if ( GKC_ST.KEY_WILD != Lvr[i] ) { return i; }
-			}
-			return 0;
-		}
-
-		public void SetIndexLever ( int index )
-		{
-			if ( index < 0 || LeverCommandNum <= index ) { return; }
-			Lvr [ index ] = GKC_ST.KEY_PUSH;
-		}
-#endif
-
-		//現在の対象レバー種類を取得
+		//現在のレバー種類を取得(先頭優先)
 		public GK_L GetLever ()
 		{
-
 			for ( int i = 0; i < LeverCommandNum; ++ i )
 			{
-//				if ( GKC_ST.KEY_WILD != Lvr[i] ) { return (GK_L)i; }
-				if ( GKC_ST.KEY_ON == Lvr[i] ) { return (GK_L)i; }
-				if ( GKC_ST.KEY_PUSH == Lvr[i] ) { return (GK_L)i; }
+				if ( GKC_ST.KEY_WILD != Lvr[i] ) { return (GK_L)i; }
+//				if ( GKC_ST.KEY_ON == Lvr[i] ) { return (GK_L)i; }
+//				if ( GKC_ST.KEY_PUSH == Lvr[i] ) { return (GK_L)i; }
 			}
-			return GK_L.LVR_CMD_N;
-#if false
-			return Lvr [ IdLvr ];
-#endif
+//			return GK_L.C_N;	//該当なし
+			return GK_L.C_1;	//該当なし
 		}
 
 		//レバー設定
+		//  7 8 9
+		//  4 N 6
+		//  1→2 3
 		public void SetLever ( GK_L gkl )
 		{
 			switch ( gkl )
 			{
-			case GK_L.LVR_CMD_1: 
-				ClearLever ();
-				Lvr [ (int) GK_L.LVR_CMD_4 ] = GKC_ST.KEY_OFF;
-				Lvr [ (int) GK_L.LVR_CMD_1 ] = GKC_ST.KEY_ON;
-				Lvr [ (int) GK_L.LVR_CMD_2 ] = GKC_ST.KEY_OFF;
-			break;
+			case GK_L.C_1: SetNeighbor ( GK_L.C_1, GK_L.C_4, GK_L.C_2 ); break;
+			case GK_L.C_2: SetNeighbor ( GK_L.C_2, GK_L.C_1, GK_L.C_3 ); break;
+			case GK_L.C_3: SetNeighbor ( GK_L.C_3, GK_L.C_2, GK_L.C_6 ); break;
+			case GK_L.C_4: SetNeighbor ( GK_L.C_4, GK_L.C_1, GK_L.C_7 ); break;
+			case GK_L.C_6: SetNeighbor ( GK_L.C_6, GK_L.C_3, GK_L.C_9 ); break;
+			case GK_L.C_7: SetNeighbor ( GK_L.C_7, GK_L.C_4, GK_L.C_8 ); break;
+			case GK_L.C_8: SetNeighbor ( GK_L.C_8, GK_L.C_7, GK_L.C_9 ); break;
+			case GK_L.C_9: SetNeighbor ( GK_L.C_9, GK_L.C_8, GK_L.C_6 ); break;
 			}
+		}
+
+		private void SetNeighbor ( GK_L gkl_on, GK_L gkl_off0, GK_L gkl_off1 )
+		{
+			ClearLever ();
+			Lvr [ (int) gkl_off0 ] = GKC_ST.KEY_OFF;
+			Lvr [ (int) gkl_on ] = GKC_ST.KEY_ON;	//斜め入力を排除するため隣接はOFF
+			Lvr [ (int) gkl_off1 ] = GKC_ST.KEY_OFF;
 		}
 
 		//レバー状態指定を取得
 		public GKC_ST GetLvrSt ()
 		{
-			return Lvr [ IdLvr ];
+			GK_L gk_l = GetLever ();
+			return Lvr [ (int)gk_l ];
+		}
+		public GKC_ST GetLvrSt ( GK_L gk_l )
+		{
+			return Lvr [ (int)gk_l ];
 		}
 
 		//レバー状態指定を設定
 		public void SetLvrSt ( GKC_ST st )
 		{
-			Lvr [ IdLvr ] = st;
+			//未指定だったらC1
+			GK_L gk_l = GetLever ();
+			Lvr [ (int)gk_l ] = st;
+		}
+		public void SetLvrSt ( GKC_ST st, GK_L gk_l )
+		{
+			Lvr [ (int)gk_l ] = st;
+		}
+
+		public bool AllLvrWild ()
+		{
+			for ( int i = 0; i < Lvr.Length; ++ i )
+			{
+				if ( Lvr[i] == GKC_ST.KEY_WILD ) { return false; }
+			}
+			return true;
 		}
 
 		//レバー状態初期化
@@ -181,27 +198,38 @@ namespace ScriptEditor
 		}
 
 		//レバー回転
-		public void Lever_L ()
-		{
-			GKC_ST st = GetLvrSt ();
-			ClearLever ();
-			
-			++ IdLvr;
-			if ( LeverCommandNum - 1 == IdLvr ) { IdLvr = 0; }
-			SetLvrSt ( st );
-		}
-
 		public void Lever_R ()
 		{
-			GKC_ST st = GetLvrSt ();
-			ClearLever ();
+			//右方向にシフト
+			//  7 8→9
+			//  4 N 6
+			//  1←2 3
 			
-			-- IdLvr;
-			if ( 0 > IdLvr ) { IdLvr = LeverCommandNum - 2; }
-			SetLvrSt ( st );
+			//12369874, 2E,6E,8E,4E
+			GKC_ST st1 = Lvr [ (int)GK_L.C_1 ];	//初期値保存
+			for ( int i = (int)GK_L.C_1; i < (int)GK_L.C_4E; ++ i )
+			{
+				Lvr [ i ] = Lvr [ i + 1 ];
+			}
+			Lvr [ (int)GK_L.C_4E ] = st1;
 		}
 
+		public void Lever_L ()
+		{
+			//  7 8←9
+			//  4 N 6
+			//  1→2 3
+			
+			//12369874, 2E,6E,8E,4E
+			GKC_ST st4E = Lvr [ (int)GK_L.C_4E ];	//初期値保存
+			for ( int i = (int)GK_L.C_4E; i > (int)GK_L.C_1; -- i )
+			{
+				Lvr [ i ] = Lvr [ i - 1 ];
+			}
+			Lvr [ (int)GK_L.C_1 ] = st4E;
+		}
 
+		//======================================================================
 		//比較
 		//thisの状態がチェックするコマンド条件、引数がプレイヤ入力
 		//引数：コマンド成立条件となるゲームキー状態, キャラクタ向き(右正)
@@ -248,6 +276,7 @@ namespace ScriptEditor
 			//否定の場合は反転して返す (排他的論理和)
 			return ret ^ this.Not;
 		}
+		//======================================================================
 
 
 		//キーデータ左右入替
@@ -261,17 +290,17 @@ namespace ScriptEditor
 			{
 				bool tempBool;
 
-				tempBool = gk.Lvr [ (int)GK_L.LVR_CMD_1 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_1 ] = gk.Lvr [ (int)GK_L.LVR_CMD_3 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_3 ] = tempBool;
+				tempBool = gk.Lvr [ (int)GK_L.C_1 ];
+				gk.Lvr [ (int)GK_L.C_1 ] = gk.Lvr [ (int)GK_L.C_3 ];
+				gk.Lvr [ (int)GK_L.C_3 ] = tempBool;
 
-				tempBool = gk.Lvr [ (int)GK_L.LVR_CMD_4 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_4 ] = gk.Lvr [ (int)GK_L.LVR_CMD_6 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_6 ] = tempBool;
+				tempBool = gk.Lvr [ (int)GK_L.C_4 ];
+				gk.Lvr [ (int)GK_L.C_4 ] = gk.Lvr [ (int)GK_L.C_6 ];
+				gk.Lvr [ (int)GK_L.C_6 ] = tempBool;
 
-				tempBool = gk.Lvr [ (int)GK_L.LVR_CMD_7 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_7 ] = gk.Lvr [ (int)GK_L.LVR_CMD_9 ];
-				gk.Lvr [ (int)GK_L.LVR_CMD_9 ] = tempBool;
+				tempBool = gk.Lvr [ (int)GK_L.C_7 ];
+				gk.Lvr [ (int)GK_L.C_7 ] = gk.Lvr [ (int)GK_L.C_9 ];
+				gk.Lvr [ (int)GK_L.C_9 ] = tempBool;
 			}
 		}
 
@@ -328,7 +357,7 @@ namespace ScriptEditor
 			GameKeyCommand g = (GameKeyCommand)obj;
 			
 			if ( ! this.Lvr.SequenceEqual ( g.Lvr ) ) { return false; }
-			if ( ! (this.IdLvr == g.IdLvr) ) { return false; }
+//			if ( ! (this.IdLvr == g.IdLvr) ) { return false; }
 			if ( ! this.Btn.SequenceEqual ( g.Btn ) ) { return false; }
 			if ( ! (this.Not == g.Not) ) { return false; }
 
@@ -338,8 +367,8 @@ namespace ScriptEditor
 		public override int GetHashCode ()
 		{
 			int i0 = Lvr.GetHashCode ();
-			int i1 = i0 ^ IdLvr.GetHashCode ();
-			int i2 = i1 ^ Btn.GetHashCode ();
+//			int i1 = i0 ^ IdLvr.GetHashCode ();
+			int i2 = i0 ^ Btn.GetHashCode ();
 			int i3 = i2 ^ Not.GetHashCode ();
 			return i3;
 		}

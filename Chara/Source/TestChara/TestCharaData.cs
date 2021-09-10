@@ -14,10 +14,12 @@ namespace ScriptEditor
 	//		データファイルの復旧や、バージョンが異なるときにソースから作成できる状態にしておく
 	//==================================================================================
 	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyCommand.LeverCommand;
 
 	using BD_Seq = BindingDictionary < Sequence >;
 	using BL_Sequence = BindingList < Sequence >;
 	using BL_Script = List < Script >;
+	using BD_CMD = BindingDictionary < Command >;
 
 	delegate void FuncEditScript ( Script scp );
 
@@ -254,7 +256,7 @@ namespace ScriptEditor
 			script0.ListHRect.Add ( new Rectangle ( -100, -200, 200, 350 ) );
 			script0.ListARect.Add ( new Rectangle ( 60, -150, 80, 20 ) );
 			script0.ListORect.Add ( new Rectangle ( 0, -280, 40, 60 ) );
-			script0.BD_EfGnrt.Add ( new EffectGenerate () );
+//			script0.BD_EfGnrt.Add ( new EffectGenerate () );
 
 			//コピー
 			Script script1 = new Script ( script0 );
@@ -292,25 +294,27 @@ namespace ScriptEditor
 		}
 
 		//Command
-		private void MakeCommand ( BindingDictionary < Command > bd_c )
+		private void MakeCommand ( BD_CMD bd_c )
 		{
 			//コマンド名から作成
 			int SIZE_COMMAND = NAME_COMMAND.Length;
 			for ( int i = 0; i < SIZE_COMMAND; ++i )
 			{
 				EditChara.Inst.AddCommand ( NAME_COMMAND[ i ] );
-				bd_c.GetBindingList()[ i ].ListGameKeyCommand.Add ( new GameKeyCommand () );
+				bd_c.Get( i ).ListGameKeyCommand.Add ( new GameKeyCommand () );
 			}
-			SetCommand ( bd_c, 0, 0 );		// L : Btn0
-			SetCommand ( bd_c, 1, 1 );		// M : Btn1
-			SetCommand ( bd_c, 2, 2 );		// H : Btn2
+			SetCommand ( bd_c, 0, 0 );		// L  : Btn0
+			SetCommand ( bd_c, 1, 1 );		// Ma : Btn1
+			SetCommand ( bd_c, 2, 2 );		// Mb : Btn2
+			SetCommand ( bd_c, 3, 3 );		// H  : Btn3
+
+			bd_c.Get ( 4 ).ListGameKeyCommand [ 0 ].SetLever ( GK_L.C_6 );
 		}
 
-		private void SetCommand ( BindingDictionary < Command > bd_c, int indexCmd, int btn )
+		private void SetCommand ( BD_CMD bd_c, int indexCmd, int btn )
 		{
-			bd_c.GetBindingList()[ indexCmd ].ListGameKeyCommand.Add ( new GameKeyCommand () );
-			bd_c.GetBindingList()[ indexCmd ].ListGameKeyCommand[ 1 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
-			bd_c.GetBindingList()[ indexCmd ].LimitTime = 2;
+			bd_c.Get( indexCmd ).ListGameKeyCommand[ 0 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
+			bd_c.Get( indexCmd ).LimitTime = 1;
 		}
 
 
@@ -336,9 +340,10 @@ namespace ScriptEditor
 		private void MakeRoute ( Chara chara )
 		{
 			Route rut0 = new Route ( "地上通常技", "立ち状態で移行する技全般" );
-			rut0.BL_BranchName.Add ( new TName ( "L → 立L" ) );
-			rut0.BL_BranchName.Add ( new TName ( "M → 立M" ) );
-			rut0.BL_BranchName.Add ( new TName ( "H → 立H" ) );
+			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 0 ] ) );
+			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 1 ] ) );
+			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 2 ] ) );
+			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 3 ] ) );
 			chara.BD_Route.Add ( rut0 );
 
 			Route rut1 = new Route ( "地上移動", "立ち状態から出る移動全般" );
@@ -351,11 +356,10 @@ namespace ScriptEditor
 		}
 
 
-		//garnish
+		//エディット（ガーニッシュ）のテスト
 		private void MakeGarnish ( Chara chara )
 		{
-			//エディット（ガーニッシュ）のテスト
-			//test Effect
+			//ガーニッシュの編集
 			EditGarnish eg = EditChara.Inst.EditGarnish;
 
 			//エフェクト

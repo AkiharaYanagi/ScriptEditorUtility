@@ -6,7 +6,8 @@ using System.Drawing;
 namespace ScriptEditor
 {
 	using BL_Sqc = BindingList < Sequence >;
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyCommand.LeverCommand;
 
 	//==================================================
 	//	ドキュメント型からキャラへ変換する
@@ -299,17 +300,24 @@ namespace ScriptEditor
 					gameKey.Not = elemKey.Attributes[ atrbIndex ].Value.CompareTo ( "True" ) == 0;
 
 					//レバー
+					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+					{
+						string strLvr = elemKey.Attributes [ ++ atrbIndex ].Value;
+						gameKey.Lvr [ i ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
+					}
+#if false
 					int id = IOChara.Parse ( elemKey, ++ atrbIndex );
-					gameKey.IdLvr = id;
+					gameKey.IdLvr = (GameKeyCommand.LeverCommand)id;
 
 					string vLvr = elemKey.Attributes[ ++ atrbIndex ].Value;
 					gameKey.Lvr [ id ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), vLvr );
+#endif
 
 					//ボタン
 					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
 					{
 						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
-						gameKey.Btn [ i ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), v );
+						gameKey.Btn [ i ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
 					}
 
 					//コマンドに加える

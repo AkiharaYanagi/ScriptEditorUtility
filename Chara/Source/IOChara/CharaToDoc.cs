@@ -20,7 +20,7 @@ namespace ScriptEditor
 	//キャラからをスクリプトの対象となる値を読み込み、
 	//キャラスクリプトとしてテキストメモリストリームに変換
 	//============================================================
-	public class CharaToMem
+	public class CharaToDoc
 	{
 		public MemoryStream Run ( Chara chara )
 		{
@@ -232,17 +232,17 @@ namespace ScriptEditor
 					//否定
 					sw.Write ( " Not=\"" + gameKey.Not.ToString () + "\"" );
 
-					//レバー
-#if false
+					//レバー(全方向)
 					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
 					{
-						strmWriter.Write ( " Key_" + i.ToString() + "=\"" );
-						strmWriter.Write ( gameKey.Lvr[i].ToString () + "\"" );
+						sw.Write ( " Key_" + i.ToString() + "=\"" );
+						sw.Write ( gameKey.Lvr[i].ToString () + "\"" );
 					}
-#endif
+#if false
 					sw.Write ( " IdLvr =\"" );
 					sw.Write ( gameKey.IdLvr + "\"" );
-					sw.Write ( " Lvr =\"" + gameKey.Lvr[gameKey.IdLvr].ToString () + "\"" );
+					sw.Write ( " Lvr =\"" + gameKey.Lvr[(int)gameKey.IdLvr].ToString () + "\"" );
+#endif
 
 					//ボタン
 					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )

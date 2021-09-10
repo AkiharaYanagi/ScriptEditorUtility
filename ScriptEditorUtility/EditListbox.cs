@@ -10,7 +10,6 @@ namespace ScriptEditor
 	public partial class EditListbox < T >  : UserControl where T : IName, new ()
 	{
 		//対象
-//		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
 		public BindingList < T > BL_T { get; set; } = new BindingList < T > ();
 
 		public ListBox GetListBox () { return listBox1; }
@@ -19,7 +18,6 @@ namespace ScriptEditor
 		public EditListbox ()
 		{
 			InitializeComponent ();
-//			listBox1.DataSource = BD_T.GetBindingList ();
 			listBox1.DataSource = BL_T;
 			listBox1.DisplayMember = "Name";
 

@@ -28,15 +28,6 @@ namespace ScriptEditor
 			Chara ch_load = new Chara ();
 			LoadChara loadChara = new LoadChara ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
-#if false
-			//Editからの操作
-			EditChara.Inst.SetCharaDara ( ch_test );
-			EditChara.Inst.AddBranch ();
-			Route rut = EditChara.Inst.Chara.BD_Route.Get ( 0 );
-			Branch br = EditChara.Inst.Chara.BD_Branch.Get ( 0 );
-			rut.BL_BranchName.Add ( new TName ( br.Name ) );
-#endif
-
 
 			//コントロールに渡してテスト
 			ctrl_Route1.SetCharaData  ( ch_test );

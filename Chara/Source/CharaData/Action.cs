@@ -18,9 +18,9 @@
 	//アクション属性 定義
 	public enum ActionCategory
 	{
-		NEUTRAL, MOVE, DASH, ATTACK_L, ATTACK_M, ATTACK_H
-		, CLANG, AVOID, DOTTY, DAMAGED
-		, THROW, GUARD, DEMO, OTHER
+		NEUTRAL, MOVE, DASH, ATTACK_L, ATTACK_M, ATTACK_H, 
+		POISED, CLANG, AVOID, DOTTY, DAMAGED, 
+		THROW, GUARD, DEMO, OTHER
 	}
 
 	//-------------------------------------------------------

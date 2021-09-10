@@ -30,7 +30,7 @@ namespace ScriptEditor
 
 			//キャラスクリプトをDocument形式でテキストメモリストリームに変換
 //			MemoryStream mstrmChara = GetTextMemoryStream ( chara );
-			CharaToMem chtom = new CharaToMem ();
+			CharaToDoc chtom = new CharaToDoc ();
 			MemoryStream mstrmChara = chtom.Run ( chara );
 
 			//ストリームリーダにセット
