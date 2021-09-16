@@ -26,13 +26,24 @@ namespace ScriptEditor
 		//スクリプト挿入
 		public void InsertScript ()
 		{
-			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
-			SelectedSequence.ListScript.Insert ( i, new Script () );
+			SelectedSequence.ListScript.Insert ( SelectedScriptIndex, new Script () );
 		}
 		public void InsertScript ( Script script )
 		{
-			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
-			SelectedSequence.ListScript.Insert ( i, script );
+			SelectedSequence.ListScript.Insert ( SelectedScriptIndex, script );
+		}
+
+		//複数挿入
+		public void MultiInsert ()
+		{
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+			Script[] scripts = new Script [ e - s ];
+			for ( int i = 0; i < e - s; ++ i )
+			{
+				scripts [ i ] = new Script ();
+			}
+			SelectedSequence.ListScript.InsertRange ( s, scripts );
 		}
 
 		//選択中のスクリプトを削除
@@ -41,6 +52,19 @@ namespace ScriptEditor
 			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
 			SelectedSequence.ListScript.RemoveAt ( i );
 		}
+
+		//複数削除
+		public void MultiRem ()
+		{
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+			SelectedSequence.ListScript.RemoveRange ( s, e - s );
+		}
+
+
+
+		//--------------------------------------------------------------------
+		//コピー
 		public SELECTED_SCRIPT CopiedScript { get; } = new SELECTED_SCRIPT ( 0, 0 );
 
 		//コピー元スクリプトを保存

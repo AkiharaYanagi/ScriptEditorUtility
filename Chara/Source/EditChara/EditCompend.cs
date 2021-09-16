@@ -12,12 +12,23 @@ namespace ScriptEditor
 	//---------------------------------------------------------------------
 	public partial class EditCompend
 	{
+		//---------------------------------------------------------------------
 		//編集対象
 		public Compend Compend { get; set; } = null;
 
 		//部分編集
 		public EditSequence EditSequence { get; set; } = new EditSequence ();
 		public EditScript EditScript { get; set; } = new EditScript ();
+
+		//---------------------------------------------------------------------
+		//選択位置
+		public Sequence SelectedSequence { get; set; } = null;
+		public Script SelectedScript { get; set; } = null;
+
+		public int SelectedScriptIndex { get; set; } = 0;
+		public int SelectedSpanStart { get; set; } = 0;
+		public int SelectedSpanEnd { get; set; } = 0;
+		//---------------------------------------------------------------------
 
 		//---------------------------------------------------------------------
 		//対象設定
@@ -36,18 +47,6 @@ namespace ScriptEditor
 		public bool IsCopy { get; set; } = false;       //	コピー中フラグ
 		public bool AllScript { get; set; } = false;    //	スクリプト全体の変更トグル
 		public bool SpanScript { get; set; } = false;   //	スクリプト範囲の変更トグル
-
-		//---------------------------------------------------------------------
-		//	選択
-		//		ここでのインデックスは見た目からの位置なのでBL_DCTには影響なく用いることができる
-		//---------------------------------------------------------------------
-		//選択位置
-		public Sequence SelectedSequence { get; set; } = null;
-		public Script SelectedScript { get; set; } = null;
-
-		public int SelectedScriptIndex { get; set; } = 0;
-		public int SelectedSpanStart { get; set; } = 0;
-		public int SelectedSpanEnd { get; set; } = 0;
 
 		//---------------------------------------------------------------------
 		//数値指定(範囲チェック付)
@@ -107,6 +106,7 @@ namespace ScriptEditor
 		public void Assosiate ()
 		{
 			L_Scp lscp = SelectedSequence.ListScript;
+			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
 
 			//グループ
 			EditScript.Restruct ( lscp, SelectedScript.Frame );

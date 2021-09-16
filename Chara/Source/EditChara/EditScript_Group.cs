@@ -101,6 +101,7 @@ namespace ScriptEditor
 		//グループの選択
 		public void SelectGroup ( LScp lsScp, int frame )
 		{
+			if ( frame >= lsScp.Count ) { return; }
 			SelectedGroup = L_ScriptGroup [ lsScp [ frame ].Group ];
 		}
 
