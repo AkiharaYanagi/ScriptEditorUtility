@@ -55,38 +55,18 @@ namespace ScriptEditor
 			//コンボボックスの更新
 			Cb_Action.DataSource = ch.behavior.BD_Sequence.GetBindingList ();
 			Cb_Command.DataSource = ch.BD_Command.GetBindingList ();
-		}
 
-#if false
-		public void SetRoute ( Route rut )
-		{
-			//ルートからBD_Brcを作成
-			BD_Brc bd_Brc = new BD_Brc ();
-			foreach ( TName tn in rut.BL_BranchName )
+			//１つ以上存在したら選択
+			if ( EL_Branch.Count () > 0 )
 			{
-				bd_Brc.Add ( BD_Branch.Get ( tn.Name ) );
-			}
-			//コントロールに設定
-//			EL_Branch.SetData ( rut.BL_BranchName );
-			EL_Branch.ResetItems ();
-
-			//選択
-			Branch br = EL_Branch.Get ();
-			if ( br is null )
-			{
-				Cb_Command.Enabled = false;
-				Cb_Action.Enabled = false;
-			}
-			else
-			{
+				EL_Branch.GetListBox ().SelectedIndex = 0;
+				Branch br = EL_Branch.Get ();
 				Cb_Command.Enabled = true;
 				Cb_Action.Enabled = true;
 				Cb_Command.SelectedValue = br.NameCommand;
 				Cb_Action.SelectedValue = br.NameAction;
 			}
 		}
-#endif
-
 
 		//コンボボックスユーザ選択時
 		private void Cb_Command_SelectionChangeCommitted ( object sender, EventArgs e )

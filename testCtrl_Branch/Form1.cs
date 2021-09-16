@@ -30,7 +30,6 @@ namespace ScriptEditor
 
 			//エディットに登録
 			EditChara.Inst.SetCharaDara ( ch_test );
-			EditChara.Inst.AddBranch();
 
 			//コントロールに渡してテスト
 			ctrl_Branch1.SetCharaData  ( ch_test );

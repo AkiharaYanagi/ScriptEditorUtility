@@ -1,6 +1,7 @@
 ﻿//※ #defineはソースの先頭のみ
 //#define MAKE_CHARA_FROM_SOURCE
 //
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing;
@@ -20,6 +21,7 @@ namespace ScriptEditor
 	using BL_Sequence = BindingList < Sequence >;
 	using BL_Script = List < Script >;
 	using BD_CMD = BindingDictionary < Command >;
+	using BD_BRC = BindingDictionary < Branch >;
 
 	delegate void FuncEditScript ( Script scp );
 
@@ -75,7 +77,7 @@ namespace ScriptEditor
 			Script script0 = MakeScript ();
 
 			//アクション内の値を指定
-			SetAction ();
+			SetAction ( chara );
 
 			//===================================================================
 			//@info 手動操作はBindingListではなく、BindingDictionaryを用いる
@@ -84,7 +86,7 @@ namespace ScriptEditor
 
 			//スクリプトコピー
 			Script scp_cpy = bd_seq.Get ( 0 ).ListScript [ 0 ];
-			scp_cpy.Copy ( script0 );
+	//		scp_cpy.Copy ( script0 );
 
 			//コマンド
 			MakeCommand ( chara.BD_Command );
@@ -96,13 +98,15 @@ namespace ScriptEditor
 			MakeRoute ( chara );
 
 			//すべてのアクションにおけるスクリプトへの変更
+#if false
 			void f_editScp ( Script scp ) { scp.ImgName = "dummy.png"; }
 			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
+#endif
 
 			//--------------------------------------------
 			//エディット（ガーニッシュ）のテスト
 			MakeGarnish ( chara );
-			
+
 			//--------------------------------------------
 			//すべてのエフェクトにおけるスクリプトへの変更
 			BL_Sequence blsqcEf = chara.garnish.BD_Sequence.GetBindingList();
@@ -189,12 +193,39 @@ namespace ScriptEditor
 		}
 
 		//アクション内の値を指定
-		private void SetAction ()
+		private void SetAction ( Chara chara )
 		{
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 
 			//Stand
-			SetScript ( 0, 32 );
+			SetScript ( 0, 64 );
+
+			BD_Seq bd_act = chara.behavior.BD_Sequence;
+			BL_Script bl_scp = bd_act.Get ( 0 ).ListScript;
+			for ( int i = 0; i < 16; ++ i )
+			{
+				bl_scp [ i ].Group = 1;
+				bl_scp [ i ].Pos = new Point ( -250, -450 );
+				bl_scp [ i ].ImgName = "Stand_00.png";
+			}
+			for ( int i = 16; i < 32; ++ i )
+			{
+				bl_scp [ i ].Group = 2;
+				bl_scp [ i ].Pos = new Point ( -250, -450 );
+				bl_scp [ i ].ImgName = "Stand_01.png";
+			}
+			for ( int i = 32; i < 48; ++ i )
+			{
+				bl_scp [ i ].Group = 3;
+				bl_scp [ i ].Pos = new Point ( -250, -450 );
+				bl_scp [ i ].ImgName = "Stand_00.png";
+			}
+			for ( int i = 48; i < 64; ++ i )
+			{
+				bl_scp [ i ].Group = 4;
+				bl_scp [ i ].Pos = new Point ( -250, -450 );
+				bl_scp [ i ].ImgName = "Stand_02.png";
+			}
 
 			//FrontMove
 			SetScript ( 1, 16 );
@@ -303,18 +334,48 @@ namespace ScriptEditor
 				EditChara.Inst.AddCommand ( NAME_COMMAND[ i ] );
 				bd_c.Get( i ).ListGameKeyCommand.Add ( new GameKeyCommand () );
 			}
-			SetCommand ( bd_c, 0, 0 );		// L  : Btn0
-			SetCommand ( bd_c, 1, 1 );		// Ma : Btn1
-			SetCommand ( bd_c, 2, 2 );		// Mb : Btn2
-			SetCommand ( bd_c, 3, 3 );		// H  : Btn3
+			SetCommand ( bd_c, "L", 0 );		// L  : Btn0
+			SetCommand ( bd_c, "Ma", 1 );		// Ma : Btn1
+			SetCommand ( bd_c, "Mb", 2 );		// Mb : Btn2
+			SetCommand ( bd_c, "H", 3 );        // H  : Btn3
 
-			bd_c.Get ( 4 ).ListGameKeyCommand [ 0 ].SetLever ( GK_L.C_6 );
+			SetCommandLvr ( bd_c, "6", GKC_ST.KEY_IS, GK_L.C_6 );
+			SetCommandLvr ( bd_c, "4", GKC_ST.KEY_IS, GK_L.C_4 );
+			SetCommandLvr ( bd_c, "6離", GKC_ST.KEY_NIS, GK_L.C_6 );
+			SetCommandLvr ( bd_c, "4離", GKC_ST.KEY_NIS, GK_L.C_4 );
+			SetCommandLvr ( bd_c, "8", GKC_ST.KEY_IS, GK_L.C_8 );
+			SetCommandLvr ( bd_c, "9", GKC_ST.KEY_IS, GK_L.C_9 );
+			SetCommandLvr ( bd_c, "7", GKC_ST.KEY_IS, GK_L.C_7 );
+
+			SetCommandLvr ( bd_c, "6.6", GKC_ST.KEY_IS, GK_L.C_6 );
+			SetCommandLvr_i ( bd_c, "6.6", 1, GKC_ST.KEY_PUSH, GK_L.C_6 );
+			bd_c.Get(  Array.IndexOf ( NAME_COMMAND, "6.6" ) ).LimitTime = 6;
+
+			SetCommandLvr ( bd_c, "4.4", GKC_ST.KEY_IS, GK_L.C_4 );
+			SetCommandLvr_i ( bd_c, "4.4", 1, GKC_ST.KEY_PUSH, GK_L.C_4 );
+			bd_c.Get(  Array.IndexOf ( NAME_COMMAND, "4.4" ) ).LimitTime = 6;
 		}
 
-		private void SetCommand ( BD_CMD bd_c, int indexCmd, int btn )
+		private void SetCommand ( BD_CMD bd_c, string name_cmd, int btn )
 		{
-			bd_c.Get( indexCmd ).ListGameKeyCommand[ 0 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
-			bd_c.Get( indexCmd ).LimitTime = 1;
+			int index = Array.IndexOf ( NAME_COMMAND, name_cmd );
+			bd_c.Get ( index ).ListGameKeyCommand[ 0 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
+			bd_c.Get ( index ).LimitTime = 1;
+		}
+
+		private void SetCommandLvr ( BD_CMD bd_c, string name_cmd, GKC_ST st, GK_L gk_l )
+		{
+			int index = Array.IndexOf ( NAME_COMMAND, name_cmd );
+			bd_c.Get ( index ).ListGameKeyCommand [ 0 ].SetLvrSt ( st, gk_l );
+			bd_c.Get ( index ).LimitTime = 1;
+		}
+
+		private void SetCommandLvr_i ( BD_CMD bd_c, string name_cmd, int index, GKC_ST st, GK_L gk_l )
+		{
+			int i = Array.IndexOf ( NAME_COMMAND, name_cmd );
+			bd_c.Get ( i ).ListGameKeyCommand.Add ( new GameKeyCommand () );
+			bd_c.Get ( i ).ListGameKeyCommand [ index ].SetLvrSt ( st, gk_l );
+			bd_c.Get ( i ).LimitTime = index;
 		}
 
 
@@ -325,25 +386,36 @@ namespace ScriptEditor
 			{
 				EditChara.Inst.AddBranch ( str );
 			}
-			Branch br0 = chara.BD_Branch.Get ( 0 );
-			br0.NameCommand = "Attack_L";
-			br0.NameAction = "Attack_L";
-			Branch br1 = chara.BD_Branch.Get ( 0 );
-			br1.NameCommand = "Attack_M";
-			br1.NameAction = "Attack_M";
-			Branch br2 = chara.BD_Branch.Get ( 0 );
-			br2.NameCommand = "Attack_H";
-			br2.NameAction = "Attack_H";
+			SetBranch ( chara.BD_Branch, "L → 立L", "L", "Attack_5L" );
+			SetBranch ( chara.BD_Branch, "Ma → 立Ma", "Ma", "Attack_5Ma" );
+			SetBranch ( chara.BD_Branch, "Mb → 立Mb", "Mb", "Attack_5Mb" );
+			SetBranch ( chara.BD_Branch, "H → 立H", "H", "Attack_5H" );
+			SetBranch ( chara.BD_Branch, "6 → FrontMove", "6", "FrontMove" );
+			SetBranch ( chara.BD_Branch, "4 → BackMove", "4", "BackMove" );
+			SetBranch ( chara.BD_Branch, "6離 → FrontDuration", "6離", "Stand" );
+			SetBranch ( chara.BD_Branch, "4離 → BackDuration", "4離", "Stand" );
+			SetBranch ( chara.BD_Branch, "6.6 → FrontDash", "6.6", "FrontDash" );
+			SetBranch ( chara.BD_Branch, "4.4 → BackDash", "4.4", "BackDash" );
+			SetBranch ( chara.BD_Branch, "8 → VerticalJump", "8", "VerticalJump" );
+			SetBranch ( chara.BD_Branch, "9 → FrontJump", "9", "FrontJump" );
+			SetBranch ( chara.BD_Branch, "7 → BackJump", "7", "BackJump" );
+		}
+
+		private void SetBranch ( BD_BRC bd_brc, string brc_name, string cmd_name, string act_name )
+		{
+			Branch br = bd_brc.Get ( brc_name );
+			br.NameCommand = cmd_name;
+			br.NameAction = act_name;
 		}
 
 		//ルート
 		private void MakeRoute ( Chara chara )
 		{
 			Route rut0 = new Route ( "地上通常技", "立ち状態で移行する技全般" );
-			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 0 ] ) );
-			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 1 ] ) );
-			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 2 ] ) );
-			rut0.BL_BranchName.Add ( new TName ( NAME_BRANCH [ 3 ] ) );
+			rut0.BL_BranchName.Add ( new TName ( "L → 立L" ) );
+			rut0.BL_BranchName.Add ( new TName ( "Ma → 立Ma" ) );
+			rut0.BL_BranchName.Add ( new TName ( "Mb → 立Mb" ) );
+			rut0.BL_BranchName.Add ( new TName ( "H → 立H") );
 			chara.BD_Route.Add ( rut0 );
 
 			Route rut1 = new Route ( "地上移動", "立ち状態から出る移動全般" );

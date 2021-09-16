@@ -77,7 +77,7 @@ namespace ScriptEditor
 		{
 			"L", "Ma", "Mb", "H", 
 			"6", "4", 
-			"6押", "4押", "6.6", "4.4", 
+			"6離", "4離", "6.6", "4.4", 
 			"8", "9", "7", 
 		};
 
@@ -86,7 +86,7 @@ namespace ScriptEditor
 		{
 			"L → 立L", "Ma → 立Ma", "Mb → 立Mb", "H → 立H", 
 			"6 → FrontMove", "4 → BackMove", 
-			"6押 → FrontDuration", "4押 → BackDuration", "6.6 → FrontDash", "4.4 → BackDash", 
+			"6離 → FrontDuration", "4離 → BackDuration", "6.6 → FrontDash", "4.4 → BackDash", 
 			"8 → VerticalJump", "9 → FrontJump", "7 → BackJump", 
 		};
 

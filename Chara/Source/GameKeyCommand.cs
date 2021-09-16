@@ -37,6 +37,7 @@ namespace ScriptEditor
 	//キャラを受けて向きの前後の判定
 	//～でない（否定）の条件
 	//====================================================================
+	[System.Serializable]
 	public class GameKeyCommand
 	{
 		//---------------------------------------------------
@@ -151,9 +152,9 @@ namespace ScriptEditor
 		private void SetNeighbor ( GK_L gkl_on, GK_L gkl_off0, GK_L gkl_off1 )
 		{
 			ClearLever ();
-			Lvr [ (int) gkl_off0 ] = GKC_ST.KEY_OFF;
-			Lvr [ (int) gkl_on ] = GKC_ST.KEY_ON;	//斜め入力を排除するため隣接はOFF
-			Lvr [ (int) gkl_off1 ] = GKC_ST.KEY_OFF;
+			Lvr [ (int) gkl_off0 ] = GKC_ST.KEY_NIS;
+			Lvr [ (int) gkl_on ] = GKC_ST.KEY_IS;	//斜め入力を排除するため隣接はNIS
+			Lvr [ (int) gkl_off1 ] = GKC_ST.KEY_NIS;
 		}
 
 		//レバー状態指定を取得
@@ -205,13 +206,13 @@ namespace ScriptEditor
 			//  4 N 6
 			//  1←2 3
 			
-			//12369874, 2E,6E,8E,4E
+			//12369874
 			GKC_ST st1 = Lvr [ (int)GK_L.C_1 ];	//初期値保存
-			for ( int i = (int)GK_L.C_1; i < (int)GK_L.C_4E; ++ i )
+			for ( int i = (int)GK_L.C_1; i < (int)GK_L.C_4; ++ i )
 			{
 				Lvr [ i ] = Lvr [ i + 1 ];
 			}
-			Lvr [ (int)GK_L.C_4E ] = st1;
+			Lvr [ (int)GK_L.C_4 ] = st1;
 		}
 
 		public void Lever_L ()
@@ -220,13 +221,13 @@ namespace ScriptEditor
 			//  4 N 6
 			//  1→2 3
 			
-			//12369874, 2E,6E,8E,4E
-			GKC_ST st4E = Lvr [ (int)GK_L.C_4E ];	//初期値保存
-			for ( int i = (int)GK_L.C_4E; i > (int)GK_L.C_1; -- i )
+			//12369874
+			GKC_ST st4 = Lvr [ (int)GK_L.C_4 ];	//初期値保存
+			for ( int i = (int)GK_L.C_4; i > (int)GK_L.C_1; -- i )
 			{
 				Lvr [ i ] = Lvr [ i - 1 ];
 			}
-			Lvr [ (int)GK_L.C_1 ] = st4E;
+			Lvr [ (int)GK_L.C_1 ] = st4;
 		}
 
 		//======================================================================
@@ -315,7 +316,7 @@ namespace ScriptEditor
 		}
 
 		//比較
-		private void CompareKey ( int num,  GKC_ST [] stAry, bool[] bWildAry, bool[] bAry, bool[] bDataAry, bool[] bPreAry )
+		private void CompareKey ( int num, GKC_ST [] stAry, bool[] bWildAry, bool[] bAry, bool[] bDataAry, bool[] bPreAry )
 		{
 			for ( int i = 0; i < num; ++ i )
 			{

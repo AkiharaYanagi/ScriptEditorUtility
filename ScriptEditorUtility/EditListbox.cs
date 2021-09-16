@@ -113,6 +113,12 @@ namespace ScriptEditor
 			listBox1.SelectedIndex = i - 1;
 		}
 
+		//個数
+		public int Count ()
+		{
+			return listBox1.Items.Count;
+		}
+
 		//============================================================
 		//イベント
 		public delegate void Event ();
