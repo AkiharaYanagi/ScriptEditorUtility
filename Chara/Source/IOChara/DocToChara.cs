@@ -95,8 +95,11 @@ namespace ScriptEditor
 				//アクション "名前"
 				action.Name = elemAction.Attributes[ (int)ATTR_ACTION.ELAC_NAME ].Value;
 
-				//"次アクション" (終了時における次アクション)
+				//"次アクション名" (終了時における次アクション)
 				action.NextActionName = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_NAME ].Value;
+
+				//"次アクションID" (終了時における次アクション)
+				//action.NextActionID = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_ID ].Value;
 
 				//アクション属性
 				int nCategory = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
@@ -186,7 +189,7 @@ namespace ScriptEditor
 				Element elemRutList = elemScript.Elements [( int ) ELEMENT_SCRIPT.ELSC_ROUTE ];
 				foreach ( Element elemRut in elemRutList.Elements )
 				{
-					script.BL_RutName.Add ( elemRut.Attributes [ 0 ].Value );
+					script.BL_RutName.Add ( new TName ( elemRut.Attributes [ 0 ].Value ) );
 				}
 
 				//-----------------------------------------------------------------------------
@@ -371,7 +374,8 @@ namespace ScriptEditor
 
 				foreach ( Element elemBrcName in elemBranchNameList.Elements )
 				{
-					rut.BL_BranchName.Add ( new TName ( elemBrcName.Attributes [ 0 ].Value ) );
+					string name = elemBrcName.Attributes [ (int)ATTR_.NAME_0 ].Value;
+					rut.BL_BranchName.Add ( new TName ( name ) );
 				}
 
 				//キャラに登録

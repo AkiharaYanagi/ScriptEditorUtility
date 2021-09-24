@@ -2,10 +2,8 @@
 using System.Text;
 using System.ComponentModel;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Diagnostics;
 
 namespace ScriptEditor
 {
@@ -22,11 +20,17 @@ namespace ScriptEditor
 	//============================================================
 	public class CharaToDoc
 	{
-		public MemoryStream Run ( Chara chara )
+		//内部参照用
+		private Chara Chara = null;
+
+		public MemoryStream Run ( Chara ch )
 		{
+			Chara = ch;
+
 			//対象メモリストリーム
 			MemoryStream mstrm = new MemoryStream ();
 
+			//@info using節だと後にストリームが参照できない
 			StreamWriter strmWriter = new StreamWriter ( mstrm, Encoding.UTF8 );
 //			using ( StreamWriter strmWriter = new StreamWriter ( mstrm, Encoding.UTF8 ) )
 			{
@@ -35,23 +39,23 @@ namespace ScriptEditor
 			strmWriter.Write ( "<ver>" + CONST.VER + "</ver>\n\n" );
 
 			//メインイメージリストヘッダ
-			WriteListImageHeader ( strmWriter, chara.behavior.BD_Image, "Image" );
+			WriteListImageHeader ( strmWriter, ch.behavior.BD_Image, "Image" );
 			//EFイメージリストヘッダ
-			WriteListImageHeader ( strmWriter, chara.garnish.BD_Image, "EfImage" );
+			WriteListImageHeader ( strmWriter, ch.garnish.BD_Image, "EfImage" );
 
 			//アクションリスト
-			WriteSequence ( strmWriter, chara.behavior.BD_Sequence, "Action", Func_WriteAction );
+			WriteSequence ( strmWriter, ch.behavior.BD_Sequence, "Action", Func_WriteAction );
 			//エフェクトリスト
-			WriteSequence ( strmWriter, chara.garnish.BD_Sequence, "Effect", Func_WriteEffect );
+			WriteSequence ( strmWriter, ch.garnish.BD_Sequence, "Effect", Func_WriteEffect );
 
 			//コマンドリスト
-			WriteCommandList ( strmWriter, chara.BD_Command );
+			WriteCommandList ( strmWriter, ch.BD_Command );
 
 			//ブランチリスト
-			WriteBranchList ( strmWriter, chara.BD_Branch );
+			WriteBranchList ( strmWriter, ch.BD_Branch );
 
 			//ルートリスト
-			WriteRouteList ( strmWriter, chara.BD_Route );
+			WriteRouteList ( strmWriter, ch.BD_Route );
 
 			//基本状態アクションID
 #if false
@@ -73,8 +77,8 @@ namespace ScriptEditor
 			//全体タグ
 			strmWriter.Write ( "</Chara>\n" );
 
-			} //using strmWriter
 			strmWriter.Flush ();
+			} //using strmWriter
 
 			return mstrm;
 		}
@@ -121,12 +125,14 @@ namespace ScriptEditor
 		private void Func_WriteAction ( StreamWriter sw, Sequence sqc )
 		{
 			Action act = (Action)sqc;
+			int nextID = Chara.behavior.BD_Sequence.IndexOf ( act.NextActionName );
 
 			sw.Write ( " Name=\"" + act.Name + "\"" );					//名前
-			sw.Write ( " NextName=\"" + act.NextActionName + "\"" );		//次アクション名
+			sw.Write ( " NextName=\"" + act.NextActionName + "\"" );	//次アクション名
+			sw.Write ( " NextID=\"" + nextID.ToString() + "\"" );		//次アクションID
 			sw.Write ( " Category=\"" + (int)act.Category + "\"" );		//アクション属性
 			sw.Write ( " Posture=\"" + (int)act.Posture + "\"" );		//アクション体勢
-			sw.Write ( " Balance=\"" + act._Balance + "\"" );		//消費バランス値
+			sw.Write ( " Balance=\"" + act._Balance + "\"" );			//消費バランス値
 			sw.Write ( ">\n" );
 		}
 
@@ -141,7 +147,7 @@ namespace ScriptEditor
 
 
 		//スクリプトの書出
-		private void WriteListScript ( StreamWriter strmWriter, List<Script> listScript )
+		private void WriteListScript ( StreamWriter strmWriter, List<Script> listScript)
 		{
 			//スクリプト
 			foreach ( Script script in listScript )
@@ -159,10 +165,12 @@ namespace ScriptEditor
 				//ルートリスト
 				strmWriter.Write ( "\t\t\t<RouteList>\n" );
 				//ルート
-				foreach ( string rutName in script.BL_RutName )
+				foreach ( TName rutName in script.BL_RutName )
 				{
+					int indexRoute = Chara.BD_Route.IndexOf ( rutName.Name );
+
 					strmWriter.Write ( "\t\t\t\t<Route" );
-					strmWriter.Write ( " Name=\"" + rutName + "\"" );
+					strmWriter.Write ( " Name=\"" + rutName.Name + "\" ID=\"" + indexRoute.ToString() + "\"" );
 					strmWriter.Write ( "></Route>\n" );
 				}
 				strmWriter.Write ( "\t\t\t</RouteList>\n" );
@@ -238,11 +246,6 @@ namespace ScriptEditor
 						sw.Write ( " Key_" + i.ToString() + "=\"" );
 						sw.Write ( gameKey.Lvr[i].ToString () + "\"" );
 					}
-#if false
-					sw.Write ( " IdLvr =\"" );
-					sw.Write ( gameKey.IdLvr + "\"" );
-					sw.Write ( " Lvr =\"" + gameKey.Lvr[(int)gameKey.IdLvr].ToString () + "\"" );
-#endif
 
 					//ボタン
 					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
@@ -266,10 +269,15 @@ namespace ScriptEditor
 			//ブランチ
 			foreach ( Branch brc in ls )
 			{
+				int commandID = Chara.BD_Command.IndexOf ( brc.NameCommand );
+				int actionID = Chara.behavior.BD_Sequence.IndexOf ( brc.NameAction );
+
 				sw.Write ( "\t<Branch" );
 				sw.Write ( " Name=\"" + brc.Name + "\"" );					//名前
 				sw.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
+				sw.Write ( " CommandID=\"" + commandID + "\"" );			//コマンドID
 				sw.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名
+				sw.Write ( " ActionID=\"" + actionID + "\"" );				//アクションID
 				sw.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
 				sw.Write ( ">\n" );
 				sw.Write ( "\t</Branch>\n" );
@@ -292,8 +300,11 @@ namespace ScriptEditor
 				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
 				foreach ( TName tn in bl_brrt )
 				{
-					sw.Write ( "\t\t\t<BranchName Name=\"" + tn.Name + "\">" );
-					sw.Write ( "</BranchName>\n" );
+					int BranchID = Chara.BD_Branch.IndexOf ( tn.Name );
+
+					sw.Write ( "\t\t\t<BranchName Name=\"" + tn.Name + "\"" );
+					sw.Write ( " ID=\"" + BranchID.ToString() + "\"" );
+					sw.Write ( "></BranchName>\n" );
 				}
 				sw.Write ( "\t\t</BranchNameList>\n" );
 				sw.Write ( "\t</Route>\n" );

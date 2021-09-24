@@ -71,17 +71,20 @@ namespace ScriptEditor
 			C_8 = 5,
 			C_7 = 6,
 			C_4 = 7,
-
+#if false
 			//方向要素(Element)(いずれか)
 			C_2E = 8,
 			C_6E = 9,
 			C_8E = 10,
 			C_4E = 11,
+#endif
 
 			//未指定
-			C_N = 12,
+//			C_N = 12,
+			C_N = 8,
 		}
-		public const int LeverCommandNum = 12;
+//		public const int LeverCommandNum = 12;
+		public const int LeverCommandNum = 8;
 
 		//======================================================================================
 		//レバー判定状態

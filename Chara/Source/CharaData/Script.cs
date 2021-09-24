@@ -25,12 +25,13 @@ namespace ScriptEditor
 	//		┣速度
 	//		┣加速度
 	//		┣計算状態(持続/代入/加算)
-	//		┣ブランチ[]
-	//		┣接触枠[]
-	//		┣攻撃枠[]
-	//		┣ヒット枠[]
+	//		┣[]ルート
+	//		┣[]接触枠
+	//		┣[]攻撃枠
+	//		┣[]防御枠
+	//		┣[]相殺枠
+	//		┣[]エフェクト発生
 	//		┣攻撃値
-	//		┣エフェクト発生[]
 	//
 	//================================================================
 	//[]指定子でintしか扱えないため
@@ -77,8 +78,7 @@ namespace ScriptEditor
 		//------------------------------------------------
 
 		//ルートネームリスト
-		public BindingList < string > BL_RutName = new BindingList<string> ();
-//		public BindingList < TName > BL_RutName = new BindingList<string> ();
+		public BindingList < TName > BL_RutName = new BindingList<TName> ();
 
 		//------------------------------------------------
 		//枠
@@ -98,7 +98,6 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//エフェクト生成
 		//------------------------------------------------
-//		public BindingList<EffectGenerate> ListGenerateEf { get; set; } = new BindingList<EffectGenerate> ();
 		public BD_EfGn BD_EfGnrt { get; set; } = new BD_EfGn ();
 
 		//------------------------------------------------
@@ -133,7 +132,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			BL_RutName = new BindingList<string> ( s.BL_RutName );
+			BL_RutName = new BindingList<TName> ( s.BL_RutName );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );
@@ -167,7 +166,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			BL_RutName = new BindingList<string> ( s.BL_RutName );
+			BL_RutName = new BindingList<TName> ( s.BL_RutName );
 			ListCRect = new List < Rectangle > ( s.ListCRect );
 			ListHRect = new List < Rectangle > ( s.ListHRect );
 			ListARect = new List < Rectangle > ( s.ListARect );

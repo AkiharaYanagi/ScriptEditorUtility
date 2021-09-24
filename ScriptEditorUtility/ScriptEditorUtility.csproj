@@ -57,11 +57,11 @@
     <Compile Include="EditListbox.Designer.cs">
       <DependentUpon>EditListbox.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditListbox_0.cs">
+    <Compile Include="EditListbox_Ob.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EditListbox_0.Designer.cs">
-      <DependentUpon>EditListbox_0.cs</DependentUpon>
+    <Compile Include="EditListbox_Ob.Designer.cs">
+      <DependentUpon>EditListbox_Ob.cs</DependentUpon>
     </Compile>
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="FormUtility.cs" />
@@ -82,8 +82,8 @@
     <EmbeddedResource Include="EditListbox.resx">
       <DependentUpon>EditListbox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditListbox_0.resx">
-      <DependentUpon>EditListbox_0.cs</DependentUpon>
+    <EmbeddedResource Include="EditListbox_Ob.resx">
+      <DependentUpon>EditListbox_Ob.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

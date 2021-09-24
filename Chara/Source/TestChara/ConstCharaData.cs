@@ -90,5 +90,10 @@ namespace ScriptEditor
 			"8 → VerticalJump", "9 → FrontJump", "7 → BackJump", 
 		};
 
+		//デフォルトルート名
+		private readonly string[] NAME_ROUTE = new string[]
+		{
+			"地上通常技", "地上移動", 
+		};
 	}
 }

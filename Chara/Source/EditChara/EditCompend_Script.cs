@@ -127,7 +127,7 @@ namespace ScriptEditor
 		{
 			foreach ( Script s in SelectedSequence.ListScript )
 			{
-				s.BL_RutName = new BindingList < string > ( s.BL_RutName );
+				s.BL_RutName = new BindingList < TName > ( s.BL_RutName );
 			}
 		}
 

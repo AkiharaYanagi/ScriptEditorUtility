@@ -221,6 +221,12 @@ namespace ScriptEditor
 		{
 			BL_t.ResetBindings ();
 		}
+
+		//名前が存在する位置
+		public int IndexOf ( string name )
+		{
+			return BL_t.IndexOf ( Get ( name ) );
+		}
 	}
 }
 

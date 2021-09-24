@@ -20,6 +20,13 @@
 		}
 	}
 
+	//共通アトリビュート
+	public enum ATTR_
+	{
+		NAME_0 = 0,	
+	}
+
+
 
 	public enum ELEMENT_CHARA
 	{
@@ -37,6 +44,7 @@
 	{
 		ELAC_NAME,
 		ELAC_NEXT_NAME,
+		ELAC_NEXT_ID,
 		ELAC_CATEGORY,
 		ELAC_POSTURE,
 		ELAC_BALANCE,
@@ -73,7 +81,9 @@
 	public enum ELEMENT_BRANCH
 	{
 		ELBR_COMMAND_NAME,
+		ELBR_COMMAND_ID,
 		ELBR_ACTION_NAME,
+		ELBR_ACTION_ID,
 		ELBR_FRAME,
 	}
 

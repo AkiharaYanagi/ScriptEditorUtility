@@ -181,8 +181,11 @@ namespace ScriptEditor
 			Action[] action = new Action[ SIZE_ACTION ];
 			for ( int i = 0; i < SIZE_ACTION; ++i )
 			{
-				action[ i ] = new Action ( NAME_ACTION[ i ] );
-				action[ i ].Category = _ACTION_CATEGORY[ i ];
+				action [ i ] = new Action ( NAME_ACTION [ i ] )
+				{
+					Category = _ACTION_CATEGORY [ i ],
+					NextActionName = NAME_ACTION [ 0 ],
+				};
 			}
 
 			//キャラにEditCharaを用いてアクションを追加
@@ -198,33 +201,35 @@ namespace ScriptEditor
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 
 			//Stand
-			SetScript ( 0, 64 );
+			SetScript ( 0, 288 );
 
 			BD_Seq bd_act = chara.behavior.BD_Sequence;
 			BL_Script bl_scp = bd_act.Get ( 0 ).ListScript;
-			for ( int i = 0; i < 16; ++ i )
+			for ( int i = 0; i < 128; ++ i )
 			{
 				bl_scp [ i ].Group = 1;
-				bl_scp [ i ].Pos = new Point ( -250, -450 );
 				bl_scp [ i ].ImgName = "Stand_00.png";
 			}
-			for ( int i = 16; i < 32; ++ i )
+			for ( int i = 128; i < 144; ++ i )
 			{
 				bl_scp [ i ].Group = 2;
-				bl_scp [ i ].Pos = new Point ( -250, -450 );
 				bl_scp [ i ].ImgName = "Stand_01.png";
 			}
-			for ( int i = 32; i < 48; ++ i )
+			for ( int i = 144; i < 272; ++ i )
 			{
 				bl_scp [ i ].Group = 3;
-				bl_scp [ i ].Pos = new Point ( -250, -450 );
-				bl_scp [ i ].ImgName = "Stand_00.png";
+				bl_scp [ i ].ImgName = "Stand_02.png";
 			}
-			for ( int i = 48; i < 64; ++ i )
+			for ( int i = 272; i < 288; ++ i )
 			{
 				bl_scp [ i ].Group = 4;
+				bl_scp [ i ].ImgName = "Stand_01.png";
+			}
+			for ( int i = 0; i < 288; ++ i )
+			{
 				bl_scp [ i ].Pos = new Point ( -250, -450 );
-				bl_scp [ i ].ImgName = "Stand_02.png";
+				bl_scp [ i ].BL_RutName.Add ( new TName ( NAME_ROUTE [ 0 ] ) );
+				bl_scp [ i ].BL_RutName.Add ( new TName ( NAME_ROUTE [ 1 ] ) );
 			}
 
 			//FrontMove
