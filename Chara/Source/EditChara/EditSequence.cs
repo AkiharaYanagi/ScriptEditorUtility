@@ -5,16 +5,16 @@
 	//---------------------------------------------------------------------
 	public class EditSequence
 	{
-		public Sequence Seq { get; set; } = null;
+		public Sequence Sqc { get; set; } = null;
 
 		public void Assosiate ( Sequence s )
 		{
-			Seq = s;
+			Sqc = s;
 		}
 
 		public void SetName ( string strName )
 		{
-			Seq.Name = strName;
+			Sqc.Name = strName;
 		}
 
 
@@ -29,6 +29,14 @@
 				{
 					editScp ( scp );
 				}
+			}
+		}
+
+		public void EditScriptInSequence ( FuncEditScript FuncES )
+		{
+			foreach ( Script scp in Sqc.ListScript )
+			{
+				FuncES ( scp );
 			}
 		}
 	}

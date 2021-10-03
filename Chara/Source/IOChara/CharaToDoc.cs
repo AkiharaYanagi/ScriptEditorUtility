@@ -18,12 +18,33 @@ namespace ScriptEditor
 	//キャラからをスクリプトの対象となる値を読み込み、
 	//キャラスクリプトとしてテキストメモリストリームに変換
 	//============================================================
+
+
+	//@todo 書出時に名前からIDを検索するが、対象不適正のときエラー表示する
+
+
 	public class CharaToDoc
 	{
 		//内部参照用
 		private Chara Chara = null;
 
 		public MemoryStream Run ( Chara ch )
+		{
+			MemoryStream ms = null;
+
+			try
+			{
+				ms = _Run ( ch );
+			}
+			catch ( Exception e ) when ( e.Message.Equals ( "name error" ) )
+			{
+				System.Windows.Forms.MessageBox.Show ( e.ToString (), "name error" );
+			}
+			
+			return ms;
+		}
+		
+		public MemoryStream _Run ( Chara ch )
 		{
 			Chara = ch;
 
@@ -39,14 +60,14 @@ namespace ScriptEditor
 			strmWriter.Write ( "<ver>" + CONST.VER + "</ver>\n\n" );
 
 			//メインイメージリストヘッダ
-			WriteListImageHeader ( strmWriter, ch.behavior.BD_Image, "Image" );
+			WriteListImageHeader ( strmWriter, ch.behavior, "Image" );
 			//EFイメージリストヘッダ
-			WriteListImageHeader ( strmWriter, ch.garnish.BD_Image, "EfImage" );
+			WriteListImageHeader ( strmWriter, ch.garnish, "EfImage" );
 
 			//アクションリスト
-			WriteSequence ( strmWriter, ch.behavior.BD_Sequence, "Action", Func_WriteAction );
+			WriteSequence ( strmWriter, ch.behavior, "Action", Func_WriteAction );
 			//エフェクトリスト
-			WriteSequence ( strmWriter, ch.garnish.BD_Sequence, "Effect", Func_WriteEffect );
+			WriteSequence ( strmWriter, ch.garnish, "Effect", Func_WriteEffect );
 
 			//コマンドリスト
 			WriteCommandList ( strmWriter, ch.BD_Command );
@@ -87,25 +108,27 @@ namespace ScriptEditor
 		//=================================================================================
 		//個別項目
 
-		//イメージリストヘッダの書出
-		private void WriteListImageHeader ( StreamWriter strmWriter, BD_IDT imageList, string tagname )
+		//イメージリストヘッダの書出(メイン, Ef)
+//		private void WriteListImageHeader ( StreamWriter sw, BD_IDT BD_Imgdt, string tagname )
+		private void WriteListImageHeader ( StreamWriter sw, Compend cmpd, string tagname )
 		{
+			BindingList < ImageData > bl_imgd = cmpd.BD_Image.GetBindingList (); 
 			string tn0 = tagname;
 			string tn_l = tagname + "List";
-			strmWriter.Write ( "<" + tn_l + " Num=\"" + imageList.GetBindingList().Count + "\">\n" );
-			foreach ( ImageData imageData in imageList.GetBindingList() )
+			sw.Write ( "<" + tn_l + " Num=\"" + bl_imgd.Count + "\">\n" );
+			foreach ( ImageData imageData in bl_imgd )
 			{
-				strmWriter.Write ( "\t<" + tn0 + " Name=\"" + imageData.Name + "\"></" + tn0 + ">\n" );
+				sw.Write ( "\t<" + tn0 + " Name=\"" + imageData.Name + "\"></" + tn0 + ">\n" );
 			}
-			strmWriter.Write ( "</" + tn_l + ">\n" );
+			sw.Write ( "</" + tn_l + ">\n" );
 		}
-
 
 		//シークエンス(アクション, エフェクト)リストの書出
 		private delegate void Func_WriteSqc ( StreamWriter sw, Sequence sqc );
-		private void WriteSequence ( StreamWriter sw, BD_SQC bd_sqc, string tagname, Func_WriteSqc fws )
+//		private void WriteSequence ( StreamWriter sw, BD_SQC bd_sqc, string tagname, Func_WriteSqc fws )
+		private void WriteSequence ( StreamWriter sw, Compend cmpd, string tagname, Func_WriteSqc fws )
 		{
-			BL_SQC bl_sqc = bd_sqc.GetBindingList ();
+			BL_SQC bl_sqc = cmpd.BD_Sequence.GetBindingList ();
 			string tn = tagname;
 			string tn_l = tagname + "List";
 
@@ -115,7 +138,7 @@ namespace ScriptEditor
 			{
 				sw.Write ( "\t<" + tn );
 				fws ( sw, sqc );	//(アクション, エフェクト)個別アトリビュート
-				WriteListScript ( sw, sqc.ListScript );	//スクリプト
+				WriteListScript ( sw, cmpd, sqc.ListScript );	//スクリプト
 				sw.Write ( "\t</" + tn + ">\n" );
 			}
 			sw.Write ( "</" + tn_l + ">\n" );
@@ -126,6 +149,8 @@ namespace ScriptEditor
 		{
 			Action act = (Action)sqc;
 			int nextID = Chara.behavior.BD_Sequence.IndexOf ( act.NextActionName );
+			if ( -1 == nextID )
+				{ throw new Exception ( "name error" ); }
 
 			sw.Write ( " Name=\"" + act.Name + "\"" );					//名前
 			sw.Write ( " NextName=\"" + act.NextActionName + "\"" );	//次アクション名
@@ -147,14 +172,19 @@ namespace ScriptEditor
 
 
 		//スクリプトの書出
-		private void WriteListScript ( StreamWriter strmWriter, List<Script> listScript)
+		private void WriteListScript ( StreamWriter strmWriter, Compend cmpd, List<Script> listScript )
 		{
 			//スクリプト
 			foreach ( Script script in listScript )
 			{
+				int imageID = cmpd.BD_Image.IndexOf ( script.ImgName );
+				//if ( -1 == imageID )
+					//{ throw new Exception ( "name error" ); }
+	
 				strmWriter.Write ( "\t\t<Script" );
 				strmWriter.Write ( " group=\"" + script.Group + "\"" );
-				strmWriter.Write ( " Image Name=\"" + script.ImgName + "\"" );
+				strmWriter.Write ( " ImageName=\"" + script.ImgName + "\"" );
+				strmWriter.Write ( " ImageID=\"" + imageID + "\"" );
 				strmWriter.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
 				strmWriter.Write ( " VX=\"" + script.Vel.X + "\" VY=\"" + script.Vel.Y + "\"" );
 				strmWriter.Write ( " AX=\"" + script.Acc.X + "\" AY=\"" + script.Acc.Y + "\"" );
@@ -168,6 +198,8 @@ namespace ScriptEditor
 				foreach ( TName rutName in script.BL_RutName )
 				{
 					int indexRoute = Chara.BD_Route.IndexOf ( rutName.Name );
+					if ( -1 == indexRoute ) 
+						{ throw new Exception ( "name error" ); }
 
 					strmWriter.Write ( "\t\t\t\t<Route" );
 					strmWriter.Write ( " Name=\"" + rutName.Name + "\" ID=\"" + indexRoute.ToString() + "\"" );

@@ -79,11 +79,36 @@ namespace ScriptEditor
 		//名前指定テスト
 		public void TestNameAssign ( Chara ch )
 		{
+			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
+			{
+				foreach ( Script scp in sqc.ListScript )
+				{
+					ImageData imgd = ch.behavior.BD_Image.Get ( scp.ImgName );
+
+					if ( imgd is null )
+					{
+//						int i = 0;
+					}
+//					Debug.Assert ( ! ( imgd is null ) );
+
+					foreach ( TName tn in scp.BL_RutName )
+					{
+						Route rut = ch.BD_Route.Get ( tn.Name );
+						Debug.Assert ( ! ( rut is null ) );
+					}
+				}
+			}
+
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
 				foreach ( TName tn in rut.BL_BranchName )
 				{
 					Branch brc = ch.BD_Branch.Get ( tn.Name );
+
+					if ( brc is null )
+					{
+//						int i = 0;
+					}
 					Debug.Assert ( ! ( brc is null ) );
 				}
 			}

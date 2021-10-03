@@ -13,10 +13,13 @@ namespace ScriptEditor
 		{
 			Chara.BD_Branch.Add ( new Branch ( "newBranch" ) );
 		}
-
 		public void AddBranch ( string name )
 		{
 			Chara.BD_Branch.Add ( new Branch ( name ) );
+		}
+		public void AddBranc ( Branch brc )
+		{
+			Chara.BD_Branch.Add ( brc );
 		}
 
 		//指定ブランチを削除

@@ -9,6 +9,11 @@ namespace ScriptEditor
 		{
 		}
 
+		public TName ( object ob )
+		{
+			Name = ob.ToString ();
+		}
+
 		public TName ( string n )
 		{
 			Name = n;

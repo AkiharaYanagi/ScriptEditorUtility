@@ -6,6 +6,8 @@ namespace ScriptEditor
 	using BL_Sqc = BindingList<Sequence>;
 	using L_Scp = List<Script>;
 
+	delegate void FuncEditScript ( Script scp );
+
 	//---------------------------------------------------------------------
 	// コンペンド(アクション/エフェクトの集合)を受けて編集する
 	//	選択中のシークエンスとスクリプト位置を保持
@@ -85,6 +87,8 @@ namespace ScriptEditor
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( lscp.Count <= 0 ) { return; }
 			SelectFrame ( 0 );
+
+			Assosiate ();
 		}
 
 		//名前からシークエンス選択
@@ -100,11 +104,15 @@ namespace ScriptEditor
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( lscp.Count <= 0 ) { return; }
 			SelectFrame ( 0 );
+
+			Assosiate ();
 		}
 
 		//関連付け(選択時に同期するオブジェクト)
 		public void Assosiate ()
 		{
+			EditSequence.Assosiate ( SelectedSequence );
+
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
 

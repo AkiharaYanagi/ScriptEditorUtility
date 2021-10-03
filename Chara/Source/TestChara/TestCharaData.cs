@@ -23,8 +23,6 @@ namespace ScriptEditor
 	using BD_CMD = BindingDictionary < Command >;
 	using BD_BRC = BindingDictionary < Branch >;
 
-	delegate void FuncEditScript ( Script scp );
-
 	//-----------------------
 	//テストデータの作成
 	//-----------------------
@@ -68,48 +66,58 @@ namespace ScriptEditor
 		}
 
 		//手動でキャラデータを作成
-		private void _MakeCharaData ( Chara chara )
+		private void _MakeCharaData ( Chara ch )
 		{
 			//アクションリスト
 			MakeActionList ();
 
-			//スクリプト
-			Script script0 = MakeScript ();
-
 			//アクション内の値を指定
-			SetAction ( chara );
-
-			//===================================================================
-			//@info 手動操作はBindingListではなく、BindingDictionaryを用いる
-			//===================================================================
-			BD_Seq bd_seq = chara.behavior.BD_Sequence;
-
-			//スクリプトコピー
-			Script scp_cpy = bd_seq.Get ( 0 ).ListScript [ 0 ];
-	//		scp_cpy.Copy ( script0 );
+			SetAction ( ch );
 
 			//コマンド
-			MakeCommand ( chara.BD_Command );
+			MakeCommand ( ch.BD_Command );
 
 			//ブランチ
-			MakeBranch ( chara );
+			MakeBranch ( ch );
 
 			//ルート
-			MakeRoute ( chara );
+			MakeRoute ( ch );
 
 			//すべてのアクションにおけるスクリプトへの変更
 #if false
-			void f_editScp ( Script scp ) { scp.ImgName = "dummy.png"; }
+			void f_editScp ( Script scp ) { scp.ImgName = "000_dummy.png"; }
 			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
 #endif
+			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
+			{
+				foreach ( Script scp in sqc.ListScript )
+				{
+					ImageData imgd = ch.behavior.BD_Image.Get ( scp.ImgName );
+
+					if ( imgd is null )
+					{
+						scp.ImgName = ch.behavior.BD_Image.Get ( 0 ).Name;
+					}
+					else
+					{
+						Debug.Assert ( ! ( imgd is null ) );
+					}
+
+					foreach ( TName tn in scp.BL_RutName )
+					{
+						Route rut = ch.BD_Route.Get ( tn.Name );
+						Debug.Assert ( ! ( rut is null ) );
+					}
+				}
+			}
 
 			//--------------------------------------------
 			//エディット（ガーニッシュ）のテスト
-			MakeGarnish ( chara );
+			MakeGarnish ( ch );
 
 			//--------------------------------------------
 			//すべてのエフェクトにおけるスクリプトへの変更
-			BL_Sequence blsqcEf = chara.garnish.BD_Sequence.GetBindingList();
+			BL_Sequence blsqcEf = ch.garnish.BD_Sequence.GetBindingList();
 			foreach ( Sequence sqc in blsqcEf )
 			{
 				BL_Script blsc = sqc.ListScript;
@@ -153,20 +161,24 @@ namespace ScriptEditor
 				g.DrawString ( "ダミー", f, Brushes.OrangeRed, 32, 64 );
 				f.Dispose ();
 				g.Dispose ();
-				bmp.Save ( imageDir + "\\dummy.png", System.Drawing.Imaging.ImageFormat.Png );
+				bmp.Save ( imageDir + "\\000_dummy.png", System.Drawing.Imaging.ImageFormat.Png );
 				bmp.Dispose ();
 				filepaths = Directory.GetFiles ( imageDir );
 			}
-
-			//すべてのファイルに対し
-			foreach ( string path in filepaths )
+			else
 			{
-				//画像からImageData型を作成
-				string name = Path.GetFileName ( path );
-				ImageData imageData = new ImageData ( name, Image.FromFile ( path ) );
+				//すべてのファイルに対し
+				foreach ( string path in filepaths )
+				{
+					//画像からImageData型を作成
+					string name = Path.GetFileName ( path );
+					string fn = name.Substring ( 4 );	//先頭のインデックス("ddd_")を除く
+					ImageData imageData = new ImageData ( fn, Image.FromFile ( path ) );
 				
-				//内部データに保存
-				imageList.Add ( imageData );
+					//内部データに保存
+					imageList.Add ( imageData );
+				}
+
 			}
 		}
 
@@ -198,13 +210,23 @@ namespace ScriptEditor
 		//アクション内の値を指定
 		private void SetAction ( Chara chara )
 		{
+			//編集
 			EditBehavior eb = EditChara.Inst.EditBehavior;
+			EditSequence ea = eb.EditSequence;
 
 			//Stand
-			SetScript ( 0, 288 );
+			MakeScript ( (int)ENM_ACTION.Stand, 288 );
+
+			//スクリプト
+			Script script_test = SetScript ();
+
+			//スクリプトコピー
+			BD_Seq bd_seq = chara.behavior.BD_Sequence;
+			Script scp_cpy = bd_seq.Get ( (int)ENM_ACTION.Stand ).ListScript [ 0 ];
+			scp_cpy.Copy ( script_test );
 
 			BD_Seq bd_act = chara.behavior.BD_Sequence;
-			BL_Script bl_scp = bd_act.Get ( 0 ).ListScript;
+			BL_Script bl_scp = bd_act.Get ( (int)ENM_ACTION.Stand ).ListScript;
 			for ( int i = 0; i < 128; ++ i )
 			{
 				bl_scp [ i ].Group = 1;
@@ -228,42 +250,167 @@ namespace ScriptEditor
 			for ( int i = 0; i < 288; ++ i )
 			{
 				bl_scp [ i ].Pos = new Point ( -250, -450 );
-				bl_scp [ i ].BL_RutName.Add ( new TName ( NAME_ROUTE [ 0 ] ) );
-				bl_scp [ i ].BL_RutName.Add ( new TName ( NAME_ROUTE [ 1 ] ) );
+				bl_scp [ i ].BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
+				bl_scp [ i ].BL_RutName.Add ( new TName ( ENM_RUT.地上通常技.ToString() ) );
 			}
 
 			//FrontMove
-			SetScript ( 1, 16 );
-			SetAllScriptVelX ( 1, 10 );
+			const int i_FrontMove = (int)ENM_ACTION.FrontMove;
+			MakeScript ( i_FrontMove, 16 );
+			eb.SelectSequence ( i_FrontMove );
+			eb.GetAction ().NextActionName = ENM_ACTION.FrontMove.ToString ();
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "FrontMove_00.png";
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelX ( 5 );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+			} );
 
 			//BackMove
-			SetScript ( 2, 16 );
-			SetAllScriptVelX ( 2, -10 );
+			const int i_BackMove = (int)ENM_ACTION.BackMove;
+			MakeScript ( i_BackMove, 16 );
+			eb.SelectSequence ( i_BackMove );
+			eb.GetAction ().NextActionName = ENM_ACTION.BackMove.ToString ();
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "BacktMove_00.png";
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelX ( -5 );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.後持続停止 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+			} );
 
+
+			//VerticalJump
+			const int i_VerticalJump = (int)ENM_ACTION.VerticalJump;
+			MakeScript ( i_VerticalJump, 1 );
+			eb.SelectSequence ( i_VerticalJump );
+			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
+			eb.GetAction ().Posture = ActionPosture.JUMP;
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "AirFrontDash_00.png";
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelY ( -25 );
+				s.SetAccY ( 1 );
+			} );
+
+			//FrontJump
+			const int i_FrontJump = (int)ENM_ACTION.FrontJump;
+			MakeScript ( i_FrontJump, 1 );
+			eb.SelectSequence ( i_FrontJump );
+			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
+			eb.GetAction ().Posture = ActionPosture.JUMP;
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "AirFrontDash_00.png";
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelX ( 3 );
+				s.SetVelY ( -25 );
+				s.SetAccY ( 1 );
+			} );
+
+			//BackJump
+			const int i_BackJump = (int)ENM_ACTION.BackJump;
+			MakeScript ( i_BackJump, 1 );
+			eb.SelectSequence ( i_BackJump );
+			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
+			eb.GetAction ().Posture = ActionPosture.JUMP;
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "AirFrontDash_00.png";
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelX ( -3 );
+				s.SetVelY ( -25 );
+				s.SetAccY ( 1 );
+			} );
+
+			//Drop
+			const int i_Drop = (int)ENM_ACTION.Drop;
+			MakeScript ( i_Drop, 1 );
+			eb.SelectSequence ( i_Drop );
+			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
+			eb.GetAction ().Posture = ActionPosture.JUMP;
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "AirBackDash_00.png";
+				s.CalcState = CLC_ST.CLC_MAINTAIN;
+				s.SetAccY ( 1 );
+			} );
+
+#if false
 			//FrontDash
-			SetScript ( 3, 12 );
-			SetAllScriptVelX ( 3, -20 );
+			MakeScript ( 3, 12 );
+//			SetAllScriptVelX ( 3, 10 );
 
 			//FrontDashDuration
-			SetScript ( 4, 1 );
-			SetAllScriptVelX ( 3, 20 );
+			MakeScript ( 4, 1 );
+//			SetAllScriptVelX ( 3, 20 );
 
 			//"BackDash", 
-			SetScript ( 5, 1 );
-			SetAllScriptVelX ( 3, -20 );
+			MakeScript ( 5, 1 );
+//			SetAllScriptVelX ( 3, -10 );
+#endif
 
-			//"Attack_L", 
-			SetScript ( 6, 12 );
-			Action actionAttack_L = ( Action ) eb.Compend.BD_Sequence.Get ( 6 );
-			Script scriptAttack_L_0 = actionAttack_L.ListScript[ 0 ];
-//			scriptAttack_L_0.ImgIndex = 10;
+			//"Attack_5L", 
+			const int i_Attack_5L = (int)ENM_ACTION.Attack_5L;
+			MakeScript ( i_Attack_5L, 12 );
+			eb.SelectSequence ( i_Attack_5L );
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "Part_5L_00.png";
+			} );
 
+			//"Attack_5L", 
+			const int i_Attack_5Ma = (int)ENM_ACTION.Attack_5Ma;
+			MakeScript ( i_Attack_5Ma, 12 );
+			eb.SelectSequence ( i_Attack_5Ma );
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "Part_5Ma_00.png";
+			} );
+
+			//"Attack_5Mb", 
+			const int i_Attack_5Mb = (int)ENM_ACTION.Attack_5Mb;
+			MakeScript ( i_Attack_5Mb, 12 );
+			eb.SelectSequence ( i_Attack_5Mb );
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "Part_5Mb_00.png";
+			} );
+
+			//"Attack_5H", 
+			const int i_Attack_5H = (int)ENM_ACTION.Attack_5H;
+			MakeScript ( i_Attack_5H, 12 );
+			eb.SelectSequence ( i_Attack_5H );
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "Part_5H_00.png";
+			} );
+
+#if false
 			//"Attack_M", 
-			SetScript ( 7, 12 );
+			MakeScript ( 7, 12 );
 
 			//"Attack_H", 
-			SetScript ( 8, 12 );
+			MakeScript ( 8, 12 );
+#endif
 
+#if false
 			//"Clang", 
 			//"Avoid", 
 			//"Dotty", 
@@ -280,19 +427,22 @@ namespace ScriptEditor
 			//"WinDuration", 
 			Action actionWinDuration = ( Action ) eb.Compend.BD_Sequence.GetBindingList()[ 17 ];
 //			actionWinDuration.NextIndex = 17;
+#endif
 
 		}
 
 		//script
-		private Script MakeScript ()
+		private Script SetScript ()
 		{
 			//手動で作成し、値を設定
 			Script script0 = new Script ();
-			script0.ListCRect.Add ( new Rectangle ( -90, -300, 100, 150 ) );
-			script0.ListHRect.Add ( new Rectangle ( -100, -200, 200, 350 ) );
-			script0.ListARect.Add ( new Rectangle ( 60, -150, 80, 20 ) );
-			script0.ListORect.Add ( new Rectangle ( 0, -280, 40, 60 ) );
+			script0.ListCRect.Add ( new Rectangle ( -90, -300, 100, 250 ) );
+			script0.ListHRect.Add ( new Rectangle ( -100, -280, 120, 350 ) );
+			script0.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
+			script0.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
 //			script0.BD_EfGnrt.Add ( new EffectGenerate () );
+
+			script0.CalcState = CLC_ST.CLC_SUBSTITUDE;
 
 			//コピー
 			Script script1 = new Script ( script0 );
@@ -305,7 +455,7 @@ namespace ScriptEditor
 
 		//内部　スクリプト設定
 		//引数：アクションID, スクリプト個数
-		private void SetScript ( int idAction, int numScript )
+		private void MakeScript ( int idAction, int numScript )
 		{
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 			eb.SelectSequence ( idAction );
@@ -313,11 +463,15 @@ namespace ScriptEditor
 			for ( int i = 0; i < numScript; ++i )
 			{
 				Script script = new Script ();
-				script.SetPos ( -87, -224 );
+				script.ListCRect.Add ( new Rectangle ( -90, -300, 100, 250 ) );
+				script.ListHRect.Add ( new Rectangle ( -100, -280, 120, 350 ) );
+				script.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
+				script.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
+				script.SetPos ( -157, -424 );
 				eb.AddScript ( script );
 			}
 		}
-
+#if false
 		//内部　スクリプト設定
 		//引数：アクションID, スクリプト個数
 		private void SetAllScriptVelX ( int idAction, int velX )
@@ -325,111 +479,134 @@ namespace ScriptEditor
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 			foreach ( Script script in eb.SelectedSequence.ListScript )
 			{
+				script.CalcState = CLC_ST.CLC_ADD;
 				script.SetVelX ( velX );
 			}
 		}
+#endif
 
 		//Command
 		private void MakeCommand ( BD_CMD bd_c )
 		{
 			//コマンド名から作成
+#if false
 			int SIZE_COMMAND = NAME_COMMAND.Length;
 			for ( int i = 0; i < SIZE_COMMAND; ++i )
 			{
 				EditChara.Inst.AddCommand ( NAME_COMMAND[ i ] );
 				bd_c.Get( i ).ListGameKeyCommand.Add ( new GameKeyCommand () );
 			}
-			SetCommand ( bd_c, "L", 0 );		// L  : Btn0
-			SetCommand ( bd_c, "Ma", 1 );		// Ma : Btn1
-			SetCommand ( bd_c, "Mb", 2 );		// Mb : Btn2
-			SetCommand ( bd_c, "H", 3 );        // H  : Btn3
+#endif
+			foreach ( string name in Enum.GetNames ( typeof ( ENM_COMMAND ) ) )
+			{
+				EditChara.Inst.AddCommand ( name );
+				bd_c.Get ( name ).ListGameKeyCommand.Add ( new GameKeyCommand () );
+			}
 
-			SetCommandLvr ( bd_c, "6", GKC_ST.KEY_IS, GK_L.C_6 );
-			SetCommandLvr ( bd_c, "4", GKC_ST.KEY_IS, GK_L.C_4 );
-			SetCommandLvr ( bd_c, "6離", GKC_ST.KEY_NIS, GK_L.C_6 );
-			SetCommandLvr ( bd_c, "4離", GKC_ST.KEY_NIS, GK_L.C_4 );
-			SetCommandLvr ( bd_c, "8", GKC_ST.KEY_IS, GK_L.C_8 );
-			SetCommandLvr ( bd_c, "9", GKC_ST.KEY_IS, GK_L.C_9 );
-			SetCommandLvr ( bd_c, "7", GKC_ST.KEY_IS, GK_L.C_7 );
+			SetCommandBtn ( bd_c, ENM_COMMAND.L, 0 );		// L  : Btn0
+			SetCommandBtn ( bd_c, ENM_COMMAND.Ma, 1 );		// Ma : Btn1
+			SetCommandBtn ( bd_c, ENM_COMMAND.Mb, 2 );		// Mb : Btn2
+			SetCommandBtn ( bd_c, ENM_COMMAND.H, 3 );		// H  : Btn3
 
-			SetCommandLvr ( bd_c, "6.6", GKC_ST.KEY_IS, GK_L.C_6 );
-			SetCommandLvr_i ( bd_c, "6.6", 1, GKC_ST.KEY_PUSH, GK_L.C_6 );
-			bd_c.Get(  Array.IndexOf ( NAME_COMMAND, "6.6" ) ).LimitTime = 6;
+			SetCommandLvr ( bd_c, ENM_COMMAND._6, GKC_ST.KEY_IS, GK_L.C_6 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._4, GKC_ST.KEY_IS, GK_L.C_4 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._6off, GKC_ST.KEY_NIS, GK_L.C_6 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._4off, GKC_ST.KEY_NIS, GK_L.C_4 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._8, GKC_ST.KEY_IS, GK_L.C_8 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._9, GKC_ST.KEY_IS, GK_L.C_9 );
+			SetCommandLvr ( bd_c, ENM_COMMAND._7, GKC_ST.KEY_IS, GK_L.C_7 );
 
-			SetCommandLvr ( bd_c, "4.4", GKC_ST.KEY_IS, GK_L.C_4 );
-			SetCommandLvr_i ( bd_c, "4.4", 1, GKC_ST.KEY_PUSH, GK_L.C_4 );
-			bd_c.Get(  Array.IndexOf ( NAME_COMMAND, "4.4" ) ).LimitTime = 6;
+			SetCommandLvr ( bd_c, ENM_COMMAND._6_6, GKC_ST.KEY_IS, GK_L.C_6 );
+			SetCommandLvr_i ( bd_c, ENM_COMMAND._6_6, 1, GKC_ST.KEY_PUSH, GK_L.C_6 );
+			bd_c.Get( ENM_COMMAND._6_6.ToString() ).LimitTime = 6;
+
+			SetCommandLvr ( bd_c, ENM_COMMAND._4_4, GKC_ST.KEY_IS, GK_L.C_4 );
+			SetCommandLvr_i ( bd_c, ENM_COMMAND._4_4, 1, GKC_ST.KEY_PUSH, GK_L.C_4 );
+			bd_c.Get( ENM_COMMAND._4_4.ToString() ).LimitTime = 6;
 		}
 
-		private void SetCommand ( BD_CMD bd_c, string name_cmd, int btn )
+		private void SetCommandBtn ( BD_CMD bd_c, ENM_COMMAND name_cmd, int btn )
 		{
-			int index = Array.IndexOf ( NAME_COMMAND, name_cmd );
-			bd_c.Get ( index ).ListGameKeyCommand[ 0 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
-			bd_c.Get ( index ).LimitTime = 1;
+			bd_c.Get ( name_cmd.ToString () ).ListGameKeyCommand[ 0 ].Btn[ btn ] = GKC_ST.KEY_PUSH;
+			bd_c.Get ( name_cmd.ToString () ).LimitTime = 1;
 		}
 
-		private void SetCommandLvr ( BD_CMD bd_c, string name_cmd, GKC_ST st, GK_L gk_l )
+		private void SetCommandLvr ( BD_CMD bd_c, ENM_COMMAND name_cmd, GKC_ST st, GK_L gk_l )
 		{
-			int index = Array.IndexOf ( NAME_COMMAND, name_cmd );
-			bd_c.Get ( index ).ListGameKeyCommand [ 0 ].SetLvrSt ( st, gk_l );
-			bd_c.Get ( index ).LimitTime = 1;
+			bd_c.Get ( name_cmd.ToString() ).ListGameKeyCommand [ 0 ].SetLvrSt ( st, gk_l );
+			bd_c.Get ( name_cmd.ToString() ).LimitTime = 1;
 		}
 
-		private void SetCommandLvr_i ( BD_CMD bd_c, string name_cmd, int index, GKC_ST st, GK_L gk_l )
+		private void SetCommandLvr_i ( BD_CMD bd_c, ENM_COMMAND name_cmd, int index, GKC_ST st, GK_L gk_l )
 		{
-			int i = Array.IndexOf ( NAME_COMMAND, name_cmd );
-			bd_c.Get ( i ).ListGameKeyCommand.Add ( new GameKeyCommand () );
-			bd_c.Get ( i ).ListGameKeyCommand [ index ].SetLvrSt ( st, gk_l );
-			bd_c.Get ( i ).LimitTime = index;
+			bd_c.Get ( name_cmd.ToString() ).ListGameKeyCommand.Add ( new GameKeyCommand () );
+			bd_c.Get ( name_cmd.ToString() ).ListGameKeyCommand [ index ].SetLvrSt ( st, gk_l );
+			bd_c.Get ( name_cmd.ToString() ).LimitTime = index;
 		}
 
 
 		//テスト用ブランチの作成
 		private void MakeBranch ( Chara chara )
 		{
-			foreach ( string str in NAME_BRANCH )
+			foreach ( string str in Enum.GetNames ( typeof ( ENM_BRANCH ) ) )
 			{
 				EditChara.Inst.AddBranch ( str );
 			}
-			SetBranch ( chara.BD_Branch, "L → 立L", "L", "Attack_5L" );
-			SetBranch ( chara.BD_Branch, "Ma → 立Ma", "Ma", "Attack_5Ma" );
-			SetBranch ( chara.BD_Branch, "Mb → 立Mb", "Mb", "Attack_5Mb" );
-			SetBranch ( chara.BD_Branch, "H → 立H", "H", "Attack_5H" );
-			SetBranch ( chara.BD_Branch, "6 → FrontMove", "6", "FrontMove" );
-			SetBranch ( chara.BD_Branch, "4 → BackMove", "4", "BackMove" );
-			SetBranch ( chara.BD_Branch, "6離 → FrontDuration", "6離", "Stand" );
-			SetBranch ( chara.BD_Branch, "4離 → BackDuration", "4離", "Stand" );
-			SetBranch ( chara.BD_Branch, "6.6 → FrontDash", "6.6", "FrontDash" );
-			SetBranch ( chara.BD_Branch, "4.4 → BackDash", "4.4", "BackDash" );
-			SetBranch ( chara.BD_Branch, "8 → VerticalJump", "8", "VerticalJump" );
-			SetBranch ( chara.BD_Branch, "9 → FrontJump", "9", "FrontJump" );
-			SetBranch ( chara.BD_Branch, "7 → BackJump", "7", "BackJump" );
+
+			BD_BRC b = chara.BD_Branch;
+			SetBranch ( b, ENM_BRANCH.L_立L,				ENM_COMMAND.L,		"Attack_5L" );
+			SetBranch ( b, ENM_BRANCH.Ma_立Ma,			ENM_COMMAND.Ma,		"Attack_5Ma" );
+			SetBranch ( b, ENM_BRANCH.Mb_立Mb,			ENM_COMMAND.Mb,		"Attack_5Mb" );
+			SetBranch ( b, ENM_BRANCH.H_立H,				ENM_COMMAND.H,		"Attack_5H" );
+			SetBranch ( b, ENM_BRANCH._6_FrontMove,		ENM_COMMAND._6,		"FrontMove" );
+			SetBranch ( b, ENM_BRANCH._4_BackMove,		ENM_COMMAND._4,		"BackMove" );
+			SetBranch ( b, ENM_BRANCH._6離_Stand,		ENM_COMMAND._6off,	"Stand" );
+			SetBranch ( b, ENM_BRANCH._4離_Stand,		ENM_COMMAND._4off,	"Stand" );
+			SetBranch ( b, ENM_BRANCH._6_6_FrontDash,	ENM_COMMAND._6_6,	"FrontDash" );
+			SetBranch ( b, ENM_BRANCH._4_4_BackDash,	ENM_COMMAND._4_4,	"BackDash" );
+			SetBranch ( b, ENM_BRANCH._8_VerticalJump,	ENM_COMMAND._8,		"VerticalJump" );
+			SetBranch ( b, ENM_BRANCH._9_FrontJump,		ENM_COMMAND._9,		"FrontJump" );
+			SetBranch ( b, ENM_BRANCH._7_BackJump,		ENM_COMMAND._7,		"BackJump" );
 		}
 
-		private void SetBranch ( BD_BRC bd_brc, string brc_name, string cmd_name, string act_name )
+		private void SetBranch ( BD_BRC bd_brc, ENM_BRANCH brc_name, ENM_COMMAND cmd_name, string act_name )
 		{
-			Branch br = bd_brc.Get ( brc_name );
-			br.NameCommand = cmd_name;
+			Branch br = bd_brc.Get ( brc_name.ToString () );
+			br.NameCommand = cmd_name.ToString ();
 			br.NameAction = act_name;
 		}
 
 		//ルート
 		private void MakeRoute ( Chara chara )
 		{
-			Route rut0 = new Route ( "地上通常技", "立ち状態で移行する技全般" );
-			rut0.BL_BranchName.Add ( new TName ( "L → 立L" ) );
-			rut0.BL_BranchName.Add ( new TName ( "Ma → 立Ma" ) );
-			rut0.BL_BranchName.Add ( new TName ( "Mb → 立Mb" ) );
-			rut0.BL_BranchName.Add ( new TName ( "H → 立H") );
+			Route rut0 = new Route ( ENM_RUT.地上通常技.ToString(), "立ち状態で移行する技全般" );
+			rut0.BL_BranchName.Add ( new TName ( ENM_BRANCH.L_立L.ToString() ) );
+			rut0.BL_BranchName.Add ( new TName ( ENM_BRANCH.Ma_立Ma.ToString() ) );
+			rut0.BL_BranchName.Add ( new TName ( ENM_BRANCH.Mb_立Mb.ToString() ) );
+			rut0.BL_BranchName.Add ( new TName ( ENM_BRANCH.H_立H.ToString()) );
 			chara.BD_Route.Add ( rut0 );
 
-			Route rut1 = new Route ( "地上移動", "立ち状態から出る移動全般" );
-			rut1.BL_BranchName.Add ( new TName ( "6 → FrontMove" ) );
-			rut1.BL_BranchName.Add ( new TName ( "4 → BackMove" ) );
-			rut1.BL_BranchName.Add ( new TName ( "8 → VerticalJump" ) );
-			rut1.BL_BranchName.Add ( new TName ( "9 → FrontJump" ) );
-			rut1.BL_BranchName.Add ( new TName ( "7 → BackJump" ) );
+			Route rut1 = new Route ( ENM_RUT.地上移動.ToString(), "立ち状態から出る移動全般" );
+			rut1.BL_BranchName.Add ( new TName ( ENM_BRANCH._6_FrontMove.ToString() ) );
+			rut1.BL_BranchName.Add ( new TName ( ENM_BRANCH._4_BackMove.ToString() ) );
+			rut1.BL_BranchName.Add ( new TName ( ENM_BRANCH._8_VerticalJump.ToString() ) );
+			rut1.BL_BranchName.Add ( new TName ( ENM_BRANCH._9_FrontJump.ToString() ) );
+			rut1.BL_BranchName.Add ( new TName ( ENM_BRANCH._7_BackJump.ToString() ) );
 			chara.BD_Route.Add ( rut1 );
+
+			Route rut2 = new Route ( ENM_RUT.前持続停止.ToString(), "前持続を離す" );
+			rut2.BL_BranchName.Add ( new TName ( ENM_BRANCH._6離_Stand.ToString() ) );
+			chara.BD_Route.Add ( rut2 );
+
+			Route rut3 = new Route ( ENM_RUT.後持続停止.ToString(), "後持続を離す" );
+			rut3.BL_BranchName.Add ( new TName ( ENM_BRANCH._4離_Stand.ToString() ) );
+			chara.BD_Route.Add ( rut3 );
+
+			Route rut4 = new Route ( ENM_RUT.ジャンプ.ToString(), "ジャンプ" );
+			rut4.BL_BranchName.Add ( new TName ( ENM_BRANCH._8_VerticalJump.ToString() ) );
+			rut4.BL_BranchName.Add ( new TName ( ENM_BRANCH._9_FrontJump.ToString() ) );
+			rut4.BL_BranchName.Add ( new TName ( ENM_BRANCH._7_BackJump.ToString() ) );
+			chara.BD_Route.Add ( rut4 );
 		}
 
 

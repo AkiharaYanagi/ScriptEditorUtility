@@ -160,6 +160,9 @@ namespace ScriptEditor
 				//イメージ名
 				script.ImgName =  elemScript.Attributes[ (int)ATTRIBUTE_SCRIPT.IMG_NAME ].Value;
 
+				//イメージID
+				//script.ImgID =  IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.IMG_ID );
+
 				//X, Y
 				int x = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.X );
 				int y = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.Y );
@@ -343,8 +346,8 @@ namespace ScriptEditor
 				Branch brc = new Branch
 				{
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
-					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_N ].Value,
-					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_N ].Value,
+					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
+					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
 					Frame = 0
 				};
 

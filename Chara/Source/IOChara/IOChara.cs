@@ -54,6 +54,7 @@
 	{
 		GROUP,
 		IMG_NAME,
+		IMG_ID,
 		X, Y, 
 		VX, VY,
 		AX, AY,
@@ -90,8 +91,10 @@
 	public enum ATTR_BRANCH
 	{
 		NAME,
-		CMD_N,
-		ACT_N,
+		CMD_NAME,
+		CMD_ID,
+		ACT_NAME,
+		ACT_ID,
 		FRAME,
 	}
 
