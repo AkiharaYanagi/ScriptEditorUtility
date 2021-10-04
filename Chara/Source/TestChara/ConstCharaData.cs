@@ -105,18 +105,22 @@ namespace ScriptEditor
 		//デフォルトコマンド名
 		private readonly string[] NAME_COMMAND = new string[] 
 		{
+			"N",
 			"L", "Ma", "Mb", "H", 
 			"6", "4", 
 			"6離", "4離", "6.6", "4.4", 
 			"8", "9", "7", 
+			"SP0",
 		};
 
 		private enum ENM_COMMAND
 		{ 
+			_N,
 			L, Ma, Mb, H,
 			_6, _4, 
 			_6off, _4off, _6_6, _4_4,
 			_8, _9, _7, 
+			SP0,
 		};
 
 
@@ -127,6 +131,8 @@ namespace ScriptEditor
 			"6 → FrontMove", "4 → BackMove", 
 			"6離 → FrontDuration", "4離 → BackDuration", "6.6 → FrontDash", "4.4 → BackDash", 
 			"8 → VerticalJump", "9 → FrontJump", "7 → BackJump", 
+			"着地_Stand",
+			"SP0", 
 		};
 
 		private enum ENM_BRANCH
@@ -135,17 +141,21 @@ namespace ScriptEditor
 			_6_FrontMove, _4_BackMove, 
 			_6離_Stand, _4離_Stand, _6_6_FrontDash, _4_4_BackDash, 
 			_8_VerticalJump, _9_FrontJump, _7_BackJump, 
+			着地_Stand,
+			SP0, 
 		}
 
 		//デフォルトルート名
 		private readonly string[] NAME_ROUTE = new string[]
 		{
-			"地上通常技", "地上移動", "前持続停止", "後持続停止", "ジャンプ"
+			"地上移動", "地上通常技", "前持続停止", "後持続停止", "ジャンプ", 
+			"地上必殺技", 
 		};
 
 		private enum ENM_RUT
 		{
-			地上通常技, 地上移動, 前持続停止, 後持続停止, ジャンプ
+			地上移動, 地上通常技, 前持続停止, 後持続停止, ジャンプ,
+			地上必殺技, 
 		}
 	}
 }

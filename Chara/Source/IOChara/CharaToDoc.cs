@@ -306,6 +306,7 @@ namespace ScriptEditor
 
 				sw.Write ( "\t<Branch" );
 				sw.Write ( " Name=\"" + brc.Name + "\"" );					//名前
+				sw.Write ( " Condition=\"" + (int)brc.Condition + "\"" );	//条件
 				sw.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
 				sw.Write ( " CommandID=\"" + commandID + "\"" );			//コマンドID
 				sw.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名

@@ -346,6 +346,7 @@ namespace ScriptEditor
 				Branch brc = new Branch
 				{
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
+					Condition = (BranchCondition) IOChara.Parse ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
 					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
 					Frame = 0

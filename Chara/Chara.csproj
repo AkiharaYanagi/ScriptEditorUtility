@@ -50,6 +50,7 @@
     <Compile Include="Source\CharaData\Action.cs" />
     <Compile Include="Source\CharaData\Branch.cs" />
     <Compile Include="Source\CharaData\Chara.cs" />
+    <Compile Include="Source\CharaData\Const_Chara.cs" />
     <Compile Include="Source\CharaData\Route.cs" />
     <Compile Include="Source\CharaData\Command.cs" />
     <Compile Include="Source\CharaData\Compend.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Source\TestChara\TestCharaData.cs" />
     <Compile Include="Source\IOChara\SaveChara.cs" />
     <Compile Include="Source\TestChara\TestChara.cs" />
+    <Compile Include="Source\TestChara\TestCharaData_Func.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

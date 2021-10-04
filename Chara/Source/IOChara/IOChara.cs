@@ -18,7 +18,13 @@
 		{ 
 			return int.Parse ( e.Attributes[ enumName ].Value );
 		}
+
+		public static int _AttrToInt ( Element elm, int attr )
+		{
+			return int.Parse ( elm.Attributes[ attr ].Value );
+		}
 	}
+
 
 	//共通アトリビュート
 	public enum ATTR_
@@ -91,6 +97,7 @@
 	public enum ATTR_BRANCH
 	{
 		NAME,
+		CONDITION,
 		CMD_NAME,
 		CMD_ID,
 		ACT_NAME,

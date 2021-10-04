@@ -9,14 +9,6 @@ namespace ScriptEditor
 	using BD_Rut = BindingDictionary < Route >;
 	using BD_EfGn = BindingDictionary < EffectGenerate >;
 
-	//計算状態
-	public enum CLC_ST
-	{
-		CLC_MAINTAIN,	//持続
-		CLC_SUBSTITUDE,	//代入
-		CLC_ADD,		//加算
-	}
-
 	//================================================================
 	//	◆スクリプト		キャラにおけるアクションの１フレームの値
 	//		┣フレーム数

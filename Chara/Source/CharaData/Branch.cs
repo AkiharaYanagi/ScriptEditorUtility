@@ -1,15 +1,17 @@
 ﻿namespace ScriptEditor
 {
 	//------------------------------------------------
-	//	コマンドによるアクション分岐
+	//	各種条件によるアクション分岐
 	//------------------------------------------------
 	public class Branch : IName
 	{
 		//------------------------------------------------
 		// IName 名前
 		public string Name { get; set; } = "BrcName";
-		public string GetName () { return Name; }
 		//------------------------------------------------
+			
+		//条件 定数
+		public BranchCondition Condition { get; set; } = BranchCondition.CMD;
 
 		//条件　コマンド名
 		public string NameCommand { get; set; } = "NameCommand";

@@ -35,9 +35,14 @@ namespace ScriptEditor
 				Branch br = EL_Branch.Get ();
 				Cb_Command.Enabled = true;
 				Cb_Action.Enabled = true;
+				Cb_Condition.SelectedItem = br.Condition;
 				Cb_Command.SelectedValue = br.NameCommand;
 				Cb_Action.SelectedValue = br.NameAction;
 			};
+
+			Array names = Enum.GetValues ( typeof ( BranchCondition ) );
+			Cb_Condition.DataSource = names;
+			Cb_Condition.SelectedItem = BranchCondition.DMG;
 
 			Cb_Action.ValueMember = "Name";
 			Cb_Command.ValueMember = "Name";
@@ -69,6 +74,11 @@ namespace ScriptEditor
 		}
 
 		//コンボボックスユーザ選択時
+		private void Cb_Condition_SelectionChangeCommitted ( object sender, EventArgs e )
+		{
+			EL_Branch.Get ().Condition = (BranchCondition)Cb_Condition.SelectedItem;
+		}
+
 		private void Cb_Command_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
 			Branch br = EL_Branch.Get ();
