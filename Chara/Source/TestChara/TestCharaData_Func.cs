@@ -102,17 +102,18 @@ namespace ScriptEditor
 			//編集
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 			EditSequence ea = eb.EditSequence;
-
-			//Stand
-			MakeScript ( (int)ENM_ACTION.Stand, 288 );
+			BD_Seq bd_act = chara.behavior.BD_Sequence;
 
 			//スクリプト
 			Script script_test = SetScript ();
 
 			//スクリプトコピー
-			BD_Seq bd_seq = chara.behavior.BD_Sequence;
-			Script scp_cpy = bd_seq.Get ( (int)ENM_ACTION.Stand ).ListScript [ 0 ];
+			Script scp_cpy = bd_act.Get ( (int)ENM_ACTION.Stand ).ListScript [ 0 ];
 			scp_cpy.Copy ( script_test );
+
+#if false
+			//Stand
+			MakeScript ( (int)ENM_ACTION.Stand, 288 );
 
 			BD_Seq bd_act = chara.behavior.BD_Sequence;
 			BL_Script bl_scp = bd_act.Get ( (int)ENM_ACTION.Stand ).ListScript;
@@ -142,6 +143,9 @@ namespace ScriptEditor
 				bl_scp [ i ].BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
 				bl_scp [ i ].BL_RutName.Add ( new TName ( ENM_RUT.地上通常技.ToString() ) );
 			}
+#endif
+			//Stand
+			MakeAction_Stand ( bd_act );
 
 			//FrontMove
 			const int i_FrontMove = (int)ENM_ACTION.FrontMove;
