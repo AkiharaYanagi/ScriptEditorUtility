@@ -95,6 +95,13 @@ namespace ScriptEditor
 
 		//---------------------------------------------------
 		//ボタン状態
+		public enum ButtonCommand
+		{
+			B_0,
+			B_1,
+			B_2,
+			B_3,
+		}
 		public const int BtnNum = 4;
 		public GKC_ST [] Btn { set; get; } = new GKC_ST [ BtnNum ];
 

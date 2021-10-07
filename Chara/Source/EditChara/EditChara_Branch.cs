@@ -17,7 +17,7 @@ namespace ScriptEditor
 		{
 			Chara.BD_Branch.Add ( new Branch ( name ) );
 		}
-		public void AddBranc ( Branch brc )
+		public void AddBranch ( Branch brc )
 		{
 			Chara.BD_Branch.Add ( brc );
 		}

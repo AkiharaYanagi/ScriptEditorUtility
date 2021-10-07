@@ -72,7 +72,7 @@ namespace ScriptEditor
 			MakeActionList ();
 
 			//アクション内の値を指定
-			SetAction ( ch );
+			MakeAction ( ch );
 
 			//コマンド
 			MakeCommand ( ch.BD_Command );
@@ -88,6 +88,7 @@ namespace ScriptEditor
 			void f_editScp ( Script scp ) { scp.ImgName = "000_dummy.png"; }
 			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
 #endif
+			//名前参照　整合性チェック
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{
 				foreach ( Script scp in sqc.ListScript )

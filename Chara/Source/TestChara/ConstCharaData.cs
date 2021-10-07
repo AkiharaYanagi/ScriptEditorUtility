@@ -6,39 +6,7 @@ namespace ScriptEditor
 
 	public partial class TestCharaData
 	{
-
 		//デフォルトアクション名
-		private readonly string[] NAME_ACTION = new string[] 
-		{
-			"Stand", 
-			"FrontMove", "BackMove", 
-			"VerticalJump", "FrontJump", "BackJump", "Drop", 
-			"VerticalJump(D)", "FrontJump(D)", "BackJump(D)",
-			"FrontDash","FrontDashDuration", 
-			"BackDash", "BackDashDuration", 
-
-			"Attack_5L", "Attack_5Ma", "Attack_5Mb", "Attack_5H", 
-			"Attack_6L", "Attack_6Ma", "Attack_6Mb", "Attack_6H", 
-			"Attack_4L", "Attack_4Ma", "Attack_4Mb", "Attack_4H", 
-			"Attack_2L", "Attack_2Ma", "Attack_2Mb", "Attack_2H", 
-			"Attack_8L", "Attack_8Ma", "Attack_8Mb", "Attack_8H", 
-			"Attack_JL", "Attack_JMa", "Attack_JMb", "Attack_JH", 
-			"SP0_L", "SP0_M", "SP0_H", 
-			"SP1_L", "SP1_M", "SP1_H", 
-			"SP2_L", "SP2_M", "SP2_H", 
-			"OD0_L", "OD0_M", "OD0_H", 
-			"OD1_L", "OD1_M", "OD1_H", 
-
-			"Guard", 
-			"Poised", "Clang", "Avoid", "Dotty", 
-			"Damaged_L", "Damaged_M", "Damaged_H", 
-			"Down", "DownRecover", 
-
-			"Lose", "LoseDuration", 
-			"Win", "WinDuration", 
-			"Start",
-		};
-
 		private enum ENM_ACTION
 		{
 			Stand, 
@@ -54,7 +22,9 @@ namespace ScriptEditor
 			Attack_2L, Attack_2Ma, Attack_2Mb, Attack_2H, 
 			Attack_8L, Attack_8Ma, Attack_8Mb, Attack_8H, 
 			Attack_JL, Attack_JMa, Attack_JMb, Attack_JH, 
+
 			SP0_L, SP0_M, SP0_H, 
+			SP01_L, SP01_M, SP01_H, 
 			SP1_L, SP1_M, SP1_H, 
 			SP2_L, SP2_M, SP2_H, 
 			OD0_L, OD0_M, OD0_H, 
@@ -63,6 +33,7 @@ namespace ScriptEditor
 			Guard, 
 			Poised, Clang, Avoid, Dotty, 
 			Damaged_L, Damaged_M, Damaged_H, 
+			Thrown0, 
 			Down, DownRecover, 
 
 			Lose, LoseDuration, 
@@ -71,7 +42,7 @@ namespace ScriptEditor
 		}
 			   
 		//デフォルトアクションカテゴリ
-		private readonly ActionCategory[] _ACTION_CATEGORY = new ActionCategory[] 
+		private readonly AC [] _ACTION_CATEGORY = new AC [] 
 		{
 			AC.NEUTRAL, 
 			AC.MOVE, AC.MOVE, 
@@ -86,6 +57,8 @@ namespace ScriptEditor
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
+
+			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
@@ -95,6 +68,7 @@ namespace ScriptEditor
 			AC.GUARD, 
 			AC.POISED, AC.CLANG, AC.AVOID, AC.DOTTY, 
 			AC.DAMAGED, AC.DAMAGED, AC.DAMAGED, 
+			AC.DAMAGED, 
 			AC.DAMAGED, AC.DAMAGED, 
 
 			AC.DEMO, AC.DEMO, 
@@ -103,16 +77,6 @@ namespace ScriptEditor
 		};
 
 		//デフォルトコマンド名
-		private readonly string[] NAME_COMMAND = new string[] 
-		{
-			"N",
-			"L", "Ma", "Mb", "H", 
-			"6", "4", 
-			"6離", "4離", "6.6", "4.4", 
-			"8", "9", "7", 
-			"SP0",
-		};
-
 		private enum ENM_COMMAND
 		{ 
 			_N,
@@ -120,21 +84,12 @@ namespace ScriptEditor
 			_6, _4, 
 			_6off, _4off, _6_6, _4_4,
 			_8, _9, _7, 
+			_6H,
 			SP0,
 		};
 
 
 		//デフォルトブランチ名
-		private readonly string[] NAME_BRANCH = new string[] 
-		{
-			"L → 立L", "Ma → 立Ma", "Mb → 立Mb", "H → 立H", 
-			"6 → FrontMove", "4 → BackMove", 
-			"6離 → FrontDuration", "4離 → BackDuration", "6.6 → FrontDash", "4.4 → BackDash", 
-			"8 → VerticalJump", "9 → FrontJump", "7 → BackJump", 
-			"着地_Stand",
-			"SP0", 
-		};
-
 		private enum ENM_BRANCH
 		{
 			L_立L, Ma_立Ma, Mb_立Mb, H_立H, 
@@ -142,20 +97,17 @@ namespace ScriptEditor
 			_6離_Stand, _4離_Stand, _6_6_FrontDash, _4_4_BackDash, 
 			_8_VerticalJump, _9_FrontJump, _7_BackJump, 
 			着地_Stand,
+			SP01, 
 			SP0, 
+			投げ分岐_自, 投げ分岐_相, 
 		}
 
 		//デフォルトルート名
-		private readonly string[] NAME_ROUTE = new string[]
-		{
-			"地上移動", "地上通常技", "前持続停止", "後持続停止", "ジャンプ", 
-			"地上必殺技", 
-		};
-
 		private enum ENM_RUT
 		{
 			地上移動, 地上通常技, 前持続停止, 後持続停止, ジャンプ,
-			地上必殺技, 
+			地上必殺技, 特殊, 
+			投げ分岐_自, 投げ分岐_相, 
 		}
 	}
 }

@@ -24,6 +24,12 @@
 			return ( Action ) base.SelectedSequence;
 		}
 
+		//設定
+		public void SetAction ( int indexAction, Action act )
+		{
+			base.SelectedSequence = act;
+		}
+
 		//追加
 		public void AddAction ()
 		{
