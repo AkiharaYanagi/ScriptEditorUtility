@@ -77,29 +77,37 @@ namespace ScriptEditor
 		};
 
 		//デフォルトコマンド名
-		private enum ENM_COMMAND
+		private enum ENM_CMD
 		{ 
 			_N,
 			L, Ma, Mb, H,
 			_6, _4, 
-			_6off, _4off, _6_6, _4_4,
+			_6off, _4off, _6_6, _4_4, 
 			_8, _9, _7, 
-			_6H,
+			_2_8, _2_9, _2_7, 
+			_6L, _6Ma, _6Mb, _6H, 
+			_4L, _4Ma, _4Mb, _4H, 
+			_2L, _2Ma, _2Mb, _2H, 
+			_8L, _8Ma, _8Mb, _8H, 
 			SP0,
 		};
 
 
 		//デフォルトブランチ名
-		private enum ENM_BRANCH
+		private enum ENM_BRC
 		{
 			L_立L, Ma_立Ma, Mb_立Mb, H_立H, 
-			_6_FrontMove, _4_BackMove, 
-			_6離_Stand, _4離_Stand, _6_6_FrontDash, _4_4_BackDash, 
-			_8_VerticalJump, _9_FrontJump, _7_BackJump, 
+			_6_F_Move, _4_B_Move, 
+			_6離_Stand, _4離_Stand, _6_6_F_Dash, _4_4_B_Dash, 
+			_8_V_Jump, _9_F_Jump, _7_B_Jump, 
 			着地_Stand,
 			SP01, 
 			SP0, 
 			投げ分岐_自, 投げ分岐_相, 
+			_6L, _6Ma, _6Mb, _6H, 
+			_4L, _4Ma, _4Mb, _4H, 
+			_2L, _2Ma, _2Mb, _2H, 
+			_8L, _8Ma, _8Mb, _8H, 
 		}
 
 		//デフォルトルート名

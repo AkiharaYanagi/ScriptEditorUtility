@@ -36,8 +36,8 @@ namespace ScriptEditor
 
 				s.Pos = new Point ( -250, -450 );
 
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技.ToString() ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
 			}
 		}
 
@@ -88,6 +88,26 @@ namespace ScriptEditor
 
 		//----------------------------------------------------------------------
 		//Jump
+		private void MakeAction_Jump ( EditBehavior eb, ENM_ACTION enm_act, string imgName, int vel_x )
+		{
+			int indexAction = (int)enm_act;
+			eb.SelectSequence ( indexAction );
+			Action act = eb.GetAction ();
+			act.NextActionName = ENM_ACTION.Drop.ToString ();
+			act.Posture = ActionPosture.JUMP;
+
+			MakeScript ( indexAction, 1 );
+			foreach ( Script s in act.ListScript )
+			{
+				s.Group = 1; 
+				s.ImgName = imgName;
+				s.CalcState = CLC_ST.CLC_ADD;
+				s.SetVelX ( vel_x );
+				s.SetVelY ( -25 );
+				s.SetAccY ( 1 );
+			}
+		}
+
 		private void MakeAction_Jump ( Action act, int indexAction, string imgName, int vel_x )
 		{
 			act.NextActionName = ENM_ACTION.Drop.ToString ();
@@ -103,6 +123,22 @@ namespace ScriptEditor
 				s.SetVelY ( -25 );
 				s.SetAccY ( 1 );
 			}
+		}
+
+		//----------------------------------------------------------------------
+		//Attack
+		private void MakeAction_Attack ( EditBehavior eb, ENM_ACTION enm_act, string imgName )
+		{
+			int indexAction = (int)enm_act;
+			MakeScript ( indexAction, 12 );
+			eb.SelectSequence ( indexAction );
+			eb.EditSequence.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
+				s.ImgName = imgName;
+			} );
+
 		}
 
 
