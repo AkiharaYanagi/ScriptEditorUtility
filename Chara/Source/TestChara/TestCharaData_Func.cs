@@ -106,6 +106,7 @@ namespace ScriptEditor
 			Script scp_cpy = bd_act.Get ( (int)ENM_ACTION.Stand ).ListScript [ 0 ];
 			scp_cpy.Copy ( script_test );
 
+			//----------------------------------------------------------------
 			//Stand
 			MakeAction_Stand ( bd_act );
 
@@ -115,75 +116,10 @@ namespace ScriptEditor
 			//BackMove
 			MakeAction_BackMove ( bd_act );
 
-
 			//Jump
-#if false
-			const int i_VerticalJump = (int)ENM_ACTION.VerticalJump;
-			MakeScript ( i_VerticalJump, 1 );
-			eb.SelectSequence ( i_VerticalJump );
-			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
-			eb.GetAction ().Posture = ActionPosture.JUMP;
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "AirFrontDash_00.png";
-				s.CalcState = CLC_ST.CLC_ADD;
-				s.SetVelY ( -25 );
-				s.SetAccY ( 1 );
-			} );
-#endif
-#if false
-			const int i_VerticalJump = (int)ENM_ACTION.VerticalJump;
-			Action act_VerticalJump = (Action)bd_act.Get ( i_VerticalJump );
-			MakeAction_Jump ( act_VerticalJump, i_VerticalJump, "AirFrontDash_00.png", 0 );
-#endif
-
-
-#if false
-			//FrontJump
-			const int i_FrontJump = (int)ENM_ACTION.FrontJump;
-			MakeScript ( i_FrontJump, 1 );
-			eb.SelectSequence ( i_FrontJump );
-			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
-			eb.GetAction ().Posture = ActionPosture.JUMP;
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "AirFrontDash_00.png";
-				s.CalcState = CLC_ST.CLC_ADD;
-				s.SetVelX ( 3 );
-				s.SetVelY ( -25 );
-				s.SetAccY ( 1 );
-			} );
-
-			//BackJump
-			const int i_BackJump = (int)ENM_ACTION.BackJump;
-			MakeScript ( i_BackJump, 1 );
-			eb.SelectSequence ( i_BackJump );
-			eb.GetAction ().NextActionName = ENM_ACTION.Drop.ToString ();
-			eb.GetAction ().Posture = ActionPosture.JUMP;
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "AirFrontDash_00.png";
-				s.CalcState = CLC_ST.CLC_ADD;
-				s.SetVelX ( -3 );
-				s.SetVelY ( -25 );
-				s.SetAccY ( 1 );
-			} );
-#endif
-#if false
-			const int i_FrontJump = (int)ENM_ACTION.FrontJump;
-			Action act_FrontJump = (Action)bd_act.Get ( i_FrontJump );
-			MakeAction_Jump ( act_FrontJump, i_FrontJump, "AirFrontDash_00.png", 3 );
-
-			const int i_BackJump = (int)ENM_ACTION.BackJump;
-			Action act_BackJump = (Action)bd_act.Get ( i_BackJump );
-			MakeAction_Jump ( act_BackJump, i_BackJump, "AirFrontDash_00.png", -3 );
-#endif
 			MakeAction_Jump ( eb, ENM_ACTION.VerticalJump, "AirFrontDash_00.png", 0 );
-			MakeAction_Jump ( eb, ENM_ACTION.FrontJump, "AirFrontDash_00.png", 3 );
-			MakeAction_Jump ( eb, ENM_ACTION.BackJump, "AirFrontDash_00.png", -3 );
+			MakeAction_Jump ( eb, ENM_ACTION.FrontJump, "AirFrontDash_00.png", 20 );
+			MakeAction_Jump ( eb, ENM_ACTION.BackJump, "AirFrontDash_00.png", -20 );
 
 			//Drop
 			const int i_Drop = (int)ENM_ACTION.Drop;
@@ -196,66 +132,11 @@ namespace ScriptEditor
 				s.Group = 1; 
 				s.ImgName = "AirBackDash_00.png";
 				s.CalcState = CLC_ST.CLC_MAINTAIN;
-				s.SetAccY ( 1 );
+				s.SetAccY ( 2 );
+				s.ListCRect.Clear ();
 			} );
 
-#if false
-			//FrontDash
-			MakeScript ( 3, 12 );
-//			SetAllScriptVelX ( 3, 10 );
-
-			//FrontDashDuration
-			MakeScript ( 4, 1 );
-//			SetAllScriptVelX ( 3, 20 );
-
-			//"BackDash", 
-			MakeScript ( 5, 1 );
-//			SetAllScriptVelX ( 3, -10 );
-#endif
-
-#if false
-			//"Attack_5L", 
-			const int i_Attack_5L = (int)ENM_ACTION.Attack_5L;
-			MakeScript ( i_Attack_5L, 12 );
-			eb.SelectSequence ( i_Attack_5L );
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "Part_5L_00.png";
-			} );
-#endif
-#if false
-			//"Attack_6L", 
-			const int i_Attack_6L = (int)ENM_ACTION.Attack_6L;
-			MakeScript ( i_Attack_6L, 12 );
-			eb.SelectSequence ( i_Attack_6L );
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "Part_6L_00.png";
-			} );
-
-			//"Attack_5Ma", 
-			const int i_Attack_5Ma = (int)ENM_ACTION.Attack_5Ma;
-			MakeScript ( i_Attack_5Ma, 12 );
-			eb.SelectSequence ( i_Attack_5Ma );
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "Part_5Ma_00.png";
-			} );
-
-			//"Attack_5Mb", 
-			const int i_Attack_5Mb = (int)ENM_ACTION.Attack_5Mb;
-			MakeScript ( i_Attack_5Mb, 12 );
-			eb.SelectSequence ( i_Attack_5Mb );
-			ea.EditScriptInSequence ( s =>
-			{
-				s.Group = 1; 
-				s.ImgName = "Part_5Mb_00.png";
-			} );
-#endif
-
+			//Attack
 			MakeAction_Attack ( eb, ENM_ACTION.Attack_5L , "Part_5L_00.png" );
 			MakeAction_Attack ( eb, ENM_ACTION.Attack_5Ma, "Part_5Ma_00.png" );
 			MakeAction_Attack ( eb, ENM_ACTION.Attack_5Mb, "Part_5Mb_00.png" );
@@ -309,6 +190,7 @@ namespace ScriptEditor
 				s.ImgName = "Part_5H_02.png";
 				s.ListARect.Clear ();
 				s.ListARect.Add ( new Rectangle ( 50, -300, 200, 50 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.被ダメ_H ) );
 			}
 			for ( int i = 12; i < 16; ++ i )
 			{
@@ -331,18 +213,21 @@ namespace ScriptEditor
 			ea.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 			} );
 			BL_Script bl_SP0_L = bd_act.Get ( (int)ENM_ACTION.SP0_L ).ListScript;
 			for ( int i = 0; i < 4; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 				s.ListARect.Clear ();
 			}
 			for ( int i = 4; i < 8; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 				s.ListARect.Clear ();
 				s.ListARect.Add ( new Rectangle ( 50, -300, 200, 50 ) );
@@ -352,6 +237,7 @@ namespace ScriptEditor
 			for ( int i = 8; i < 12; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_01.png";
 				s.ListARect.Clear ();
 			}
@@ -363,6 +249,7 @@ namespace ScriptEditor
 			ea.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_02.png";
 			} );
 
@@ -377,6 +264,11 @@ namespace ScriptEditor
 				s.ImgName = "MotionDrive_05.png";
 			} );
 
+
+
+			//Damaged
+			MakeAction_Damaged ( eb, ENM_ACTION.Damaged_L, "BackDash_00.png" );
+			MakeAction_Damaged ( eb, ENM_ACTION.Damaged_H, "MotionDrive_02.png" );
 
 #if false
 			//"Clang", 

@@ -177,7 +177,9 @@ namespace ScriptEditor
 			SetBranch ( b, ENM_BRC._8L ,		BC_CMD,		ENM_CMD._8L ,	ENM_ACTION.Attack_8L );
 			SetBranch ( b, ENM_BRC._8Ma,		BC_CMD,		ENM_CMD._8Ma,	ENM_ACTION.Attack_8Ma );
 			SetBranch ( b, ENM_BRC._8Mb,		BC_CMD,		ENM_CMD._8Mb,	ENM_ACTION.Attack_8Mb );
-			SetBranch ( b, ENM_BRC._8H ,		BC_CMD,		ENM_CMD._6H,	ENM_ACTION.Attack_8H );
+			SetBranch ( b, ENM_BRC._8H ,		BC_CMD,		ENM_CMD._8H,	ENM_ACTION.Attack_8H );
+
+			SetBranch ( b, ENM_BRC.被ダメ_H,		BC_THR_E,	ENM_CMD._N,		ENM_ACTION.Damaged_H );
 		}
 
 		private void SetBranch ( BD_BRC bd_brc, ENM_BRC brc_name, BranchCondition bc, ENM_CMD cmd_name, ENM_ACTION act_name )
@@ -257,6 +259,10 @@ namespace ScriptEditor
 			Route rut8 = new Route ( ENM_RUT.投げ分岐_相.ToString(), "投げ分岐_相" );
 			SetEnmBrc ( rut8, ENM_BRC.投げ分岐_相 );
 			chara.BD_Route.Add ( rut8 );
+
+			Route rut9 = new Route ( ENM_RUT.被ダメ_H.ToString(), "被ダメ_H" );
+			SetEnmBrc ( rut9, ENM_BRC.被ダメ_H );
+			chara.BD_Route.Add ( rut9 );
 		}
 
 		private void SetEnmBrc ( Route rut, ENM_BRC enm_brc )

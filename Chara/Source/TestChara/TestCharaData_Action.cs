@@ -56,11 +56,11 @@ namespace ScriptEditor
 				s.ImgName = "FrontMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( 15 );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
 			}
 		}
 
@@ -78,11 +78,11 @@ namespace ScriptEditor
 				s.ImgName = "BacktMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( -15 );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.後持続停止 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.後持続停止 ) );
 			} 		
 		}
 
@@ -105,6 +105,7 @@ namespace ScriptEditor
 				s.SetVelX ( vel_x );
 				s.SetVelY ( -25 );
 				s.SetAccY ( 1 );
+				s.ListCRect.Clear ();
 			}
 		}
 
@@ -122,6 +123,7 @@ namespace ScriptEditor
 				s.SetVelX ( vel_x );
 				s.SetVelY ( -25 );
 				s.SetAccY ( 1 );
+				s.ListCRect.Clear ();
 			}
 		}
 
@@ -130,13 +132,30 @@ namespace ScriptEditor
 		private void MakeAction_Attack ( EditBehavior eb, ENM_ACTION enm_act, string imgName )
 		{
 			int indexAction = (int)enm_act;
-			MakeScript ( indexAction, 12 );
+			MakeScript ( indexAction, 25 );
 			eb.SelectSequence ( indexAction );
 			eb.EditSequence.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = imgName;
+				s.ListARect.Add ( new Rectangle ( 130, -250, 60, 100 ) );
+//				s.ListORect.Add ( new Rectangle ( 20, -220, 40, 40 ) );
+			} );
+
+		}
+
+		private void MakeAction_Damaged ( EditBehavior eb, ENM_ACTION enm_act, string imgName )
+		{
+			int indexAction = (int)enm_act;
+			MakeScript ( indexAction, 40 );
+			eb.SelectSequence ( indexAction );
+			eb.EditSequence.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
+				s.ImgName = imgName;
+				s.SetVelX ( -5 );
 			} );
 
 		}
@@ -150,8 +169,9 @@ namespace ScriptEditor
 			Script script0 = new Script ();
 			script0.ListCRect.Add ( new Rectangle ( -90, -300, 100, 250 ) );
 			script0.ListHRect.Add ( new Rectangle ( -100, -280, 120, 350 ) );
-			script0.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
-			script0.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
+
+//			script0.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
+//			script0.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
 //			script0.BD_EfGnrt.Add ( new EffectGenerate () );
 
 			script0.CalcState = CLC_ST.CLC_SUBSTITUDE;
@@ -177,8 +197,8 @@ namespace ScriptEditor
 				Script script = new Script ();
 				script.ListCRect.Add ( new Rectangle ( -90, -300, 100, 250 ) );
 				script.ListHRect.Add ( new Rectangle ( -100, -280, 120, 350 ) );
-				script.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
-				script.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
+//				script.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
+//				script.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
 				script.SetPos ( -157, -424 );
 				eb.AddScript ( script );
 			}
