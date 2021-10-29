@@ -84,11 +84,32 @@ namespace ScriptEditor
 			SetCmd_LvrBtn ( bd_c, ENM_CMD._8H , GK_L.C_8, GK_B.B_3 );	//8H
 
 
-			//236L
-			SetCmdLvr ( bd_c, ENM_CMD.SP0, 0, 16, IS, GK_L.C_2 );
-			SetCmdLvr ( bd_c, ENM_CMD.SP0, 1, 16, IS, GK_L.C_3 );
-			SetCmdLvr ( bd_c, ENM_CMD.SP0, 2, 16, IS, GK_L.C_6 );
-			SetCmdBtn ( bd_c, ENM_CMD.SP0, 3, 16, PS, 0 );
+			//2146 + (A)
+			SetCmd_2146A ( bd_c, ENM_CMD.SP0_L , GK_B.B_0 );
+			SetCmd_2146A ( bd_c, ENM_CMD.SP0_Ma, GK_B.B_1 );
+			SetCmd_2146A ( bd_c, ENM_CMD.SP0_Mb, GK_B.B_2 );
+			SetCmd_2146A ( bd_c, ENM_CMD.SP0_H , GK_B.B_3 );
+
+			//412 + (A)
+			SetCmd_412A ( bd_c, ENM_CMD.SP1_L , GK_B.B_0 );
+			SetCmd_412A ( bd_c, ENM_CMD.SP1_Ma, GK_B.B_1 );
+			SetCmd_412A ( bd_c, ENM_CMD.SP1_Mb, GK_B.B_2 );
+			SetCmd_412A ( bd_c, ENM_CMD.SP1_H , GK_B.B_3 );
+
+			//236 + (A)
+			SetCmd_236A ( bd_c, ENM_CMD.SP2_L , GK_B.B_0 );
+			SetCmd_236A ( bd_c, ENM_CMD.SP2_Ma, GK_B.B_1 );
+			SetCmd_236A ( bd_c, ENM_CMD.SP2_Mb, GK_B.B_2 );
+			SetCmd_236A ( bd_c, ENM_CMD.SP2_H , GK_B.B_3 );
+
+			//6321463214 + L
+			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_L , GK_B.B_0 );
+//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_Ma , GK_B.B_1 );
+//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_Mb , GK_B.B_2 );
+//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_H , GK_B.B_3 );
+
+			//236236 + H
+			SetCmd_236236A ( bd_c, ENM_CMD.OD1_H , GK_B.B_3 );
 		}
 
 		private void SetCmdBtn ( BD_CMD bd_c, ENM_CMD name_cmd, int index, int limit, GKC_ST st, GK_B btn )
@@ -123,6 +144,71 @@ namespace ScriptEditor
 			SetCmdBtn ( bd_c, cmd, 0, 1, PS, btn );
 		}
 
+		//コマンド	2146 + (A)
+		private void SetCmd_2146A ( BD_CMD bd_c, ENM_CMD cmd, GK_B btn )
+		{
+			GKC_ST IS = GKC_ST.KEY_IS;
+			GKC_ST PS = GKC_ST.KEY_PUSH;
+			SetCmdLvr ( bd_c, cmd, 0, 24, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 1, 24, IS, GK_L.C_1 );
+			SetCmdLvr ( bd_c, cmd, 2, 24, IS, GK_L.C_4 );
+			SetCmdLvr ( bd_c, cmd, 3, 24, IS, GK_L.C_6 );
+			SetCmdBtn ( bd_c, cmd, 4, 24, PS, btn );
+		}
+
+		//コマンド	412 + (A)
+		private void SetCmd_412A ( BD_CMD bd_c, ENM_CMD cmd, GK_B btn )
+		{
+			GKC_ST IS = GKC_ST.KEY_IS;
+			GKC_ST PS = GKC_ST.KEY_PUSH;
+			SetCmdLvr ( bd_c, cmd, 0, 16, IS, GK_L.C_4 );
+			SetCmdLvr ( bd_c, cmd, 1, 16, IS, GK_L.C_1 );
+			SetCmdLvr ( bd_c, cmd, 2, 16, IS, GK_L.C_2 );
+			SetCmdBtn ( bd_c, cmd, 3, 16, PS, btn );
+		}
+
+		//コマンド	236 + (A)
+		private void SetCmd_236A ( BD_CMD bd_c, ENM_CMD cmd, GK_B btn )
+		{
+			GKC_ST IS = GKC_ST.KEY_IS;
+			GKC_ST PS = GKC_ST.KEY_PUSH;
+			SetCmdLvr ( bd_c, cmd, 0, 16, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 1, 16, IS, GK_L.C_3 );
+			SetCmdLvr ( bd_c, cmd, 2, 16, IS, GK_L.C_6 );
+			SetCmdBtn ( bd_c, cmd, 3, 16, PS, btn );
+		}
+
+		//コマンド	6321463214 + (A)
+		private void SetCmd_6321463214A ( BD_CMD bd_c, ENM_CMD cmd, GK_B btn )
+		{
+			GKC_ST IS = GKC_ST.KEY_IS;
+			GKC_ST PS = GKC_ST.KEY_PUSH;
+			SetCmdLvr ( bd_c, cmd, 0, 80, IS, GK_L.C_6 );
+			SetCmdLvr ( bd_c, cmd, 1, 80, IS, GK_L.C_3 );
+			SetCmdLvr ( bd_c, cmd, 2, 80, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 3, 80, IS, GK_L.C_1 );
+			SetCmdLvr ( bd_c, cmd, 4, 80, IS, GK_L.C_4 );
+			SetCmdLvr ( bd_c, cmd, 5, 80, IS, GK_L.C_6 );
+			SetCmdLvr ( bd_c, cmd, 6, 80, IS, GK_L.C_3 );
+			SetCmdLvr ( bd_c, cmd, 7, 80, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 8, 80, IS, GK_L.C_1 );
+			SetCmdLvr ( bd_c, cmd, 9, 80, IS, GK_L.C_4 );
+			SetCmdBtn ( bd_c, cmd, 10, 80, PS, btn );
+		}
+
+		//コマンド	236236 + (A)
+		private void SetCmd_236236A ( BD_CMD bd_c, ENM_CMD cmd, GK_B btn )
+		{
+			GKC_ST IS = GKC_ST.KEY_IS;
+			GKC_ST PS = GKC_ST.KEY_PUSH;
+			SetCmdLvr ( bd_c, cmd, 0, 32, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 1, 32, IS, GK_L.C_3 );
+			SetCmdLvr ( bd_c, cmd, 2, 32, IS, GK_L.C_6 );
+			SetCmdLvr ( bd_c, cmd, 3, 32, IS, GK_L.C_2 );
+			SetCmdLvr ( bd_c, cmd, 4, 32, IS, GK_L.C_3 );
+			SetCmdLvr ( bd_c, cmd, 5, 32, IS, GK_L.C_6 );
+			SetCmdBtn ( bd_c, cmd, 6, 32, PS, btn );
+		}
 
 
 		//----------------------------------------------------------------------------
@@ -155,7 +241,8 @@ namespace ScriptEditor
 			SetBranch ( b, ENM_BRC._7_B_Jump,	BC_CMD,		ENM_CMD._2_7,	ENM_ACTION.BackJump );
 			SetBranch ( b, ENM_BRC.着地_Stand,	BC_GRD,		ENM_CMD._N,		ENM_ACTION.Stand );
 			SetBranch ( b, ENM_BRC.SP01,		BC_CMD,		ENM_CMD._6H,	ENM_ACTION.SP0_L );
-			SetBranch ( b, ENM_BRC.SP0,			BC_CMD,		ENM_CMD.SP0,	ENM_ACTION.SP0_L );
+			SetBranch ( b, ENM_BRC.SP0,			BC_CMD,		ENM_CMD.SP0_L,	ENM_ACTION.SP0_L );
+			SetBranch ( b, ENM_BRC.OD0,			BC_CMD,		ENM_CMD.OD0_L,	ENM_ACTION.OD0_L );
 			SetBranch ( b, ENM_BRC.投げ分岐_自,	BC_THR_I,	ENM_CMD._N,		ENM_ACTION.SP01_L );
 			SetBranch ( b, ENM_BRC.投げ分岐_相,	BC_THR_E,	ENM_CMD._N,		ENM_ACTION.Thrown0 );
 
@@ -252,6 +339,10 @@ namespace ScriptEditor
 			SetEnmBrc ( rut6, ENM_BRC.SP01 );
 			chara.BD_Route.Add ( rut6 );
 
+			Route rut_OD = new Route ( ENM_RUT.地上超必.ToString(), "地上超必" );
+			SetEnmBrc ( rut_OD, ENM_BRC.OD0 );
+			chara.BD_Route.Add ( rut_OD );
+
 			Route rut7 = new Route ( ENM_RUT.投げ分岐_自.ToString(), "投げ分岐_自" );
 			SetEnmBrc ( rut7, ENM_BRC.投げ分岐_自 );
 			chara.BD_Route.Add ( rut7 );
@@ -281,13 +372,18 @@ namespace ScriptEditor
 			eg.AddEffect ( new Effect ( "testEffect0" ) );
 			eg.AddEffect ( new Effect ( "testEffect1" ) );
 
-			//選択
+			//編集
 			eg.SelectSequence ( 0 );
 			eg.SelectedScript.SetPos ( -120, -220 );
+			EditEffect ee = eg.EditEffect;
+			ee.EditAllScript ( chara.garnish, s => { s.ImgName = "Ef0.png"; } );
+			Effect e = eg.Get ();
 
+#if false
 			//新規
 			Script efScript = new Script ();
 			eg.AddScript ( efScript );
+#endif
 
 			//値設定
 //			chara.garnish.BD_Sequence.GetBindingList()[ 1 ].ListScript[ 0 ].ImgIndex = 1;
@@ -298,13 +394,16 @@ namespace ScriptEditor
 			eg.SelectScript ( 0, 0 );
 			EffectGenerate efGnrt = new EffectGenerate
 			{
-				Name = "Effect0",
+				Name = "EffectGnrt_0",
 				EfName = chara.garnish.BD_Sequence.Get ( 0 ).Name,
 				Pt = new Point ( -20, -50 )
 			};
 
+#if false
+
 			Script main_scp = chara.behavior.BD_Sequence.Get ( 0 ).ListScript [ 0 ];
 			main_scp.BD_EfGnrt.Add ( efGnrt );
+#endif
 		}
 	}
 }

@@ -109,7 +109,6 @@ namespace ScriptEditor
 		//個別項目
 
 		//イメージリストヘッダの書出(メイン, Ef)
-//		private void WriteListImageHeader ( StreamWriter sw, BD_IDT BD_Imgdt, string tagname )
 		private void WriteListImageHeader ( StreamWriter sw, Compend cmpd, string tagname )
 		{
 			BindingList < ImageData > bl_imgd = cmpd.BD_Image.GetBindingList (); 
@@ -125,7 +124,6 @@ namespace ScriptEditor
 
 		//シークエンス(アクション, エフェクト)リストの書出
 		private delegate void Func_WriteSqc ( StreamWriter sw, Sequence sqc );
-//		private void WriteSequence ( StreamWriter sw, BD_SQC bd_sqc, string tagname, Func_WriteSqc fws )
 		private void WriteSequence ( StreamWriter sw, Compend cmpd, string tagname, Func_WriteSqc fws )
 		{
 			BL_SQC bl_sqc = cmpd.BD_Sequence.GetBindingList ();
@@ -182,14 +180,17 @@ namespace ScriptEditor
 					//{ throw new Exception ( "name error" ); }
 	
 				strmWriter.Write ( "\t\t<Script" );
-				strmWriter.Write ( " group=\"" + script.Group + "\"" );
+				strmWriter.Write ( " Group=\"" + script.Group + "\"" );
 				strmWriter.Write ( " ImageName=\"" + script.ImgName + "\"" );
 				strmWriter.Write ( " ImageID=\"" + imageID + "\"" );
 				strmWriter.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
 				strmWriter.Write ( " VX=\"" + script.Vel.X + "\" VY=\"" + script.Vel.Y + "\"" );
 				strmWriter.Write ( " AX=\"" + script.Acc.X + "\" AY=\"" + script.Acc.Y + "\"" );
 				strmWriter.Write ( " CLC_ST=\"" + (int)script.CalcState + "\"" );
-				strmWriter.Write ( " power=\"" + script.Power + "\"" );
+				strmWriter.Write ( " Power=\"" + script.Power + "\"" );
+				strmWriter.Write ( " BlackOut=\"" + script.BlackOut + "\"" );
+				strmWriter.Write ( " Vibration=\"" + script.Vibration + "\"" );
+				strmWriter.Write ( " Stop=\"" + script.Stop + "\"" );
 				strmWriter.Write ( ">\n" );
 
 				//ルートリスト

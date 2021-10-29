@@ -14,14 +14,8 @@ namespace ScriptEditor
 	//	現在のキャラからテスト用のデータを作成する
 	//		データファイルの復旧や、バージョンが異なるときにソースから作成できる状態にしておく
 	//==================================================================================
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
-	using GK_L = GameKeyCommand.LeverCommand;
-
-	using BD_Seq = BindingDictionary < Sequence >;
 	using BL_Sequence = BindingList < Sequence >;
 	using BL_Script = List < Script >;
-	using BD_CMD = BindingDictionary < Command >;
-	using BD_BRC = BindingDictionary < Branch >;
 
 	//-----------------------
 	//テストデータの作成
@@ -116,6 +110,8 @@ namespace ScriptEditor
 			//エディット（ガーニッシュ）のテスト
 			MakeGarnish ( ch );
 
+#if false
+
 			//--------------------------------------------
 			//すべてのエフェクトにおけるスクリプトへの変更
 			BL_Sequence blsqcEf = ch.garnish.BD_Sequence.GetBindingList();
@@ -127,6 +123,7 @@ namespace ScriptEditor
 					sc.ImgName = "dummy.png";
 				}
 			}
+#endif
 		}
 
 

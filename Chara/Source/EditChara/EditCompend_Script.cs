@@ -46,11 +46,24 @@ namespace ScriptEditor
 			SelectedSequence.ListScript.InsertRange ( s, scripts );
 		}
 
+		//複数追加
+		public void MultiAdd ()
+		{
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+			Script[] scripts = new Script [ e - s ];
+			for ( int i = 0; i < e - s; ++ i )
+			{
+				scripts [ i ] = new Script ();
+			}
+			SelectedSequence.ListScript.AddRange ( scripts );
+		}
+
 		//選択中のスクリプトを削除
 		public void RemScript ()
 		{
 			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
-			SelectedSequence.ListScript.RemoveAt ( i );
+			SelectedSequence.ListScript.RemoveAt ( i - 1 );
 		}
 
 		//複数削除

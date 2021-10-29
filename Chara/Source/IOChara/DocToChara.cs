@@ -155,35 +155,41 @@ namespace ScriptEditor
 				script.Frame = frame;
 
 				//グループ
-				script.Group = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.GROUP );
+				script.Group = IOChara.Parse ( elemScript, (int)ATTR_SCP.GROUP );
 
 				//イメージ名
-				script.ImgName =  elemScript.Attributes[ (int)ATTRIBUTE_SCRIPT.IMG_NAME ].Value;
-
-				//イメージID
-				//script.ImgID =  IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.IMG_ID );
+				script.ImgName =  elemScript.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
 
 				//X, Y
-				int x = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.X );
-				int y = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.Y );
+				int x = IOChara.Parse ( elemScript, (int)ATTR_SCP.X );
+				int y = IOChara.Parse ( elemScript, (int)ATTR_SCP.Y );
 				script.SetPos ( x, y );
 
 				//VX,VY
-				int vx = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.VX );
-				int vy = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.VY );
+				int vx = IOChara.Parse ( elemScript, (int)ATTR_SCP.VX );
+				int vy = IOChara.Parse ( elemScript, (int)ATTR_SCP.VY );
 				script.SetVel ( vx, vy );
 
 				//AX,AY
-				int ax = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.AX );
-				int ay = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.AY );
+				int ax = IOChara.Parse ( elemScript, (int)ATTR_SCP.AX );
+				int ay = IOChara.Parse ( elemScript, (int)ATTR_SCP.AY );
 				script.SetAcc ( ax, ay );
 
 				//計算状態
-				int clcst = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.CLC_ST );
+				int clcst = IOChara.Parse ( elemScript, (int)ATTR_SCP.CLC_ST );
 				script.CalcState = (CLC_ST)clcst;
 
-				//power
-				script.Power = IOChara.Parse ( elemScript, (int)ATTRIBUTE_SCRIPT.POWER );
+				//攻撃値
+				script.Power = IOChara.Parse ( elemScript, (int)ATTR_SCP.POWER );
+
+				//暗転[F]
+				script.BlackOut = IOChara.Parse ( elemScript, (int)ATTR_SCP.BLACKOUT );
+
+				//振動[F]
+				script.Vibration = IOChara.Parse ( elemScript, (int)ATTR_SCP.VIBRATION );
+
+				//振動[F]
+				script.Stop = IOChara.Parse ( elemScript, (int)ATTR_SCP.STOP );
 
 				//-----------------------------------------------------------------------------
 				//Script以下のElement
@@ -201,37 +207,30 @@ namespace ScriptEditor
 				foreach ( Element elemEfGenerate in elemEfGnrtList.Elements )
 				{
 					EffectGenerate efGnrt = new EffectGenerate ();
+					List < Attribute > la = elemEfGenerate.Attributes;
 					
 					//Nameを読込
-					int iName = ( int ) ELEMENT_EFGNRT.ELEG_NAME;
-					efGnrt.Name = elemEfGenerate.Attributes[ iName ].Value;
+					efGnrt.Name = la[ (int)ELMT_EFGNRT.ELEG_NAME ].Value;
 
 					//EfIDを読込
-					int efname = ( int ) ELEMENT_EFGNRT.ELEG_EFNAME;
-					efGnrt.EfName = elemEfGenerate.Attributes[ efname ].Value;
+					efGnrt.EfName = la[ (int)ELMT_EFGNRT.ELEG_EFNAME ].Value;
 
 					//PtGnrtを読込
-					int iptx = ( int ) ELEMENT_EFGNRT.ELEG_PT_X;
-					int pt_x = int.Parse ( elemEfGenerate.Attributes[ iptx ].Value );
-					int ipty = ( int ) ELEMENT_EFGNRT.ELEG_PT_Y;
-					int pt_y = int.Parse ( elemEfGenerate.Attributes[ ipty ].Value );
+					int pt_x = int.Parse ( la[ (int)ELMT_EFGNRT.ELEG_PT_X ].Value );
+					int pt_y = int.Parse ( la[ (int)ELMT_EFGNRT.ELEG_PT_Y ].Value );
 					efGnrt.Pt = new Point ( pt_x, pt_y );
 
 					//Z位置
-					int iptz = ( int ) ELEMENT_EFGNRT.ELEG_PT_Z;
-					efGnrt.Z = int.Parse ( elemEfGenerate.Attributes[ iptz ].Value );
+					efGnrt.Z = int.Parse ( la[ (int)ELMT_EFGNRT.ELEG_PT_Z ].Value );
 
 					//生成
-					int ignrt = ( int ) ELEMENT_EFGNRT.ELEG_GNRT;
-					efGnrt.Gnrt = bool.Parse ( elemEfGenerate.Attributes[ ignrt ].Value );
+					efGnrt.Gnrt = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_GNRT ].Value );
 
 					//繰返
-					int iloop = ( int ) ELEMENT_EFGNRT.ELEG_LOOP;
-					efGnrt.Loop = bool.Parse ( elemEfGenerate.Attributes[ iloop ].Value );
+					efGnrt.Loop = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_LOOP ].Value );
 
 					//位置同期
-					int isync = ( int ) ELEMENT_EFGNRT.ELEG_SYNC;
-					efGnrt.Sync = bool.Parse ( elemEfGenerate.Attributes[ isync ].Value );
+					efGnrt.Sync = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_SYNC ].Value );
 
 					//スクリプトに設定
 					script.BD_EfGnrt.Add ( efGnrt );

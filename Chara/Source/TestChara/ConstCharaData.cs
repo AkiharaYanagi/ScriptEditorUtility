@@ -89,7 +89,11 @@ namespace ScriptEditor
 			_4L, _4Ma, _4Mb, _4H, 
 			_2L, _2Ma, _2Mb, _2H, 
 			_8L, _8Ma, _8Mb, _8H, 
-			SP0,
+			SP0_L, SP0_Ma, SP0_Mb, SP0_H, 
+			SP1_L, SP1_Ma, SP1_Mb, SP1_H, 
+			SP2_L, SP2_Ma, SP2_Mb, SP2_H, 
+			OD0_L, OD0_Ma, OD0_Mb, OD0_H, 
+			OD1_L, OD1_Ma, OD1_Mb, OD1_H, 
 		};
 
 
@@ -103,6 +107,7 @@ namespace ScriptEditor
 			着地_Stand,
 			SP01, 
 			SP0, 
+			OD0, 
 			投げ分岐_自, 投げ分岐_相, 
 			_6L, _6Ma, _6Mb, _6H, 
 			_4L, _4Ma, _4Mb, _4H, 
@@ -115,7 +120,7 @@ namespace ScriptEditor
 		private enum ENM_RUT
 		{
 			地上移動, 地上通常技, 前持続停止, 後持続停止, ジャンプ,
-			地上必殺技, 特殊, 
+			地上必殺技, 特殊, 地上超必, 
 			投げ分岐_自, 投げ分岐_相, 
 			被ダメ_H,
 		}

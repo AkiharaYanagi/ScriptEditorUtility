@@ -18,8 +18,12 @@ namespace ScriptEditor
 		public EditListbox ()
 		{
 			InitializeComponent ();
+
 			listBox1.DataSource = BL_T;
 			listBox1.DisplayMember = "Name";
+
+			BL_T.Add ( new T () );
+			listBox1.SelectedIndex = 0;
 
 			T t = new T ();
 			Tb_Name.Text = t.GetType().Name;
@@ -44,13 +48,21 @@ namespace ScriptEditor
 		public void SetData ( BindingList < T > bl_t )
 		{
 			BL_T = bl_t;
-			listBox1.DataSource = bl_t;
-			
+			listBox1.DataSource = BL_T;
+			listBox1.DisplayMember = "Name";
+			ResetItems ();
+
+			//非表示状態でDataSouceを入れ替えると例外が発生するのでコメントアウト
+#if false
+
+			if ( listBox1.SelectedIndex < 0 ) { return; }
+
 			int i = listBox1.SelectedIndex;
 			if ( i > 0 )
 			{
 				Tb_Name.Text = bl_t [ i ].Name;
 			}
+#endif
 		}
 
 		private void Btn_Add_Click ( object sender, EventArgs e )

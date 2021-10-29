@@ -270,6 +270,35 @@ namespace ScriptEditor
 			MakeAction_Damaged ( eb, ENM_ACTION.Damaged_L, "BackDash_00.png" );
 			MakeAction_Damaged ( eb, ENM_ACTION.Damaged_H, "MotionDrive_02.png" );
 
+
+			//OD0
+			const int i_OD0 = (int)ENM_ACTION.OD0_L;
+			MakeScript ( i_OD0, 30 );
+			eb.SelectSequence ( i_OD0 );
+			ea.EditScriptInSequence ( s =>
+			{
+				s.Group = 1; 
+				s.ImgName = "Part_6H_02.png";
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
+				s.Vel = new Point ( 10, 0 );
+			} );
+			BL_Script bl_OD0_L = bd_act.Get ( i_OD0 ).ListScript;
+			Script scpOD0 = bl_OD0_L [ 0 ];
+			scpOD0.Vel = new Point ( 0, 0 );
+			scpOD0.BlackOut = 30;
+			scpOD0.Stop = 10;
+			scpOD0.ImgName = "StarMassStrike_01.png";
+
+			EffectGenerate efgn = new EffectGenerate ()
+			{
+				Name = "EfGn",
+				EfName = "testEffect0",
+				Pt = new Point ( 180, -250 ),
+				Gnrt = true,
+			};
+			scpOD0.BD_EfGnrt.Add ( efgn );
+
+
 #if false
 			//"Clang", 
 			//"Avoid", 

@@ -56,7 +56,7 @@
 		ELAC_BALANCE,
 	}
 
-	public enum ATTRIBUTE_SCRIPT
+	public enum ATTR_SCP
 	{
 		GROUP,
 		IMG_NAME,
@@ -65,7 +65,10 @@
 		VX, VY,
 		AX, AY,
 		CLC_ST, 
-		POWER
+		POWER,
+		BLACKOUT,
+		VIBRATION,
+		STOP,
 	}
 
 	public enum ELEMENT_SCRIPT
@@ -111,7 +114,7 @@
 		SUMMARY,
 	}
 
-	public enum ELEMENT_EFGNRT
+	public enum ELMT_EFGNRT
 	{
 		ELEG_NAME,
 		ELEG_EFNAME,

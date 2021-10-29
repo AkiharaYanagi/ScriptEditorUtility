@@ -118,6 +118,7 @@ namespace ScriptEditor
 
 			//グループ
 			EditScript.Restruct ( lscp, SelectedScript.Frame );
+
 #if false
 			//関連付け
 			Ctrl_Cmpd.Assosiate ( SelectedScript );

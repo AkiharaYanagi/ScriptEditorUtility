@@ -29,7 +29,6 @@ namespace ScriptEditor
 			if ( chara == null ) { return; }
 
 			//キャラスクリプトをDocument形式でテキストメモリストリームに変換
-//			MemoryStream mstrmChara = GetTextMemoryStream ( chara );
 			CharaToDoc chtom = new CharaToDoc ();
 			MemoryStream mstrmChara = chtom.Run ( chara );
 

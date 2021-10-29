@@ -106,8 +106,8 @@ namespace ScriptEditor
 
 		public void Remove ( string name )
 		{
-			DCT_t.Remove ( name );
 			BL_t.Remove ( DCT_t [ name ] );
+			DCT_t.Remove ( name );
 		}
 
 		public void Remove ( T t )

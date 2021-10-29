@@ -23,6 +23,18 @@ namespace ScriptEditor
 			_MakeAction_Part ( bl_scp, 128, 144, 2, "Stand_01.png" );
 			_MakeAction_Part ( bl_scp, 144, 272, 3, "Stand_02.png" );
 			_MakeAction_Part ( bl_scp, 272, 288, 4, "Stand_01.png" );
+
+
+
+			EffectGenerate efgn = new EffectGenerate ()
+			{
+				Name = "EfGn",
+				EfName = "testEffect0",
+				Pt = new Point ( 100, -150 ),
+				Gnrt = true,
+			};
+			bl_scp[0].BD_EfGnrt.Add ( efgn );
+
 		}
 
 		private void _MakeAction_Part ( BL_Scp bl_s, int start, int end, int group, string imgname )
@@ -36,7 +48,10 @@ namespace ScriptEditor
 
 				s.Pos = new Point ( -250, -450 );
 
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技.ToString() ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
 			}
 		}
@@ -56,6 +71,7 @@ namespace ScriptEditor
 				s.ImgName = "FrontMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( 15 );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
@@ -78,6 +94,7 @@ namespace ScriptEditor
 				s.ImgName = "BacktMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( -15 );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
