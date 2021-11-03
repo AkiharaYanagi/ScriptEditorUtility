@@ -117,16 +117,9 @@ namespace ScriptEditor
 			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
 
 			//グループ
-			EditScript.Restruct ( lscp, SelectedScript.Frame );
-
-#if false
-			//関連付け
-			Ctrl_Cmpd.Assosiate ( SelectedScript );
-			FormRect.Inst.Assosiate ( SelectedScript );
-			FormEfGnrt.Inst.Assosiate ( SelectedScript );
-
-			DispChara.Inst.Disp ();
-#endif
+//			EditScript.Restruct ( lscp, SelectedScriptIndex );
+			EditScript.SelectedGroupIndex = SelectedScript.Group;
+			EditScript.L_Scp = lscp;
 		}
 
 		//---------------------------------------------------------------------

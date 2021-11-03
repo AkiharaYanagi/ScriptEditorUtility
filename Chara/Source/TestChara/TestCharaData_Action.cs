@@ -15,17 +15,15 @@ namespace ScriptEditor
 		//Stand
 		private void MakeAction_Stand ( BD_Seq bd_act )
 		{
-			MakeScript ( (int)ENM_ACTION.Stand, 288 );
+			MakeScript ( (int)ENM_ACT.Stand, 288 );
 
-			BL_Scp bl_scp = bd_act.Get ( (int)ENM_ACTION.Stand ).ListScript;
-
+			BL_Scp bl_scp = bd_act.Get ( (int)ENM_ACT.Stand ).ListScript;
 			_MakeAction_Part ( bl_scp, 0  , 128, 1, "Stand_00.png" );
 			_MakeAction_Part ( bl_scp, 128, 144, 2, "Stand_01.png" );
 			_MakeAction_Part ( bl_scp, 144, 272, 3, "Stand_02.png" );
 			_MakeAction_Part ( bl_scp, 272, 288, 4, "Stand_01.png" );
 
-
-
+#if false
 			EffectGenerate efgn = new EffectGenerate ()
 			{
 				Name = "EfGn",
@@ -34,7 +32,7 @@ namespace ScriptEditor
 				Gnrt = true,
 			};
 			bl_scp[0].BD_EfGnrt.Add ( efgn );
-
+#endif
 		}
 
 		private void _MakeAction_Part ( BL_Scp bl_s, int start, int end, int group, string imgname )
@@ -45,14 +43,13 @@ namespace ScriptEditor
 				s.Group = group;
 				s.ImgName = imgname;
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
-
 				s.Pos = new Point ( -250, -450 );
 
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技.ToString() ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動.ToString() ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動 ) );
 			}
 		}
 
@@ -60,9 +57,9 @@ namespace ScriptEditor
 		//FrontMove
 		private void MakeAction_Move ( BD_Seq bd_act )
 		{
-			const int i_FrontMove = (int)ENM_ACTION.FrontMove;
+			const int i_FrontMove = (int)ENM_ACT.FrontMove;
 			Action act = (Action)bd_act.Get ( i_FrontMove );
-			act.NextActionName = ENM_ACTION.FrontMove.ToString ();
+			act.NextActionName = ENM_ACT.FrontMove.ToString ();
 
 			MakeScript ( i_FrontMove, 16 );
 			foreach ( Script s in act.ListScript )
@@ -83,9 +80,9 @@ namespace ScriptEditor
 		//BackMove
 		private void MakeAction_BackMove ( BD_Seq bd_act )
 		{
-			const int i_BackMove = (int)ENM_ACTION.BackMove;
+			const int i_BackMove = (int)ENM_ACT.BackMove;
 			Action act = (Action)bd_act.Get ( i_BackMove );
-			act.NextActionName = ENM_ACTION.BackMove.ToString ();
+			act.NextActionName = ENM_ACT.BackMove.ToString ();
 
 			MakeScript ( i_BackMove, 16 );
 			foreach ( Script s in act.ListScript )
@@ -105,30 +102,12 @@ namespace ScriptEditor
 
 		//----------------------------------------------------------------------
 		//Jump
-		private void MakeAction_Jump ( EditBehavior eb, ENM_ACTION enm_act, string imgName, int vel_x )
+		private void MakeAction_Jump ( EditBehavior eb, ENM_ACT enm_act, string imgName, int vel_x )
 		{
 			int indexAction = (int)enm_act;
 			eb.SelectSequence ( indexAction );
 			Action act = eb.GetAction ();
-			act.NextActionName = ENM_ACTION.Drop.ToString ();
-			act.Posture = ActionPosture.JUMP;
-
-			MakeScript ( indexAction, 1 );
-			foreach ( Script s in act.ListScript )
-			{
-				s.Group = 1; 
-				s.ImgName = imgName;
-				s.CalcState = CLC_ST.CLC_ADD;
-				s.SetVelX ( vel_x );
-				s.SetVelY ( -25 );
-				s.SetAccY ( 1 );
-				s.ListCRect.Clear ();
-			}
-		}
-
-		private void MakeAction_Jump ( Action act, int indexAction, string imgName, int vel_x )
-		{
-			act.NextActionName = ENM_ACTION.Drop.ToString ();
+			act.NextActionName = ENM_ACT.Drop.ToString ();
 			act.Posture = ActionPosture.JUMP;
 
 			MakeScript ( indexAction, 1 );
@@ -145,8 +124,43 @@ namespace ScriptEditor
 		}
 
 		//----------------------------------------------------------------------
+		//FrontDash
+		private void MakeAction_FrontDash ( BD_Seq bd_act )
+		{
+			const int i_FrontDash = (int)ENM_ACT.FrontDash;
+			Action act = (Action)bd_act.Get ( i_FrontDash );
+			act.NextActionName = ENM_ACT.FrontDash.ToString ();
+
+			MakeScript ( i_FrontDash, 20 );
+			BL_Scp bl_scp = bd_act.Get ( i_FrontDash ).ListScript;
+			_MakeAction_Part_FrontDash ( bl_scp, 0 , 5 , 1, "FrontDash_00.png" );
+			_MakeAction_Part_FrontDash ( bl_scp, 5 , 10, 2, "FrontDash_01.png" );
+			_MakeAction_Part_FrontDash ( bl_scp, 10, 15, 3, "FrontDash_02.png" );
+			_MakeAction_Part_FrontDash ( bl_scp, 15, 20, 4, "FrontDash_03.png" );
+		}
+
+		private void _MakeAction_Part_FrontDash ( BL_Scp bl_s, int start, int end, int group, string imgname )
+		{
+			for ( int i = start; i < end; ++ i )
+			{
+				Script s = bl_s [ i ];
+				s.Group = group;
+				s.ImgName = imgname;
+				s.Vel = new Point ( 20, 0 );
+				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
+				s.Pos = new Point ( -250, -450 );
+
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
+			}
+		}
+
+		//----------------------------------------------------------------------
 		//Attack
-		private void MakeAction_Attack ( EditBehavior eb, ENM_ACTION enm_act, string imgName )
+		private void MakeAction_Attack ( EditBehavior eb, ENM_ACT enm_act, string imgName )
 		{
 			int indexAction = (int)enm_act;
 			MakeScript ( indexAction, 25 );
@@ -162,7 +176,7 @@ namespace ScriptEditor
 
 		}
 
-		private void MakeAction_Damaged ( EditBehavior eb, ENM_ACTION enm_act, string imgName )
+		private void MakeAction_Damaged ( EditBehavior eb, ENM_ACT enm_act, string imgName )
 		{
 			int indexAction = (int)enm_act;
 			MakeScript ( indexAction, 40 );

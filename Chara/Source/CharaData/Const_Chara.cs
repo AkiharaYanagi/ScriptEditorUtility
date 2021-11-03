@@ -1,17 +1,27 @@
 ﻿namespace ScriptEditor
 {
+#if false
 	//-------------------------------------------------------
 	//	■ 基本状態アクション
 	//		(アクションリストの先頭から固定の位置にあり、外部から変更される対象先のアクション)
 	//		立ち, 構え, 打合, 避け, よろけ, ダメージ, 投げられ, ダウン, 勝利
+#endif
 
 	//-------------------------------------------------------
 	//アクション属性 定義
 	public enum ActionCategory
 	{
-		NEUTRAL, MOVE, DASH, ATTACK_L, ATTACK_M, ATTACK_H, 
-		POISED, CLANG, AVOID, DOTTY, DAMAGED, 
-		THROW, GUARD, DEMO, OTHER
+		NEUTRAL, MOVE, JUMP, DASH, 
+
+		ATTACK_L, ATTACK_M, ATTACK_H, 
+		ATTACK_J, 
+		SPECIAL, OVERDRIVE, 
+
+		DAMAGED, 
+		POISED, CLANG, AVOID, 
+		DOTTY, THROW, GUARD, 
+
+		DEMO, OTHER
 	}
 
 	//-------------------------------------------------------

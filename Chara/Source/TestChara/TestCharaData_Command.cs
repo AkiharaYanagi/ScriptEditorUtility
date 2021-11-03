@@ -104,9 +104,6 @@ namespace ScriptEditor
 
 			//6321463214 + L
 			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_L , GK_B.B_0 );
-//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_Ma , GK_B.B_1 );
-//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_Mb , GK_B.B_2 );
-//			SetCmd_6321463214A ( bd_c, ENM_CMD.OD0_H , GK_B.B_3 );
 
 			//236236 + H
 			SetCmd_236236A ( bd_c, ENM_CMD.OD1_H , GK_B.B_3 );
@@ -224,52 +221,59 @@ namespace ScriptEditor
 			BD_BRC b = chara.BD_Branch;
 			BranchCondition BC_CMD = BranchCondition.CMD;
 			BranchCondition BC_GRD = BranchCondition.GRD;
-			BranchCondition BC_THR_I = BranchCondition.THR_I;
-			BranchCondition BC_THR_E = BranchCondition.THR_E;
-			SetBranch ( b, ENM_BRC.L_立L,		BC_CMD,		ENM_CMD.L,		ENM_ACTION.Attack_5L );
-			SetBranch ( b, ENM_BRC.Ma_立Ma,		BC_CMD,		ENM_CMD.Ma,		ENM_ACTION.Attack_5Ma );
-			SetBranch ( b, ENM_BRC.Mb_立Mb,		BC_CMD,		ENM_CMD.Mb,		ENM_ACTION.Attack_5Mb );
-			SetBranch ( b, ENM_BRC.H_立H,		BC_CMD,		ENM_CMD.H,		ENM_ACTION.Attack_5H );
-			SetBranch ( b, ENM_BRC._6_F_Move,	BC_CMD,		ENM_CMD._6,		ENM_ACTION.FrontMove );
-			SetBranch ( b, ENM_BRC._4_B_Move,	BC_CMD,		ENM_CMD._4,		ENM_ACTION.BackMove );
-			SetBranch ( b, ENM_BRC._6離_Stand,	BC_CMD,		ENM_CMD._6off,	ENM_ACTION.Stand );
-			SetBranch ( b, ENM_BRC._4離_Stand,	BC_CMD,		ENM_CMD._4off,	ENM_ACTION.Stand );
-			SetBranch ( b, ENM_BRC._6_6_F_Dash,	BC_CMD,		ENM_CMD._6_6,	ENM_ACTION.FrontDash );
-			SetBranch ( b, ENM_BRC._4_4_B_Dash,	BC_CMD,		ENM_CMD._4_4,	ENM_ACTION.BackDash );
-			SetBranch ( b, ENM_BRC._8_V_Jump,	BC_CMD,		ENM_CMD._2_8,	ENM_ACTION.VerticalJump );
-			SetBranch ( b, ENM_BRC._9_F_Jump,	BC_CMD,		ENM_CMD._2_9,	ENM_ACTION.FrontJump );
-			SetBranch ( b, ENM_BRC._7_B_Jump,	BC_CMD,		ENM_CMD._2_7,	ENM_ACTION.BackJump );
-			SetBranch ( b, ENM_BRC.着地_Stand,	BC_GRD,		ENM_CMD._N,		ENM_ACTION.Stand );
-			SetBranch ( b, ENM_BRC.SP01,		BC_CMD,		ENM_CMD._6H,	ENM_ACTION.SP0_L );
-			SetBranch ( b, ENM_BRC.SP0,			BC_CMD,		ENM_CMD.SP0_L,	ENM_ACTION.SP0_L );
-			SetBranch ( b, ENM_BRC.OD0,			BC_CMD,		ENM_CMD.OD0_L,	ENM_ACTION.OD0_L );
-			SetBranch ( b, ENM_BRC.投げ分岐_自,	BC_THR_I,	ENM_CMD._N,		ENM_ACTION.SP01_L );
-			SetBranch ( b, ENM_BRC.投げ分岐_相,	BC_THR_E,	ENM_CMD._N,		ENM_ACTION.Thrown0 );
+			BranchCondition BC_T_I = BranchCondition.THR_I;
+			BranchCondition BC_T_E = BranchCondition.THR_E;
+//			BranchCondition BC_H_I = BranchCondition.HIT_I;
+			BranchCondition BC_H_E = BranchCondition.HIT_E;
 
-			SetBranch ( b, ENM_BRC._6L,			BC_CMD,		ENM_CMD._6L,	ENM_ACTION.Attack_6L );
-			SetBranch ( b, ENM_BRC._6Ma,		BC_CMD,		ENM_CMD._6Ma,	ENM_ACTION.Attack_6Ma );
-			SetBranch ( b, ENM_BRC._6Mb,		BC_CMD,		ENM_CMD._6Mb,	ENM_ACTION.Attack_6Mb );
-			SetBranch ( b, ENM_BRC._6H,			BC_CMD,		ENM_CMD._6H,	ENM_ACTION.Attack_6H );
+			SetBranch ( b, ENM_BRC.L_立L,		BC_CMD,	ENM_CMD.L,		ENM_ACT.Attack_5L );
+			SetBranch ( b, ENM_BRC.Ma_立Ma,		BC_CMD,	ENM_CMD.Ma,		ENM_ACT.Attack_5Ma );
+			SetBranch ( b, ENM_BRC.Mb_立Mb,		BC_CMD,	ENM_CMD.Mb,		ENM_ACT.Attack_5Mb );
+			SetBranch ( b, ENM_BRC.H_立H,		BC_CMD,	ENM_CMD.H,		ENM_ACT.Attack_5H );
 
-			SetBranch ( b, ENM_BRC._4L ,		BC_CMD,		ENM_CMD._4L ,	ENM_ACTION.Attack_4L );
-			SetBranch ( b, ENM_BRC._4Ma,		BC_CMD,		ENM_CMD._4Ma,	ENM_ACTION.Attack_4Ma );
-			SetBranch ( b, ENM_BRC._4Mb,		BC_CMD,		ENM_CMD._4Mb,	ENM_ACTION.Attack_4Mb );
-			SetBranch ( b, ENM_BRC._4H ,		BC_CMD,		ENM_CMD._4H ,	ENM_ACTION.Attack_4H );
+			//SetBranch ( b, ENM_BRC._6_F_Move,	BC_CMD,	ENM_CMD._6,		ENM_ACT.FrontMove );
+			SetBranch ( b, ENM_BRC._6_F_Move,	BC_CMD,	ENM_CMD._6,		ENM_ACT.FrontDash );
+			SetBranch ( b, ENM_BRC._4_B_Move,	BC_CMD,	ENM_CMD._4,		ENM_ACT.BackMove );
+			SetBranch ( b, ENM_BRC._6離_Stand,	BC_CMD,	ENM_CMD._6off,	ENM_ACT.Stand );
+			SetBranch ( b, ENM_BRC._4離_Stand,	BC_CMD,	ENM_CMD._4off,	ENM_ACT.Stand );
+			SetBranch ( b, ENM_BRC._6_6_F_Dash,	BC_CMD,	ENM_CMD._6_6,	ENM_ACT.FrontDash );
+			SetBranch ( b, ENM_BRC._4_4_B_Dash,	BC_CMD,	ENM_CMD._4_4,	ENM_ACT.BackDash );
+			SetBranch ( b, ENM_BRC._8_V_Jump,	BC_CMD,	ENM_CMD._2_8,	ENM_ACT.VerticalJump );
+			SetBranch ( b, ENM_BRC._9_F_Jump,	BC_CMD,	ENM_CMD._2_9,	ENM_ACT.FrontJump );
+			SetBranch ( b, ENM_BRC._7_B_Jump,	BC_CMD,	ENM_CMD._2_7,	ENM_ACT.BackJump );
+			SetBranch ( b, ENM_BRC.着地_Stand,	BC_GRD,	ENM_CMD._N,		ENM_ACT.Stand );
+			SetBranch ( b, ENM_BRC.SP01,		BC_CMD,	ENM_CMD._6H,	ENM_ACT.SP0_L );
+			SetBranch ( b, ENM_BRC.SP0,			BC_CMD,	ENM_CMD.SP0_L,	ENM_ACT.SP0_L );
+			SetBranch ( b, ENM_BRC.OD0,			BC_CMD,	ENM_CMD.OD0_L,	ENM_ACT.OD0_L );
+			SetBranch ( b, ENM_BRC.投げ分岐_自,	BC_T_I,	ENM_CMD._N,		ENM_ACT.SP01_L );
+			SetBranch ( b, ENM_BRC.投げ分岐_相,	BC_T_E,	ENM_CMD._N,		ENM_ACT.Thrown0 );
 
-			SetBranch ( b, ENM_BRC._2L ,		BC_CMD,		ENM_CMD._2L ,	ENM_ACTION.Attack_2L );
-			SetBranch ( b, ENM_BRC._2Ma,		BC_CMD,		ENM_CMD._2Ma,	ENM_ACTION.Attack_2Ma );
-			SetBranch ( b, ENM_BRC._2Mb,		BC_CMD,		ENM_CMD._2Mb,	ENM_ACTION.Attack_2Mb );
-			SetBranch ( b, ENM_BRC._2H ,		BC_CMD,		ENM_CMD._2H ,	ENM_ACTION.Attack_2H );
+			SetBranch ( b, ENM_BRC._4L ,		BC_CMD,	ENM_CMD._4L ,	ENM_ACT.Attack_4L );
+			SetBranch ( b, ENM_BRC._4Ma,		BC_CMD,	ENM_CMD._4Ma,	ENM_ACT.Attack_4Ma );
+			SetBranch ( b, ENM_BRC._4Mb,		BC_CMD,	ENM_CMD._4Mb,	ENM_ACT.Attack_4Mb );
+			SetBranch ( b, ENM_BRC._4H ,		BC_CMD,	ENM_CMD._4H ,	ENM_ACT.Attack_4H );
 
-			SetBranch ( b, ENM_BRC._8L ,		BC_CMD,		ENM_CMD._8L ,	ENM_ACTION.Attack_8L );
-			SetBranch ( b, ENM_BRC._8Ma,		BC_CMD,		ENM_CMD._8Ma,	ENM_ACTION.Attack_8Ma );
-			SetBranch ( b, ENM_BRC._8Mb,		BC_CMD,		ENM_CMD._8Mb,	ENM_ACTION.Attack_8Mb );
-			SetBranch ( b, ENM_BRC._8H ,		BC_CMD,		ENM_CMD._8H,	ENM_ACTION.Attack_8H );
+			SetBranch ( b, ENM_BRC._2L ,		BC_CMD,	ENM_CMD._2L ,	ENM_ACT.Attack_2L );
+			SetBranch ( b, ENM_BRC._2Ma,		BC_CMD,	ENM_CMD._2Ma,	ENM_ACT.Attack_2Ma );
+			SetBranch ( b, ENM_BRC._2Mb,		BC_CMD,	ENM_CMD._2Mb,	ENM_ACT.Attack_2Mb );
+			SetBranch ( b, ENM_BRC._2H ,		BC_CMD,	ENM_CMD._2H ,	ENM_ACT.Attack_2H );
 
-			SetBranch ( b, ENM_BRC.被ダメ_H,		BC_THR_E,	ENM_CMD._N,		ENM_ACTION.Damaged_H );
+			SetBranch ( b, ENM_BRC._6L,			BC_CMD,	ENM_CMD._6L,	ENM_ACT.Attack_6L );
+			SetBranch ( b, ENM_BRC._6Ma,		BC_CMD,	ENM_CMD._6Ma,	ENM_ACT.Attack_6Ma );
+			SetBranch ( b, ENM_BRC._6Mb,		BC_CMD,	ENM_CMD._6Mb,	ENM_ACT.Attack_6Mb );
+			SetBranch ( b, ENM_BRC._6H,			BC_CMD,	ENM_CMD._6H,	ENM_ACT.Attack_6H );
+
+			SetBranch ( b, ENM_BRC._8L ,		BC_CMD,	ENM_CMD._8L ,	ENM_ACT.Attack_8L );
+			SetBranch ( b, ENM_BRC._8Ma,		BC_CMD,	ENM_CMD._8Ma,	ENM_ACT.Attack_8Ma );
+			SetBranch ( b, ENM_BRC._8Mb,		BC_CMD,	ENM_CMD._8Mb,	ENM_ACT.Attack_8Mb );
+			SetBranch ( b, ENM_BRC._8H ,		BC_CMD,	ENM_CMD._8H,	ENM_ACT.Attack_8H );
+
+			SetBranch ( b, ENM_BRC.被ダメ_L,		BC_H_E,	ENM_CMD._N,		ENM_ACT.Damaged_L );
+			SetBranch ( b, ENM_BRC.被ダメ_M,		BC_H_E,	ENM_CMD._N,		ENM_ACT.Damaged_M );
+			SetBranch ( b, ENM_BRC.被ダメ_H,		BC_H_E,	ENM_CMD._N,		ENM_ACT.Damaged_H );
 		}
 
-		private void SetBranch ( BD_BRC bd_brc, ENM_BRC brc_name, BranchCondition bc, ENM_CMD cmd_name, ENM_ACTION act_name )
+		private void SetBranch ( BD_BRC bd_brc, ENM_BRC brc_name, BranchCondition bc, ENM_CMD cmd_name, ENM_ACT act_name )
 		{
 			Branch brc = bd_brc.Get ( brc_name.ToString () );
 			brc.Condition = bc;
@@ -282,25 +286,25 @@ namespace ScriptEditor
 		private void MakeRoute ( Chara chara )
 		{
 			Route rut0 = new Route ( ENM_RUT.地上通常技.ToString(), "立ち状態で移行する技全般" );
-			SetEnmBrc ( rut0, ENM_BRC._4L );
-			SetEnmBrc ( rut0, ENM_BRC._4Ma );
-			SetEnmBrc ( rut0, ENM_BRC._4Mb );
-			SetEnmBrc ( rut0, ENM_BRC._4H );
-
-			SetEnmBrc ( rut0, ENM_BRC._6L );
-			SetEnmBrc ( rut0, ENM_BRC._6Ma );
-			SetEnmBrc ( rut0, ENM_BRC._6Mb );
-			SetEnmBrc ( rut0, ENM_BRC._6H );
+			SetEnmBrc ( rut0, ENM_BRC._8L );
+			SetEnmBrc ( rut0, ENM_BRC._8Ma );
+			SetEnmBrc ( rut0, ENM_BRC._8Mb );
+			SetEnmBrc ( rut0, ENM_BRC._8H );
 
 			SetEnmBrc ( rut0, ENM_BRC._2L );
 			SetEnmBrc ( rut0, ENM_BRC._2Ma );
 			SetEnmBrc ( rut0, ENM_BRC._2Mb );
 			SetEnmBrc ( rut0, ENM_BRC._2H );
 
-			SetEnmBrc ( rut0, ENM_BRC._8L );
-			SetEnmBrc ( rut0, ENM_BRC._8Ma );
-			SetEnmBrc ( rut0, ENM_BRC._8Mb );
-			SetEnmBrc ( rut0, ENM_BRC._8H );
+			SetEnmBrc ( rut0, ENM_BRC._6L );
+			SetEnmBrc ( rut0, ENM_BRC._6Ma );
+			SetEnmBrc ( rut0, ENM_BRC._6Mb );
+			SetEnmBrc ( rut0, ENM_BRC._6H );
+
+			SetEnmBrc ( rut0, ENM_BRC._4L );
+			SetEnmBrc ( rut0, ENM_BRC._4Ma );
+			SetEnmBrc ( rut0, ENM_BRC._4Mb );
+			SetEnmBrc ( rut0, ENM_BRC._4H );
 
 			SetEnmBrc ( rut0, ENM_BRC.L_立L );
 			SetEnmBrc ( rut0, ENM_BRC.Ma_立Ma );

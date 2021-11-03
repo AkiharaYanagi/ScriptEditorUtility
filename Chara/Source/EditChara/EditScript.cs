@@ -63,7 +63,13 @@ namespace ScriptEditor
 		//選択中グループに対して、グループセッタを用いて値を設定する
 		private void DoGroupSetter ( System.Action < Script, int > groupSetter, int v )
 		{
+//			Restruct ();
 			foreach ( Script s in SelectedGroup ) { groupSetter ( s, v ); }
+		}
+
+		public void AllSet ( System.Action < Script, int > setter, int v )
+		{
+			foreach ( Script s in L_Scp ) { setter ( s, v ); }
 		}
 
 		//汎用

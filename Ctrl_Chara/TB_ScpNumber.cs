@@ -3,32 +3,31 @@
 namespace ScriptEditor
 {
 	//----------------------------------------------------------------------
-	// 数値のみ入力できるテキストボックス
+	// スクリプトのパラメータに対し、数値のみ入力できるテキストボックス
 	//----------------------------------------------------------------------
-	using Setter = System.Action < int >;
-	using Getter = System.Func < int >;
+	using PrmInt = ScriptParam < int >;
 
-	public class TB_Number : TextBox
+	public class TB_ScpNumber : TextBox
 	{
+		//対象スクリプト
+		public Script Scp { get; set; } = null;
+
 		//設定用デリゲート
-		public Setter SetFunc { get; set; } = null;
-		public Getter GetFunc { get; set; } = null;
+		public PrmInt PrmInt { get; set; } = null;
 
 		//コンストラクタ
-		public TB_Number ()
+		public TB_ScpNumber ()
 		{
 			this.Text = "0";
 		}
 
 		//設定用、取得用関数
-		public void Assosiate ( Setter setfunc, Getter getfunc )
+		public void Assosiate ( Script scp )
 		{
-			GetFunc = getfunc;
-			int value = GetFunc ();
+			Scp = scp;
+			int value = PrmInt.Getter ( Scp );
 			this.Text = value.ToString ();
-			
-			SetFunc = setfunc;
-			SetFunc ( value );
+			PrmInt.Setter ( Scp, value );
 		}
 
 		//キー押下時(文字コード判定)
@@ -80,13 +79,45 @@ namespace ScriptEditor
 				return;
 			}
 
-			SetFunc ( value );			
+			switch ( editTarget )
+			{
+			case EditTarget.ALL: 
+				//AllSetter ( value );
+			break;
+			
+			case EditTarget.GROUP:
+				//グループ編集時に他スクリプトにも値を設定する
+				//GroupSetter?.Invoke ( value );
+			break;
+			
+			case EditTarget.SINGLE:
+				//SetFunc ( value );
+				PrmInt.Setter ( Scp, value );
+			break;
+
+			default: break;
+			}
+			
 		}
 
 		//更新
 		public void UpdateData ()
 		{
-			this.Text = GetFunc ().ToString ();
+			//this.Text = GetFunc ().ToString ();
+			this.Text = PrmInt.Getter ( Scp ).ToString ();
 		}
+
+
+		//--------------------------------------------------------
+		//編集対象切替
+		private enum EditTarget
+		{ 
+			ALL, GROUP, SINGLE,
+		};
+		private EditTarget editTarget = EditTarget.SINGLE;
+
+		public void SetAll () { editTarget = EditTarget.ALL; }
+		public void SetGroup () { editTarget = EditTarget.GROUP; }
+		public void SetSingle () { editTarget = EditTarget.SINGLE; }
 	}
 }

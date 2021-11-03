@@ -7,20 +7,20 @@ namespace ScriptEditor
 	public partial class TestCharaData
 	{
 		//デフォルトアクション名
-		private enum ENM_ACTION
+		private enum ENM_ACT
 		{
 			Stand, 
 			FrontMove, BackMove, 
 			VerticalJump, FrontJump, BackJump, Drop, 
 			VerticalJump_D, FrontJump_D, BackJump_D,
-			FrontDash,FrontDashDuration, 
-			BackDash, BackDashDuration, 
+			FrontDash, BackDash, 
 
 			Attack_5L, Attack_5Ma, Attack_5Mb, Attack_5H, 
 			Attack_6L, Attack_6Ma, Attack_6Mb, Attack_6H, 
 			Attack_4L, Attack_4Ma, Attack_4Mb, Attack_4H, 
 			Attack_2L, Attack_2Ma, Attack_2Mb, Attack_2H, 
 			Attack_8L, Attack_8Ma, Attack_8Mb, Attack_8H, 
+
 			Attack_JL, Attack_JMa, Attack_JMb, Attack_JH, 
 
 			SP0_L, SP0_M, SP0_H, 
@@ -46,9 +46,8 @@ namespace ScriptEditor
 		{
 			AC.NEUTRAL, 
 			AC.MOVE, AC.MOVE, 
-			AC.MOVE, AC.MOVE, AC.MOVE, AC.MOVE, 
-			AC.MOVE, AC.MOVE, AC.MOVE,
-			AC.DASH, AC.DASH, 
+			AC.JUMP, AC.JUMP, AC.JUMP, AC.JUMP, 
+			AC.JUMP, AC.JUMP, AC.JUMP,
 			AC.DASH, AC.DASH, 
 
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
@@ -56,14 +55,15 @@ namespace ScriptEditor
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
 			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_M, AC.ATTACK_H,
 
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
-			AC.ATTACK_L, AC.ATTACK_M, AC.ATTACK_H,
+			AC.ATTACK_J, AC.ATTACK_J, AC.ATTACK_J, AC.ATTACK_J,
+
+			AC.SPECIAL, AC.SPECIAL, AC.SPECIAL,
+			AC.SPECIAL, AC.SPECIAL, AC.SPECIAL,
+			AC.SPECIAL, AC.SPECIAL, AC.SPECIAL,
+			AC.SPECIAL, AC.SPECIAL, AC.SPECIAL,
+			AC.OVERDRIVE, AC.OVERDRIVE, AC.OVERDRIVE,
+			AC.OVERDRIVE, AC.OVERDRIVE, AC.OVERDRIVE,
 
 			AC.GUARD, 
 			AC.POISED, AC.CLANG, AC.AVOID, AC.DOTTY, 
@@ -109,11 +109,11 @@ namespace ScriptEditor
 			SP0, 
 			OD0, 
 			投げ分岐_自, 投げ分岐_相, 
-			_6L, _6Ma, _6Mb, _6H, 
 			_4L, _4Ma, _4Mb, _4H, 
 			_2L, _2Ma, _2Mb, _2H, 
+			_6L, _6Ma, _6Mb, _6H, 
 			_8L, _8Ma, _8Mb, _8H, 
-			被ダメ_H,
+			被ダメ_L, 被ダメ_M, 被ダメ_H,
 		}
 
 		//デフォルトルート名
@@ -122,7 +122,7 @@ namespace ScriptEditor
 			地上移動, 地上通常技, 前持続停止, 後持続停止, ジャンプ,
 			地上必殺技, 特殊, 地上超必, 
 			投げ分岐_自, 投げ分岐_相, 
-			被ダメ_H,
+			被ダメ_L, 被ダメ_M, 被ダメ_H,
 		}
 	}
 }

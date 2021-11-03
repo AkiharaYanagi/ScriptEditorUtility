@@ -6,6 +6,9 @@ namespace ScriptEditor
 
 	public partial class EditScript
 	{
+		//対象スクリプトリスト(シークエンス内)
+		public LScp L_Scp { get; set; } = null;
+
 		//---------------------------------------------------------------------
 		//グループ（スクリプトの参照リスト）
 		//ScriptがIDを持ち、Sequenceが変更されるたびに
@@ -17,7 +20,9 @@ namespace ScriptEditor
 		//選択中グループ
 		LScp SelectedGroup = null;
 
-		//再構築
+		public int SelectedGroupIndex { get; set; } = 0;
+
+		//選択中のグループを再構築
 		public void Restruct ( LScp lsScp, int frame )
 		{
 			//グループ個数確認
@@ -102,8 +107,11 @@ namespace ScriptEditor
 		public void SelectGroup ( LScp lsScp, int frame )
 		{
 			if ( frame >= lsScp.Count ) { return; }
+			if (  lsScp [ frame ].Group >= L_ScriptGroup.Count ) { return; }
+
 			SelectedGroup = L_ScriptGroup [ lsScp [ frame ].Group ];
 		}
+
 
 		//グループに選択スクリプトの内容を複製
 		public void PasteGroup ( Script scp )

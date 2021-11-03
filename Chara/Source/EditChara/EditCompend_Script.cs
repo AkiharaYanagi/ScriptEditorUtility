@@ -63,6 +63,7 @@ namespace ScriptEditor
 		public void RemScript ()
 		{
 			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
+			if ( i < 1 ) { return; }
 			SelectedSequence.ListScript.RemoveAt ( i - 1 );
 		}
 
