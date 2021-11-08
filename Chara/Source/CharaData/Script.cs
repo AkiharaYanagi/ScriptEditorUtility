@@ -12,23 +12,20 @@ namespace ScriptEditor
 	//		┣フレーム数
 	//		┣(グループ) ScriptEditor内での編集用
 	//		┣イメージID (Name)
-	//		┣画像表示位置
-	//		┣速度
-	//		┣加速度
+	//		┣画像表示位置	┣速度	┣加速度
 	//		┣計算状態(持続/代入/加算)
 	//		┣[]ルート
-	//		┣[]接触枠
-	//		┣[]攻撃枠
-	//		┣[]防御枠
-	//		┣[]相殺枠
+	//		┣[]接触枠	┣[]攻撃枠	┣[]防御枠	┣[]相殺枠
 	//		┣[]エフェクト発生
 	//		┣攻撃値
-	//		┣暗転
-	//		┣振動
-	//
+	//		┣暗転	┣振動
 	//================================================================
-	//[]指定子でintしか扱えないため
-	//配列のインデックスでもuintではなくintにする
+
+	//スクリプト項目追加
+	// class Script
+	// IOChara (ScriptEditor)
+	// IOChara (GameMain)
+	// GameMain
 
 	public class Script
 	{
@@ -92,14 +89,18 @@ namespace ScriptEditor
 		//------------------------------------------------
 		public int Power { get; set; } = 0;			//攻撃値
 		public int BlackOut { get; set; } = 0;		//暗転[F]
-		public int Vibration { get; set; } = 0;		//振動[F]
+		public int Vibration { get; set; } = 0;		//振動[F](全体)
 		public int Stop { get; set; } = 0;			//停止[F]
 
 		//------
-		//残像
-		//色調変更
+		public int Radian { get; set; } = 0;			//回転
+		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
+		public int AfterImage_N { get; set; } = 0;		//残像[個]
+		public int AfterImage_time { get; set; } = 0;	//残像[F] 持続
+		public int Vibration_S { get; set; } = 0;		//振動[F](個別)
+		public Color Color { get; set; } = new Color ();	//色調変更
+		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
 
-			
 
 		//================================================================
 		//コンストラクタ

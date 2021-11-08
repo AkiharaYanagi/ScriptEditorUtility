@@ -78,23 +78,8 @@ namespace ScriptEditor
 			//ルートリスト
 			WriteRouteList ( strmWriter, ch.BD_Route );
 
-			//基本状態アクションID
-#if false
-			strmWriter.Write ( "<BasicAction>\n" );
+			//基本状態アクションID -> 名前で指定
 
-			int indexSpAction = 0;
-			string[] enumnames = Enum.GetNames ( typeof ( Chara.BasicAction ) );
-			foreach ( string str in enumnames )
-			{
-				strmWriter.Write ( "\t<" + str );
-				strmWriter.Write ( " ID=\"" + chara.BsAction[ indexSpAction ].i + "\"" );
-				strmWriter.Write ( " Name=\"" + chara.behavior.Bldct_sqc.GetBindingList()[ chara.BsAction[ indexSpAction ].i ].ToString () + "\"" );
-				strmWriter.Write ( "></" + str + ">\n" );
-				++indexSpAction;
-			}
-
-			strmWriter.Write ( "</BasicAction>\n" );
-#endif
 			//全体タグ
 			strmWriter.Write ( "</Chara>\n" );
 
@@ -191,6 +176,13 @@ namespace ScriptEditor
 				strmWriter.Write ( " BlackOut=\"" + script.BlackOut + "\"" );
 				strmWriter.Write ( " Vibration=\"" + script.Vibration + "\"" );
 				strmWriter.Write ( " Stop=\"" + script.Stop + "\"" );
+				strmWriter.Write ( " Radian=\"" + script.Radian + "\"" );
+				strmWriter.Write ( " AfterImage_pitch=\"" + script.AfterImage_pitch + "\"" );
+				strmWriter.Write ( " AfterImage_N=\"" + script.AfterImage_N + "\"" );
+				strmWriter.Write ( " AfterImage_time=\"" + script.AfterImage_time + "\"" );
+				strmWriter.Write ( " Vibration_S=\"" + script.Vibration_S + "\"" );
+				strmWriter.Write ( " Color=\"" + script.Color + "\"" );
+				strmWriter.Write ( " Color_time=\"" + script.Color_time + "\"" );
 				strmWriter.Write ( ">\n" );
 
 				//ルートリスト

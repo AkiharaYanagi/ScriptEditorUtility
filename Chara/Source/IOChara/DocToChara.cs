@@ -160,20 +160,10 @@ namespace ScriptEditor
 				//イメージ名
 				script.ImgName =  elemScript.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
 
-				//X, Y
-				int x = IOChara.Parse ( elemScript, (int)ATTR_SCP.X );
-				int y = IOChara.Parse ( elemScript, (int)ATTR_SCP.Y );
-				script.SetPos ( x, y );
-
-				//VX,VY
-				int vx = IOChara.Parse ( elemScript, (int)ATTR_SCP.VX );
-				int vy = IOChara.Parse ( elemScript, (int)ATTR_SCP.VY );
-				script.SetVel ( vx, vy );
-
-				//AX,AY
-				int ax = IOChara.Parse ( elemScript, (int)ATTR_SCP.AX );
-				int ay = IOChara.Parse ( elemScript, (int)ATTR_SCP.AY );
-				script.SetAcc ( ax, ay );
+				//位置, 速度, 加速度
+				script.Pos = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
+				script.Vel = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
+				script.Acc = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
 
 				//計算状態
 				int clcst = IOChara.Parse ( elemScript, (int)ATTR_SCP.CLC_ST );
@@ -188,8 +178,11 @@ namespace ScriptEditor
 				//振動[F]
 				script.Vibration = IOChara.Parse ( elemScript, (int)ATTR_SCP.VIBRATION );
 
-				//振動[F]
+				//停止[F]
 				script.Stop = IOChara.Parse ( elemScript, (int)ATTR_SCP.STOP );
+
+				//回転[rad]
+				script.Radian = IOChara.Parse ( elemScript, (int)ATTR_SCP.RADIAN );
 
 				//-----------------------------------------------------------------------------
 				//Script以下のElement

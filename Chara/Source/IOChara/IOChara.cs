@@ -1,4 +1,6 @@
-﻿namespace ScriptEditor
+﻿using System.Drawing;
+
+namespace ScriptEditor
 {
 	//==================================================================================
 	//
@@ -22,6 +24,11 @@
 		public static int _AttrToInt ( Element elm, int attr )
 		{
 			return int.Parse ( elm.Attributes[ attr ].Value );
+		}
+
+		public static Point _AttrToPoint ( Element e, int enumName0, int enumName1 )
+		{
+			return new Point ( Parse ( e, enumName0 ), Parse ( e, enumName1 ) );
 		}
 	}
 
@@ -69,6 +76,7 @@
 		BLACKOUT,
 		VIBRATION,
 		STOP,
+		RADIAN,
 	}
 
 	public enum ELEMENT_SCRIPT
