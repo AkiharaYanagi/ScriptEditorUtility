@@ -116,10 +116,8 @@ namespace ScriptEditor
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
 
-			//グループ
-//			EditScript.Restruct ( lscp, SelectedScriptIndex );
-			EditScript.SelectedGroupIndex = SelectedScript.Group;
-			EditScript.L_Scp = lscp;
+			//スクリプト編集(グループ)
+			EditScript.Restruct ( lscp, SelectedScriptIndex );
 		}
 
 		//---------------------------------------------------------------------

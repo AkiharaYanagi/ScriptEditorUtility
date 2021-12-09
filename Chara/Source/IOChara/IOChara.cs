@@ -16,19 +16,14 @@ namespace ScriptEditor
 	//配列添字取得用
 	public static class IOChara 
 	{
-		public static int Parse ( Element e, int enumName ) 
-		{ 
-			return int.Parse ( e.Attributes[ enumName ].Value );
+		public static int AttrToInt ( Element e, int attr )
+		{
+			return int.Parse ( e.Attributes[ attr ].Value );
 		}
 
-		public static int _AttrToInt ( Element elm, int attr )
+		public static Point AttrToPoint ( Element e, int enumName0, int enumName1 )
 		{
-			return int.Parse ( elm.Attributes[ attr ].Value );
-		}
-
-		public static Point _AttrToPoint ( Element e, int enumName0, int enumName1 )
-		{
-			return new Point ( Parse ( e, enumName0 ), Parse ( e, enumName1 ) );
+			return new Point ( AttrToInt ( e, enumName0 ), AttrToInt ( e, enumName1 ) );
 		}
 	}
 

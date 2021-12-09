@@ -77,41 +77,45 @@ namespace ScriptEditor
 		}
 
 		//名前指定テスト
-		public void TestNameAssign ( Chara ch )
+		//戻値： T:OK, F:ASSERT
+		public bool _TestNameAssign ( Chara ch )
 		{
+			//イメージ名指定
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{
 				foreach ( Script scp in sqc.ListScript )
 				{
 					ImageData imgd = ch.behavior.BD_Image.Get ( scp.ImgName );
 
-					if ( imgd is null )
-					{
-//						int i = 0;
-					}
-//					Debug.Assert ( ! ( imgd is null ) );
+					//該当イメージが無いとき
+					if ( imgd is null ) { return false; }
 
+					//各スクリプトで指定イメージが無いとき
 					foreach ( TName tn in scp.BL_RutName )
 					{
 						Route rut = ch.BD_Route.Get ( tn.Name );
-						Debug.Assert ( ! ( rut is null ) );
+						if ( rut is null ) { return false; }
 					}
 				}
 			}
 
+			//ブランチ名指定
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
 				foreach ( TName tn in rut.BL_BranchName )
 				{
 					Branch brc = ch.BD_Branch.Get ( tn.Name );
 
-					if ( brc is null )
-					{
-//						int i = 0;
-					}
-					Debug.Assert ( ! ( brc is null ) );
+					if ( brc is null ) { return false; }
 				}
 			}
+
+			return true;
+		}
+
+		public void TestNameAssign ( Chara ch )
+		{
+			Debug.Assert ( _TestNameAssign ( ch ) );
 		}
 
 	}

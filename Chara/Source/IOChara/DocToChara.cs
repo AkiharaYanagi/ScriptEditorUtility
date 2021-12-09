@@ -102,15 +102,15 @@ namespace ScriptEditor
 				//action.NextActionID = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_ID ].Value;
 
 				//アクション属性
-				int nCategory = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
+				int nCategory = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
 				action.Category = (ActionCategory) nCategory;
 
 				//アクション体勢
-				int nPosture = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_POSTURE );
+				int nPosture = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_POSTURE );
 				action.Posture = (ActionPosture) nPosture;
 
 				//消費バランス値
-				action._Balance = IOChara.Parse ( elemAction, (int)ATTR_ACTION.ELAC_BALANCE );
+				action._Balance = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_BALANCE );
 
 				//子Element <Script> 数は不定
 				ReadScriptList ( action, elemAction.Elements );
@@ -146,61 +146,55 @@ namespace ScriptEditor
 		{
 			//子Element <Script> 数は不定
 			int frame = 0;	//フレーム数
-			foreach ( Element elemScript in listElemnt )
+			foreach ( Element e in listElemnt )
 			{
 				//代入用
-				Script script = new Script ();
+				Script s = new Script ();
 
 				//フレーム数
-				script.Frame = frame;
+				s.Frame = frame;
 
 				//グループ
-				script.Group = IOChara.Parse ( elemScript, (int)ATTR_SCP.GROUP );
+				s.Group = IOChara.AttrToInt ( e, (int)ATTR_SCP.GROUP );
 
 				//イメージ名
-				script.ImgName =  elemScript.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
+				s.ImgName =  e.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
 
 				//位置, 速度, 加速度
-				script.Pos = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
-				script.Vel = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
-				script.Acc = IOChara._AttrToPoint ( elemScript, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
+				s.Pos = IOChara.AttrToPoint ( e, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
+				s.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
+				s.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
 
 				//計算状態
-				int clcst = IOChara.Parse ( elemScript, (int)ATTR_SCP.CLC_ST );
-				script.CalcState = (CLC_ST)clcst;
+				int clcst = IOChara.AttrToInt ( e, (int)ATTR_SCP.CLC_ST );
+				s.CalcState = (CLC_ST)clcst;
 
-				//攻撃値
-				script.Power = IOChara.Parse ( elemScript, (int)ATTR_SCP.POWER );
 
-				//暗転[F]
-				script.BlackOut = IOChara.Parse ( elemScript, (int)ATTR_SCP.BLACKOUT );
+				//値
+				s.Power = IOChara.AttrToInt ( e, (int)ATTR_SCP.POWER );			//攻撃値
+				s.BlackOut = IOChara.AttrToInt ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
+				s.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
+				s.Stop = IOChara.AttrToInt ( e, (int)ATTR_SCP.STOP );				//停止[F]
+				s.Radian = IOChara.AttrToInt ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
 
-				//振動[F]
-				script.Vibration = IOChara.Parse ( elemScript, (int)ATTR_SCP.VIBRATION );
-
-				//停止[F]
-				script.Stop = IOChara.Parse ( elemScript, (int)ATTR_SCP.STOP );
-
-				//回転[rad]
-				script.Radian = IOChara.Parse ( elemScript, (int)ATTR_SCP.RADIAN );
 
 				//-----------------------------------------------------------------------------
 				//Script以下のElement
 
 				//ルートネームリスト
-				Element elemRutList = elemScript.Elements [( int ) ELEMENT_SCRIPT.ELSC_ROUTE ];
+				Element elemRutList = e.Elements [( int ) ELEMENT_SCRIPT.ELSC_ROUTE ];
 				foreach ( Element elemRut in elemRutList.Elements )
 				{
-					script.BL_RutName.Add ( new TName ( elemRut.Attributes [ 0 ].Value ) );
+					s.BL_RutName.Add ( new TName ( elemRut.Attributes [ 0 ].Value ) );
 				}
 
 				//-----------------------------------------------------------------------------
 				//Efジェネレートリスト
-				Element elemEfGnrtList = elemScript.Elements[ ( int ) ELEMENT_SCRIPT.ELSC_EFGNRT ];
-				foreach ( Element elemEfGenerate in elemEfGnrtList.Elements )
+				Element elemEfGnrtList = e.Elements[ ( int ) ELEMENT_SCRIPT.ELSC_EFGNRT ];
+				foreach ( Element elmEfGnrt in elemEfGnrtList.Elements )
 				{
 					EffectGenerate efGnrt = new EffectGenerate ();
-					List < Attribute > la = elemEfGenerate.Attributes;
+					List < Attribute > la = elmEfGnrt.Attributes;
 					
 					//Nameを読込
 					efGnrt.Name = la[ (int)ELMT_EFGNRT.ELEG_NAME ].Value;
@@ -214,7 +208,7 @@ namespace ScriptEditor
 					efGnrt.Pt = new Point ( pt_x, pt_y );
 
 					//Z位置
-					efGnrt.Z = int.Parse ( la[ (int)ELMT_EFGNRT.ELEG_PT_Z ].Value );
+					efGnrt.Z = IOChara.AttrToInt ( elmEfGnrt, (int)ELMT_EFGNRT.ELEG_PT_Z );
 
 					//生成
 					efGnrt.Gnrt = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_GNRT ].Value );
@@ -226,19 +220,19 @@ namespace ScriptEditor
 					efGnrt.Sync = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_SYNC ].Value );
 
 					//スクリプトに設定
-					script.BD_EfGnrt.Add ( efGnrt );
+					s.BD_EfGnrt.Add ( efGnrt );
 				}
 
 				//-----------------------------------------------------------------------------
-				List<Element> le = elemScript.Elements;
-				ReadRect ( script.ListCRect, le[ ( int ) ELEMENT_SCRIPT.ELSC_CRECT ] );	/*接触枠*/
-				ReadRect ( script.ListARect, le[ ( int ) ELEMENT_SCRIPT.ELSC_ARECT ] );	/*攻撃枠*/
-				ReadRect ( script.ListHRect, le[ ( int ) ELEMENT_SCRIPT.ELSC_HRECT ] );	/*当り枠*/
-				ReadRect ( script.ListORect, le[ ( int ) ELEMENT_SCRIPT.ELSC_ORECT ] );	/*相殺枠*/		
+				List<Element> le = e.Elements;
+				ReadRect ( s.ListCRect, le[ ( int ) ELEMENT_SCRIPT.ELSC_CRECT ] );	/*接触枠*/
+				ReadRect ( s.ListARect, le[ ( int ) ELEMENT_SCRIPT.ELSC_ARECT ] );	/*攻撃枠*/
+				ReadRect ( s.ListHRect, le[ ( int ) ELEMENT_SCRIPT.ELSC_HRECT ] );	/*当り枠*/
+				ReadRect ( s.ListORect, le[ ( int ) ELEMENT_SCRIPT.ELSC_ORECT ] );	/*相殺枠*/		
 				//-----------------------------------------------------------------------------
 
 				//シークエンスにスクリプトを追加
-				sequence.ListScript.Add ( script );
+				sequence.ListScript.Add ( s );
 
 				//フレームを一つ進める
 				++frame;
@@ -254,10 +248,10 @@ namespace ScriptEditor
 			foreach ( Element elemRect in elemRectList.Elements )
 			{
 				//新規作成
-				int x = IOChara.Parse ( elemRect, 0 );
-				int y = IOChara.Parse ( elemRect, 1 );
-				int w = IOChara.Parse ( elemRect, 2 );
-				int h = IOChara.Parse ( elemRect, 3 );
+				int x = IOChara.AttrToInt ( elemRect, 0 );
+				int y = IOChara.AttrToInt ( elemRect, 1 );
+				int w = IOChara.AttrToInt ( elemRect, 2 );
+				int h = IOChara.AttrToInt ( elemRect, 3 );
 				Rectangle rect = new Rectangle ( x, y, w, h );
 
 				//スクリプトに登録
@@ -338,7 +332,7 @@ namespace ScriptEditor
 				Branch brc = new Branch
 				{
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
-					Condition = (BranchCondition) IOChara.Parse ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
+					Condition = (BranchCondition) IOChara.AttrToInt ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
 					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
 					Frame = 0

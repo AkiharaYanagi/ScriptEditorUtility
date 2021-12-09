@@ -90,7 +90,7 @@ namespace ScriptEditor
 		public int Power { get; set; } = 0;			//攻撃値
 		public int BlackOut { get; set; } = 0;		//暗転[F]
 		public int Vibration { get; set; } = 0;		//振動[F](全体)
-		public int Stop { get; set; } = 0;			//停止[F]
+		public int Stop { get; set; } = 0;			//停止[F](全体)
 
 		//------
 		public int Radian { get; set; } = 0;			//回転

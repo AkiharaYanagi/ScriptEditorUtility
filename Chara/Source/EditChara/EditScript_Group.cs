@@ -19,32 +19,39 @@ namespace ScriptEditor
 
 		//選択中グループ
 		LScp SelectedGroup = null;
-
 		public int SelectedGroupIndex { get; set; } = 0;
+
 
 		//選択中のグループを再構築
 		public void Restruct ( LScp lsScp, int frame )
 		{
+			//対象シークエンス内のスクリプト
+			L_Scp = lsScp;
+
 			//グループ個数確認
-			int g = 0;	//グループ種類数
-			List < int > group = new List<int> ();
+			int gn = 0;	//グループ種類数
+			List < int > L_groupID = new List<int> ();	//グループIDの保存
 			foreach ( Script s in lsScp )
 			{
-				if ( ! group.Exists ( i=>i==s.Group ) )
+				if ( ! L_groupID.Exists ( i=>i==s.Group ) )
 				{
-					group .Add ( s.Group );
-					++ g;
+					L_groupID .Add ( s.Group );
+					++ gn;
 				}
 			}
 
 			//グループ種類数で初期化(最大はスクリプト数)
-			L_ScriptGroup = new List<LScp> ( lsScp.Count );
-			for ( int i = 0; i < lsScp.Count + 1; ++ i ) { L_ScriptGroup.Add ( new LScp () ); }
+			L_ScriptGroup = new List<LScp> ( gn );
+			for ( int i = 0; i < gn; ++ i )
+			{
+				L_ScriptGroup.Add ( new LScp () );
+			}
 
 			//スクリプトの値から各グループに追加する
 			foreach ( Script s in lsScp )
-			{				
-				L_ScriptGroup[ s.Group ].Add ( s );
+			{
+				int i = L_groupID.IndexOf ( s.Group );
+				L_ScriptGroup [ i ].Add ( s );
 			}
 
 			//選択
@@ -104,12 +111,12 @@ namespace ScriptEditor
 		}
 
 		//グループの選択
-		public void SelectGroup ( LScp lsScp, int frame )
+		public void SelectGroup ( LScp lsScp, int group )
 		{
-			if ( frame >= lsScp.Count ) { return; }
-			if (  lsScp [ frame ].Group >= L_ScriptGroup.Count ) { return; }
+			if ( group >= L_ScriptGroup.Count ) { return; }
 
-			SelectedGroup = L_ScriptGroup [ lsScp [ frame ].Group ];
+			SelectedGroupIndex = group;
+			SelectedGroup = L_ScriptGroup [ group ];
 		}
 
 
