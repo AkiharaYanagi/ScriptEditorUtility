@@ -7,6 +7,7 @@ using System.IO;
 using System.Drawing;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ScriptEditor
 {
@@ -36,7 +37,12 @@ namespace ScriptEditor
 			}
 			catch ( System.OutOfMemoryException ex )
 			{
-				Debug.Write ( "エラー：テストデータの作成\n" + ex.Message );
+				Debug.Write ( "OutOfMemory エラー：テストデータの作成\n" + ex.Message );
+				return;
+			}
+			catch ( Exception e )
+			{
+				Debug.Write ( "エラー：テストデータの作成\n" + e.Message );
 				return;
 			}
 		}
@@ -50,6 +56,8 @@ namespace ScriptEditor
 			//イメージリスト
 			MakeImage ( ch );
 
+#if false
+
 #if MAKE_CHARA_FROM_SOURCE
 			//ソースコードからキャラデータを反映
 			SetCharaData ( ch );
@@ -57,6 +65,16 @@ namespace ScriptEditor
 			//手動でキャラデータを作成
 			_MakeCharaData ( ch );
 #endif	//MAKE_CHARA_FROM_SOURCE
+
+#endif
+			//アクションの作成
+			MakeActionData mk_act = new MakeActionData ();
+			mk_act.Make ( ch );
+
+			//コマンドの作成
+			MakeCommandData mk_cmd = new MakeCommandData ();
+			mk_cmd.Make ( ch );
+
 		}
 
 		//手動でキャラデータを作成

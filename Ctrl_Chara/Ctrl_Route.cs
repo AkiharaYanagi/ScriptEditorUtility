@@ -69,6 +69,8 @@ namespace ScriptEditor
 			//リストに登録
 			EL_Route.SetData ( ch.BD_Route );
 
+			if ( EL_Route.Count () < 1 ) { return; }
+
 			//データの設定
 			SetRoute ( EL_Route.Get() );
 		}

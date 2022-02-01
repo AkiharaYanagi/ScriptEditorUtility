@@ -15,11 +15,12 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
-			//キャラデータの設定
+			//テストデータの作成
 			Chara ch_test = new Chara ();
 			TestCharaData tcd = new TestCharaData ();
 			tcd.Make ( ch_test );
 
+			//キャラデータのテスト
 			TestChara testChara = new TestChara ();
 			testChara.Test ( ch_test );
 
