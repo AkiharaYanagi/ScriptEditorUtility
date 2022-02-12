@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace ScriptEditor
 {
@@ -19,16 +20,12 @@ namespace ScriptEditor
 			//EditCharaに設定
 			EditChara.Inst.SetCharaDara ( ch );
 
-			//初期化(Clear)テスト
-			TestClearChara ( ch );
-
-			//テストデータ作成
-			TestCharaData tcd = new TestCharaData ();
-			tcd.Make ( ch );
-
 			//コピーテスト
 			Chara copyChara = new Chara ();
 			TestCopyChara ( copyChara, ch );
+
+			//初期化(Clear)テスト
+			TestClearChara ( copyChara );
 
 			//名前指定
 			TestNameAssign ( ch );
@@ -47,6 +44,8 @@ namespace ScriptEditor
 			Debug.Assert ( 0 == chara.behavior.BD_Sequence.Count() );
 			Debug.Assert ( 0 == chara.garnish.BD_Sequence.Count() );
 			Debug.Assert ( 0 == chara.BD_Command.Count () );
+			Debug.Assert ( 0 == chara.BD_Branch.Count () );
+			Debug.Assert ( 0 == chara.BD_Route.Count () );
 		}
 
 		//コピーテスト
@@ -77,45 +76,54 @@ namespace ScriptEditor
 		}
 
 		//名前指定テスト
-		//戻値： T:OK, F:ASSERT
-		public bool _TestNameAssign ( Chara ch )
+		public void TestNameAssign ( Chara ch )
 		{
-			//イメージ名指定
+			try
+			{
+				_TestNameAssign ( ch );
+			}
+			catch ( Exception e )
+			{
+				Debug.Write ( e );
+				Debug.Assert ( false );
+			}
+		}
+
+		//イメージ、アクション、コマンド、ブランチ、ルート
+		//無いときExceptionをthrow
+		public void _TestNameAssign ( Chara ch )
+		{
+			//スクリプト -> イメージ, ルート
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{
 				foreach ( Script scp in sqc.ListScript )
 				{
-					ImageData imgd = ch.behavior.BD_Image.Get ( scp.ImgName );
+					//イメージ
+					ch.behavior.BD_Image.Exist ( scp.ImgName );
 
-					//該当イメージが無いとき
-					if ( imgd is null ) { return false; }
-
-					//各スクリプトで指定イメージが無いとき
+					//ルート
 					foreach ( TName tn in scp.BL_RutName )
 					{
-						Route rut = ch.BD_Route.Get ( tn.Name );
-						if ( rut is null ) { return false; }
+						ch.BD_Route.Exist ( tn.Name );
 					}
 				}
 			}
 
-			//ブランチ名指定
+			//ブランチ -> コマンド, アクション
+			foreach ( Branch brc in ch.BD_Branch.GetBindingList () )
+			{
+				ch.BD_Command.Exist ( brc.NameCommand );
+				ch.behavior.BD_Sequence.Exist ( brc.NameSequence );
+			}
+
+			//ルート -> ブランチ名
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
 				foreach ( TName tn in rut.BL_BranchName )
 				{
-					Branch brc = ch.BD_Branch.Get ( tn.Name );
-
-					if ( brc is null ) { return false; }
+					ch.BD_Branch.Exist ( tn.Name );
 				}
 			}
-
-			return true;
-		}
-
-		public void TestNameAssign ( Chara ch )
-		{
-			Debug.Assert ( _TestNameAssign ( ch ) );
 		}
 
 	}

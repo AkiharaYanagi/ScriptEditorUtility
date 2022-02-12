@@ -11,8 +11,9 @@ namespace ScriptEditor
 
 		//---------------------------------------------------------------------
 		//グループ（スクリプトの参照リスト）
-		//ScriptがIDを持ち、Sequenceが変更されるたびに
+		//ScriptがグループIDを持ち、Sequenceが変更されるたびに
 		//編集用リストを再構築する
+		//0(グループ外)も含め、グループ成立しているIDを記録する
 		//---------------------------------------------------------------------
 		//グループリスト
 		List < LScp > L_ScriptGroup = new List<LScp> ();
@@ -29,7 +30,7 @@ namespace ScriptEditor
 			L_Scp = lsScp;
 
 			//グループ個数確認
-			int gn = 0;	//グループ種類数
+			int gn = 1;	//グループ種類数
 			List < int > L_groupID = new List<int> ();	//グループIDの保存
 			foreach ( Script s in lsScp )
 			{
@@ -47,7 +48,7 @@ namespace ScriptEditor
 				L_ScriptGroup.Add ( new LScp () );
 			}
 
-			//スクリプトの値から各グループに追加する
+			//スクリプトの値から各グループに追加する(0を含む)
 			foreach ( Script s in lsScp )
 			{
 				int i = L_groupID.IndexOf ( s.Group );
@@ -55,7 +56,7 @@ namespace ScriptEditor
 			}
 
 			//選択
-			SelectGroup ( lsScp, frame );
+			SelectGroup ( frame );
 		}
 
 
@@ -111,12 +112,25 @@ namespace ScriptEditor
 		}
 
 		//グループの選択
-		public void SelectGroup ( LScp lsScp, int group )
+		public void SelectGroup ( int group )
 		{
 			if ( group >= L_ScriptGroup.Count ) { return; }
 
+			//値の記録
 			SelectedGroupIndex = group;
-			SelectedGroup = L_ScriptGroup [ group ];
+
+			//該当リストの記録
+			foreach ( LScp ls in L_ScriptGroup )
+			{
+				foreach ( Script s in ls )
+				{
+					if ( s.Group == group )
+					{
+						SelectedGroup = ls;
+						return;
+					}
+				}
+			}
 		}
 
 

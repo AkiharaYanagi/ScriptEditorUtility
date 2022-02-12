@@ -63,6 +63,7 @@ namespace ScriptEditor
 			}
 		}
 
+#if false
 		//ActionList
 		private void MakeActionList ()
 		{
@@ -90,6 +91,7 @@ namespace ScriptEditor
 				eb.AddAction ( act );
 			}
 		}
+#endif
 
 		//アクション内の値を指定
 		private void MakeAction ( Chara chara )
@@ -99,12 +101,6 @@ namespace ScriptEditor
 			EditSequence ea = eb.EditSequence;
 			BD_Seq bd_act = chara.behavior.BD_Sequence;
 
-			//スクリプト
-			Script script_test = SetScript ();
-
-			//スクリプトコピー
-			Script scp_cpy = bd_act.Get ( (int)ENM_ACT.Stand ).ListScript [ 0 ];
-			scp_cpy.Copy ( script_test );
 
 			//----------------------------------------------------------------
 			//Stand

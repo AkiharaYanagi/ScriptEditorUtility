@@ -295,15 +295,20 @@ namespace ScriptEditor
 			foreach ( Branch brc in ls )
 			{
 				int commandID = Chara.BD_Command.IndexOf ( brc.NameCommand );
-				int actionID = Chara.behavior.BD_Sequence.IndexOf ( brc.NameAction );
+
+				int sequenceID = Chara.behavior.BD_Sequence.IndexOf ( brc.NameSequence );
+				if ( -1 == sequenceID )
+				{
+					sequenceID = Chara.garnish.BD_Sequence.IndexOf ( brc.NameSequence ); 
+				}
 
 				sw.Write ( "\t<Branch" );
 				sw.Write ( " Name=\"" + brc.Name + "\"" );					//名前
 				sw.Write ( " Condition=\"" + (int)brc.Condition + "\"" );	//条件
 				sw.Write ( " NameCommand=\"" + brc.NameCommand + "\"" );	//コマンド名
 				sw.Write ( " CommandID=\"" + commandID + "\"" );			//コマンドID
-				sw.Write ( " NameAction=\"" + brc.NameAction + "\"" );		//アクション名
-				sw.Write ( " ActionID=\"" + actionID + "\"" );				//アクションID
+				sw.Write ( " NameSequence=\"" + brc.NameSequence + "\"" );	//シークエンス名
+				sw.Write ( " SequenceID=\"" + sequenceID + "\"" );			//シークエンスID
 				sw.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
 				sw.Write ( ">\n" );
 				sw.Write ( "\t</Branch>\n" );

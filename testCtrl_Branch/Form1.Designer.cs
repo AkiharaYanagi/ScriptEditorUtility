@@ -45,7 +45,7 @@
 			this.ctrl_Branch1.Name = "ctrl_Branch1";
 			branch1.Frame = 0;
 			branch1.Name = "BrcName";
-			branch1.NameAction = "NameAction";
+			branch1.NameSequence = "NameAction";
 			branch1.NameCommand = "NameCommand";
 			this.ctrl_Branch1.Size = new System.Drawing.Size(513, 446);
 			this.ctrl_Branch1.TabIndex = 0;

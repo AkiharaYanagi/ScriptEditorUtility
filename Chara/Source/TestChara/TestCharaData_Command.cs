@@ -278,7 +278,7 @@ namespace ScriptEditor
 			Branch brc = bd_brc.Get ( brc_name.ToString () );
 			brc.Condition = bc;
 			brc.NameCommand = cmd_name.ToString ();
-			brc.NameAction = act_name.ToString ();
+			brc.NameSequence = act_name.ToString ();
 		}
 
 		//----------------------------------------------------------------------------

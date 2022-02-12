@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -77,6 +78,11 @@ namespace ScriptEditor
 			//追加
 			DCT_t.Add ( name, t );
 			BL_t.Add ( t );
+		}
+
+		public T Get ( object obj )
+		{
+			return Get ( obj.ToString () );
 		}
 
 		public T Get ( string name )
@@ -226,6 +232,15 @@ namespace ScriptEditor
 		public int IndexOf ( string name )
 		{
 			return BL_t.IndexOf ( Get ( name ) );
+		}
+
+		//存在するかどうか,無いとき例外投擲
+		public void Exist ( string name )
+		{
+			if ( ! DCT_t.TryGetValue ( name, out T t ) )
+			{
+				throw new Exception ();
+			}
 		}
 	}
 }

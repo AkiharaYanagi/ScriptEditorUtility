@@ -33,7 +33,7 @@ namespace ScriptEditor
 		//アクション内スクリプトリストにおける自身のフレーム数(番目)
 		public int Frame { get; set; } = 0;
 
-		//編集用グループ値
+		//編集用グループ値 (0はグループ無し、１からグループ生成)
 		public int Group { get; set; } = 0;
 
 		//--------------------------------------------------------------------
@@ -118,7 +118,14 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			this.BL_RutName = new BindingList<TName> ( s.BL_RutName );
+
+			//this.BL_RutName = new BindingList<TName> ( s.BL_RutName );
+			this.BL_RutName = new BindingList<TName> ();
+			foreach ( TName tn in s.BL_RutName )
+			{
+				BL_RutName.Add ( new TName ( tn ) );
+			}
+			
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
 			this.ListARect = new List < Rectangle > ( s.ListARect );

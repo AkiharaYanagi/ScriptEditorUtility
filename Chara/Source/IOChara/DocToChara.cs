@@ -334,7 +334,7 @@ namespace ScriptEditor
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
 					Condition = (BranchCondition) IOChara.AttrToInt ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
-					NameAction = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
+					NameSequence = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
 					Frame = 0
 				};
 

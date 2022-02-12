@@ -87,12 +87,19 @@ namespace ScriptEditor
 			break;
 			
 			case EditTarget.GROUP:
-				//グループ編集時に他スクリプトにも値を設定する
+			
+					
+					
+					
+					//@todo グループ編集時に他スクリプトにも値を設定する
 				//GroupSetter?.Invoke ( value );
+
+
+
+
 			break;
 			
 			case EditTarget.SINGLE:
-				//SetFunc ( value );
 				PrmInt.Setter ( Scp, value );
 			break;
 

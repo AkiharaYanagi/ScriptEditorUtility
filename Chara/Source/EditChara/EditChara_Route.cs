@@ -14,6 +14,11 @@ namespace ScriptEditor
 			Chara.BD_Route.Add ( new Route ( "newRoute" ) );
 		}
 
+		public void AddRoute ( Route rut )
+		{
+			Chara.BD_Route.Add ( rut );
+		}
+
 		public void AddRoute ( string name )
 		{
 			Chara.BD_Route.Add ( new Route ( name ) );

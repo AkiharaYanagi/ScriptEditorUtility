@@ -1,6 +1,11 @@
 ﻿//※ #defineはソースの先頭のみ
 //#define MAKE_CHARA_FROM_SOURCE
+#if MAKE_CHARA_FROM_SOURCE
+			//ソースコードからキャラデータを反映
+			SetCharaData ( ch );
+#endif	//MAKE_CHARA_FROM_SOURCE
 //
+
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -56,17 +61,6 @@ namespace ScriptEditor
 			//イメージリスト
 			MakeImage ( ch );
 
-#if false
-
-#if MAKE_CHARA_FROM_SOURCE
-			//ソースコードからキャラデータを反映
-			SetCharaData ( ch );
-#else
-			//手動でキャラデータを作成
-			_MakeCharaData ( ch );
-#endif	//MAKE_CHARA_FROM_SOURCE
-
-#endif
 			//アクションの作成
 			MakeActionData mk_act = new MakeActionData ();
 			mk_act.Make ( ch );
@@ -75,7 +69,21 @@ namespace ScriptEditor
 			MakeCommandData mk_cmd = new MakeCommandData ();
 			mk_cmd.Make ( ch );
 
+			//ブランチの作成
+			MakeBranchData mk_brc = new MakeBranchData ();
+			mk_brc.Make ( ch );
+
+			//ルートの作成
+			MakeRouteData mk_rut = new MakeRouteData ();
+			mk_rut.Make ( ch );
+
+			//エフェクト（ガーニッシュ）のテスト
+			MakeGarnish ( ch );
+
 		}
+
+
+#if false
 
 		//手動でキャラデータを作成
 		private void _MakeCharaData ( Chara ch )
@@ -95,54 +103,11 @@ namespace ScriptEditor
 			//ルート
 			MakeRoute ( ch );
 
-			//すべてのアクションにおけるスクリプトへの変更
-#if false
-			void f_editScp ( Script scp ) { scp.ImgName = "000_dummy.png"; }
-			EditChara.Inst.EditBehavior.EditAllScript ( chara.behavior, f_editScp );
-#endif
-			//名前参照　整合性チェック
-			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
-			{
-				foreach ( Script scp in sqc.ListScript )
-				{
-					ImageData imgd = ch.behavior.BD_Image.Get ( scp.ImgName );
-
-					if ( imgd is null )
-					{
-						scp.ImgName = ch.behavior.BD_Image.Get ( 0 ).Name;
-					}
-					else
-					{
-						Debug.Assert ( ! ( imgd is null ) );
-					}
-
-					foreach ( TName tn in scp.BL_RutName )
-					{
-						Route rut = ch.BD_Route.Get ( tn.Name );
-						Debug.Assert ( ! ( rut is null ) );
-					}
-				}
-			}
-
-			//--------------------------------------------
-			//エディット（ガーニッシュ）のテスト
+			//エフェクト（ガーニッシュ）のテスト
 			MakeGarnish ( ch );
 
-#if false
-
-			//--------------------------------------------
-			//すべてのエフェクトにおけるスクリプトへの変更
-			BL_Sequence blsqcEf = ch.garnish.BD_Sequence.GetBindingList();
-			foreach ( Sequence sqc in blsqcEf )
-			{
-				BL_Script blsc = sqc.ListScript;
-				foreach ( Script sc in blsc )
-				{
-					sc.ImgName = "dummy.png";
-				}
-			}
-#endif
 		}
+#endif
 
 
 

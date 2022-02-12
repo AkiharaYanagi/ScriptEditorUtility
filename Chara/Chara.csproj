@@ -83,6 +83,9 @@
     <Compile Include="Source\IOChara\LoadTextChara.cs" />
     <Compile Include="Source\TestChara\ConstCharaData.cs" />
     <Compile Include="Source\TestChara\MakeActionData.cs" />
+    <Compile Include="Source\TestChara\MakeActionData_Part.cs" />
+    <Compile Include="Source\TestChara\MakeBranchData.cs" />
+    <Compile Include="Source\TestChara\MakeRouteData.cs" />
     <Compile Include="Source\TestChara\MakeCommandData.cs" />
     <Compile Include="Source\TestChara\MakeSourceTestCharaData.cs" />
     <Compile Include="Source\TestChara\MakeTestCharaData.cs" />

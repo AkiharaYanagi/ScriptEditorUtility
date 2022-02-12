@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Diagnostics;
+
 
 namespace ScriptEditor
 {
 	using BD_Seq = BindingDictionary < Sequence >;
 	using BL_Scp = List < Script >;
 
-	public partial class TestCharaData
+	//テキストデータからアクションリストを作成する
+	public partial class MakeActionData
 	{
-
 		//----------------------------------------------------------------------
 		//Stand
 		private void MakeAction_Stand ( BD_Seq bd_act )
@@ -22,17 +22,6 @@ namespace ScriptEditor
 			_MakeAction_Part ( bl_scp, 128, 144, 2, "Stand_01.png" );
 			_MakeAction_Part ( bl_scp, 144, 272, 3, "Stand_02.png" );
 			_MakeAction_Part ( bl_scp, 272, 288, 4, "Stand_01.png" );
-
-#if false
-			EffectGenerate efgn = new EffectGenerate ()
-			{
-				Name = "EfGn",
-				EfName = "testEffect0",
-				Pt = new Point ( 100, -150 ),
-				Gnrt = true,
-			};
-			bl_scp[0].BD_EfGnrt.Add ( efgn );
-#endif
 		}
 
 		private void _MakeAction_Part ( BL_Scp bl_s, int start, int end, int group, string imgname )
@@ -55,7 +44,7 @@ namespace ScriptEditor
 
 		//----------------------------------------------------------------------
 		//FrontMove
-		private void MakeAction_Move ( BD_Seq bd_act )
+		private void MakeAction_FrontMove ( BD_Seq bd_act )
 		{
 			const int i_FrontMove = (int)ENM_ACT.FrontMove;
 			Action act = (Action)bd_act.Get ( i_FrontMove );
@@ -88,7 +77,7 @@ namespace ScriptEditor
 			foreach ( Script s in act.ListScript )
 			{
 				s.Group = 1; 
-				s.ImgName = "BacktMove_00.png";
+				s.ImgName = "BackMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( -15 );
 				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );

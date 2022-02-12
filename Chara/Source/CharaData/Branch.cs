@@ -1,7 +1,7 @@
 ﻿namespace ScriptEditor
 {
 	//------------------------------------------------
-	//	各種条件によるアクション分岐
+	//	各種条件によるスクリプト分岐
 	//------------------------------------------------
 	public class Branch : IName
 	{
@@ -16,8 +16,8 @@
 		//条件　コマンド名
 		public string NameCommand { get; set; } = "NameCommand";
 
-		//遷移先　アクション名
-		public string NameAction { get; set; } = "NameAction";
+		//遷移先　シークエンス名
+		public string NameSequence { get; set; } = "NameSequence";
 
 		//遷移先　フレーム指定
 		public int Frame { get; set; } = 0;
@@ -33,10 +33,10 @@
 			Name = name;
 		}
 
-		public Branch ( string strCommand, string strAction )
+		public Branch ( string strCommand, string strSequence )
 		{
 			NameCommand = strCommand;
-			NameAction = strAction;
+			NameSequence = strSequence;
 		}
 
 
