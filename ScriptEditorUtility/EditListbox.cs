@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace ScriptEditor
 {
 	//==========================================================
-	//	BindingDictionaryを受けて表示と編集をするコントロール
+	//	BindingList < T >を受けて表示と編集をするコントロール
 	//==========================================================
 	public partial class EditListbox < T >  : UserControl where T : IName, new ()
 	{

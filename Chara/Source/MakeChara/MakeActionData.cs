@@ -12,19 +12,6 @@ namespace ScriptEditor
 	//テキストデータからアクションリストを作成する
 	public partial class MakeActionData
 	{
-#if false
-
-		//デフォルトルート名
-		private enum ENM_RUT
-		{
-			地上移動, 地上通常技, 前持続停止, 後持続停止, ジャンプ,
-			地上必殺技, 特殊, 地上超必, 
-			投げ分岐_自, 投げ分岐_相, 
-			被ダメ_L, 被ダメ_M, 被ダメ_H,
-		}
-#endif
-
-		
 		public void Make ( Chara ch )
 		{
 			try
@@ -58,7 +45,7 @@ namespace ScriptEditor
 			MakeAction_Jump ( eb, ENM_ACT.FrontJump, "AirFrontDash_00.png", 20 );
 			MakeAction_Jump ( eb, ENM_ACT.BackJump, "AirFrontDash_00.png", -20 );
 #endif
-
+			MakeAction_FrontDash ( bd_act );
 		}
 
 

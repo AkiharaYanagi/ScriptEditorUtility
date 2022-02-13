@@ -15,7 +15,9 @@ namespace ScriptEditor
 		//Stand
 		private void MakeAction_Stand ( BD_Seq bd_act )
 		{
-			MakeScript ( (int)ENM_ACT.Stand, 288 );
+			string act_name = ENM_ACT.Stand.ToString();
+			Action act = (Action)bd_act.Get ( act_name );
+			MakeScript ( act, 288 );
 
 			BL_Scp bl_scp = bd_act.Get ( (int)ENM_ACT.Stand ).ListScript;
 			_MakeAction_Part ( bl_scp, 0  , 128, 1, "Stand_00.png" );
@@ -46,11 +48,13 @@ namespace ScriptEditor
 		//FrontMove
 		private void MakeAction_FrontMove ( BD_Seq bd_act )
 		{
-			const int i_FrontMove = (int)ENM_ACT.FrontMove;
-			Action act = (Action)bd_act.Get ( i_FrontMove );
-			act.NextActionName = ENM_ACT.FrontMove.ToString ();
+			string act_name = ENM_ACT.FrontMove.ToString ();
+//			const int i_FrontMove = (int)ENM_ACT.FrontMove;
+//			Action act = (Action)bd_act.Get ( i_FrontMove );
+			Action act = (Action)bd_act.Get ( act_name );
+			act.NextActionName = act_name;
 
-			MakeScript ( i_FrontMove, 16 );
+			MakeScript ( act, 16 );
 			foreach ( Script s in act.ListScript )
 			{
 				s.Group = 1; 
@@ -69,11 +73,12 @@ namespace ScriptEditor
 		//BackMove
 		private void MakeAction_BackMove ( BD_Seq bd_act )
 		{
-			const int i_BackMove = (int)ENM_ACT.BackMove;
-			Action act = (Action)bd_act.Get ( i_BackMove );
-			act.NextActionName = ENM_ACT.BackMove.ToString ();
+			string act_name = ENM_ACT.BackMove.ToString ();
+//			const int i_BackMove = (int)ENM_ACT.BackMove;
+			Action act = (Action)bd_act.Get ( act_name );
+			act.NextActionName = act_name;
 
-			MakeScript ( i_BackMove, 16 );
+			MakeScript ( act, 16 );
 			foreach ( Script s in act.ListScript )
 			{
 				s.Group = 1; 
@@ -116,12 +121,15 @@ namespace ScriptEditor
 		//FrontDash
 		private void MakeAction_FrontDash ( BD_Seq bd_act )
 		{
-			const int i_FrontDash = (int)ENM_ACT.FrontDash;
-			Action act = (Action)bd_act.Get ( i_FrontDash );
+			string act_name = ENM_ACT.FrontDash.ToString ();
+//			const int i_FrontDash = (int)ENM_ACT.FrontDash;
+//			Action act = (Action)bd_act.Get ( i_FrontDash );
+			Action act = (Action)bd_act.Get ( act_name );
+
 			act.NextActionName = ENM_ACT.FrontDash.ToString ();
 
-			MakeScript ( i_FrontDash, 20 );
-			BL_Scp bl_scp = bd_act.Get ( i_FrontDash ).ListScript;
+			MakeScript ( act, 20 );
+			BL_Scp bl_scp = bd_act.Get ( act_name ).ListScript;
 			_MakeAction_Part_FrontDash ( bl_scp, 0 , 5 , 1, "FrontDash_00.png" );
 			_MakeAction_Part_FrontDash ( bl_scp, 5 , 10, 2, "FrontDash_01.png" );
 			_MakeAction_Part_FrontDash ( bl_scp, 10, 15, 3, "FrontDash_02.png" );
@@ -213,6 +221,25 @@ namespace ScriptEditor
 		{
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 			eb.SelectSequence ( idAction );
+			eb.SelectedSequence.ListScript.Clear ();		//既存のスクリプトを削除
+			for ( int i = 0; i < numScript; ++i )
+			{
+				Script script = new Script ();
+				script.ListCRect.Add ( new Rectangle ( -90, -300, 100, 250 ) );
+				script.ListHRect.Add ( new Rectangle ( -100, -280, 120, 350 ) );
+//				script.ListARect.Add ( new Rectangle ( -160, -150, 20, 60 ) );
+//				script.ListORect.Add ( new Rectangle ( -80, -230, 40, 60 ) );
+				script.SetPos ( -157, -424 );
+				eb.AddScript ( script );
+			}
+		}
+
+		//内部　スクリプト設定
+		//引数：アクション, スクリプト個数
+		private void MakeScript ( Action act, int numScript )
+		{
+			EditBehavior eb = EditChara.Inst.EditBehavior;
+			eb.SelectSequence ( act.Name );
 			eb.SelectedSequence.ListScript.Clear ();		//既存のスクリプトを削除
 			for ( int i = 0; i < numScript; ++i )
 			{
