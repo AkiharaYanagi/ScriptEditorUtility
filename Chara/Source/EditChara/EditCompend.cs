@@ -138,18 +138,9 @@ namespace ScriptEditor
 		}
 
 		//選択している後にシークエンス挿入
-		public void InsertSequence ( Sequence s )
+		public void InsertSequence ( int index, Sequence s )
 		{
-			Compend.BD_Sequence.Insert ( s );
-		}
-		public virtual void Insert ()
-		{
-			string name = "new Inserted Sequence";
-			Compend.BD_Sequence.Insert ( new Sequence ( name ) );
-		}
-		public void Insert ( Sequence s )
-		{
-			Compend.BD_Sequence.Insert ( s );
+			Compend.BD_Sequence.Insert ( index, s );
 		}
 
 		//選択中のシークエンスを削除

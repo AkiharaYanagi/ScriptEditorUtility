@@ -195,7 +195,7 @@ namespace ScriptEditor
 				s.ImgName = "Part_5H_02.png";
 				s.ListARect.Clear ();
 				s.ListARect.Add ( new Rectangle ( 50, -300, 200, 50 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.被ダメ_H ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.被ダメ_H ) );
 			}
 			for ( int i = 12; i < 16; ++ i )
 			{
@@ -238,8 +238,8 @@ namespace ScriptEditor
 				s.ImgName = "StarMassStrike_00.png";
 				s.ListARect.Clear ();
 				s.ListARect.Add ( new Rectangle ( 50, -300, 200, 50 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.投げ分岐_自 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.投げ分岐_相 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.投げ分岐_自 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.投げ分岐_相 ) );
 			}
 			for ( int i = 8; i < 12; ++ i )
 			{

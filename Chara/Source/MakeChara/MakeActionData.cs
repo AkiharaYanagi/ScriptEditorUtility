@@ -118,11 +118,11 @@ namespace ScriptEditor
 						s.ImgName = imgname;
 					}
 
-					s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
-					s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-					s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-					s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-					s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動 ) );
+					s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+					s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+					s.BD_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+					s.BD_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+					s.BD_RutName.Add ( new TName ( ENM_RUT.地上移動 ) );
 
 					act.AddScript ( s ); 
 				}

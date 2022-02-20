@@ -38,13 +38,9 @@
 		}
 
 		//挿入
-		public override void Insert ()
+		public void InsertEffect ( int index )
 		{
-			base.InsertSequence ( new Effect ( "new Effect" ) );
-		}
-		public void InsertEffect ()
-		{
-			base.InsertSequence ( new Effect () );
+			base.InsertSequence ( index, new Effect ( "new Effect" ) );
 		}
 
 		//削除

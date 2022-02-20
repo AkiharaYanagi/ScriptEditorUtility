@@ -79,7 +79,7 @@ namespace ScriptEditor
 		public void SetRoute ( Route rut )
 		{
 			Tb_Summary.Text = rut.Summary;
-			EL_Branch.SetData ( rut.BL_BranchName );
+			EL_Branch.SetData ( rut.BD_BranchName );
 
 			//ブランチの選択
 			SelectBranch ();

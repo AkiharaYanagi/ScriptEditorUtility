@@ -36,11 +36,11 @@ namespace ScriptEditor
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Pos = new Point ( -250, -450 );
 
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上移動 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上移動 ) );
 			}
 		}
 
@@ -61,12 +61,12 @@ namespace ScriptEditor
 				s.ImgName = "FrontMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( 15 );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
 			}
 		}
 
@@ -85,12 +85,12 @@ namespace ScriptEditor
 				s.ImgName = "BackMove_00.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.SetVelX ( -15 );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.後持続停止 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.後持続停止 ) );
 			} 		
 		}
 
@@ -147,11 +147,11 @@ namespace ScriptEditor
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Pos = new Point ( -250, -450 );
 
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
-				s.BL_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.地上通常技 ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.ジャンプ ) );
+				s.BD_RutName.Add ( new TName ( ENM_RUT.前持続停止 ) );
 			}
 		}
 

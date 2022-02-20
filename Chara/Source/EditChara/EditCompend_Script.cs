@@ -141,7 +141,7 @@ namespace ScriptEditor
 		{
 			foreach ( Script s in SelectedSequence.ListScript )
 			{
-				s.BL_RutName = new BindingList < TName > ( s.BL_RutName );
+				s.BD_RutName.DeepCopy ( s.BD_RutName );
 			}
 		}
 

@@ -68,7 +68,7 @@ namespace ScriptEditor
 		//------------------------------------------------
 
 		//ルートネームリスト
-		public BindingList < TName > BL_RutName = new BindingList<TName> ();
+		public BindingDictionary < TName > BD_RutName = new BindingDictionary <TName> ();
 
 		//------------------------------------------------
 		//枠
@@ -119,12 +119,8 @@ namespace ScriptEditor
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
 
-			//this.BL_RutName = new BindingList<TName> ( s.BL_RutName );
-			this.BL_RutName = new BindingList<TName> ();
-			foreach ( TName tn in s.BL_RutName )
-			{
-				BL_RutName.Add ( new TName ( tn ) );
-			}
+			this.BD_RutName = new BindingDictionary<TName> ();
+			BD_RutName.DeepCopy ( s.BD_RutName );
 			
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
@@ -142,7 +138,7 @@ namespace ScriptEditor
 			Frame = 0;
 			ImgName = "Clear";
 			CalcState = CLC_ST.CLC_MAINTAIN;
-			BL_RutName.Clear ();
+			BD_RutName.Clear ();
 			ListCRect.Clear ();
 			ListARect.Clear ();
 			ListHRect.Clear ();
@@ -162,7 +158,7 @@ namespace ScriptEditor
 			this.Vel = s.Vel;
 			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
-			this.BL_RutName = new BindingList<TName> ( s.BL_RutName );
+			this.BD_RutName.DeepCopy ( s.BD_RutName );
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
 			this.ListARect = new List < Rectangle > ( s.ListARect );
@@ -193,7 +189,7 @@ namespace ScriptEditor
 			if ( this.Vel != s.Vel ) { return false; }
 			if ( this.Acc != s.Acc ) { return false; }
 			if ( this.CalcState != s.CalcState ) { return false; }
-			if ( ! this.BL_RutName.SequenceEqual ( s.BL_RutName ) ) { return false; }
+			if ( ! this.BD_RutName.SequenceEqual ( s.BD_RutName ) ) { return false; }
 			if ( ! this.ListCRect.SequenceEqual ( s.ListCRect ) ) { return false; }
 			if ( ! this.ListHRect.SequenceEqual ( s.ListHRect ) ) { return false; }
 			if ( ! this.ListARect.SequenceEqual ( s.ListARect ) ) { return false; }
@@ -213,7 +209,7 @@ namespace ScriptEditor
 			int i4  = i3  ^ Vel.GetHashCode ();
 			int i5  = i4  ^ Acc.GetHashCode ();
 			int i6  = i5  ^ CalcState.GetHashCode ();
-			int i7  = i6  ^ BL_RutName.GetHashCode ();
+			int i7  = i6  ^ BD_RutName.GetHashCode ();
 			int i8  = i7  ^ ListCRect.GetHashCode ();
 			int i9  = i8  ^ ListHRect.GetHashCode ();
 			int i10 = i9  ^ ListARect.GetHashCode ();

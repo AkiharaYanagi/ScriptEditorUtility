@@ -12,7 +12,8 @@ namespace ScriptEditor
 	//	< T > where T: IName
 	//	主に名前で検索し、リストボックスに表示する項目を扱う
 	//	追加・削除は２つのデータを同期するため、専用のAddとDelを用いる
-	//	対象データT t はバインディングリストまたはディクショナリのどちらで取得後も同一オブジェクトであり変更可能
+	//	対象データT t の中身はバインディングリストまたはディクショナリのどちらで取得後も同一オブジェクトであり変更可能
+	//	BL_tとDCT_tの削除と追加は片方だけで行ってはならない
 	//=============================================================
 	public interface IName
 	{
@@ -61,25 +62,46 @@ namespace ScriptEditor
 			return DCT_t.ContainsKey ( name );
 		}
 
+		//内部チェックして重ならない名前を返す
+		public string UniqueName ( string name )
+		{
+			string newname = name;
+
+			//同一の値のとき例外が発生するので、重ならないよう前もって名前に追加命名("*+0")する
+			int i = 0;
+			while ( DCT_t.ContainsKey ( newname ) )
+			{
+				newname = typeof ( T ).ToString () + i.ToString ();
+				++ i;
+			}
+
+			return newname;
+		}
+
 
 		//追加
 		public void Add ( T t )
 		{
-			//同一の値のとき例外が発生するので、事前に名前に追加する
-			int i = 0;
-			string name = t.Name;
-			while ( DCT_t.ContainsKey ( name ) )
-			{
-				name = t.GetType().Name + i.ToString ();
-				++ i;
-			}
-			t.Name = name;
+			//名前チェック
+			t.Name = UniqueName ( t.Name );
 
 			//追加
-			DCT_t.Add ( name, t );
+			DCT_t.Add ( t.Name, t );
 			BL_t.Add ( t );
 		}
 
+		//挿入
+		public void Insert ( int index, T t )
+		{
+			//名前チェック
+			t.Name = UniqueName ( t.Name );
+
+			BL_t.Insert ( index, t );
+			DCT_t.Add ( t.Name, t );
+		}
+
+
+		//取得
 		public T Get ( object obj )
 		{
 			return Get ( obj.ToString () );
@@ -132,26 +154,24 @@ namespace ScriptEditor
 			return BL_t;
 		}
 
+		public IEnumerable < T > GetEnumerable ()
+		{
+			return BL_t;
+		}
+
 		public Dictionary < string, T > GetDictionary ()
 		{
 			return DCT_t;
 		}
 
 		//ディープコピー
-		public void Copy ( BindingDictionary < T > bd_t )
+		public void DeepCopy ( BindingDictionary < T > bd_t )
 		{
 			Clear ();
 			foreach ( T t in bd_t.BL_t )
 			{
 				this.Add ( t );
 			}
-		}
-
-		public void Insert ( T t )
-		{
-			int i = BL_t.IndexOf ( t );
-			BL_t.Insert ( i, t );
-			DCT_t.Add ( t.Name, t );
 		}
 
 		public int Count ()

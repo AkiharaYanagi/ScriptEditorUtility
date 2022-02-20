@@ -185,7 +185,7 @@ namespace ScriptEditor
 				Element elemRutList = e.Elements [( int ) ELEMENT_SCRIPT.ELSC_ROUTE ];
 				foreach ( Element elemRut in elemRutList.Elements )
 				{
-					s.BL_RutName.Add ( new TName ( elemRut.Attributes [ 0 ].Value ) );
+					s.BD_RutName.Add ( new TName ( elemRut.Attributes [ 0 ].Value ) );
 				}
 
 				//-----------------------------------------------------------------------------
@@ -365,7 +365,7 @@ namespace ScriptEditor
 				foreach ( Element elemBrcName in elemBranchNameList.Elements )
 				{
 					string name = elemBrcName.Attributes [ (int)ATTR_.NAME_0 ].Value;
-					rut.BL_BranchName.Add ( new TName ( name ) );
+					rut.BD_BranchName.Add ( new TName ( name ) );
 				}
 
 				//キャラに登録

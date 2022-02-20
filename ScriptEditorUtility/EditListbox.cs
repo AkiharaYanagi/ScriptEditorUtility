@@ -5,12 +5,12 @@ using System.Windows.Forms;
 namespace ScriptEditor
 {
 	//==========================================================
-	//	BindingList < T >を受けて表示と編集をするコントロール
+	//	BindingDictionary < T >を受けて表示と編集をするコントロール
 	//==========================================================
 	public partial class EditListbox < T >  : UserControl where T : IName, new ()
 	{
 		//対象
-		public BindingList < T > BL_T { get; set; } = new BindingList < T > ();
+		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
 
 		public ListBox GetListBox () { return listBox1; }
 		public T Get () { return ( T ) listBox1.SelectedItem; }
@@ -19,10 +19,10 @@ namespace ScriptEditor
 		{
 			InitializeComponent ();
 
-			listBox1.DataSource = BL_T;
+			listBox1.DataSource = BD_T.GetBindingList ();
 			listBox1.DisplayMember = "Name";
 
-			BL_T.Add ( new T () );
+			BD_T.Add ( new T () );
 			listBox1.SelectedIndex = 0;
 
 			T t = new T ();
@@ -30,21 +30,23 @@ namespace ScriptEditor
 
 			//イベント
 			Btn_Add.Click += new EventHandler ( listBox1_Add );
+			Btn_Del.Click += new EventHandler ( listBox1_Del );
+			Tb_Name.TextChanged += new EventHandler ( Tb_Name_TextChanged );
 		}
 
-		public void ResetItems ()
-		{
-			for ( int i = 0; i < BL_T.Count; ++ i )
-			{
-				BL_T.ResetItem ( i );
-			}
-		}
 
 		public void SetData ( BindingDictionary < T > bd_t )
 		{
-			SetData ( bd_t.GetBindingList () );
+			BD_T = bd_t;
+			listBox1.DataSource = BD_T.GetBindingList ();
+			listBox1.DisplayMember = "Name";
+			BD_T.ResetItems ();
+
+			//変更時イベント
+			Changed?.Invoke ();
 		}
 
+#if false
 		public void SetData ( BindingList < T > bl_t )
 		{
 			BL_T = bl_t;
@@ -63,21 +65,31 @@ namespace ScriptEditor
 				Tb_Name.Text = bl_t [ i ].Name;
 			}
 #endif
+
+			//変更時イベント
+			Changed?.Invoke ();
+		}
+#endif
+
+		public void ResetItems ()
+		{
+			BD_T.ResetItems ();
 		}
 
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
-			BL_T.Add ( new T () );
+			BD_T.Add ( new T () );
 			//末尾を選択
 			listBox1.SelectedIndex = listBox1.Items.Count - 1;
-			ResetItems ();
+			BD_T.ResetItems ();
 		}
 
 		private void Btn_Del_Click ( object sender, EventArgs e )
 		{
 			if ( listBox1.Items.Count <= 0 ) { return; }
 
-			BL_T.RemoveAt ( listBox1.SelectedIndex );
+			BD_T.RemoveAt ( listBox1.SelectedIndex );
+			BD_T.ResetItems ();
 		}
 
 		//上へ移動
@@ -93,13 +105,16 @@ namespace ScriptEditor
 			//１つ前の位置
 			int i = listBox1.SelectedIndex - 1;
 			//前に追加
-			BL_T.Insert ( i, BL_T [ listBox1.SelectedIndex ] );
+			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
 			//後を削除
-			BL_T.RemoveAt ( i + 2 );
+			BD_T.RemoveAt ( i + 2 );
 			//更新
-			BL_T.ResetItem ( BL_T.Count );
+			BD_T.ResetItems ();
 			//選択を１つ前へ
 			listBox1.SelectedIndex = i;
+
+			//変更時イベント
+			Changed?.Invoke ();
 		}
 
 		//下へ移動
@@ -116,13 +131,16 @@ namespace ScriptEditor
 			//１つ次の位置
 			int i = listBox1.SelectedIndex + 2;
 			//次に追加
-			BL_T.Insert ( i, BL_T [ listBox1.SelectedIndex ] );
+			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
 			//前を削除
-			BL_T.RemoveAt ( i - 2 );
+			BD_T.RemoveAt ( i - 2 );
 			//更新
-			BL_T.ResetItem ( i );
+			BD_T.ResetItems ();
 			//選択を１つ次へ
 			listBox1.SelectedIndex = i - 1;
+
+			//変更時イベント
+			Changed?.Invoke ();
 		}
 
 		//個数
@@ -134,6 +152,10 @@ namespace ScriptEditor
 		//============================================================
 		//イベント
 		public delegate void Event ();
+
+		//リストボックスの変更すべて
+		public Event Changed { get; set; } = null;
+
 
 		//イベント：リストボックス選択変更時
 		public Event SelectedIndexChanged { get; set; } = null;
@@ -151,6 +173,13 @@ namespace ScriptEditor
 			Add?.Invoke ();
 		}
 
+		//イベント：削除時
+		public Event Del { get; set; } = null;
+		private void listBox1_Del ( object sender, System.EventArgs e )
+		{
+			Del?.Invoke ();
+		}
+
 		//イベント：名前の変更
 		public Event _TextChanged { get; set; } = null;
 		public string GetName ()
@@ -160,6 +189,9 @@ namespace ScriptEditor
 		private void Tb_Name_TextChanged ( object sender, EventArgs e )
 		{
 			_TextChanged?.Invoke ();
+
+			//変更時イベント
+			Changed?.Invoke ();
 		}
 
 		//イベント：キー押下時
@@ -174,9 +206,12 @@ namespace ScriptEditor
 			{
 				T t = (T)listBox1.SelectedItem;
 				t.Name = Tb_Name.Text;
-				ResetItems ();
+				BD_T.ResetItems ();
 
 				Tb_KeyPress?.Invoke ();
+
+				//変更時イベント
+				Changed?.Invoke ();
 			}
 		}
 	}

@@ -188,7 +188,7 @@ namespace ScriptEditor
 				//ルートリスト
 				strmWriter.Write ( "\t\t\t<RouteList>\n" );
 				//ルート
-				foreach ( TName rutName in script.BL_RutName )
+				foreach ( TName rutName in script.BD_RutName.GetEnumerable() )
 				{
 					int indexRoute = Chara.BD_Route.IndexOf ( rutName.Name );
 					if ( -1 == indexRoute ) 
@@ -327,7 +327,7 @@ namespace ScriptEditor
 				sw.Write ( "\t<Route Name=\"" + rut.Name + "\"" );
 				sw.Write ( " Summary=\"" + rut.Summary + "\">\n" );
 				//ブランチネームリスト
-				BindingList < TName > bl_brrt = rut.BL_BranchName;
+				BindingList < TName > bl_brrt = rut.BD_BranchName.GetBindingList ();
 				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
 				foreach ( TName tn in bl_brrt )
 				{

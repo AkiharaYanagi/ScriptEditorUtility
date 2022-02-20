@@ -80,7 +80,7 @@ namespace ScriptEditor
 					if ( _s == "" ) { continue; }
 
 					//ブランチ指定に追加
-					rut.BL_BranchName.Add ( new TName ( _s ) );
+					rut.BD_BranchName.Add ( new TName ( _s ) );
 				}
 
 				//キャラに設定
@@ -97,7 +97,7 @@ namespace ScriptEditor
 
 		private void SetEnmBrc ( Route rut, ENM_BRC enm_brc )
 		{
-			rut.BL_BranchName.Add ( new TName ( enm_brc.ToString() ) );
+			rut.BD_BranchName.Add ( new TName ( enm_brc.ToString() ) );
 		}
 	}
 }

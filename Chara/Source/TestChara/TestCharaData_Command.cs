@@ -362,7 +362,7 @@ namespace ScriptEditor
 
 		private void SetEnmBrc ( Route rut, ENM_BRC enm_brc )
 		{
-			rut.BL_BranchName.Add ( new TName ( enm_brc.ToString() ) );
+			rut.BD_BranchName.Add ( new TName ( enm_brc.ToString() ) );
 		}
 
 

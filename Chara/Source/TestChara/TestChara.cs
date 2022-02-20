@@ -102,7 +102,7 @@ namespace ScriptEditor
 					ch.behavior.BD_Image.Exist ( scp.ImgName );
 
 					//ルート
-					foreach ( TName tn in scp.BL_RutName )
+					foreach ( TName tn in scp.BD_RutName.GetBindingList () )
 					{
 						ch.BD_Route.Exist ( tn.Name );
 					}
@@ -119,7 +119,7 @@ namespace ScriptEditor
 			//ルート -> ブランチ名
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
-				foreach ( TName tn in rut.BL_BranchName )
+				foreach ( TName tn in rut.BD_BranchName.GetBindingList () )
 				{
 					ch.BD_Branch.Exist ( tn.Name );
 				}

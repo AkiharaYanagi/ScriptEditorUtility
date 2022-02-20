@@ -76,9 +76,9 @@
 			behavior.Copy ( srcChara.behavior );
 			garnish.Copy ( srcChara.garnish );
 
-			BD_Command.Copy ( srcChara.BD_Command );
-			BD_Branch.Copy ( srcChara.BD_Branch );
-			BD_Route.Copy ( srcChara.BD_Route );
+			BD_Command.DeepCopy ( srcChara.BD_Command );
+			BD_Branch.DeepCopy ( srcChara.BD_Branch );
+			BD_Route.DeepCopy ( srcChara.BD_Route );
 		}
 
 		//クリア
@@ -118,9 +118,9 @@
 			behavior.Copy ( ch.behavior );
 			garnish.Copy ( ch.garnish );
 
-			BD_Command.Copy ( ch.BD_Command );
-			BD_Branch.Copy ( ch.BD_Branch );
-			BD_Route.Copy ( ch.BD_Route );
+			BD_Command.DeepCopy ( ch.BD_Command );
+			BD_Branch.DeepCopy ( ch.BD_Branch );
+			BD_Route.DeepCopy ( ch.BD_Route );
 
 #if false
 			//個数は不変、RefIntの即値だけコピー

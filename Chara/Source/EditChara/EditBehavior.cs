@@ -41,9 +41,9 @@
 		}
 
 		//挿入
-		public void InsertAction ()
+		public void InsertAction ( int index )
 		{
-			base.InsertSequence ( new Action ( "new Action" ) );
+			base.InsertSequence ( index, new Action ( "new Action" ) );
 		}
 
 		//削除

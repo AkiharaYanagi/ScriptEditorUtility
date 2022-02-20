@@ -15,7 +15,7 @@ namespace ScriptEditor
 		public string Summary { get; set; } = "摘要";
 
 		//ブランチネームリスト
-		public BindingList < TName > BL_BranchName { get; set; } = new BindingList < TName > ();
+		public BindingDictionary < TName > BD_BranchName { get; set; } = new BindingDictionary < TName > ();
 
 
 		//コンストラクタ
