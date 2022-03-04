@@ -12,9 +12,12 @@ namespace ScriptEditor
 		//対象
 		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
 
+		//取得
 		public ListBox GetListBox () { return listBox1; }
 		public T Get () { return ( T ) listBox1.SelectedItem; }
+		public BindingList < T > GetList () { return BD_T.GetBindingList (); }
 
+		//コンストラクタ
 		public EditListbox ()
 		{
 			InitializeComponent ();
@@ -76,6 +79,7 @@ namespace ScriptEditor
 			BD_T.ResetItems ();
 		}
 
+		//追加ボタン
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
 			BD_T.Add ( new T () );
@@ -84,6 +88,7 @@ namespace ScriptEditor
 			BD_T.ResetItems ();
 		}
 
+		//削除ボタン
 		private void Btn_Del_Click ( object sender, EventArgs e )
 		{
 			if ( listBox1.Items.Count <= 0 ) { return; }
@@ -170,7 +175,8 @@ namespace ScriptEditor
 		public Event Add { get; set; } = null;
 		private void listBox1_Add ( object sender, System.EventArgs e )
 		{
-			Add?.Invoke ();
+			Add?.Invoke();
+			Changed?.Invoke();
 		}
 
 		//イベント：削除時
@@ -178,6 +184,7 @@ namespace ScriptEditor
 		private void listBox1_Del ( object sender, System.EventArgs e )
 		{
 			Del?.Invoke ();
+			Changed?.Invoke();
 		}
 
 		//イベント：名前の変更

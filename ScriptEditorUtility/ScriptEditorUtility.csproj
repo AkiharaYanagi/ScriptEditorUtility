@@ -59,6 +59,9 @@
     </Compile>
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="FormUtility.cs" />
+    <Compile Include="InputTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OpenFolder_CodePack.cs" />
     <Compile Include="PointUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

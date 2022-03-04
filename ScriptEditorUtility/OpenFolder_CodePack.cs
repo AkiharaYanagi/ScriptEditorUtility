@@ -1,18 +1,17 @@
 ﻿using System;
 
 //-------------------------------------------------------
-//@info WindowsAPICodePackを利用したフォルダダイアログ
+// WindowsAPICodePackを利用したフォルダダイアログ
 //-------------------------------------------------------
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 
 namespace ScriptEditor
 {
-	//-------------------------------------------------------
-	// WindowsAPICodePackを利用したフォルダダイアログ
-	//-------------------------------------------------------
+
 	public class OpenFolder_CodePack
 	{
+
 		private CommonOpenFileDialog diag = new CommonOpenFileDialog ();
 
 		public OpenFolder_CodePack ()
@@ -39,5 +38,7 @@ namespace ScriptEditor
 		{
 			return diag.FileName;
 		}
+#if false
+#endif
 	}
 }
