@@ -79,12 +79,24 @@ namespace ScriptEditor
 			BD_T.ResetItems ();
 		}
 
-		//追加ボタン
+		//追加ボタン(新規挿入)
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
-			BD_T.Add ( new T () );
-			//末尾を選択
-			listBox1.SelectedIndex = listBox1.Items.Count - 1;
+			int n = listBox1.Items.Count;
+			int slct = listBox1.SelectedIndex;
+
+			//リストが０より大きく、選択されているとき
+			if ( 0 < n && 0 <= slct )
+			{
+				//挿入
+				BD_T.Insert ( slct, new T () );
+			}
+			else
+			{
+				//末尾に追加
+				BD_T.Add ( new T () );
+				listBox1.SelectedIndex = listBox1.Items.Count - 1;
+			}
 			BD_T.ResetItems ();
 		}
 
@@ -152,6 +164,12 @@ namespace ScriptEditor
 		public int Count ()
 		{
 			return listBox1.Items.Count;
+		}
+
+		//選択位置
+		public int SelectedIndex ()
+		{
+			return listBox1.SelectedIndex;
 		}
 
 		//============================================================

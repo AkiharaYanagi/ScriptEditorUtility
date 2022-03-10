@@ -35,7 +35,7 @@ namespace ScriptEditor
 
 		//==============================================================
 		//上のディレクトリ
-		public static string UpDirectory ( string path )
+		public static string UpDir ( string path )
 		{
 			return path.Substring ( 0, path.LastIndexOf ( @"\" ) + 1 );
 		}

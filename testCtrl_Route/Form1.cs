@@ -15,7 +15,7 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
-			OpenFolder_CodePack ofcp = new OpenFolder_CodePack();
+//			OpenFolder_CodePack ofcp = new OpenFolder_CodePack();
 
 			//テストデータの作成
 			Chara ch_test = new Chara ();
