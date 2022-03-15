@@ -121,6 +121,16 @@ namespace ScriptEditor
 			return BL_t [ index ];
 		}
 
+		//インデクサ
+		//	追加はAdd()とInsert()のみ
+		public T this [ int i ]
+		{ 
+			get { return Get ( i ); }
+		}
+
+
+		//-------------------------------------------------------
+		//削除
 		public void RemoveAt ( int index )
 		{
 			if ( index < 0 || BL_t.Count <= index ) { return; }

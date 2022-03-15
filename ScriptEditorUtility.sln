@@ -24,6 +24,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ctrl_Chara", "Ctrl_Chara\Ct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testCtrl_Route", "testCtrl_Route\testCtrl_Route.csproj", "{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testCtrl_SqcList", "testCtrl_SqcList\testCtrl_SqcList.csproj", "{7DD8555A-9253-4E06-8E04-0FFA3888A121}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
+		{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8} = {8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +56,10 @@ Global
 		{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
