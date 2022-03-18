@@ -6,7 +6,7 @@ namespace ScriptEditor
 {
 	public partial class Ctrl_SqcList : UserControl
 	{
-		public void Init ()
+		public void LoadCtrl ()
 		{
 			//IDEデザイン時は除く
 			if ( run )

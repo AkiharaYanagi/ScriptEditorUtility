@@ -32,7 +32,7 @@ namespace ScriptEditor
 			}
 		}
 
-		//削除
+		//画像削除
 		public void Remove ()
 		{
 			if ( Exist () )
@@ -54,7 +54,7 @@ namespace ScriptEditor
 			{
 				//イメージ
 				SequenceData scqDt = Dt.L_Sqc.Get ( sqc );
-				if ( 0 <= image && image < scqDt.L_ImgDt.Count )
+				if ( 0 <= image && image < scqDt.L_ImgDt.Count () )
 				{
 					//両方成立のとき
 					return true;
@@ -78,7 +78,7 @@ namespace ScriptEditor
 			if ( SelectedImage == 0 ) { return; }
 
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
-			if ( sqcDt.L_ImgDt.Count < 2 ) { return; }
+			if ( sqcDt.L_ImgDt.Count () < 2 ) { return; }
 
 			ImageData imgDt_temp = sqcDt.L_ImgDt [ SelectedImage ];
 			sqcDt.L_ImgDt [ SelectedImage ] = sqcDt.L_ImgDt [ SelectedImage - 1 ];
@@ -92,14 +92,29 @@ namespace ScriptEditor
 			if ( ! Exist () ) { return; }
 
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
-			if ( sqcDt.L_ImgDt.Count < 2 ) { return; }
-			if ( SelectedImage == sqcDt.L_ImgDt.Count - 1 ) { return; }
+			if ( sqcDt.L_ImgDt.Count () < 2 ) { return; }
+			if ( SelectedImage == sqcDt.L_ImgDt.Count () - 1 ) { return; }
 
 			ImageData imgDt_temp = sqcDt.L_ImgDt [ SelectedImage ];
 			sqcDt.L_ImgDt [ SelectedImage ] = sqcDt.L_ImgDt [ SelectedImage + 1 ];
 			sqcDt.L_ImgDt [ SelectedImage + 1 ] = imgDt_temp;
 
 //			STS_TXT.Trace ("Next.");
+		}
+
+		//データをCompend型に戻す
+		public void ApplyData ()
+		{
+			Dt.ApplyData ();
+		}
+
+		//イメージのクリア
+		public void ClearImage ()
+		{
+			foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
+			{
+				sqcDt.L_ImgDt.Clear ();
+			}
 		}
 	}
 }

@@ -7,10 +7,13 @@ namespace ScriptEditor
 	//==========================================================
 	//	BindingDictionary < T >を受けて表示と編集をするコントロール
 	//==========================================================
-	public partial class EditListbox < T >  : UserControl where T : IName, new ()
+	public partial class EditListbox < T >  : UserControl where T : class, IName, new ()
 	{
 		//対象
 		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
+
+		//新規
+		public Func < T > New_T = ()=>new T();
 
 		//取得
 		public ListBox GetListBox () { return listBox1; }
@@ -25,10 +28,9 @@ namespace ScriptEditor
 			listBox1.DataSource = BD_T.GetBindingList ();
 			listBox1.DisplayMember = "Name";
 
-			BD_T.Add ( new T () );
+			T t = New_T ();
+			BD_T.Add ( t );
 			listBox1.SelectedIndex = 0;
-
-			T t = new T ();
 			Tb_Name.Text = t.GetType().Name;
 
 			//イベント
@@ -57,7 +59,7 @@ namespace ScriptEditor
 			listBox1.DisplayMember = "Name";
 			ResetItems ();
 
-			//非表示状態でDataSouceを入れ替えると例外が発生するのでコメントアウト
+			//@info 非表示状態でDataSouceを入れ替えると例外が発生するのでコメントアウト
 #if false
 
 			if ( listBox1.SelectedIndex < 0 ) { return; }
@@ -89,12 +91,12 @@ namespace ScriptEditor
 			if ( 0 < n && 0 <= slct )
 			{
 				//挿入
-				BD_T.Insert ( slct, new T () );
+				BD_T.Insert ( slct, New_T () );
 			}
 			else
 			{
 				//末尾に追加
-				BD_T.Add ( new T () );
+				BD_T.Add ( New_T () );
 				listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			}
 			BD_T.ResetItems ();
@@ -116,17 +118,21 @@ namespace ScriptEditor
 			//動作条件　下記の条件時は何もしない
 			if ( listBox1.Items.Count <= 1 ) { return; }			//対象個数が１以下
 			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
-			if ( listBox1.SelectedIndex <= 0 ) { return; }			//選択が先頭のとき
-			//--------------------------------------------------------------------
+			if ( listBox1.SelectedIndex <= 0 ) { return; }          //選択が先頭のとき
+																	//--------------------------------------------------------------------
 
 			//１つ前の位置
 			int i = listBox1.SelectedIndex - 1;
+#if false
 			//前に追加
 			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
 			//後を削除
 			BD_T.RemoveAt ( i + 2 );
 			//更新
 			BD_T.ResetItems ();
+#endif
+			BD_T.Up ( listBox1.SelectedIndex );
+
 			//選択を１つ前へ
 			listBox1.SelectedIndex = i;
 
@@ -147,12 +153,16 @@ namespace ScriptEditor
 
 			//１つ次の位置
 			int i = listBox1.SelectedIndex + 2;
+#if false			
 			//次に追加
 			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
 			//前を削除
 			BD_T.RemoveAt ( i - 2 );
 			//更新
 			BD_T.ResetItems ();
+#endif
+			BD_T.Down ( listBox1.SelectedIndex );
+
 			//選択を１つ次へ
 			listBox1.SelectedIndex = i - 1;
 

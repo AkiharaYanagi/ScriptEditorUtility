@@ -40,7 +40,7 @@ namespace ScriptEditor
 			foreach ( SequenceData sd in dt.L_Sqc.GetEnumerable () )
 			{
 				int img_index = 0;
-				foreach ( ImageData id in sd.L_ImgDt )
+				foreach ( ImageData id in sd.L_ImgDt.GetEnumerable() )
 				{
 					string s0 = sqc_index.ToString ("000") + "_";
 					string s1 = sd.Name + "_" ;

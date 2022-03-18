@@ -14,13 +14,14 @@ namespace ScriptEditor
 	//	追加・削除は２つのデータを同期するため、専用のAddとDelを用いる
 	//	対象データT t の中身はバインディングリストまたはディクショナリのどちらで取得後も同一オブジェクトであり変更可能
 	//	BL_tとDCT_tの削除と追加は片方だけで行ってはならない
+	//	型制約：参照型(where T : class)を指定したので変更は可能
 	//=============================================================
 	public interface IName
 	{
 		string Name { get; set; }
 	}
 
-	public class BindingDictionary < T > where T : IName
+	public class BindingDictionary < T > where T : class, IName
 	{
 		//----------------------------------------
 		//メインデータ
@@ -122,10 +123,17 @@ namespace ScriptEditor
 		}
 
 		//インデクサ
-		//	追加はAdd()とInsert()のみ
 		public T this [ int i ]
 		{ 
 			get { return Get ( i ); }
+
+			set
+			{
+				T t = Get ( i );
+				BL_t [ i ] = value;
+				DCT_t.Remove( t.Name );
+				DCT_t.Add ( t.Name, t );
+			}
 		}
 
 
@@ -184,12 +192,16 @@ namespace ScriptEditor
 			}
 		}
 
+		//個数
 		public int Count ()
 		{
 			Debug.Assert ( BL_t.Count == DCT_t.Count );
 			return BL_t.Count;
 		}
 
+//		public int Count { get; } = 0;
+
+		//前へ移動
 		public void Up ( int index )
 		{
 			int count = Count();
@@ -210,6 +222,7 @@ namespace ScriptEditor
 			//ディクショナリは変更無し
 		}
 
+		//後へ移動
 		public void Down ( int index )
 		{
 			int count = Count();

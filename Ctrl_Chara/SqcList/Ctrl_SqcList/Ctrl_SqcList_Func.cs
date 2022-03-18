@@ -30,6 +30,8 @@ namespace ScriptEditor
 		{
 			UpdateElb();
 			UpdateCtrl ();
+
+			this.Invalidate ();
 		}
 
 		//--------------------------------------------
@@ -60,7 +62,8 @@ namespace ScriptEditor
 			}
 		}
 
-		private void button1_Click(object sender, System.EventArgs e)
+		//イメージディレクトリ
+		private void Btn_ImgDir_Click ( object sender, System.EventArgs e )
 		{
 			//-------------------------------------------------------
 			// WindowsAPICodePackを利用したフォルダダイアログ
@@ -70,8 +73,34 @@ namespace ScriptEditor
 			if (cofd.ShowDialog() == CommonFileDialogResult.Ok)
 			{
 				textBox1.Text = cofd.FileName;
+
 //				settings.LastDirectory = cofd.FileName;
+
+				LoadImage li = new LoadImage ();
+				li.Run ( Data, cofd.FileName );
+				EditData.UpdateAll ();
 			}
+#if false
+			OpenFolder_CodePack opF = new OpenFolder_CodePack ();
+			if ( opF.OpenFolder () )
+			{
+				textBox1.Text = opF.GetPath ();
+			}
+#endif
+		}
+
+		//イメージの保存
+		private void Btn_SaveImage_Click ( object sender, System.EventArgs e )
+		{
+			//イメージ
+			SaveImage saveImage = new SaveImage ();
+			saveImage.Run ( Data, textBox1.Text );
+		}
+
+		//イメージのクリア
+		private void Btn_ClearImage_Click ( object sender, System.EventArgs e )
+		{
+			EditData.ClearImage ();
 		}
 	}
 }

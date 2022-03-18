@@ -8,10 +8,8 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace ScriptEditor
 {
-
 	public class OpenFolder_CodePack
 	{
-
 		private CommonOpenFileDialog diag = new CommonOpenFileDialog ();
 
 		public OpenFolder_CodePack ()

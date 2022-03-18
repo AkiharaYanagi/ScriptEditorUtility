@@ -34,8 +34,8 @@
     <Reference Include="Chara">
       <HintPath>..\Chara\bin\Debug\Chara.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
@@ -75,19 +75,19 @@
     <Compile Include="SqcList\Ctrl_ImageTable.Designer.cs">
       <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList.cs">
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList.Designer.cs">
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.Designer.cs">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList_Func.cs">
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList_Init.cs">
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Init.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList_Menu.cs">
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Menu.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SqcList\Form_Sqc.cs">
@@ -123,7 +123,7 @@
     <EmbeddedResource Include="SqcList\Ctrl_ImageTable.resx">
       <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Ctrl_SqcList.resx">
+    <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SqcList\Form_Sqc.resx">

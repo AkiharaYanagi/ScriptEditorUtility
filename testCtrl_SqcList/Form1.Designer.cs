@@ -33,9 +33,10 @@
 			// 
 			// ctrl_SqcList1
 			// 
-			this.ctrl_SqcList1.Location = new System.Drawing.Point(1, 1);
+			this.ctrl_SqcList1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ctrl_SqcList1.Location = new System.Drawing.Point(0, 0);
 			this.ctrl_SqcList1.Name = "ctrl_SqcList1";
-			this.ctrl_SqcList1.Size = new System.Drawing.Size(770, 563);
+			this.ctrl_SqcList1.Size = new System.Drawing.Size(806, 562);
 			this.ctrl_SqcList1.TabIndex = 0;
 			// 
 			// Form1

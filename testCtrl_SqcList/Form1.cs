@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace ScriptEditor
 {
@@ -14,7 +15,7 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			ctrl_SqcList1.run = true;
-			ctrl_SqcList1.Init();
+			ctrl_SqcList1.LoadCtrl();
 		}
 	}
 }

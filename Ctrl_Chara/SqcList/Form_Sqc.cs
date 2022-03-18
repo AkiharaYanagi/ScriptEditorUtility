@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -10,11 +9,13 @@ namespace ScriptEditor
 		//全体更新
 		public System.Action UpdateAll { get; set; } = null;
 
+		//コンストラクタ
 		public Form_Sqc()
 		{
 			InitializeComponent();
 
-			foreach ( string name in Enum.GetNames ( typeof ( ConstSqcList.Sequence_Category ) ) )
+			//コンボボックスの初期化
+			foreach ( string name in Enum.GetNames ( typeof ( ActionCategory ) ) )
 			{
 				comboBox1.Items.Add ( name );
 			}

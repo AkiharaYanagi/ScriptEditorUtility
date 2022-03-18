@@ -45,7 +45,7 @@
 			this.panel1.Controls.Add(this.pB_Sqc1);
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(529, 446);
+			this.panel1.Size = new System.Drawing.Size(545, 460);
 			this.panel1.TabIndex = 0;
 			this.panel1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel1_Scroll);
 			// 
@@ -56,7 +56,7 @@
 			this.pB_Sqc1.ELB_Sqc = null;
 			this.pB_Sqc1.Location = new System.Drawing.Point(0, 0);
 			this.pB_Sqc1.Name = "pB_Sqc1";
-			this.pB_Sqc1.Size = new System.Drawing.Size(558, 482);
+			this.pB_Sqc1.Size = new System.Drawing.Size(529, 446);
 			this.pB_Sqc1.TabIndex = 0;
 			this.pB_Sqc1.TabStop = false;
 			// 
@@ -67,7 +67,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.panel1);
 			this.Name = "Ctrl_ImageTable";
-			this.Size = new System.Drawing.Size(532, 446);
+			this.Size = new System.Drawing.Size(548, 463);
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Ctrl_ImageTable_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Ctrl_ImageTable_DragEnter);
 			this.panel1.ResumeLayout(false);

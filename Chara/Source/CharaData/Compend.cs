@@ -5,6 +5,7 @@ namespace ScriptEditor
 {
 	using BD_SQC = BindingDictionary < Sequence >;
 	using BL_SQC = BindingList < Sequence >;
+	using BD_IMGDT = BindingDictionary < ImageData >;
 	using DCT_SQC = Dictionary < string, Sequence >;
 
 	//================================================================
@@ -19,7 +20,7 @@ namespace ScriptEditor
 		public BD_SQC BD_Sequence = new BD_SQC ();
 
 		//イメージリスト
-		public BindingDictionary < ImageData > BD_Image = new BindingDictionary<ImageData> ();
+		public BD_IMGDT BD_Image = new BD_IMGDT ();
 
 		//---------------------------------------------------------------------
 		//クリア
