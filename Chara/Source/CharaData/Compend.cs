@@ -26,14 +26,19 @@ namespace ScriptEditor
 		//クリア
 		public void Clear ()
 		{
+			ClearScript ();
+			BD_Image.Clear ();
+		}
+
+		//イメージを残しスクリプトのみクリア
+		public void ClearScript ()
+		{
 			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
 			foreach ( Sequence seq in bl_sqc )
 			{
 				seq.Clear ();
 			}
 			BD_Sequence.Clear ();
-
-			BD_Image.Clear ();
 		}
 
 		//コピー

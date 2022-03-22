@@ -1,6 +1,11 @@
-﻿namespace ScriptEditor
+﻿using System.ComponentModel;
+using System.Collections.Generic;
+
+namespace ScriptEditor
 {
-	
+	using BD_Sqc = BindingDictionary < Sequence >;
+	using L_Scp = List < Script >;
+
 	//---------------------------------------------------------------------
 	// ビヘイビアの編集をする
 	//---------------------------------------------------------------------
@@ -13,9 +18,23 @@
 		public EditAction EditAction { get; set; } = new EditAction ();
 
 		//キャラデータの設定
-		public void SetCharaData ( Chara ch )
+		public override void SetCharaData ( Compend cmpd )
 		{
-			base.SetCharaData ( ch.behavior );
+			//@info New ()を用いるためSequenceではなくActionを指定し、Baseに渡さない
+
+			base.Compend = cmpd;
+			BD_Sqc bd_act = cmpd.BD_Sequence;	//BD型はSequenceだが、実体はAction
+
+			//個数が０のときダミー生成
+			if ( 0 == bd_act.Count () ) { bd_act.Add ( new Action () ); }
+			//選択指定
+			base.SelectedSequence = bd_act.Get ( 0 );
+
+			//個数が０のときダミー生成
+			L_Scp l_scp = SelectedSequence.ListScript;
+			if ( 0 == l_scp.Count ) { l_scp.Add ( new Script () ); }
+			//選択指定
+			base.SelectedScript = l_scp [ 0 ];
 		}
 
 		//取得

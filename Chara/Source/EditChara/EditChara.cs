@@ -30,8 +30,8 @@
 		public void SetCharaDara ( Chara ch )
 		{
 			Chara = ch;
-			EditBehavior.SetCharaData ( ch );
-			EditGarnish.SetCharaData ( ch );
+			EditBehavior.SetCharaData ( ch.behavior );
+			EditGarnish.SetCharaData ( ch.garnish );
 		}
 
 		//クリア

@@ -47,7 +47,6 @@ namespace ScriptEditor
 			while ( ! ReaderFile.EndOfStream ) 
 			{
 				string str = ReaderFile.ReadLine ();
-//				Debug.WriteLine ( str );
 				strmWrtScript.Write ( str );
 			}
 			strmWrtScript.Flush ();

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace ScriptEditor
 {
-	using BL_Sqc = BindingList<Sequence>;
-	using L_Scp = List<Script>;
+	using BD_Sqc = BindingDictionary < Sequence >;
+	using BL_Sqc = BindingList < Sequence >;
+	using L_Scp = List < Script >;
 
 	delegate void FuncEditScript ( Script scp );
 
@@ -34,15 +35,21 @@ namespace ScriptEditor
 
 		//---------------------------------------------------------------------
 		//対象設定
-		public void SetCharaData ( Compend cmpd )
+		public virtual void SetCharaData ( Compend cmpd )
 		{
 			Compend = cmpd;
+			BD_Sqc bd_sqc = cmpd.BD_Sequence;
 
-			BindingList<Sequence> BL_Seq = Compend.BD_Sequence.GetBindingList ();
-			if ( 0 == BL_Seq.Count ) { return; }
-			SelectedSequence = BL_Seq [ 0 ];
-			if ( 0 == SelectedSequence.ListScript.Count ) { return; }
-			SelectedScript = SelectedSequence.ListScript [ 0 ];
+			//個数が０のときダミー生成
+			if ( 0 == bd_sqc.Count () ) { bd_sqc.New (); }
+			//選択指定
+			SelectedSequence = bd_sqc.Get ( 0 );
+
+			//個数が０のときダミー生成
+			L_Scp l_scp = SelectedSequence.ListScript;
+			if ( 0 == l_scp.Count ) { l_scp.Add ( new Script () ); }
+			//選択指定
+			SelectedScript = l_scp [ 0 ];
 		}
 
 		//---------------------------------------------------------------------

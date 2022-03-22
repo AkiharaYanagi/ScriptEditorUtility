@@ -63,21 +63,13 @@
 			BD_Command.Clear ();
 			BD_Branch.Clear ();
 			BD_Route.Clear ();
-
-#if false
-			//個数は不変かつ、RefIntは即値のみなのでメモリは解放しない
-			foreach ( RefInt refi in BsAction )
-			{
-				refi.i = 0;
-			}
-#endif
 		}
 
-		//イメージリスト(メイン,Ef)を残しコンペンドからスクリプトだけをクリア
+		//イメージを残しスクリプトのみをクリア
 		public void ClearScript ()
 		{
-			behavior.Clear ();
-			garnish.Clear ();
+			behavior.ClearScript ();
+			garnish.ClearScript ();
 			BD_Command.Clear ();
 			BD_Branch.Clear ();
 			BD_Route.Clear ();
@@ -94,15 +86,6 @@
 			BD_Command.DeepCopy ( ch.BD_Command );
 			BD_Branch.DeepCopy ( ch.BD_Branch );
 			BD_Route.DeepCopy ( ch.BD_Route );
-
-#if false
-			//個数は不変、RefIntの即値だけコピー
-			int index = 0;
-			foreach ( RefInt refi in BsAction )
-			{
-				refi.i = chara.BsAction[ index++ ].i;
-			}
-#endif
 		}
 
 
