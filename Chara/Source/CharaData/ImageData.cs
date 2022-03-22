@@ -12,6 +12,10 @@ namespace ScriptEditor
 		//名前
 		public string Name { set; get; }
 
+		public ImageData ()
+		{
+		}
+
 		//引数付コンストラクタ
 		public ImageData ( string name, Image img )
 		{

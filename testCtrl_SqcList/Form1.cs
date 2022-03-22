@@ -14,6 +14,7 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
+			this.Text = "test_Ctrl_SqcList";
 			ctrl_SqcList1.run = true;
 			ctrl_SqcList1.LoadCtrl();
 		}

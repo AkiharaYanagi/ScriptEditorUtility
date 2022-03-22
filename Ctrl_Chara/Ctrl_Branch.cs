@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Drawing;
+
 
 namespace ScriptEditor
 {
@@ -42,6 +44,12 @@ namespace ScriptEditor
 				SelectSequence ( br.NameSequence );
 			};
 
+			EL_Branch.Func_check = (ob) =>
+			{
+				return ! Chara.behavior.BD_Sequence.ContainsKey ( ((Branch)ob).NameSequence );
+			};
+
+			//==============================================================
 			Array names = Enum.GetValues ( typeof ( BranchCondition ) );
 			Cb_Condition.DataSource = names;
 			Cb_Condition.SelectedItem = BranchCondition.DMG;
@@ -50,17 +58,25 @@ namespace ScriptEditor
 			Cb_Action.ValueMember = "Name";
 			Cb_Effect.ValueMember = "Name";
 			Cb_Effect.Enabled = false;
+			//==============================================================
 		}
 
 		//データ設定
 		public void SetCharaData ( Chara ch )
 		{
-			//データの保存
+			//データ参照の保存
 			Chara = ch;
 			BD_Branch = ch.BD_Branch;
 
 			//コントロールに設定
 			EL_Branch.SetData ( ch.BD_Branch );
+
+			
+			//test リストボックス
+			listBox1.DrawMode = DrawMode.OwnerDrawFixed;
+			listBox1.DataSource = ch.BD_Branch.GetBindingList();
+			listBox1.DisplayMember = "Name";
+
 
 			//コンボボックスの更新
 			Cb_Command.DataSource = ch.BD_Command.GetBindingList ();
@@ -106,6 +122,9 @@ namespace ScriptEditor
 		{
 			Branch br = EL_Branch.Get ();
 			br.NameCommand = (string)Cb_Command.SelectedValue;
+
+			BD_Branch.ResetItems ();
+			listBox1.Invalidate ();
 		}
 
 		//アクション
@@ -113,6 +132,9 @@ namespace ScriptEditor
 		{
 			Branch br = EL_Branch.Get ();
 			br.NameSequence = (string)Cb_Action.SelectedValue;
+
+			BD_Branch.ResetItems ();
+			listBox1.Invalidate ();
 		}
 
 		//エフェクト
@@ -157,5 +179,28 @@ namespace ScriptEditor
 			Cb_Effect.Enabled = true;
 			RB_Effect.Checked = true;
 		}
+
+
+		//test 
+		private void listBox1_DrawItem ( object sender, DrawItemEventArgs e )
+		{
+			e.DrawBackground ();
+
+			Branch brc = (Branch)listBox1.Items[e.Index];
+			string name = brc.NameSequence;
+			Brush Brs = Brushes.Black;
+
+			//名前指定チェック
+			if ( ! Chara.behavior.BD_Sequence.ContainsKey ( brc.NameSequence ) )
+			{
+				Brs = Brushes.Red;
+			}
+
+			e.Graphics.DrawString ( 
+				name, e.Font, Brs, e.Bounds, StringFormat.GenericDefault );
+			e.DrawFocusRectangle ();
+		}
+
+
 	}
 }

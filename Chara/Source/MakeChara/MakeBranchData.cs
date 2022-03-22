@@ -64,27 +64,31 @@ namespace ScriptEditor
 				//----
 				//コマンド名
 				string CmdName = branchData [ (int)BranchData.Command ];
+#if false
 				try
 				{
-					ch.BD_Command.Exist ( CmdName );
+					ch.BD_Command.Try_Exist ( CmdName );
 				}
 				catch
 				{
 					CmdName = "";
 				}
+#endif
 				brc.NameCommand = CmdName;
 
 				//----
 				//アクション名
 				string ActName = branchData [ (int)BranchData.Action ];
+#if false
 				try
 				{
-					ch.behavior.BD_Sequence.Exist ( ActName );
+					ch.behavior.BD_Sequence.Try_Exist ( ActName );
 				}
 				catch
 				{
 					ActName = "";
 				}
+#endif
 				brc.NameSequence = ActName;
 
 				//----------------------------------------------------------

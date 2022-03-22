@@ -38,6 +38,7 @@
 			this.ctrl_ImageTable1 = new ScriptEditor.Ctrl_ImageTable();
 			this.Btn_SaveImage = new System.Windows.Forms.Button();
 			this.Btn_ClearImage = new System.Windows.Forms.Button();
+			this.Btn_LoadImage = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -50,7 +51,7 @@
             this.読込ToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(804, 24);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -83,21 +84,23 @@
 			// 
 			// Btn_ImgDir
 			// 
+			this.Btn_ImgDir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 			this.Btn_ImgDir.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Btn_ImgDir.Location = new System.Drawing.Point(273, 27);
+			this.Btn_ImgDir.Location = new System.Drawing.Point(221, 27);
 			this.Btn_ImgDir.Name = "Btn_ImgDir";
 			this.Btn_ImgDir.Size = new System.Drawing.Size(98, 19);
 			this.Btn_ImgDir.TabIndex = 9;
 			this.Btn_ImgDir.Text = "イメージディレクトリ";
-			this.Btn_ImgDir.UseVisualStyleBackColor = true;
+			this.Btn_ImgDir.UseVisualStyleBackColor = false;
 			this.Btn_ImgDir.Click += new System.EventHandler(this.Btn_ImgDir_Click);
 			// 
 			// textBox1
 			// 
 			this.textBox1.AllowDrop = true;
-			this.textBox1.Location = new System.Drawing.Point(377, 27);
+			this.textBox1.Location = new System.Drawing.Point(332, 27);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(420, 19);
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(465, 19);
 			this.textBox1.TabIndex = 8;
 			// 
 			// ctrl_ImageTable1
@@ -108,18 +111,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.ctrl_ImageTable1.EditData = null;
 			this.ctrl_ImageTable1.ELB_Sqc = null;
-			this.ctrl_ImageTable1.Location = new System.Drawing.Point(227, 74);
+			this.ctrl_ImageTable1.Location = new System.Drawing.Point(223, 79);
 			this.ctrl_ImageTable1.Name = "ctrl_ImageTable1";
-			this.ctrl_ImageTable1.Size = new System.Drawing.Size(570, 489);
+			this.ctrl_ImageTable1.Size = new System.Drawing.Size(574, 705);
 			this.ctrl_ImageTable1.TabIndex = 10;
 			// 
 			// Btn_SaveImage
 			// 
 			this.Btn_SaveImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
 			this.Btn_SaveImage.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Btn_SaveImage.Location = new System.Drawing.Point(221, 27);
+			this.Btn_SaveImage.Location = new System.Drawing.Point(384, 53);
 			this.Btn_SaveImage.Name = "Btn_SaveImage";
-			this.Btn_SaveImage.Size = new System.Drawing.Size(46, 19);
+			this.Btn_SaveImage.Size = new System.Drawing.Size(46, 20);
 			this.Btn_SaveImage.TabIndex = 9;
 			this.Btn_SaveImage.Text = "保存";
 			this.Btn_SaveImage.UseVisualStyleBackColor = false;
@@ -128,13 +131,26 @@
 			// Btn_ClearImage
 			// 
 			this.Btn_ClearImage.BackColor = System.Drawing.Color.White;
+			this.Btn_ClearImage.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.Btn_ClearImage.Location = new System.Drawing.Point(221, 52);
 			this.Btn_ClearImage.Name = "Btn_ClearImage";
-			this.Btn_ClearImage.Size = new System.Drawing.Size(105, 20);
+			this.Btn_ClearImage.Size = new System.Drawing.Size(98, 20);
 			this.Btn_ClearImage.TabIndex = 11;
 			this.Btn_ClearImage.Text = "Clear";
 			this.Btn_ClearImage.UseVisualStyleBackColor = false;
 			this.Btn_ClearImage.Click += new System.EventHandler(this.Btn_ClearImage_Click);
+			// 
+			// Btn_LoadImage
+			// 
+			this.Btn_LoadImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+			this.Btn_LoadImage.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_LoadImage.Location = new System.Drawing.Point(332, 52);
+			this.Btn_LoadImage.Name = "Btn_LoadImage";
+			this.Btn_LoadImage.Size = new System.Drawing.Size(46, 20);
+			this.Btn_LoadImage.TabIndex = 9;
+			this.Btn_LoadImage.Text = "読込";
+			this.Btn_LoadImage.UseVisualStyleBackColor = false;
+			this.Btn_LoadImage.Click += new System.EventHandler(this.Btn_LoadImage_Click);
 			// 
 			// Ctrl_SqcList
 			// 
@@ -143,12 +159,13 @@
 			this.AutoSize = true;
 			this.Controls.Add(this.Btn_ClearImage);
 			this.Controls.Add(this.ctrl_ImageTable1);
+			this.Controls.Add(this.Btn_LoadImage);
 			this.Controls.Add(this.Btn_SaveImage);
 			this.Controls.Add(this.Btn_ImgDir);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.menuStrip1);
 			this.Name = "Ctrl_SqcList";
-			this.Size = new System.Drawing.Size(800, 566);
+			this.Size = new System.Drawing.Size(804, 782);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
@@ -167,5 +184,6 @@
 		private Ctrl_ImageTable ctrl_ImageTable1;
 		private System.Windows.Forms.Button Btn_SaveImage;
 		private System.Windows.Forms.Button Btn_ClearImage;
+		private System.Windows.Forms.Button Btn_LoadImage;
 	}
 }

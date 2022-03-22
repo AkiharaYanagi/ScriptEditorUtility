@@ -1,9 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Drawing;
+
 
 namespace ScriptEditor
 {
+	using Func_Check = System.Func < object, bool > ;
+
 	//==========================================================
 	//	BindingDictionary < T >を受けて表示と編集をするコントロール
 	//==========================================================
@@ -20,6 +24,10 @@ namespace ScriptEditor
 		public T Get () { return ( T ) listBox1.SelectedItem; }
 		public BindingList < T > GetList () { return BD_T.GetBindingList (); }
 
+		//色替条件
+		public Func_Check Func_check { get; set; } = (ob)=>false;
+
+
 		//コンストラクタ
 		public EditListbox ()
 		{
@@ -27,7 +35,10 @@ namespace ScriptEditor
 
 			listBox1.DataSource = BD_T.GetBindingList ();
 			listBox1.DisplayMember = "Name";
+			listBox1.DrawMode = DrawMode.OwnerDrawFixed;
+			listBox1.DrawItem += new DrawItemEventHandler ( ListBox1_DrawItem );
 
+			//仮の１つ
 			T t = New_T ();
 			BD_T.Add ( t );
 			listBox1.SelectedIndex = 0;
@@ -39,7 +50,7 @@ namespace ScriptEditor
 			Tb_Name.TextChanged += new EventHandler ( Tb_Name_TextChanged );
 		}
 
-
+		//データ設置
 		public void SetData ( BindingDictionary < T > bd_t )
 		{
 			BD_T = bd_t;
@@ -81,6 +92,44 @@ namespace ScriptEditor
 			BD_T.ResetItems ();
 		}
 
+		//名前指定チェック
+		public void CheckNameAssign ( Func_Check f )
+		{
+		}
+
+		//リストボックスの手動描画
+		private void ListBox1_DrawItem ( object sender, DrawItemEventArgs e )
+		{
+			//背景(選択時強調表示)
+			e.DrawBackground ();
+
+			string name = listBox1.GetItemText ( listBox1.Items[e.Index] );
+			Brush Brs = Brushes.Black;
+
+			//選択されているものを強調表示の背景から白抜き
+			if ( (e.State & DrawItemState.Selected) == DrawItemState.Selected )
+			{
+				Brs = Brushes.White;
+			}
+
+			//指定条件チェック
+			if ( Func_check ( listBox1.Items[e.Index] ) )
+			{
+				Brs = Brushes.Red;
+			}
+
+
+			e.Graphics.DrawString ( 
+				name, e.Font, Brs, e.Bounds, StringFormat.GenericDefault );
+
+			//フォーカス枠
+			e.DrawFocusRectangle ();
+		}
+
+
+		//------------------------------------------------------------------------------
+		//イベント
+
 		//追加ボタン(新規挿入)
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
@@ -120,17 +169,8 @@ namespace ScriptEditor
 			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
 			if ( listBox1.SelectedIndex <= 0 ) { return; }          //選択が先頭のとき
 																	//--------------------------------------------------------------------
-
 			//１つ前の位置
 			int i = listBox1.SelectedIndex - 1;
-#if false
-			//前に追加
-			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
-			//後を削除
-			BD_T.RemoveAt ( i + 2 );
-			//更新
-			BD_T.ResetItems ();
-#endif
 			BD_T.Up ( listBox1.SelectedIndex );
 
 			//選択を１つ前へ
@@ -153,14 +193,6 @@ namespace ScriptEditor
 
 			//１つ次の位置
 			int i = listBox1.SelectedIndex + 2;
-#if false			
-			//次に追加
-			BD_T.Insert ( i, BD_T.Get ( listBox1.SelectedIndex ) );
-			//前を削除
-			BD_T.RemoveAt ( i - 2 );
-			//更新
-			BD_T.ResetItems ();
-#endif
 			BD_T.Down ( listBox1.SelectedIndex );
 
 			//選択を１つ次へ

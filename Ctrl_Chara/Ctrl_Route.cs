@@ -45,6 +45,17 @@ namespace ScriptEditor
 				SetRoute ( EL_Route.Get() );
 			};
 
+			//文字変更チェック
+			EL_Route.Func_check = (ob)=>
+			{
+				Route rut = ((Route)ob);
+				foreach ( TName tn in rut.BD_BranchName.GetEnumerable () )
+				{
+					if ( ! BD_Branch.ContainsKey ( tn.Name ) ) return true;
+				}
+				return false;
+			};
+
 			//----------------------------------
 			//コントロール(ブランチ)
 			EL_Branch.Location = new Point ( 303, 70 );

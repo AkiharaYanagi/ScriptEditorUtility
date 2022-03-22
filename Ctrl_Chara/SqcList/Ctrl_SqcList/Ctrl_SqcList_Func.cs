@@ -62,7 +62,7 @@ namespace ScriptEditor
 			}
 		}
 
-		//イメージディレクトリ
+		//イメージディレクトリの指定
 		private void Btn_ImgDir_Click ( object sender, System.EventArgs e )
 		{
 			//-------------------------------------------------------
@@ -75,10 +75,6 @@ namespace ScriptEditor
 				textBox1.Text = cofd.FileName;
 
 //				settings.LastDirectory = cofd.FileName;
-
-				LoadImage li = new LoadImage ();
-				li.Run ( Data, cofd.FileName );
-				EditData.UpdateAll ();
 			}
 #if false
 			OpenFolder_CodePack opF = new OpenFolder_CodePack ();
@@ -92,7 +88,6 @@ namespace ScriptEditor
 		//イメージの保存
 		private void Btn_SaveImage_Click ( object sender, System.EventArgs e )
 		{
-			//イメージ
 			SaveImage saveImage = new SaveImage ();
 			saveImage.Run ( Data, textBox1.Text );
 		}
@@ -101,6 +96,17 @@ namespace ScriptEditor
 		private void Btn_ClearImage_Click ( object sender, System.EventArgs e )
 		{
 			EditData.ClearImage ();
+		}
+
+		//イメージの読込
+		private void Btn_LoadImage_Click ( object sender, System.EventArgs e )
+		{
+			if ( Directory.Exists ( textBox1.Text ) )
+			{
+				LoadImage li = new LoadImage ();
+				li.Run ( Data, textBox1.Text );
+				EditData.UpdateAll ();
+			}
 		}
 	}
 }

@@ -91,20 +91,25 @@ namespace ScriptEditor
 
 		//イメージ、アクション、コマンド、ブランチ、ルート
 		//無いときExceptionをthrow
+		string noname = "";
 		public void _TestNameAssign ( Chara ch )
 		{
+
 			//スクリプト -> イメージ, ルート
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{
 				foreach ( Script scp in sqc.ListScript )
 				{
+					noname = scp.ImgName;
+
 					//イメージ
-					ch.behavior.BD_Image.Exist ( scp.ImgName );
+					ch.behavior.BD_Image.Try_Exist ( scp.ImgName );
 
 					//ルート
 					foreach ( TName tn in scp.BD_RutName.GetBindingList () )
 					{
-						ch.BD_Route.Exist ( tn.Name );
+						noname = tn.Name;
+						ch.BD_Route.Try_Exist ( tn.Name );
 					}
 				}
 			}
@@ -112,8 +117,8 @@ namespace ScriptEditor
 			//ブランチ -> コマンド, アクション
 			foreach ( Branch brc in ch.BD_Branch.GetBindingList () )
 			{
-				ch.BD_Command.Exist ( brc.NameCommand );
-				ch.behavior.BD_Sequence.Exist ( brc.NameSequence );
+				ch.BD_Command.Try_Exist ( brc.NameCommand );
+				ch.behavior.BD_Sequence.Try_Exist ( brc.NameSequence );
 			}
 
 			//ルート -> ブランチ名
@@ -121,7 +126,7 @@ namespace ScriptEditor
 			{
 				foreach ( TName tn in rut.BD_BranchName.GetBindingList () )
 				{
-					ch.BD_Branch.Exist ( tn.Name );
+					ch.BD_Branch.Try_Exist ( tn.Name );
 				}
 			}
 		}

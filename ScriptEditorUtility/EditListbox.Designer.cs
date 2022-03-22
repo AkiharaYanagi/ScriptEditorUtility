@@ -34,6 +34,7 @@
 			this.Btn_Up = new System.Windows.Forms.Button();
 			this.Btn_Down = new System.Windows.Forms.Button();
 			this.Tb_Name = new System.Windows.Forms.TextBox();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
 			// 
 			// listBox1
@@ -42,14 +43,15 @@
 			this.listBox1.ItemHeight = 12;
 			this.listBox1.Location = new System.Drawing.Point(3, 28);
 			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(156, 376);
+			this.listBox1.Size = new System.Drawing.Size(153, 376);
 			this.listBox1.TabIndex = 0;
 			this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
 			// 
 			// Btn_Add
 			// 
+			this.Btn_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.Btn_Add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.Btn_Add.Location = new System.Drawing.Point(3, 410);
+			this.Btn_Add.Location = new System.Drawing.Point(3, 408);
 			this.Btn_Add.Name = "Btn_Add";
 			this.Btn_Add.Size = new System.Drawing.Size(112, 34);
 			this.Btn_Add.TabIndex = 1;
@@ -59,10 +61,11 @@
 			// 
 			// Btn_Del
 			// 
+			this.Btn_Del.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.Btn_Del.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-			this.Btn_Del.Location = new System.Drawing.Point(121, 410);
+			this.Btn_Del.Location = new System.Drawing.Point(115, 408);
 			this.Btn_Del.Name = "Btn_Del";
-			this.Btn_Del.Size = new System.Drawing.Size(38, 34);
+			this.Btn_Del.Size = new System.Drawing.Size(43, 34);
 			this.Btn_Del.TabIndex = 2;
 			this.Btn_Del.Text = "削除";
 			this.Btn_Del.UseVisualStyleBackColor = false;
@@ -70,9 +73,11 @@
 			// 
 			// Btn_Up
 			// 
-			this.Btn_Up.Location = new System.Drawing.Point(165, 28);
+			this.Btn_Up.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Btn_Up.Location = new System.Drawing.Point(162, 28);
 			this.Btn_Up.Name = "Btn_Up";
-			this.Btn_Up.Size = new System.Drawing.Size(30, 192);
+			this.Btn_Up.Size = new System.Drawing.Size(30, 190);
 			this.Btn_Up.TabIndex = 3;
 			this.Btn_Up.Text = "↑";
 			this.Btn_Up.UseVisualStyleBackColor = true;
@@ -80,9 +85,11 @@
 			// 
 			// Btn_Down
 			// 
-			this.Btn_Down.Location = new System.Drawing.Point(165, 226);
+			this.Btn_Down.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Btn_Down.Location = new System.Drawing.Point(162, 226);
 			this.Btn_Down.Name = "Btn_Down";
-			this.Btn_Down.Size = new System.Drawing.Size(30, 218);
+			this.Btn_Down.Size = new System.Drawing.Size(30, 216);
 			this.Btn_Down.TabIndex = 3;
 			this.Btn_Down.Text = "↓";
 			this.Btn_Down.UseVisualStyleBackColor = true;
@@ -98,6 +105,16 @@
 			this.Tb_Name.TextChanged += new System.EventHandler(this.Tb_Name_TextChanged);
 			this.Tb_Name.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tb_Name_KeyPress);
 			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.panel1.Location = new System.Drawing.Point(0, 28);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(203, 422);
+			this.panel1.TabIndex = 5;
+			// 
 			// EditListbox
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -108,8 +125,9 @@
 			this.Controls.Add(this.Btn_Del);
 			this.Controls.Add(this.Btn_Add);
 			this.Controls.Add(this.listBox1);
+			this.Controls.Add(this.panel1);
 			this.Name = "EditListbox";
-			this.Size = new System.Drawing.Size(202, 448);
+			this.Size = new System.Drawing.Size(227, 465);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -123,5 +141,6 @@
 		private System.Windows.Forms.Button Btn_Up;
 		private System.Windows.Forms.Button Btn_Down;
 		private System.Windows.Forms.TextBox Tb_Name;
+		private System.Windows.Forms.Panel panel1;
 	}
 }

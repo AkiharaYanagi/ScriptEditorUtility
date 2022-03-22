@@ -21,7 +21,7 @@ namespace ScriptEditor
 		string Name { get; set; }
 	}
 
-	public class BindingDictionary < T > where T : class, IName
+	public class BindingDictionary < T > where T : class, IName, new ()
 	{
 		//----------------------------------------
 		//メインデータ
@@ -56,13 +56,6 @@ namespace ScriptEditor
 			BL_t = new BindingList < T > ( bl_t );
 		}
 	
-
-		//名前が存在するかどうか
-		public bool ContainKey ( string name )
-		{
-			return DCT_t.ContainsKey ( name );
-		}
-
 		//内部チェックして重ならない名前を返す
 		public string UniqueName ( string name )
 		{
@@ -79,6 +72,11 @@ namespace ScriptEditor
 			return newname;
 		}
 
+		//作成
+		public void New ()
+		{
+			Add ( new T () );
+		}
 
 		//追加
 		public void Add ( T t )
@@ -277,10 +275,16 @@ namespace ScriptEditor
 			return BL_t.IndexOf ( Get ( name ) );
 		}
 
-		//存在するかどうか,無いとき例外投擲
-		public void Exist ( string name )
+		//存在するかどうか
+		public bool ContainsKey ( string name )
 		{
-			if ( ! DCT_t.TryGetValue ( name, out T t ) )
+			return DCT_t.ContainsKey ( name );
+		}
+
+		//存在するかどうか,無いとき例外投擲
+		public void Try_Exist ( string name )
+		{
+			if ( ! DCT_t.ContainsKey ( name ) )
 			{
 				throw new Exception ();
 			}
