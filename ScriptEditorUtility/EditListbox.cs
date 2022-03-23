@@ -97,9 +97,18 @@ namespace ScriptEditor
 		{
 		}
 
+		//描画
+		protected override void OnPaint ( PaintEventArgs e )
+		{
+			listBox1.Invalidate ();
+			base.OnPaint ( e );
+		}
+
 		//リストボックスの手動描画
 		private void ListBox1_DrawItem ( object sender, DrawItemEventArgs e )
 		{
+			if ( e.Index < 0 ) { return; }
+
 			//背景(選択時強調表示)
 			e.DrawBackground ();
 

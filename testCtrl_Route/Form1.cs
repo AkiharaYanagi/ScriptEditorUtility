@@ -8,17 +8,18 @@ namespace ScriptEditor
 	//========================================
 	public partial class Form1 :Form
 	{
-		private string filename = "testChara.dat";
+//		private string filename = "testChara.dat";
 
 		public Form1 ()
 		{
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
-//			OpenFolder_CodePack ofcp = new OpenFolder_CodePack();
 
 			//テストデータの作成
 			Chara ch_test = new Chara ();
+
+#if false
 			TestCharaData tcd = new TestCharaData ();
 			tcd.Make ( ch_test );
 
@@ -31,6 +32,7 @@ namespace ScriptEditor
 			Chara ch_load = new Chara ();
 			LoadChara loadChara = new LoadChara ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
+#endif
 
 			//コントロールに渡してテスト
 			ctrl_Route1.SetCharaData  ( ch_test );

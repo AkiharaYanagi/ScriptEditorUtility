@@ -8,7 +8,7 @@ namespace ScriptEditor
 	//========================================
 	public partial class Form1 :Form
 	{
-		private string filename = "testChara.dat";
+//		private string filename = "testChara.dat";
 
 		public Form1 ()
 		{
@@ -18,6 +18,7 @@ namespace ScriptEditor
 
 			//キャラデータの設定
 			Chara ch_test = new Chara ();
+#if false
 			TestCharaData tcd = new TestCharaData ();
 			tcd.Make ( ch_test );
 
@@ -37,6 +38,7 @@ namespace ScriptEditor
 			//エディットに登録
 			EditChara.Inst.SetCharaDara ( ch_test );
 
+#endif
 			//コントロールに渡してテスト
 			ctrl_Branch1.SetCharaData  ( ch_test );
 		}

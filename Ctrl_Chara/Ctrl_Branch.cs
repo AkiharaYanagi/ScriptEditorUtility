@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.ComponentModel;
 using System.Drawing;
 
 
@@ -68,6 +67,10 @@ namespace ScriptEditor
 			Chara = ch;
 			BD_Branch = ch.BD_Branch;
 
+			if ( 0 == ch.behavior.BD_Sequence.Count() ) { ch.behavior.BD_Sequence.New (); }
+			if ( 0 == ch.BD_Command.Count() ) { ch.BD_Command.New (); }
+			if ( 0 == ch.BD_Branch.Count() ) { ch.BD_Branch.New (); }
+
 			//コントロールに設定
 			EL_Branch.SetData ( ch.BD_Branch );
 
@@ -124,6 +127,7 @@ namespace ScriptEditor
 			br.NameCommand = (string)Cb_Command.SelectedValue;
 
 			BD_Branch.ResetItems ();
+			EL_Branch.Invalidate ();
 			listBox1.Invalidate ();
 		}
 
@@ -134,6 +138,7 @@ namespace ScriptEditor
 			br.NameSequence = (string)Cb_Action.SelectedValue;
 
 			BD_Branch.ResetItems ();
+			EL_Branch.Invalidate ();
 			listBox1.Invalidate ();
 		}
 
