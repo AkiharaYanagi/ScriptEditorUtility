@@ -12,9 +12,6 @@ namespace ScriptEditor
 		//データ編集
 		private EditSqcListData EditData = new EditSqcListData ();
 
-		//表示編集用コントロール
-		private EditListbox < SequenceData > ELB_Sqc = new EditListbox<SequenceData> ();
-		
 		//設定ファイル
 		private Settings settings = new Settings ();
 

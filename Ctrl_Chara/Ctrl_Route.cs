@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
+
 
 namespace ScriptEditor
 {
@@ -35,7 +37,7 @@ namespace ScriptEditor
 			this.Controls.Add ( EL_Route );
 
 			//追加時
-			EL_Route.Add = ()=>
+			EL_Route.Listbox_Add = ()=>
 			{
 				SetRoute ( EL_Route.Get() ); 
 			};
@@ -45,8 +47,8 @@ namespace ScriptEditor
 				SetRoute ( EL_Route.Get() );
 			};
 
-			//文字変更チェック
-			EL_Route.Func_check = (ob)=>
+			//名前存在チェック
+			EL_Route.Func_color_check = (ob)=>
 			{
 				Route rut = ((Route)ob);
 				foreach ( TName tn in rut.BD_BranchName.GetEnumerable () )
@@ -56,10 +58,14 @@ namespace ScriptEditor
 				return false;
 			};
 
+			//IO
+			EL_Route.SetIOFunc ( SaveRoute, LoadRoute );
+
 			//----------------------------------
 			//コントロール(ブランチ)
 			EL_Branch.Location = new Point ( 303, 70 );
 			this.Controls.Add ( EL_Branch );
+			EL_Branch.TbName_Off ();
 			EL_Branch.SelectedIndexChanged = ()=>
 			{
 				SelectBranch ();
@@ -111,6 +117,39 @@ namespace ScriptEditor
 			TName tn = EL_Branch.Get ();
 			tn.Name = ((Branch)CB_Branch.SelectedItem).Name;
 			EL_Branch.ResetItems ();
+		}
+
+		//--------------------------------------
+		//IO
+		public void SaveRoute ( object ob, StreamWriter sw )
+		{
+			Route rut = (Route)ob;
+			sw.Write ( rut.Name + "," );
+			sw.Write ( rut.Summary + "," );
+			sw.Write ( ";" );
+			foreach ( TName tn in rut.BD_BranchName.GetEnumerable() )
+			{
+				sw.Write ( tn.Name + "," );
+			}
+			sw.Write ( ";" );
+		}
+
+		public void LoadRoute ( StreamReader sr )
+		{
+			Route rut = new Route ();
+			string str = sr.ReadLine ();
+			string[] str_spl_semi = str.Split ( ';' );
+			string[] str_pre = str_spl_semi[0].Split(',');
+			rut.Name = str_pre[0];
+			rut.Summary = str_pre[1];
+
+			string[] str_brcName = str_spl_semi[1].Split(',');
+			foreach ( string strName in str_brcName )
+			{
+				rut.BD_BranchName.Add ( new TName ( strName ) );
+			}
+			
+			EL_Route.Add ( rut );
 		}
 	}
 }

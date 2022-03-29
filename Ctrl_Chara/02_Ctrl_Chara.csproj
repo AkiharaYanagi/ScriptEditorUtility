@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ctrl_Chara</RootNamespace>
+    <AssemblyName>Ctrl_Chara</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Chara">
+      <HintPath>..\Chara\bin\Debug\Chara.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptEditorUtility">
+      <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\Ctrl_CmdList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Command\Ctrl_CmdList.Designer.cs">
+      <DependentUpon>Ctrl_CmdList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Command\Ctrl_Command.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Command\Ctrl_Command.designer.cs">
+      <DependentUpon>Ctrl_Command.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Command\DispCommand.cs" />
+    <Compile Include="Command\EditCommand.cs" />
+    <Compile Include="Command\Pb_Command.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Command\Pb_Command.designer.cs">
+      <DependentUpon>Pb_Command.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Command\SelectKey.cs" />
+    <Compile Include="Command\TBN_Command.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ctrl_Branch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ctrl_Branch.Designer.cs">
+      <DependentUpon>Ctrl_Branch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ctrl_Route.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ctrl_Route.Designer.cs">
+      <DependentUpon>Ctrl_Route.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SqcList\ConstPaint.cs" />
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.Designer.cs">
+      <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.Designer.cs">
+      <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Init.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Menu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqcList\Form_Sqc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SqcList\Form_Sqc.designer.cs">
+      <DependentUpon>Form_Sqc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqcList\PB_Sqc.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SqcList\SqcData\ConstSqcList.cs" />
+    <Compile Include="SqcList\SqcData\SqcListData.cs" />
+    <Compile Include="SqcList\SqcData\EditSqcListData.cs" />
+    <Compile Include="SqcList\SqcData\LoadSqcListData.cs" />
+    <Compile Include="SqcList\SqcData\LoadImage.cs" />
+    <Compile Include="SqcList\SqcData\SaveSqcListData.cs" />
+    <Compile Include="SqcList\SqcData\SaveImage.cs" />
+    <Compile Include="TB_ScpHex.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TB_ScpNumber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Command\Ctrl_CmdList.resx">
+      <DependentUpon>Ctrl_CmdList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Command\Ctrl_Command.resx">
+      <DependentUpon>Ctrl_Command.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Command\Pb_Command.resx">
+      <DependentUpon>Pb_Command.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ctrl_Branch.resx">
+      <DependentUpon>Ctrl_Branch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ctrl_Route.resx">
+      <DependentUpon>Ctrl_Route.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.resx">
+      <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
+      <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqcList\Form_Sqc.resx">
+      <DependentUpon>Form_Sqc.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Is.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Nis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_OFF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_On.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Push.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Rele.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Wild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdIs_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdIs_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdIs_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdIs_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdNis_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdNis_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdNis_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdNis_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOff_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOff_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOff_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOff_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOn_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOn_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOn_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdOn_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdPush_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdPush_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdPush_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdPush_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdRele_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdRele_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdRele_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdRele_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdWd_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdWd_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdWd_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\CmdWd_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\CMD_Key\WILD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_Is.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_Nis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_Off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_On.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_PUSH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_Rele.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Cmd_Key_Wild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\command_H.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\command_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\command_Ma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\command_Mb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\cursor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\KeyTurnL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\KeyTurnR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\LvrCur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\wild.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

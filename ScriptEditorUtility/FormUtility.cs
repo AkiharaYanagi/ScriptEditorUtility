@@ -32,6 +32,12 @@ namespace ScriptEditor
 			// Explorer.exe . (ピリオドで現在ディレクトリ)
 			Process.Start ( "Explorer.exe", @"." );
 		}
+		
+		//指定パスをエクスプローラで開く
+		public static void OpenDir ( string path )
+		{
+			Process.Start ( "Explorer.exe", @path );
+		}
 
 		//==============================================================
 		//上のディレクトリ

@@ -70,9 +70,9 @@
 			// 
 			this.CB_Branch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CB_Branch.FormattingEnabled = true;
-			this.CB_Branch.Location = new System.Drawing.Point(558, 86);
+			this.CB_Branch.Location = new System.Drawing.Point(304, 18);
 			this.CB_Branch.Name = "CB_Branch";
-			this.CB_Branch.Size = new System.Drawing.Size(184, 20);
+			this.CB_Branch.Size = new System.Drawing.Size(211, 20);
 			this.CB_Branch.TabIndex = 3;
 			this.CB_Branch.SelectionChangeCommitted += new System.EventHandler(this.CB_Branch_SelectionChangeCommitted);
 			// 
@@ -85,7 +85,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Lbl_Route);
 			this.Name = "Ctrl_Route";
-			this.Size = new System.Drawing.Size(893, 553);
+			this.Size = new System.Drawing.Size(893, 650);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

@@ -35,7 +35,7 @@ namespace ScriptEditor
 		public List < GK_Cmd > ListGameKeyCommand { get; } = new List < GK_Cmd > ();
 
 		//入力受付時間
-		public int LimitTime { get; set; }
+		public int LimitTime { get; set; } = 1;
 
 		//コンストラクタ
 		public Command ()

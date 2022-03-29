@@ -2,11 +2,16 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 
 namespace ScriptEditor
 {
+	//各種条件
 	using Func_Check = System.Func < object, bool > ;
+	//IO
+	using Func_Save = System.Action < object, StreamWriter > ;
+	using Func_Load = System.Action < StreamReader > ;
 
 	//==========================================================
 	//	BindingDictionary < T >を受けて表示と編集をするコントロール
@@ -16,7 +21,7 @@ namespace ScriptEditor
 		//対象
 		public BindingDictionary < T > BD_T { get; set; } = new BindingDictionary < T > ();
 
-		//新規
+		//新規作成
 		public Func < T > New_T = ()=>new T();
 
 		//取得
@@ -25,24 +30,32 @@ namespace ScriptEditor
 		public BindingList < T > GetList () { return BD_T.GetBindingList (); }
 
 		//色替条件
-		public Func_Check Func_check { get; set; } = (ob)=>false;
+		public Func_Check Func_color_check { get; set; } = ob=>false;
 
+		//IO
+		public Func_Save Func_Save { get; set; } = (ob,sw)=>{};
+		public Func_Load Func_Load { get; set; } = sr=>{};
+		public string FilePath { get; set; } = "";
 
+		//----------------------------------------------------------
 		//コンストラクタ
 		public EditListbox ()
 		{
 			InitializeComponent ();
 
+			Tb_Name.Text = "Name";
+
+			//データソース
 			listBox1.DataSource = BD_T.GetBindingList ();
 			listBox1.DisplayMember = "Name";
+		
+			//表示
 			listBox1.DrawMode = DrawMode.OwnerDrawFixed;
 			listBox1.DrawItem += new DrawItemEventHandler ( ListBox1_DrawItem );
 
-			//仮の１つ
-			T t = New_T ();
-			BD_T.Add ( t );
-			listBox1.SelectedIndex = 0;
-			Tb_Name.Text = t.GetType().Name;
+			//IO
+			IO_Btn_Off ();
+			FilePath = Directory.GetCurrentDirectory ();
 
 			//イベント
 			Btn_Add.Click += new EventHandler ( listBox1_Add );
@@ -58,43 +71,22 @@ namespace ScriptEditor
 			listBox1.DisplayMember = "Name";
 			BD_T.ResetItems ();
 
+			//@info 非表示状態でDataSouceを入れ替えると例外が発生する
+
 			//変更時イベント
-			Changed?.Invoke ();
+			Listbox_Changed?.Invoke ();
 		}
 
-#if false
-		public void SetData ( BindingList < T > bl_t )
+		//更新
+		public void _UpdateData ()
 		{
-			BL_T = bl_t;
-			listBox1.DataSource = BL_T;
-			listBox1.DisplayMember = "Name";
-			ResetItems ();
-
-			//@info 非表示状態でDataSouceを入れ替えると例外が発生するのでコメントアウト
-#if false
-
+			if ( listBox1.Items.Count <= 0 ) { return; }
 			if ( listBox1.SelectedIndex < 0 ) { return; }
 
-			int i = listBox1.SelectedIndex;
-			if ( i > 0 )
-			{
-				Tb_Name.Text = bl_t [ i ].Name;
-			}
-#endif
+			T t = (T)listBox1.SelectedItem;
+			Tb_Name.Text = t.Name;
 
-			//変更時イベント
-			Changed?.Invoke ();
-		}
-#endif
-
-		public void ResetItems ()
-		{
-			BD_T.ResetItems ();
-		}
-
-		//名前指定チェック
-		public void CheckNameAssign ( Func_Check f )
-		{
+			UpdateData?.Invoke ();
 		}
 
 		//描画
@@ -122,22 +114,36 @@ namespace ScriptEditor
 			}
 
 			//指定条件チェック
-			if ( Func_check ( listBox1.Items[e.Index] ) )
+			if ( Func_color_check ( listBox1.Items[e.Index] ) )
 			{
 				Brs = Brushes.Red;
 			}
 
-
-			e.Graphics.DrawString ( 
-				name, e.Font, Brs, e.Bounds, StringFormat.GenericDefault );
+			//文字列描画
+			StringFormat sf = StringFormat.GenericDefault;
+			e.Graphics.DrawString ( name, e.Font, Brs, e.Bounds, sf );
 
 			//フォーカス枠
 			e.DrawFocusRectangle ();
 		}
 
+		//クリア
+		public void Clear ()
+		{
+			BD_T.Clear ();
+			BD_T.ResetItems ();
+			Tb_Name.Text = "";
+		}
 
-		//------------------------------------------------------------------------------
-		//イベント
+		public void ResetItems () { BD_T.ResetItems (); }		//更新
+		public void Add ( T t ) { BD_T.Add ( t ); }				//外部からの追加
+		public int Count () { return listBox1.Items.Count; }		//個数
+		public int SelectedIndex () { return listBox1.SelectedIndex; }		//選択位置
+
+		public void TbName_Off () { Tb_Name.ReadOnly = true; }
+
+		//============================================================
+		//内部コントロールイベント
 
 		//追加ボタン(新規挿入)
 		private void Btn_Add_Click ( object sender, EventArgs e )
@@ -167,6 +173,8 @@ namespace ScriptEditor
 
 			BD_T.RemoveAt ( listBox1.SelectedIndex );
 			BD_T.ResetItems ();
+
+			if ( listBox1.Items.Count == 0 ) { Tb_Name.Text = ""; }
 		}
 
 		//上へ移動
@@ -177,7 +185,8 @@ namespace ScriptEditor
 			if ( listBox1.Items.Count <= 1 ) { return; }			//対象個数が１以下
 			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
 			if ( listBox1.SelectedIndex <= 0 ) { return; }          //選択が先頭のとき
-																	//--------------------------------------------------------------------
+			//--------------------------------------------------------------------
+			
 			//１つ前の位置
 			int i = listBox1.SelectedIndex - 1;
 			BD_T.Up ( listBox1.SelectedIndex );
@@ -186,7 +195,7 @@ namespace ScriptEditor
 			listBox1.SelectedIndex = i;
 
 			//変更時イベント
-			Changed?.Invoke ();
+			Listbox_Changed?.Invoke ();
 		}
 
 		//下へ移動
@@ -208,27 +217,19 @@ namespace ScriptEditor
 			listBox1.SelectedIndex = i - 1;
 
 			//変更時イベント
-			Changed?.Invoke ();
-		}
-
-		//個数
-		public int Count ()
-		{
-			return listBox1.Items.Count;
-		}
-
-		//選択位置
-		public int SelectedIndex ()
-		{
-			return listBox1.SelectedIndex;
+			Listbox_Changed?.Invoke ();
 		}
 
 		//============================================================
-		//イベント
+		//外部指定イベント
 		public delegate void Event ();
 
+		//更新
+		public Event UpdateData { get; set; } = null;
+
+
 		//リストボックスの変更すべて
-		public Event Changed { get; set; } = null;
+		public Event Listbox_Changed { get; set; } = null;
 
 
 		//イベント：リストボックス選択変更時
@@ -241,19 +242,19 @@ namespace ScriptEditor
 		}
 
 		//イベント：追加時
-		public Event Add { get; set; } = null;
+		public Event Listbox_Add { get; set; } = null;
 		private void listBox1_Add ( object sender, System.EventArgs e )
 		{
-			Add?.Invoke();
-			Changed?.Invoke();
+			Listbox_Add?.Invoke();
+			Listbox_Changed?.Invoke();
 		}
 
 		//イベント：削除時
-		public Event Del { get; set; } = null;
+		public Event Listbox_Del { get; set; } = null;
 		private void listBox1_Del ( object sender, System.EventArgs e )
 		{
-			Del?.Invoke ();
-			Changed?.Invoke();
+			Listbox_Del?.Invoke ();
+			Listbox_Changed?.Invoke();
 		}
 
 		//イベント：名前の変更
@@ -267,28 +268,183 @@ namespace ScriptEditor
 			_TextChanged?.Invoke ();
 
 			//変更時イベント
-			Changed?.Invoke ();
+			Listbox_Changed?.Invoke ();
 		}
 
 		//イベント：キー押下時
 		public Event Tb_KeyPress { get; set; } = null;
 		private void Tb_Name_KeyPress ( object sender, KeyPressEventArgs e )
 		{
+			//SEを鳴らさない
 			if ( e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Escape )
 			{
 				e.Handled = true;
 			}
+
+			//Enter時に名前の決定
 			if ( e.KeyChar == (char)Keys.Enter )
 			{
+				if ( listBox1.SelectedIndex < 0 ) { Tb_Name.Text = ""; return; }
+
 				T t = (T)listBox1.SelectedItem;
 				t.Name = Tb_Name.Text;
 				BD_T.ResetItems ();
 
+				//イベント
 				Tb_KeyPress?.Invoke ();
-
-				//変更時イベント
-				Changed?.Invoke ();
+				Listbox_Changed?.Invoke ();
 			}
+		}
+
+
+		//============================================================
+		//IO
+
+		//フォルダ
+		private void Btn_Folder_Click ( object sender, EventArgs e )
+		{
+			FormUtility.OpenDir ( FilePath );
+		}
+
+		//保存・読込の関数設定
+		public void SetIOFunc ( Func_Save fs, Func_Load fl )
+		{
+			Func_Save = fs;
+			Func_Load = fl;
+
+			IO_Btn_On ();
+		}
+
+		private void IO_Btn_Off ()
+		{
+			Color clr = Color.FromArgb ( 255, 192, 192, 192 );
+			Btn_SaveOne.BackColor = clr;
+			Btn_SaveAll.BackColor = clr;
+			Btn_LoadOne.BackColor = clr;
+			Btn_LoadAll.BackColor = clr;
+
+			Btn_SaveOne.Enabled = false;
+			Btn_SaveAll.Enabled = false;
+			Btn_LoadOne.Enabled = false;
+			Btn_LoadAll.Enabled = false;
+
+			Btn_Folder.Enabled = false;
+		}
+
+		private void IO_Btn_On ()
+		{
+			Color clrS = Color.FromArgb ( 255, 192, 192, 255 );
+			Color clrL = Color.FromArgb ( 255, 255, 255, 192 );
+			Btn_SaveOne.BackColor = clrS;
+			Btn_SaveAll.BackColor = clrS;
+			Btn_LoadOne.BackColor = clrL;
+			Btn_LoadAll.BackColor = clrL;
+
+			Btn_SaveOne.Enabled = true;
+			Btn_SaveAll.Enabled = true;
+			Btn_LoadOne.Enabled = true;
+			Btn_LoadAll.Enabled = true;
+
+			Btn_Folder.Enabled = true;
+		}
+
+		//1項目書出
+		private void Btn_SaveOne_Click ( object sender, EventArgs e )
+		{
+			if ( listBox1.SelectedIndex < 0 ) { return; }
+
+			using ( SaveFileDialog saveFileDialog = new SaveFileDialog () )
+			{
+				saveFileDialog.DefaultExt = "txt";
+				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
+				saveFileDialog.FileName = "save_one.txt";
+
+				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
+				{
+					using ( StreamWriter sw = new StreamWriter ( saveFileDialog.FileName ) )
+					{
+						Func_Save?.Invoke ( listBox1.SelectedItem, sw );
+					}
+					FilePath = Path.GetDirectoryName ( saveFileDialog.FileName );
+				}
+			}
+			_UpdateData ();
+		}
+
+		//1項目読込
+		private void Btn_LoadOne_Click ( object sender, EventArgs e )
+		{
+			using ( OpenFileDialog openFileDialog = new OpenFileDialog () )
+			{
+				openFileDialog.DefaultExt = "txt";
+				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
+				openFileDialog.FileName = "load_one.txt";
+
+				if ( openFileDialog.ShowDialog () == DialogResult.OK )
+				{
+					using ( StreamReader sr = new StreamReader ( openFileDialog.FileName ) )
+					{
+						Func_Load?.Invoke ( sr );
+					}
+					FilePath = Path.GetDirectoryName ( openFileDialog.FileName );
+				}
+			}
+
+			_UpdateData ();
+		}
+
+		//全項目書出
+		private void Btn_SaveAll_Click ( object sender, EventArgs e )
+		{
+			if ( listBox1.Items.Count <= 0 ) { return; }
+			if ( listBox1.SelectedIndex < 0 ) { return; }
+
+			using ( SaveFileDialog saveFileDialog = new SaveFileDialog () )
+			{
+				saveFileDialog.DefaultExt = "txt";
+				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
+				saveFileDialog.FileName = "save_all.txt";
+
+				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
+				{
+					using ( StreamWriter sw = new StreamWriter ( saveFileDialog.FileName ) )
+					{
+						foreach ( object ob in listBox1.Items )
+						{
+							Func_Save?.Invoke ( ob, sw );
+							sw.Write ( '\n' );
+						}
+					}
+					FilePath = Path.GetDirectoryName ( saveFileDialog.FileName );
+				}
+			}
+			_UpdateData ();
+		}
+
+		//全項目読込
+		private void Btn_LoadAll_Click ( object sender, EventArgs e )
+		{
+			using ( OpenFileDialog openFileDialog = new OpenFileDialog () )
+			{
+				openFileDialog.DefaultExt = "txt";
+				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
+				openFileDialog.FileName = "load_all.txt";
+
+				if ( openFileDialog.ShowDialog () == DialogResult.OK )
+				{
+					using ( StreamReader sr = new StreamReader ( openFileDialog.FileName ) )
+					{
+						Clear ();
+						while ( ! sr.EndOfStream )
+						{
+							Func_Load?.Invoke ( sr );
+						}
+					}
+					FilePath = Path.GetDirectoryName ( openFileDialog.FileName );
+				}
+			}
+
+			_UpdateData ();
 		}
 	}
 

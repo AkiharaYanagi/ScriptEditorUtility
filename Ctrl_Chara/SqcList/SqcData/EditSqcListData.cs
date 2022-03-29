@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 
 
 namespace ScriptEditor
@@ -115,6 +116,45 @@ namespace ScriptEditor
 			{
 				sqcDt.L_ImgDt.Clear ();
 			}
+		}
+
+		//イメージディレクトリを指定して読込
+		public void LoadImageFromDir ( string imgDir )
+		{
+			if ( Directory.Exists ( imgDir ) )
+			{
+				LoadImage li = new LoadImage ();
+				li.Run ( Dt, imgDir );
+				UpdateAll ();
+			}
+		}
+
+		//ディレクトリ指定ダイアログから読込
+		public string LoadImageFromDialog ( string imgDir )
+		{
+			string ret = "";
+			OpenFolder_CodePack opF = new OpenFolder_CodePack ();
+			opF.SetDefaultFilename ( imgDir );
+			if( opF.OpenFolder () )
+			{
+				ret = opF.GetPath ();
+			}
+
+			if ( Directory.Exists ( ret ) )
+			{
+				LoadImage li = new LoadImage ();
+				li.Run ( Dt, ret );
+				UpdateAll ();
+			}
+
+			return ret;
+		}
+
+		//保存
+		public void SaveImageToDir ( string imgDir )
+		{
+			SaveImage saveImage = new SaveImage ();
+			saveImage.Run ( Dt, imgDir );
 		}
 	}
 }

@@ -3,32 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptEditorUtility", "ScriptEditorUtility\ScriptEditorUtility.csproj", "{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_ScriptEditorUtility", "ScriptEditorUtility\01_ScriptEditorUtility.csproj", "{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chara", "Chara\Chara.csproj", "{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00_Chara", "Chara\00_Chara.csproj", "{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testCtrl_Branch", "testCtrl_Branch\testCtrl_Branch.csproj", "{A703B66F-FE3C-4829-B7D4-42A0D90F058F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test01_Ctrl_Branch", "testCtrl_Branch\test01_Ctrl_Branch.csproj", "{A703B66F-FE3C-4829-B7D4-42A0D90F058F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
 		{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53} = {8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ctrl_Chara", "Ctrl_Chara\Ctrl_Chara.csproj", "{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Ctrl_Chara", "Ctrl_Chara\02_Ctrl_Chara.csproj", "{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
 		{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8} = {8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testCtrl_Route", "testCtrl_Route\testCtrl_Route.csproj", "{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test02_Ctrl_Route", "testCtrl_Route\test02_Ctrl_Route.csproj", "{9E2FE991-BAD1-42E4-A92A-5CC2D04D9D8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testCtrl_SqcList", "testCtrl_SqcList\testCtrl_SqcList.csproj", "{7DD8555A-9253-4E06-8E04-0FFA3888A121}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test03_Ctrl_SqcList", "testCtrl_SqcList\test03_Ctrl_SqcList.csproj", "{7DD8555A-9253-4E06-8E04-0FFA3888A121}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
 		{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8} = {8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test00_Ctrl_Command", "testCtrl_Command\test00_Ctrl_Command.csproj", "{A9C65EB7-6FF4-4D71-8ABA-294FA7B59E65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,10 @@ Global
 		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DD8555A-9253-4E06-8E04-0FFA3888A121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C65EB7-6FF4-4D71-8ABA-294FA7B59E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C65EB7-6FF4-4D71-8ABA-294FA7B59E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C65EB7-6FF4-4D71-8ABA-294FA7B59E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C65EB7-6FF4-4D71-8ABA-294FA7B59E65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

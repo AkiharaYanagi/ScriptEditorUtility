@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Drawing;
+using System.IO;
 
 
 namespace ScriptEditor
@@ -27,28 +27,38 @@ namespace ScriptEditor
 
 			//==============================================================
 			//エディットリストボックスの設定
-			this.Controls.Add ( EL_Branch );
 
 			//選択移動時のイベント
 			EL_Branch.SelectedIndexChanged = ()=>
 			{
 				Branch br = EL_Branch.Get ();
 
+				//条件
 				Cb_Condition.SelectedItem = br.Condition;
 
+				//コマンド
 				Cb_Command.Enabled = true;
 				Cb_Command.SelectedValue = br.NameCommand;
 
 				//アクション,エフェクト
 				SelectSequence ( br.NameSequence );
+
+				//フレーム
+				Tbn_Frame.Assosiate ( i=>br.Frame = i, ()=>br.Frame );
 			};
 
-			EL_Branch.Func_check = (ob) =>
+			EL_Branch.Func_color_check = (ob) =>
 			{
 				return ! Chara.behavior.BD_Sequence.ContainsKey ( ((Branch)ob).NameSequence );
 			};
 
+			//IO
+			EL_Branch.SetIOFunc ( SaveBranch, LoadBranch );
+
+			this.Controls.Add ( EL_Branch );
+
 			//==============================================================
+			//ブランチコンディション コンボボックス
 			Array names = Enum.GetValues ( typeof ( BranchCondition ) );
 			Cb_Condition.DataSource = names;
 			Cb_Condition.SelectedItem = BranchCondition.DMG;
@@ -74,13 +84,6 @@ namespace ScriptEditor
 			//コントロールに設定
 			EL_Branch.SetData ( ch.BD_Branch );
 
-			
-			//test リストボックス
-			listBox1.DrawMode = DrawMode.OwnerDrawFixed;
-			listBox1.DataSource = ch.BD_Branch.GetBindingList();
-			listBox1.DisplayMember = "Name";
-
-
 			//コンボボックスの更新
 			Cb_Command.DataSource = ch.BD_Command.GetBindingList ();
 			Cb_Action.DataSource = ch.behavior.BD_Sequence.GetBindingList ();
@@ -99,16 +102,16 @@ namespace ScriptEditor
 
 		public void SelectSequence ( string name )
 		{
-			Sequence sqc = Chara.behavior.BD_Sequence.Get ( name );
+			Sequence sqc = Chara.garnish.BD_Sequence.Get ( name );
 			if ( sqc is null )
-			{
-				OnEffect ();
-				Cb_Effect.SelectedValue = name;
-			}
-			else
 			{
 				OnAction ();
 				Cb_Action.SelectedValue = name;
+			}
+			else
+			{
+				OnEffect ();
+				Cb_Effect.SelectedValue = name;
 			}
 		}
 
@@ -128,7 +131,6 @@ namespace ScriptEditor
 
 			BD_Branch.ResetItems ();
 			EL_Branch.Invalidate ();
-			listBox1.Invalidate ();
 		}
 
 		//アクション
@@ -139,7 +141,6 @@ namespace ScriptEditor
 
 			BD_Branch.ResetItems ();
 			EL_Branch.Invalidate ();
-			listBox1.Invalidate ();
 		}
 
 		//エフェクト
@@ -186,26 +187,35 @@ namespace ScriptEditor
 		}
 
 
-		//test 
-		private void listBox1_DrawItem ( object sender, DrawItemEventArgs e )
+		//-------------------------------------------------------------------------
+		//IO
+
+		//単体保存
+		public void SaveBranch ( object ob, StreamWriter sw )
 		{
-			e.DrawBackground ();
-
-			Branch brc = (Branch)listBox1.Items[e.Index];
-			string name = brc.NameSequence;
-			Brush Brs = Brushes.Black;
-
-			//名前指定チェック
-			if ( ! Chara.behavior.BD_Sequence.ContainsKey ( brc.NameSequence ) )
-			{
-				Brs = Brushes.Red;
-			}
-
-			e.Graphics.DrawString ( 
-				name, e.Font, Brs, e.Bounds, StringFormat.GenericDefault );
-			e.DrawFocusRectangle ();
+			Branch brc = (Branch)ob;
+			sw.Write ( brc.Name + "," );
+			sw.Write ( brc.Condition + "," );
+			sw.Write ( brc.NameCommand + "," );
+			sw.Write ( brc.NameSequence + "," );
+			sw.Write ( brc.Frame );
 		}
 
+		//単体読込
+		public void LoadBranch ( StreamReader sr )
+		{
+			Branch brc = new Branch ();
+
+			string str = sr.ReadLine ();
+			string[] str_spl = str.Split(',');
+			brc.Name = str_spl[0];
+			brc.Condition = ( BranchCondition ) Enum.Parse ( typeof ( BranchCondition ), str_spl[1] );
+			brc.NameCommand = str_spl[2];
+			brc.NameSequence = str_spl[3];
+			brc.Frame = int.Parse ( str_spl[4] );
+
+			EL_Branch.Add ( brc );
+		}
 
 	}
 }

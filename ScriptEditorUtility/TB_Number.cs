@@ -80,13 +80,13 @@ namespace ScriptEditor
 				return;
 			}
 
-			SetFunc ( value );			
+			SetFunc?.Invoke ( value );			
 		}
 
 		//更新
 		public void UpdateData ()
 		{
-			this.Text = GetFunc ().ToString ();
+			this.Text = GetFunc?.Invoke ().ToString ();
 		}
 	}
 }

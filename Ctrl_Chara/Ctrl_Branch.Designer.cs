@@ -37,7 +37,8 @@
 			this.RB_Action = new System.Windows.Forms.RadioButton();
 			this.RB_Effect = new System.Windows.Forms.RadioButton();
 			this.Cb_Effect = new System.Windows.Forms.ComboBox();
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.Tbn_Frame = new ScriptEditor.TB_Number();
+			this.label2 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label3
@@ -82,7 +83,7 @@
 			// 
 			this.Cb_Condition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.Cb_Condition.FormattingEnabled = true;
-			this.Cb_Condition.Location = new System.Drawing.Point(241, 28);
+			this.Cb_Condition.Location = new System.Drawing.Point(241, 43);
 			this.Cb_Condition.Name = "Cb_Condition";
 			this.Cb_Condition.Size = new System.Drawing.Size(178, 20);
 			this.Cb_Condition.TabIndex = 21;
@@ -91,7 +92,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(239, 13);
+			this.label4.Location = new System.Drawing.Point(239, 28);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(53, 12);
 			this.label4.TabIndex = 22;
@@ -131,21 +132,30 @@
 			this.Cb_Effect.TabIndex = 17;
 			this.Cb_Effect.SelectionChangeCommitted += new System.EventHandler(this.Cb_Effect_SelectionChangeCommitted);
 			// 
-			// listBox1
+			// Tbn_Frame
 			// 
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 12;
-			this.listBox1.Location = new System.Drawing.Point(278, 229);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(141, 208);
-			this.listBox1.TabIndex = 24;
-			this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
+			this.Tbn_Frame.GetFunc = null;
+			this.Tbn_Frame.Location = new System.Drawing.Point(301, 258);
+			this.Tbn_Frame.Name = "Tbn_Frame";
+			this.Tbn_Frame.SetFunc = null;
+			this.Tbn_Frame.Size = new System.Drawing.Size(100, 19);
+			this.Tbn_Frame.TabIndex = 24;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(238, 261);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(56, 12);
+			this.label2.TabIndex = 25;
+			this.label2.Text = "遷移先[F]";
 			// 
 			// Ctrl_Branch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.listBox1);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.Tbn_Frame);
 			this.Controls.Add(this.RB_Effect);
 			this.Controls.Add(this.RB_Action);
 			this.Controls.Add(this.label4);
@@ -156,7 +166,7 @@
 			this.Controls.Add(this.Cb_Action);
 			this.Controls.Add(this.Cb_Command);
 			this.Name = "Ctrl_Branch";
-			this.Size = new System.Drawing.Size(479, 452);
+			this.Size = new System.Drawing.Size(479, 537);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -173,6 +183,7 @@
 		private System.Windows.Forms.RadioButton RB_Action;
 		private System.Windows.Forms.RadioButton RB_Effect;
 		private System.Windows.Forms.ComboBox Cb_Effect;
-		private System.Windows.Forms.ListBox listBox1;
+		private TB_Number Tbn_Frame;
+		private System.Windows.Forms.Label label2;
 	}
 }

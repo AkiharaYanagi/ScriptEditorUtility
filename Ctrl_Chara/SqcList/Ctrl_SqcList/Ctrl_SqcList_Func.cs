@@ -36,7 +36,7 @@ namespace ScriptEditor
 
 		//--------------------------------------------
 		//ドラッグ＆ドロップ
-
+#if false
 		//イメージディレクトリ
 		private void textBox1_DragEnter(object sender, DragEventArgs e)
 		{
@@ -108,5 +108,6 @@ namespace ScriptEditor
 				EditData.UpdateAll ();
 			}
 		}
+#endif
 	}
 }

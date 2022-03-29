@@ -8,7 +8,7 @@ namespace ScriptEditor
 	//シークエンスとイメージリスト
 	public class SequenceData : TName
 	{
-		//名前、スクリプト数、次シークエンス名 を持ち、スクリプト配列は扱わない
+		//"名前","スクリプト数" を持ち、スクリプト配列は扱わない
 		public Sequence Sqc { get; set; } = new Sequence ();
 		public BD_IMGDT L_ImgDt { get; set; } = new BD_IMGDT ();
 

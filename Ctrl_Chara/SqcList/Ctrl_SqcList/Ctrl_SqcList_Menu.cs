@@ -6,6 +6,7 @@ namespace ScriptEditor
 {
 	public partial class Ctrl_SqcList : UserControl
 	{
+#if false
 		private void フォルダToolStripMenuItem_Click(object sender, System.EventArgs e)
 		{
 			FormUtility.OpenCurrentDir();
@@ -59,6 +60,7 @@ namespace ScriptEditor
 				UpdateAll();
 			}
 		}
+#endif
 
 	}
 }

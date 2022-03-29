@@ -294,6 +294,8 @@ namespace ScriptEditor
 			//ブランチ
 			foreach ( Branch brc in ls )
 			{
+				//@info IDを先に検索して記述しておくことでエラーチェック
+				//		ゲームメイン側ではIDのみ用いる
 				int commandID = Chara.BD_Command.IndexOf ( brc.NameCommand );
 
 				int sequenceID = Chara.behavior.BD_Sequence.IndexOf ( brc.NameSequence );
@@ -331,6 +333,8 @@ namespace ScriptEditor
 				sw.Write ( "\t\t<BranchNameList Num=\"" + bl_brrt.Count + "\">\n" );
 				foreach ( TName tn in bl_brrt )
 				{
+					//@info IDを先に検索して記述しておくことでエラーチェック
+					//		ゲームメイン側ではIDのみ用いる
 					int BranchID = Chara.BD_Branch.IndexOf ( tn.Name );
 
 					sw.Write ( "\t\t\t<BranchName Name=\"" + tn.Name + "\"" );
