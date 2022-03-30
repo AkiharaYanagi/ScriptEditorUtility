@@ -1,6 +1,6 @@
 ﻿namespace ScriptEditor
 {
-	partial class Form_Sqc
+	partial class Form_Action
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -64,6 +64,7 @@
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(121, 23);
 			this.comboBox1.TabIndex = 6;
+			this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
 			// 
 			// tB_Setter1
 			// 
@@ -73,6 +74,7 @@
 			this.tB_Setter1.SetFunc = null;
 			this.tB_Setter1.Size = new System.Drawing.Size(159, 19);
 			this.tB_Setter1.TabIndex = 7;
+			this.tB_Setter1.Text = "0";
 			// 
 			// tB_Number1
 			// 
@@ -106,7 +108,7 @@
 			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
-			// Form_Sqc
+			// Form_Action
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,7 +120,7 @@
 			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Name = "Form_Sqc";
+			this.Name = "Form_Action";
 			this.Text = "シークエンス詳細";
 			this.ResumeLayout(false);
 			this.PerformLayout();

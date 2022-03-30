@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace ScriptEditor
 {
-	//System.TierとSystem.Windows.Forms.Timerで曖昧
+	//System.TierとSystem.Windows.Forms.Timerで曖昧なので明示的宣言
 	using STimer = System.Timers.Timer;
 
 	//シークエンスデータの画像表示コントロール
@@ -18,7 +18,8 @@ namespace ScriptEditor
 		public EditSqcListData EditData { get; set; } = null;
 
 		//入力フォーム
-		private Form_Sqc form_sqc = new Form_Sqc();
+		public bool FlagAction { get; set; } = false;
+		private Form_Action form_sqc = new Form_Action();
 
 		private ContextMenuStrip contextMenuStrip1;
 		private System.ComponentModel.IContainer components;
@@ -246,19 +247,21 @@ namespace ScriptEditor
 				int n = ELB_Sqc.Count();
 				int selectedSqcIndex = EditData.SelectedSqc;
 
-//				STS_TXT.Trace ( pt_y.ToString () + "," + pt_x.ToString () );
-
 				//データ範囲内 かつ シークエンス列
 				if ( pt_y < n )
 				{
 					//選択済み
 					if ( selectedSqcIndex == pt_y && pos.X < ConstSqcListPaint.CW )
 					{
-						//入力フォーム
-						SequenceData sqcDt = ELB_Sqc.Get ();
-						form_sqc.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
-						form_sqc.Assosiate ( sqcDt );
-						form_sqc.Show();
+						//アクションのみ
+						if ( FlagAction )
+						{
+							//入力フォーム
+							SequenceData sqcDt = ELB_Sqc.Get ();
+							form_sqc.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
+							form_sqc.Assosiate ( sqcDt );
+							form_sqc.Show();
+						}
 					}
 					else
 					{

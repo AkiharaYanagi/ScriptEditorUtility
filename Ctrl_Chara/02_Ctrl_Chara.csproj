@@ -116,14 +116,11 @@
     <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Init.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Menu.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SqcList\Form_Sqc.cs">
+    <Compile Include="SqcList\Form_Action.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SqcList\Form_Sqc.designer.cs">
-      <DependentUpon>Form_Sqc.cs</DependentUpon>
+    <Compile Include="SqcList\Form_Action.designer.cs">
+      <DependentUpon>Form_Action.cs</DependentUpon>
     </Compile>
     <Compile Include="SqcList\PB_Sqc.cs">
       <SubType>Component</SubType>
@@ -168,8 +165,8 @@
     <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Form_Sqc.resx">
-      <DependentUpon>Form_Sqc.cs</DependentUpon>
+    <EmbeddedResource Include="SqcList\Form_Action.resx">
+      <DependentUpon>Form_Action.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

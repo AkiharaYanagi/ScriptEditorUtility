@@ -19,6 +19,8 @@ namespace ScriptEditor
 			this.Text = "test_Ctrl_SqcList";
 			ctrl_SqcList1.run = true;
 			ctrl_SqcList1.LoadCtrl();
+			ctrl_SqcList1.SetEnviroment ( ()=>new Action() );
+			ctrl_SqcList1.SetAction ();
 		}
 	}
 }

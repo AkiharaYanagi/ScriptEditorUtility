@@ -23,9 +23,6 @@ namespace ScriptEditor
 				Directory.SetCurrentDirectory ( FormUtility.UpDir ( settings.LastDirectory ) );
 			}
 
-			//タイトルバー
-			this.Text = "Sequence List Editor";
-
 			//----------------------------------------------------
 			//コントロール追加
 
@@ -83,21 +80,47 @@ namespace ScriptEditor
 //			STS_TXT.Trace ( "Init." );
 		}
 
+		//アクション / エフェクト 切替
+		public bool FlagAction { get; set; } = false;
+		public void SetAction ()
+		{
+			FlagAction = true;
+			ctrl_ImageTable1.SetAction (); 
+			label1.Text = "[アクション]";
+		}
 
+		//書出
 		public void SaveSqcDt ( object ob, StreamWriter sw )
 		{
 			SequenceData sqcDt = (SequenceData)ob;
 			sw.Write ( sqcDt.Name + "," );
 			sw.Write ( sqcDt.nScript.ToString () + "," );
+			//アクションのみ
+			if ( FlagAction )
+			{
+				Action act = (Action)sqcDt.Sqc;
+				sw.Write ( act.Category.ToString () + "," ); 
+			}
 		}
 
+		//読込
 		public void LoadSqcDt ( StreamReader sr )
 		{
-			SequenceData sqcDt = new SequenceData ();
+			SequenceData sqcDt = new SequenceData (){ Sqc = New_Action() };
 			
 			string[] str_spl = sr.ReadLine ().Split ( ',' );
 			sqcDt.Name = str_spl[0];
 			sqcDt.nScript = int.Parse ( str_spl[1] );
+			for ( int i = 0; i < sqcDt.nScript; ++ i )
+			{
+				sqcDt.Sqc.ListScript.Add ( new Script () );
+			}
+			//アクションのみ
+			if ( FlagAction )
+			{
+				Action act = (Action)sqcDt.Sqc;
+				act.Category = (ActionCategory)int.Parse ( str_spl[2] );
+			}
 
 			ELB_Sqc.Add ( sqcDt );
 		}

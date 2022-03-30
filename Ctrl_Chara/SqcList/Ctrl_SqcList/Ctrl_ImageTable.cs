@@ -14,6 +14,8 @@ namespace ScriptEditor
 		//データ編集
 		public EditSqcListData EditData { get; set; } = null;
 
+		public void SetAction () { pB_Sqc1.FlagAction = true; }
+
 		//コンストラクタ
 		public Ctrl_ImageTable()
 		{

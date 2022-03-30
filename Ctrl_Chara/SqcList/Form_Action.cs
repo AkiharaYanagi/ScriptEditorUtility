@@ -4,13 +4,14 @@ using System.Drawing;
 
 namespace ScriptEditor
 {
-	public partial class Form_Sqc : Form
+	//アクションのみフォームで指定
+	public partial class Form_Action : Form
 	{
 		//全体更新
 		public System.Action UpdateAll { get; set; } = null;
 
 		//コンストラクタ
-		public Form_Sqc()
+		public Form_Action()
 		{
 			InitializeComponent();
 
@@ -34,6 +35,10 @@ namespace ScriptEditor
 		{
 			tB_Setter1.Assosiate ( s=>sqcDt.SetName(s), ()=>{return sqcDt.Sqc.Name;} );
 			tB_Number1.Assosiate ( i=>sqcDt.nScript = i, ()=>{ return sqcDt.nScript; } );
+			SetCategory = ( s ) =>
+			{
+				((Action)sqcDt.Sqc).Category = (ActionCategory)Enum.Parse ( typeof (ActionCategory), s ); 
+			};
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -44,6 +49,13 @@ namespace ScriptEditor
 		private void button2_Click(object sender, EventArgs e)
 		{
 			this.Close ();
+		}
+
+		//カテゴリ選択
+		public System.Action < string > SetCategory = (s)=>{};
+		private void comboBox1_SelectionChangeCommitted ( object sender, EventArgs e )
+		{
+			SetCategory ( (string)comboBox1.SelectedItem );
 		}
 	}
 }
