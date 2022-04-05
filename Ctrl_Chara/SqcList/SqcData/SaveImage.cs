@@ -2,6 +2,7 @@
 using System.IO;
 using System.Diagnostics;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
 
 
 namespace ScriptEditor
@@ -25,7 +26,7 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//既存を全削除
-			string[] files = Directory.GetFiles ( dirname, "*.png", SearchOption.TopDirectoryOnly );
+			IEnumerable < string > files = Directory.EnumerateFiles ( dirname, "*" );
 			foreach ( string s in files )
 			{
 				FileInfo f = new FileInfo ( s );
@@ -39,6 +40,11 @@ namespace ScriptEditor
 			int sqc_index = 0;	//シークエンス番号
 			foreach ( SequenceData sd in dt.L_Sqc.GetEnumerable () )
 			{
+
+
+				Debug.WriteLine ( sd.Name );
+
+
 				int img_index = 0;
 				foreach ( ImageData id in sd.L_ImgDt.GetEnumerable() )
 				{
@@ -48,6 +54,11 @@ namespace ScriptEditor
 					string filepath = dirname + "\\" + s0 + s1 + s2;
 					id.Img.Save ( filepath, ImageFormat.Png );
 					++ img_index;
+
+
+					Debug.WriteLine ( filepath );
+
+
 				}
 				++ sqc_index;
 			}

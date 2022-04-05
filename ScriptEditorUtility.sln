@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_ScriptEditorUtility", "ScriptEditorUtility\01_ScriptEditorUtility.csproj", "{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00_ScriptEditorUtility", "ScriptEditorUtility\00_ScriptEditorUtility.csproj", "{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00_Chara", "Chara\00_Chara.csproj", "{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Chara", "Chara\01_Chara.csproj", "{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
 	EndProjectSection

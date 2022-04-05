@@ -8,10 +8,13 @@ namespace ScriptEditor
 	//========================================
 	public partial class Form1 :Form
 	{
-//		private string filename = "testChara.dat";
+		//設定ファイル
+		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
 
 		public Form1 ()
 		{
+			ctrl_stg = (Ctrl_Settings)XML_IO.Load ( typeof ( Ctrl_Settings ) );
+
 			Ctrl_Branch ctrl_Branch1 = new Ctrl_Branch ();
 			this.Controls.Add ( ctrl_Branch1 );
 			FormUtility.InitPosition ( this );
@@ -42,8 +45,20 @@ namespace ScriptEditor
 			EditChara.Inst.SetCharaDara ( ch_test );
 
 #endif
+			//テストデータ
+			foreach ( string name in Enum.GetNames ( typeof ( ENM_ACT ) ) )
+			{
+				ch_test.behavior.BD_Sequence.Add ( new Action ( name ) );
+			}
+			foreach ( string name in Enum.GetNames ( typeof ( ENM_CMD ) ) )
+			{
+				ch_test.BD_Command.Add ( new Command ( name ) );
+			}
+
 			//コントロールに渡してテスト
+			ctrl_Branch1.SetEnvironment ( ctrl_stg );
 			ctrl_Branch1.SetCharaData  ( ch_test );
+//			ctrl_Branch1.LoadData ();
 		}
 	}
 }

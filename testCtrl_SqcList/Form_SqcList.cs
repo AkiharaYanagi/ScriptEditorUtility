@@ -1,6 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using System.Windows.Forms;
+using System.IO;
+using System.Collections.Generic;
 
 namespace ScriptEditor
 {
@@ -9,18 +9,37 @@ namespace ScriptEditor
 	//========================================
 	public partial class Form1 : Form
 	{
+		//設定ファイル
+		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
+
 		public Form1 ()
 		{
-			Ctrl_SqcList ctrl_SqcList1 = new Ctrl_SqcList ();
-			this.Controls.Add ( ctrl_SqcList1 );
+			//設定ファイル
+			ctrl_stg = ( Ctrl_Settings )XML_IO.Load ( typeof ( Ctrl_Settings ) );
+
+			//フォーム初期化
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
-
 			this.Text = "test_Ctrl_SqcList";
-			ctrl_SqcList1.run = true;
+
+			//コントロール初期化
+			Ctrl_SqcList ctrl_SqcList1 = new Ctrl_SqcList ();
+			this.Controls.Add ( ctrl_SqcList1 );
+
+			//データ
+			Chara chara = new Chara ();
+
+#if true
+			Ctrl_SqcList.CTRL_SQC ac = Ctrl_SqcList.CTRL_SQC.ACTION;
+			ctrl_SqcList1.SetEnviroment ( ac, ()=>new Action(), ctrl_stg );
+#else
+			Ctrl_SqcList.CTRL_SQC ef = Ctrl_SqcList.CTRL_SQC.EFFECT;
+			ctrl_SqcList1.SetEnviroment ( ef, ()=>new Effect (), ctrl_stg );
+#endif
+
 			ctrl_SqcList1.LoadCtrl();
-			ctrl_SqcList1.SetEnviroment ( ()=>new Action() );
-			ctrl_SqcList1.SetAction ();
+			ctrl_SqcList1.SetCharaData ( chara.behavior );
+			ctrl_SqcList1.LoadData ();
 		}
 	}
 }

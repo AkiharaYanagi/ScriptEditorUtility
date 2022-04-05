@@ -8,11 +8,21 @@ namespace ScriptEditor
 	//========================================
 	public partial class Form1 : Form
 	{
+		//設定ファイル
+		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
+
 		public Form1 ()
 		{
-			this.Controls.Add ( new Ctrl_CmdList () );
+			ctrl_stg = (Ctrl_Settings)XML_IO.Load ( typeof ( Ctrl_Settings ) );
+
+			Ctrl_CmdList ctrl_cmdlst = new Ctrl_CmdList ();
+			this.Controls.Add ( ctrl_cmdlst );
+
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
+
+			ctrl_cmdlst.SetEnvironment ( ctrl_stg );
+			ctrl_cmdlst.LoadData ();
 		}
 	}
 }

@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +72,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -80,17 +87,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chara\00_Chara.csproj">
+    <ProjectReference Include="..\Chara\01_Chara.csproj">
       <Project>{8ac66abb-4575-4d34-8780-1f6ea3bdb4b8}</Project>
-      <Name>00_Chara</Name>
+      <Name>01_Chara</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ctrl_Chara\02_Ctrl_Chara.csproj">
       <Project>{8e9be4c1-7111-43a2-8f5e-8951df25af53}</Project>
       <Name>02_Ctrl_Chara</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScriptEditorUtility\01_ScriptEditorUtility.csproj">
+    <ProjectReference Include="..\ScriptEditorUtility\00_ScriptEditorUtility.csproj">
       <Project>{7fea4c0b-36fc-4f72-8bbe-265add19a36c}</Project>
-      <Name>01_ScriptEditorUtility</Name>
+      <Name>00_ScriptEditorUtility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.IO;
 
 
@@ -13,23 +14,13 @@ namespace ScriptEditor
 		//起動時１回のみの初期化
 		public void LoadCtrl ()
 		{
-			//IDEデザイン時は除く
-			if ( run )
-			{
-				//設定ファイル読込
-				settings.Load();
-
-				//ディレクトリ設定
-				Directory.SetCurrentDirectory ( FormUtility.UpDir ( settings.LastDirectory ) );
-			}
-
 			//----------------------------------------------------
 			//コントロール追加
 
 			//イメージ
-			this.Controls.Add ( ctrl_ImageTable1 );
-			ctrl_ImageTable1.Location = new System.Drawing.Point ( 230, 30 );
-			ctrl_ImageTable1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			panel1.Controls.Add ( ctrl_ImageTable1 );
+			ctrl_ImageTable1.Location = new System.Drawing.Point ( 0, 0 );
+			ctrl_ImageTable1.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
 
 			//エディットリストボックス
 			ELB_Sqc.Location = new System.Drawing.Point(0, 27);
@@ -42,51 +33,37 @@ namespace ScriptEditor
 			EditData.UpdateAll = UpdateAll;
 
 			//データの設定
-			ctrl_ImageTable1.SetEnviroment ( EditData );
 			ctrl_ImageTable1.SetData ( ELB_Sqc );
 
 			//イベントの設定
-			ELB_Sqc.Listbox_Changed = () =>
-			{
-				UpdateCtrl();
-			};
 			ELB_Sqc.SelectedIndexChanged = () =>
 			{
 				EditData.SelectedSqc = ELB_Sqc.GetListBox().SelectedIndex;
 				ctrl_ImageTable1.ScrollPos ();
 			};
-			ELB_Sqc.Listbox_Add = () =>
-			{
-				UpdateCtrl();
-			};
+			ELB_Sqc.Listbox_Changed = () => UpdateCtrl();
+			ELB_Sqc.Listbox_Add = () => UpdateCtrl();
 
+			switch ( flag_sqc_derived )
+			{
+			case CTRL_SQC.ACTION: 
+				ELB_Sqc.Func_SavePath = s =>
+				{
+					Ctrl_Stgs.File_ActionList = s;
+					XML_IO.Save ( Ctrl_Stgs );
+				};
+				break;
+			case CTRL_SQC.EFFECT: 
+				ELB_Sqc.Func_SavePath = s =>
+				{
+					Ctrl_Stgs.File_EffectList = s;
+					XML_IO.Save ( Ctrl_Stgs );
+				};
+				break;
+			default: break;
+			}
 			//IO
 			ELB_Sqc.SetIOFunc ( SaveSqcDt, LoadSqcDt );
-
-#if false
-			//前回のデータ読込
-			if ( File.Exists ( settings.LastFilename ) )
-			{
-				LoadSqcListData loadData = new LoadSqcListData ();
-				loadData.Run ( Data, settings.LastFilename );
-				LoadImage loadImage = new LoadImage ();
-				loadImage.Run ( Data, settings.LastDirectory );
-
-				UpdateAll ();
-			}
-#endif
-
-//			STS_TXT.Tssl = toolStripStatusLabel1;
-//			STS_TXT.Trace ( "Init." );
-		}
-
-		//アクション / エフェクト 切替
-		public bool FlagAction { get; set; } = false;
-		public void SetAction ()
-		{
-			FlagAction = true;
-			ctrl_ImageTable1.SetAction (); 
-			label1.Text = "[アクション]";
 		}
 
 		//書出
@@ -95,8 +72,16 @@ namespace ScriptEditor
 			SequenceData sqcDt = (SequenceData)ob;
 			sw.Write ( sqcDt.Name + "," );
 			sw.Write ( sqcDt.nScript.ToString () + "," );
+
 			//アクションのみ
+#if false
 			if ( FlagAction )
+			{
+				Action act = (Action)sqcDt.Sqc;
+				sw.Write ( act.Category.ToString () + "," ); 
+			}
+#endif
+			if ( CTRL_SQC.ACTION == flag_sqc_derived )
 			{
 				Action act = (Action)sqcDt.Sqc;
 				sw.Write ( act.Category.ToString () + "," ); 
@@ -106,20 +91,28 @@ namespace ScriptEditor
 		//読込
 		public void LoadSqcDt ( StreamReader sr )
 		{
-			SequenceData sqcDt = new SequenceData (){ Sqc = New_Action() };
+			SequenceData sqcDt = new SequenceData (){ Sqc = New_Object() };
 			
 			string[] str_spl = sr.ReadLine ().Split ( ',' );
 			sqcDt.Name = str_spl[0];
+			sqcDt.Sqc.Name = str_spl[0];
 			sqcDt.nScript = int.Parse ( str_spl[1] );
 			for ( int i = 0; i < sqcDt.nScript; ++ i )
 			{
 				sqcDt.Sqc.ListScript.Add ( new Script () );
 			}
 			//アクションのみ
+#if false
 			if ( FlagAction )
 			{
 				Action act = (Action)sqcDt.Sqc;
-				act.Category = (ActionCategory)int.Parse ( str_spl[2] );
+				act.Category = (ActionCategory)Enum.Parse ( typeof(ActionCategory), str_spl[2] );
+			}
+#endif
+			if ( CTRL_SQC.ACTION == flag_sqc_derived )
+			{
+				Action act = (Action)sqcDt.Sqc;
+				act.Category = (ActionCategory)Enum.Parse ( typeof(ActionCategory), str_spl[2] );
 			}
 
 			ELB_Sqc.Add ( sqcDt );

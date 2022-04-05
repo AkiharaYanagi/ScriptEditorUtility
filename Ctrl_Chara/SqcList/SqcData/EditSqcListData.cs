@@ -14,7 +14,7 @@ namespace ScriptEditor
 		public int SelectedSqc { get; set; } = 0;
 
 		//選択イメージID
-		public int SelectedImage {  get; set; } = 0;
+		public int SelectedImage { get; set; } = 0;
 
 		//全体更新
 		public System.Action UpdateAll { get; set; } = null;
@@ -107,6 +107,46 @@ namespace ScriptEditor
 		public void ApplyData ()
 		{
 			Dt.ApplyData ();
+		}
+
+		//イメージ名をリセット
+		public void ResetImageName ()
+		{
+			//イメージ個数
+			int nImage = 0;
+			foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
+			{
+				nImage += sqcDt.L_ImgDt.Count ();
+			}
+
+			//すべてのスクリプトに設定
+			if ( nImage > 0 )
+			{
+				string strImage_0 = "ImgName";	//仮イメージ名指定
+				foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
+				{
+					if ( 0 < sqcDt.L_ImgDt.Count () )
+					{
+						strImage_0 = sqcDt.L_ImgDt[0].Name;
+						break;
+					}
+				}
+
+				foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
+				{
+					foreach ( Script scp in sqcDt.Sqc.ListScript )
+					{
+						if ( sqcDt.L_ImgDt.Count () > 0 )
+						{
+							scp.ImgName = sqcDt.L_ImgDt [ 0 ].Name;
+						}
+						else
+						{
+							scp.ImgName = strImage_0;
+						}
+					}
+				}
+			}
 		}
 
 		//イメージのクリア

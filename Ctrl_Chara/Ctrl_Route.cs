@@ -8,7 +8,6 @@ namespace ScriptEditor
 	//---------------------------------------------------
 	//	ルートを編集するコントロール
 	//---------------------------------------------------
-	using BD_Rot = BindingDictionary < Route >;
 	using BD_Brc = BindingDictionary < Branch >;
 
 	public partial class Ctrl_Route : UserControl
@@ -21,6 +20,9 @@ namespace ScriptEditor
 
 		//ブランチ参照
 		BD_Brc BD_Branch = new BD_Brc ();
+
+		//設定ファイル
+		private Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
 
 
 		//コンストラクタ
@@ -37,29 +39,29 @@ namespace ScriptEditor
 			this.Controls.Add ( EL_Route );
 
 			//追加時
-			EL_Route.Listbox_Add = ()=>
-			{
-				SetRoute ( EL_Route.Get() ); 
-			};
+			EL_Route.Listbox_Add = ()=>SetRoute ( EL_Route.Get() );
 			//選択変更時
-			EL_Route.SelectedIndexChanged = ()=>
-			{
-				SetRoute ( EL_Route.Get() );
-			};
+			EL_Route.SelectedIndexChanged = ()=>SetRoute ( EL_Route.Get() );
 
 			//名前存在チェック
 			EL_Route.Func_color_check = (ob)=>
 			{
-				Route rut = ((Route)ob);
+				//各ルートが保持するブランチ名が存在するかどうか
+				Route rut = (Route)ob;
 				foreach ( TName tn in rut.BD_BranchName.GetEnumerable () )
 				{
-					if ( ! BD_Branch.ContainsKey ( tn.Name ) ) return true;
+					if ( ! BD_Branch.ContainsKey ( tn.Name ) ) { return true; }
 				}
 				return false;
 			};
 
 			//IO
 			EL_Route.SetIOFunc ( SaveRoute, LoadRoute );
+			EL_Route.Func_SavePath = s=>
+			{
+				Ctrl_Stgs.File_RouteList = s;
+				XML_IO.Save ( Ctrl_Stgs );
+			};
 
 			//----------------------------------
 			//コントロール(ブランチ)
@@ -69,6 +71,10 @@ namespace ScriptEditor
 			EL_Branch.SelectedIndexChanged = ()=>
 			{
 				SelectBranch ();
+			};
+			EL_Branch.Func_color_check = (ob)=>
+			{
+				return ! BD_Branch.ContainsKey ( ((TName)ob).Name );
 			};
 			//==============================================================
 
@@ -92,6 +98,18 @@ namespace ScriptEditor
 			SetRoute ( EL_Route.Get() );
 		}
 
+		public void SetEnvironment ( Ctrl_Settings stgs )
+		{
+			Ctrl_Stgs = stgs;
+		}
+
+		public void LoadData ()
+		{
+			EL_Route.LoadData ( Ctrl_Stgs.File_RouteList );
+		}
+
+
+		//==============================================================
 		//ルートの設定
 		public void SetRoute ( Route rut )
 		{

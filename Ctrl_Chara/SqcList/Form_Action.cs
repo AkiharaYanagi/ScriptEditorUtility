@@ -35,10 +35,13 @@ namespace ScriptEditor
 		{
 			tB_Setter1.Assosiate ( s=>sqcDt.SetName(s), ()=>{return sqcDt.Sqc.Name;} );
 			tB_Number1.Assosiate ( i=>sqcDt.nScript = i, ()=>{ return sqcDt.nScript; } );
+
+			Action act = (Action)sqcDt.Sqc;
 			SetCategory = ( s ) =>
 			{
-				((Action)sqcDt.Sqc).Category = (ActionCategory)Enum.Parse ( typeof (ActionCategory), s ); 
+				act.Category = (ActionCategory)Enum.Parse ( typeof (ActionCategory), s ); 
 			};
+			comboBox1.SelectedItem = act.Category.ToString();
 		}
 
 		private void button1_Click(object sender, EventArgs e)

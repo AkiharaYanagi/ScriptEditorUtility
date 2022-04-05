@@ -36,6 +36,7 @@ namespace ScriptEditor
 		public Func_Save Func_Save { get; set; } = (ob,sw)=>{};
 		public Func_Load Func_Load { get; set; } = sr=>{};
 		public string FilePath { get; set; } = "";
+		public System.Action < string > Func_SavePath = (s)=>{};	//パスの保存
 
 		//----------------------------------------------------------
 		//コンストラクタ
@@ -61,6 +62,8 @@ namespace ScriptEditor
 			Btn_Add.Click += new EventHandler ( listBox1_Add );
 			Btn_Del.Click += new EventHandler ( listBox1_Del );
 			Tb_Name.TextChanged += new EventHandler ( Tb_Name_TextChanged );
+
+			this.DoubleBuffered = true;
 		}
 
 		//データ設置
@@ -87,13 +90,6 @@ namespace ScriptEditor
 			Tb_Name.Text = t.Name;
 
 			UpdateData?.Invoke ();
-		}
-
-		//描画
-		protected override void OnPaint ( PaintEventArgs e )
-		{
-			listBox1.Invalidate ();
-			base.OnPaint ( e );
 		}
 
 		//リストボックスの手動描画
@@ -303,7 +299,7 @@ namespace ScriptEditor
 		//フォルダ
 		private void Btn_Folder_Click ( object sender, EventArgs e )
 		{
-			FormUtility.OpenDir ( FilePath );
+			FormUtility.OpenDir ( Path.GetDirectoryName ( FilePath ) );
 		}
 
 		//保存・読込の関数設定
@@ -365,7 +361,8 @@ namespace ScriptEditor
 					{
 						Func_Save?.Invoke ( listBox1.SelectedItem, sw );
 					}
-					FilePath = Path.GetDirectoryName ( saveFileDialog.FileName );
+					FilePath = saveFileDialog.FileName;
+					Func_SavePath?.Invoke ( saveFileDialog.FileName );
 				}
 			}
 			_UpdateData ();
@@ -386,7 +383,8 @@ namespace ScriptEditor
 					{
 						Func_Load?.Invoke ( sr );
 					}
-					FilePath = Path.GetDirectoryName ( openFileDialog.FileName );
+					FilePath = openFileDialog.FileName;
+					Func_SavePath?.Invoke ( openFileDialog.FileName );
 				}
 			}
 
@@ -415,7 +413,8 @@ namespace ScriptEditor
 							sw.Write ( '\n' );
 						}
 					}
-					FilePath = Path.GetDirectoryName ( saveFileDialog.FileName );
+					FilePath = saveFileDialog.FileName;
+					Func_SavePath?.Invoke ( saveFileDialog.FileName );
 				}
 			}
 			_UpdateData ();
@@ -440,11 +439,29 @@ namespace ScriptEditor
 							Func_Load?.Invoke ( sr );
 						}
 					}
-					FilePath = Path.GetDirectoryName ( openFileDialog.FileName );
+					FilePath = openFileDialog.FileName;
+					Func_SavePath?.Invoke ( openFileDialog.FileName );
 				}
 			}
 
 			_UpdateData ();
+		}
+
+		//自動読込
+		public void LoadData ( string filepath )
+		{
+			//ファイルが存在しないときは何もしない
+			if ( ! File.Exists ( filepath ) ) { return; }
+
+			using ( StreamReader sr = new StreamReader ( filepath ) )
+			{
+				Clear ();
+				while ( ! sr.EndOfStream )
+				{
+					Func_Load?.Invoke ( sr );
+				}
+				FilePath = filepath;
+			}
 		}
 	}
 

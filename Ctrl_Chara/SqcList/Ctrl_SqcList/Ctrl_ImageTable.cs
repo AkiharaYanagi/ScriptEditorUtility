@@ -6,6 +6,8 @@ using System.IO;
 
 namespace ScriptEditor
 {
+	using SQC_DRV = Ctrl_SqcList.CTRL_SQC;
+
 	public partial class Ctrl_ImageTable : UserControl
 	{
 		//データ(シークエンス リストボックス)
@@ -14,7 +16,14 @@ namespace ScriptEditor
 		//データ編集
 		public EditSqcListData EditData { get; set; } = null;
 
-		public void SetAction () { pB_Sqc1.FlagAction = true; }
+		//アクション指定
+		private SQC_DRV flag_sqc_derived = SQC_DRV.ACTION;
+		public void SetAction () { flag_sqc_derived = SQC_DRV.ACTION; pB_Sqc1.FlagAction = true; }
+		public void SetEffect () { flag_sqc_derived = SQC_DRV.EFFECT; pB_Sqc1.FlagAction = false; }
+
+		//設定ファイル
+		public Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
+
 
 		//コンストラクタ
 		public Ctrl_ImageTable()
@@ -22,13 +31,28 @@ namespace ScriptEditor
 			InitializeComponent();
 		}
 
-		public void SetEnviroment ( EditSqcListData editData )
+		//環境設定
+		public void SetEnviroment ( SQC_DRV sqcDrv, EditSqcListData editData, Ctrl_Settings stgs )
 		{
+			flag_sqc_derived = sqcDrv;
+			switch ( flag_sqc_derived )
+			{
+			case SQC_DRV.ACTION: 
+				Tb_ImgDir.Text = stgs.Dir_ImageListAct;
+				break;
+			case SQC_DRV.EFFECT: 
+				Tb_ImgDir.Text = stgs.Dir_ImageListEf;
+				break;
+			default: break;
+			}
+
 			EditData = editData;
 			pB_Sqc1.SetEnviroment ( editData );
 			pB_Sqc1.Start ( new PB_Sqc.Run () );
+			Ctrl_Stgs = stgs;
 		}
 
+		//データ設置
 		public void SetData ( EditListbox < SequenceData > elb_sd )
 		{
 			ELB_Sqc = elb_sd;
@@ -78,8 +102,13 @@ namespace ScriptEditor
 				foreach ( string path in filepaths )
 				{
 					//データに設定
-					Image img = Image.FromFile (path);
+					//@info リソース使用時にファイル削除ができないのでStreamを用いる
+					//Image img = Image.FromFile (path);
+					//sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
+					FileStream fs = new FileStream ( path, FileMode.Open, FileAccess.Read );
+					Image img = Image.FromStream ( fs );
 					sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
+					fs.Close ();
 				}
 
 				//更新
@@ -121,16 +150,21 @@ namespace ScriptEditor
 		//読込
 		private void Btn_Load_Click ( object sender, System.EventArgs e )
 		{
-//			textBox1.Text = EditData.LoadImageFromDialog ( textBox1.Text );
-			EditData.LoadImageFromDialog ( textBox1.Text );
+			EditData.LoadImageFromDir ( Tb_ImgDir.Text );
+		}
+
+		public void LoadImage ()
+		{
+			EditData.LoadImageFromDir ( Tb_ImgDir.Text );
 		}
 
 		//書出
 		private void Btn_Save_Click ( object sender, System.EventArgs e )
 		{
-			EditData.SaveImageToDir ( textBox1.Text );
+			EditData.SaveImageToDir ( Tb_ImgDir.Text );
 		}
 
+		//ディレクトリ
 		private void textBox1_DragDrop ( object sender, DragEventArgs e )
 		{
 			string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop, false);
@@ -138,7 +172,7 @@ namespace ScriptEditor
 			//ディレクトリだったら更新
 			if ( File.GetAttributes ( filenames[0] ).HasFlag ( FileAttributes.Directory ) )
 			{
-				textBox1.Text = filenames[0];
+				Tb_ImgDir.Text = filenames[0];
 			}
 		}
 
@@ -154,12 +188,25 @@ namespace ScriptEditor
 			}
 		}
 
+		//ボタン：イメージディレクトリ指定
 		private void Btn_ImgDir_Click ( object sender, System.EventArgs e )
 		{
 			OpenFolder_CodePack opF = new OpenFolder_CodePack ();
 			if ( opF.OpenFolder () )
 			{
-				textBox1.Text = opF.GetPath ();
+				Tb_ImgDir.Text = opF.GetPath ();
+				switch ( flag_sqc_derived )
+				{
+				case SQC_DRV.ACTION: 
+					Ctrl_Stgs.Dir_ImageListAct = Tb_ImgDir.Text;
+					break;
+				case SQC_DRV.EFFECT: 
+					Ctrl_Stgs.Dir_ImageListEf = Tb_ImgDir.Text;
+					break;
+				default: break;
+				}
+				Ctrl_Stgs.Dir_ImageListAct = Tb_ImgDir.Text;
+				XML_IO.Save ( Ctrl_Stgs );
 			}
 		}
 	}

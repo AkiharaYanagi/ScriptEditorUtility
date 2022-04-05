@@ -74,6 +74,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TName.cs" />
+    <Compile Include="XML_IO.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EditListbox.resx">

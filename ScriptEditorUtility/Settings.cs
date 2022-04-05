@@ -1,54 +1,15 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-
-namespace ScriptEditor
+﻿namespace ScriptEditor
 {
 	//----------------------------------------------------------
 	//	フォームの基本情報を保存するファイル
 	//----------------------------------------------------------
+	//	保存はXML_IOを用いる
 	public class Settings
 	{
-		public string SettingFilename { set; get; } = "setting.xml";	//ファイル名
+		public string SettingFilename { set; get; } = "setting.xml";	//保存ファイル名
+
 		public string LastDirectory { set; get; } = "";					//前回のディレクトリ
-		public string LastFilename { set; get; } = "chara.dat";			//前回のファイル
-
-		public void Save ()
-		{
-			//クラスをXMLファイルに保存
-			XmlSerializer serializer = new XmlSerializer ( typeof ( Settings ) );
-
-			//書出
-			FileStream fs = new FileStream ( SettingFilename, FileMode.Create );
-			serializer.Serialize ( fs, this );
-			fs.Close ();
-		}
-
-		public void Load ()
-		{
-			//ファイルの存在しないとき
-			if ( ! File.Exists ( SettingFilename ) )
-			{
-				//デフォルトファイルの作成
-				LastDirectory = Directory.GetCurrentDirectory ();
-				Save ();
-				return;
-			}
-
-			//XMLファイルの設定
-			XmlSerializer serializer = new XmlSerializer ( typeof ( Settings ) );
-
-			//読込
-			using ( FileStream fs = new FileStream ( SettingFilename, FileMode.Open ) )
-			{
-				Settings tempSettings = ( Settings ) serializer.Deserialize ( fs );
-				this.SettingFilename = tempSettings.SettingFilename;
-				this.LastDirectory = tempSettings.LastDirectory;
-				this.LastFilename = tempSettings.LastFilename;
-
-				//カレントディレクトリの移動
-				Directory.SetCurrentDirectory ( LastDirectory );
-			}
-		}
+		public string LastFilename { set; get; } = "chara.dat";         //前回のファイル
 	}
 
 }

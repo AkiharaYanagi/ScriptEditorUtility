@@ -11,8 +11,12 @@ namespace ScriptEditor
 
 	public partial class Ctrl_CmdList :UserControl
 	{
+		//エディットリストボックス
 		private EditListbox < Command > EL_Cmd = new EditListbox<Command> ();
 		
+		//設定ファイル
+		private Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
+
 		public Ctrl_CmdList ()
 		{
 			InitializeComponent ();
@@ -36,6 +40,16 @@ namespace ScriptEditor
 
 			//IO
 			EL_Cmd.SetIOFunc ( SaveCommand, LoadCommand );
+			EL_Cmd.Func_SavePath = s=>
+			{
+				Ctrl_Stgs.File_CommandList = s;
+				XML_IO.Save ( Ctrl_Stgs );
+			};
+		}
+
+		public void SetEnvironment ( Ctrl_Settings stgs )
+		{
+			Ctrl_Stgs = stgs;
 		}
 
 		public void SetCharaData ( Chara ch )
@@ -46,6 +60,12 @@ namespace ScriptEditor
 			{
 				ctrl_Command1.Set ( cmd );
 			}
+		}
+
+		//データ読込
+		public void LoadData ()
+		{
+			EL_Cmd.LoadData ( Ctrl_Stgs.File_CommandList );
 		}
 
 

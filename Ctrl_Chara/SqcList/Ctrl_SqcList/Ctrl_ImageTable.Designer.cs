@@ -32,7 +32,7 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.pB_Sqc1 = new ScriptEditor.PB_Sqc();
 			this.Btn_Clear = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.Tb_ImgDir = new System.Windows.Forms.TextBox();
 			this.Btn_Load = new System.Windows.Forms.Button();
 			this.Btn_Save = new System.Windows.Forms.Button();
 			this.Btn_ImgDir = new System.Windows.Forms.Button();
@@ -50,7 +50,7 @@
 			this.panel1.Controls.Add(this.pB_Sqc1);
 			this.panel1.Location = new System.Drawing.Point(0, 65);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(634, 496);
+			this.panel1.Size = new System.Drawing.Size(600, 533);
 			this.panel1.TabIndex = 0;
 			this.panel1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel1_Scroll);
 			// 
@@ -59,9 +59,10 @@
 			this.pB_Sqc1.BackColor = System.Drawing.SystemColors.Control;
 			this.pB_Sqc1.EditData = null;
 			this.pB_Sqc1.ELB_Sqc = null;
+			this.pB_Sqc1.FlagAction = false;
 			this.pB_Sqc1.Location = new System.Drawing.Point(3, 3);
 			this.pB_Sqc1.Name = "pB_Sqc1";
-			this.pB_Sqc1.Size = new System.Drawing.Size(590, 458);
+			this.pB_Sqc1.Size = new System.Drawing.Size(618, 554);
 			this.pB_Sqc1.TabIndex = 0;
 			this.pB_Sqc1.TabStop = false;
 			// 
@@ -76,16 +77,16 @@
 			this.Btn_Clear.UseVisualStyleBackColor = false;
 			this.Btn_Clear.Click += new System.EventHandler(this.Btn_Clear_Click);
 			// 
-			// textBox1
+			// Tb_ImgDir
 			// 
-			this.textBox1.AllowDrop = true;
-			this.textBox1.Location = new System.Drawing.Point(116, 3);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(518, 19);
-			this.textBox1.TabIndex = 2;
-			this.textBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox1_DragDrop);
-			this.textBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBox1_DragEnter);
+			this.Tb_ImgDir.AllowDrop = true;
+			this.Tb_ImgDir.Location = new System.Drawing.Point(116, 3);
+			this.Tb_ImgDir.Name = "Tb_ImgDir";
+			this.Tb_ImgDir.ReadOnly = true;
+			this.Tb_ImgDir.Size = new System.Drawing.Size(426, 19);
+			this.Tb_ImgDir.TabIndex = 2;
+			this.Tb_ImgDir.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBox1_DragDrop);
+			this.Tb_ImgDir.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBox1_DragEnter);
 			// 
 			// Btn_Load
 			// 
@@ -129,11 +130,11 @@
 			this.Controls.Add(this.Btn_ImgDir);
 			this.Controls.Add(this.Btn_Save);
 			this.Controls.Add(this.Btn_Load);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.Tb_ImgDir);
 			this.Controls.Add(this.Btn_Clear);
 			this.Controls.Add(this.panel1);
 			this.Name = "Ctrl_ImageTable";
-			this.Size = new System.Drawing.Size(637, 549);
+			this.Size = new System.Drawing.Size(600, 600);
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Ctrl_ImageTable_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Ctrl_ImageTable_DragEnter);
 			this.panel1.ResumeLayout(false);
@@ -148,7 +149,7 @@
 		private System.Windows.Forms.Panel panel1;
 		private ScriptEditor.PB_Sqc pB_Sqc1;
 		private System.Windows.Forms.Button Btn_Clear;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox Tb_ImgDir;
 		private System.Windows.Forms.Button Btn_Load;
 		private System.Windows.Forms.Button Btn_Save;
 		private System.Windows.Forms.Button Btn_ImgDir;

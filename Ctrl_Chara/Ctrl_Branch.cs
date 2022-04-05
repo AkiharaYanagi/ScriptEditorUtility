@@ -20,6 +20,9 @@ namespace ScriptEditor
 		//コントロール
 		EditListbox < Branch > EL_Branch = new EditListbox<Branch> ();
 
+		//設定ファイル
+		private Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
+
 		//コンストラクタ
 		public Ctrl_Branch ()
 		{
@@ -27,6 +30,7 @@ namespace ScriptEditor
 
 			//==============================================================
 			//エディットリストボックスの設定
+			EL_Branch.Location = new System.Drawing.Point ( 3, 3 );
 
 			//選択移動時のイベント
 			EL_Branch.SelectedIndexChanged = ()=>
@@ -54,6 +58,11 @@ namespace ScriptEditor
 
 			//IO
 			EL_Branch.SetIOFunc ( SaveBranch, LoadBranch );
+			EL_Branch.Func_SavePath = s=>
+			{
+				Ctrl_Stgs.File_BranchList = s;
+				XML_IO.Save ( Ctrl_Stgs );
+			};
 
 			this.Controls.Add ( EL_Branch );
 
@@ -70,6 +79,11 @@ namespace ScriptEditor
 			//==============================================================
 		}
 
+		public void SetEnvironment ( Ctrl_Settings stgs )
+		{
+			Ctrl_Stgs = stgs;
+		}
+
 		//データ設定
 		public void SetCharaData ( Chara ch )
 		{
@@ -77,9 +91,11 @@ namespace ScriptEditor
 			Chara = ch;
 			BD_Branch = ch.BD_Branch;
 
+#if false
 			if ( 0 == ch.behavior.BD_Sequence.Count() ) { ch.behavior.BD_Sequence.New (); }
 			if ( 0 == ch.BD_Command.Count() ) { ch.BD_Command.New (); }
 			if ( 0 == ch.BD_Branch.Count() ) { ch.BD_Branch.New (); }
+#endif
 
 			//コントロールに設定
 			EL_Branch.SetData ( ch.BD_Branch );
@@ -98,6 +114,11 @@ namespace ScriptEditor
 				Cb_Command.SelectedValue = br.NameCommand;
 				SelectSequence ( br.NameSequence );
 			}
+		}
+
+		public void LoadData ()
+		{
+			EL_Branch.LoadData ( Ctrl_Stgs.File_BranchList );
 		}
 
 		public void SelectSequence ( string name )

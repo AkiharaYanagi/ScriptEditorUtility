@@ -71,6 +71,12 @@ namespace ScriptEditor
 			}
 
 			//イメージ
+			Compend.BD_Image.Clear ();
+			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
+			{
+				foreach ( ImageData imgdt in sqcDt.L_ImgDt.GetEnumerable () )
+				Compend.BD_Image.Add ( imgdt );
+			}
 		}
 	}
 }

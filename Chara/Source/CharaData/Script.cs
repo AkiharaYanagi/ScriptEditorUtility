@@ -45,7 +45,7 @@ namespace ScriptEditor
 		//--------------------------------------------------------------------
 		//位置
 		//--------------------------------------------------------------------
-		public Point Pos { get; set; } = new Point ( 0, 0 );
+		public Point Pos { get; set; } = new Point ( -250, -500 );
 		public void SetPos ( int x, int y ) { Pos = new Point ( x, y ); }
 		public void SetPosX ( int x ) { Pos = new Point ( x, Pos.Y ); }
 		public void SetPosY ( int y ) { Pos = new Point ( Pos.X, y ); }

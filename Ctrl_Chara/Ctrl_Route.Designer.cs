@@ -42,9 +42,9 @@
 			this.Lbl_Route.AutoSize = true;
 			this.Lbl_Route.Location = new System.Drawing.Point(3, 3);
 			this.Lbl_Route.Name = "Lbl_Route";
-			this.Lbl_Route.Size = new System.Drawing.Size(33, 12);
+			this.Lbl_Route.Size = new System.Drawing.Size(41, 12);
 			this.Lbl_Route.TabIndex = 0;
-			this.Lbl_Route.Text = "ルート";
+			this.Lbl_Route.Text = "[ルート]";
 			// 
 			// Tb_Summary
 			// 
@@ -62,9 +62,9 @@
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(302, 3);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(40, 12);
+			this.label1.Size = new System.Drawing.Size(48, 12);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "ブランチ";
+			this.label1.Text = "[ブランチ]";
 			// 
 			// CB_Branch
 			// 

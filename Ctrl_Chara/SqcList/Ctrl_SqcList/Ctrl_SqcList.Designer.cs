@@ -30,6 +30,7 @@
 		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -50,15 +51,27 @@
 			this.label2.TabIndex = 12;
 			this.label2.Text = "[イメージ]";
 			// 
+			// panel1
+			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.panel1.Location = new System.Drawing.Point(215, 35);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(515, 556);
+			this.panel1.TabIndex = 13;
+			// 
 			// Ctrl_SqcList
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.AutoSize = true;
+			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
+			this.Controls.Add(this.panel1);
 			this.Name = "Ctrl_SqcList";
-			this.Size = new System.Drawing.Size(804, 974);
+			this.Size = new System.Drawing.Size(729, 590);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -67,5 +80,6 @@
 		#endregion
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Panel panel1;
 	}
 }

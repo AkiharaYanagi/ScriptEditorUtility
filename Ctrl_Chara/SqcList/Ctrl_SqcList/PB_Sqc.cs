@@ -169,6 +169,7 @@ namespace ScriptEditor
 			int slctImg = EditData.SelectedImage;
 
 			using ( Font FONT0 = new Font ( "Meiryo", 12.0f ) )
+			using ( Font FONT1 = new Font ( "Meiryo", 10.0f ) )
 			{
 				//選択
 				g.FillRectangle ( Brushes.LightBlue, 0, slctSqc * CH, W, CH );
@@ -201,6 +202,11 @@ namespace ScriptEditor
 					//シークエンスデータ
 					DrawSequence(g, sqcDt.Sqc.Name, FONT0, 0 + y);
 					DrawSequence(g, "[" + sqcDt.nScript.ToString() + "]", FONT0, 20 + y);
+					if ( FlagAction )
+					{
+						Action act = (Action)sqcDt.Sqc;
+						DrawSequence(g, "(" + act.Category.ToString() + ")", FONT1, 40 + y);
+					}
 
 					//画像
 					int nI = 0;
