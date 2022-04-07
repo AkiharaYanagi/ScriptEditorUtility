@@ -53,6 +53,7 @@ namespace ScriptEditor
 			//表示
 			listBox1.DrawMode = DrawMode.OwnerDrawFixed;
 			listBox1.DrawItem += new DrawItemEventHandler ( ListBox1_DrawItem );
+			listBox1.ScrollAlwaysVisible = true;
 
 			//IO
 			IO_Btn_Off ();
@@ -311,7 +312,22 @@ namespace ScriptEditor
 			IO_Btn_On ();
 		}
 
-		private void IO_Btn_Off ()
+		public void IO_Visible ( bool b )
+		{
+			Btn_SaveOne.Visible = b;
+			Btn_SaveAll.Visible = b;
+			Btn_LoadOne.Visible = b;
+			Btn_LoadAll.Visible = b;
+
+			Btn_SaveOne.Visible = b;
+			Btn_SaveAll.Visible = b;
+			Btn_LoadOne.Visible = b;
+			Btn_LoadAll.Visible = b;
+
+			Btn_Folder.Visible = b;
+		}
+
+		public void IO_Btn_Off ()
 		{
 			Color clr = Color.FromArgb ( 255, 192, 192, 192 );
 			Btn_SaveOne.BackColor = clr;
@@ -327,7 +343,7 @@ namespace ScriptEditor
 			Btn_Folder.Enabled = false;
 		}
 
-		private void IO_Btn_On ()
+		public void IO_Btn_On ()
 		{
 			Color clrS = Color.FromArgb ( 255, 192, 192, 255 );
 			Color clrL = Color.FromArgb ( 255, 255, 255, 192 );

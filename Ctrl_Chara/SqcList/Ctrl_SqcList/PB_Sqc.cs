@@ -19,7 +19,7 @@ namespace ScriptEditor
 
 		//入力フォーム
 		public bool FlagAction { get; set; } = false;
-		private Form_Action form_sqc = new Form_Action();
+		private Form_Action form_act = new Form_Action();
 
 		private ContextMenuStrip contextMenuStrip1;
 		private System.ComponentModel.IContainer components;
@@ -40,7 +40,7 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			//入力フォーム
-			form_sqc.StartPosition = FormStartPosition.Manual;
+			form_act.StartPosition = FormStartPosition.Manual;
 
 			//カーソル判定用別スレッド
 			tmr.Elapsed += DDMouseMove;
@@ -109,6 +109,7 @@ namespace ScriptEditor
 		public void SetEnviroment ( EditSqcListData editData )
 		{
 			EditData = editData;
+			form_act.SetEnvironment ( editData );
 		}
 
 		//更新
@@ -135,7 +136,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ( SequenceData sqcDt )
 		{
-			form_sqc.tB_Setter1.SetFunc = (s)=>{sqcDt.Name = s;};
+			form_act.tB_Setter1.SetFunc = (s)=>{sqcDt.Name = s;};
 		}
 
 		//スクロール移動
@@ -264,9 +265,9 @@ namespace ScriptEditor
 						{
 							//入力フォーム
 							SequenceData sqcDt = ELB_Sqc.Get ();
-							form_sqc.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
-							form_sqc.Assosiate ( sqcDt );
-							form_sqc.Show();
+							form_act.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
+							form_act.Assosiate ( sqcDt );
+							form_act.Show();
 						}
 					}
 					else

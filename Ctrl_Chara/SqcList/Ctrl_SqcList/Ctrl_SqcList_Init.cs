@@ -74,17 +74,11 @@ namespace ScriptEditor
 			sw.Write ( sqcDt.nScript.ToString () + "," );
 
 			//アクションのみ
-#if false
-			if ( FlagAction )
-			{
-				Action act = (Action)sqcDt.Sqc;
-				sw.Write ( act.Category.ToString () + "," ); 
-			}
-#endif
 			if ( CTRL_SQC.ACTION == flag_sqc_derived )
 			{
 				Action act = (Action)sqcDt.Sqc;
 				sw.Write ( act.Category.ToString () + "," ); 
+				sw.Write ( act.NextActionName + "," ); 
 			}
 		}
 
@@ -101,18 +95,13 @@ namespace ScriptEditor
 			{
 				sqcDt.Sqc.ListScript.Add ( new Script () );
 			}
+
 			//アクションのみ
-#if false
-			if ( FlagAction )
-			{
-				Action act = (Action)sqcDt.Sqc;
-				act.Category = (ActionCategory)Enum.Parse ( typeof(ActionCategory), str_spl[2] );
-			}
-#endif
 			if ( CTRL_SQC.ACTION == flag_sqc_derived )
 			{
 				Action act = (Action)sqcDt.Sqc;
 				act.Category = (ActionCategory)Enum.Parse ( typeof(ActionCategory), str_spl[2] );
+				act.NextActionName = str_spl[3];
 			}
 
 			ELB_Sqc.Add ( sqcDt );

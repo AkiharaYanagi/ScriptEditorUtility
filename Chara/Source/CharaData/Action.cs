@@ -14,7 +14,7 @@
 	public class Action : Sequence 
 	{
 		//次アクション名
-		public string NextActionName { get; set; } = "Next";
+		public string NextActionName { get; set; } = "Stand";
 
 		//アクション属性
 		public ActionCategory Category { get; set; } = ActionCategory.NEUTRAL;

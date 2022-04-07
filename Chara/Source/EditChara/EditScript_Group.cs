@@ -30,7 +30,7 @@ namespace ScriptEditor
 			L_Scp = lsScp;
 
 			//グループ個数確認
-			int gn = 1;	//グループ種類数
+			int gn = 0;	//グループ種類数
 			List < int > L_groupID = new List<int> ();	//グループIDの保存
 			foreach ( Script s in lsScp )
 			{
@@ -56,7 +56,8 @@ namespace ScriptEditor
 			}
 
 			//選択
-			SelectGroup ( frame );
+			if ( frame >= L_Scp.Count ) {  return; }
+			SelectGroup ( L_Scp[frame].Group );
 		}
 
 
@@ -137,12 +138,31 @@ namespace ScriptEditor
 		//グループに選択スクリプトの内容を複製
 		public void PasteGroup ( Script scp )
 		{
-			//０のときは何もしない
+			//グループ０のときは何もしない
 			if ( 0 == scp.Group ) { return; }
 
-			foreach ( Script s in SelectedGroup )
+			//該当グループを取得
+			LScp targetLs = null;
+			foreach ( LScp ls in L_ScriptGroup )
 			{
-				s.Copy ( scp );
+				if ( 0 >= ls.Count ) { continue; }
+				
+				if ( scp.Group == ls[0].Group )
+				{
+					targetLs = ls;
+					break;
+				}
+			}
+			if ( targetLs is null ) { return; }
+
+			//値をコピー
+			foreach ( Script s in targetLs )
+			{
+				//自分以外
+				if ( s != scp )
+				{
+					s.Copy ( scp );
+				}
 			}
 		}
 	}
