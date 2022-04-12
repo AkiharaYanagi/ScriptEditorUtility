@@ -10,7 +10,7 @@ namespace ScriptEditor
 	{
 		//"名前","スクリプト数" を持ち、スクリプト配列は扱わない
 		public Sequence Sqc { get; set; } = new Sequence ();
-		public BD_IMGDT L_ImgDt { get; set; } = new BD_IMGDT ();
+		public BD_IMGDT BD_ImgDt { get; set; } = new BD_IMGDT ();
 
 		public void SetName ( string name )
 		{
@@ -74,7 +74,7 @@ namespace ScriptEditor
 			Compend.BD_Image.Clear ();
 			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
 			{
-				foreach ( ImageData imgdt in sqcDt.L_ImgDt.GetEnumerable () )
+				foreach ( ImageData imgdt in sqcDt.BD_ImgDt.GetEnumerable () )
 				Compend.BD_Image.Add ( imgdt );
 			}
 		}

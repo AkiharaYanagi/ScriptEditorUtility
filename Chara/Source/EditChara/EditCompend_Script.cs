@@ -145,6 +145,16 @@ namespace ScriptEditor
 			}
 		}
 
+
+		//選択中のシークエンス内スクリプトに対し処理
+		public void DoAllScript ( System.Action < Script > Func )
+		{
+			foreach ( Script s in SelectedSequence.ListScript )
+			{
+				Func ( s );
+			}
+		}
+
 #if false
 
 		//---------------------------------------------------------------------

@@ -125,7 +125,7 @@ namespace ScriptEditor
 			int max = 0;
 			foreach ( SequenceData sd in ELB_Sqc.GetList ())
 			{
-				if ( max < sd.L_ImgDt.Count() ) { max = sd.L_ImgDt.Count(); }
+				if ( max < sd.BD_ImgDt.Count() ) { max = sd.BD_ImgDt.Count(); }
 			}
 			this.Width = max < 1 ? 200 : CW + (max * CW);
 
@@ -211,7 +211,7 @@ namespace ScriptEditor
 
 					//画像
 					int nI = 0;
-					foreach ( ImageData imgDt in sqcDt.L_ImgDt.GetEnumerable() )
+					foreach ( ImageData imgDt in sqcDt.BD_ImgDt.GetEnumerable() )
 					{
 						g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
 					}
@@ -222,7 +222,7 @@ namespace ScriptEditor
 				//イメージ選択位置
 				int Img_x = CW + CW * slctImg;
 				int Img_y = CH * slctSqc;
-				if ( Img_y < EditData.GetSequenceData()?.L_ImgDt.Count () )
+				if ( Img_y < EditData.GetSequenceData()?.BD_ImgDt.Count () )
 				{
 					g.DrawRectangle ( Pens.Red, new Rectangle ( Img_x, Img_y, CW, CH ) );
 				}

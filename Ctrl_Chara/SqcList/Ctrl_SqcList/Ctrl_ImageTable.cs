@@ -107,7 +107,7 @@ namespace ScriptEditor
 					//sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
 					FileStream fs = new FileStream ( path, FileMode.Open, FileAccess.Read );
 					Image img = Image.FromStream ( fs );
-					sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
+					sqcDt.BD_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
 					fs.Close ();
 				}
 

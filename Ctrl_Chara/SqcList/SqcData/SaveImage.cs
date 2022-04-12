@@ -46,7 +46,7 @@ namespace ScriptEditor
 
 
 				int img_index = 0;
-				foreach ( ImageData id in sd.L_ImgDt.GetEnumerable() )
+				foreach ( ImageData id in sd.BD_ImgDt.GetEnumerable() )
 				{
 					string s0 = sqc_index.ToString ("000") + "_";
 					string s1 = sd.Name + "_" ;

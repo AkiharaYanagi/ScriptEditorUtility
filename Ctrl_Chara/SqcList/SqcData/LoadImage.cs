@@ -46,7 +46,7 @@ namespace ScriptEditor
 				fs.Close ();
 
 				//データに追加
-				sqcDt.L_ImgDt.Add ( new ImageData ( filename, img ) );
+				sqcDt.BD_ImgDt.Add ( new ImageData ( filename, img ) );
 			}
 		}
 	}

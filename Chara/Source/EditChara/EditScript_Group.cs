@@ -165,5 +165,14 @@ namespace ScriptEditor
 				}
 			}
 		}
+
+		//選択中のグループに対して処理
+		public void DoGroup ( System.Action < Script > Func )
+		{
+			foreach ( Script s in SelectedGroup )
+			{
+				Func ( s );
+			}
+		}
 	}
 }

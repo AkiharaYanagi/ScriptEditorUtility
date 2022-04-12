@@ -155,7 +155,7 @@ namespace ScriptEditor
 
 
 		//スクリプトの書出
-		private void WriteListScript ( StreamWriter strmWriter, Compend cmpd, List<Script> listScript )
+		public void WriteListScript ( StreamWriter strmWriter, Compend cmpd, List<Script> listScript )
 		{
 			//スクリプト
 			foreach ( Script script in listScript )

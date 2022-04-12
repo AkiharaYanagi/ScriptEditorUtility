@@ -91,6 +91,11 @@ namespace ScriptEditor
 		public void GroupSetterHRect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterHRect, l ); }
 		public void GroupSetterARect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterARect, l ); }
 		public void GroupSetterORect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterORect, l ); }
+
+
+
+
+
 	}
 
 }

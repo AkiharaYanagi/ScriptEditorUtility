@@ -150,8 +150,8 @@ namespace ScriptEditor
 
 		public void Remove ( string name )
 		{
-			BL_t.Remove ( DCT_t [ name ] );
 			DCT_t.Remove ( name );
+			BL_t.Remove ( DCT_t [ name ] );
 		}
 
 		public void Remove ( T t )
@@ -161,8 +161,11 @@ namespace ScriptEditor
 
 		public void Clear ()
 		{
-			BL_t.Clear ();
 			DCT_t.Clear ();
+			BL_t.Clear ();
+			//@info BindingListの前にDictionaryを削除しないと
+			//　バインドされたコントロールのイベントが途中で発生する
+			// -> Countなどの値がずれてAssertする
 		}
 
 		public BindingList < T > GetBindingList ()

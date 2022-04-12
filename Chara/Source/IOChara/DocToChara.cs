@@ -142,7 +142,7 @@ namespace ScriptEditor
 
 
 		//スクリプトリストの読込
-		private void ReadScriptList ( Sequence sequence, List<Element> listElemnt )
+		public void ReadScriptList ( Sequence sequence, List<Element> listElemnt )
 		{
 			//子Element <Script> 数は不定
 			int frame = 0;	//フレーム数

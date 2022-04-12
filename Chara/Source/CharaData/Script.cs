@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace ScriptEditor
 {
+	using BD_Tn = BindingDictionary < TName >;
 	using BD_EfGn = BindingDictionary < EffectGenerate >;
 
 	//================================================================
@@ -21,12 +22,13 @@ namespace ScriptEditor
 	//		┣暗転	┣振動
 	//================================================================
 
-	//スクリプト項目追加
+	//スクリプト項目に追加するとき以下を更新
 	// class Script
 	// IOChara (ScriptEditor)
 	// IOChara (GameMain)
 	// GameMain
 
+	[Serializable]
 	public class Script
 	{
 		//--------------------------------------------------------------------
@@ -68,7 +70,7 @@ namespace ScriptEditor
 		//------------------------------------------------
 
 		//ルートネームリスト
-		public BindingDictionary < TName > BD_RutName = new BindingDictionary <TName> ();
+		public BD_Tn BD_RutName = new BD_Tn ();
 
 		//------------------------------------------------
 		//枠
@@ -113,6 +115,7 @@ namespace ScriptEditor
 		public Script ( Script s )
 		{
 			this.Frame = s.Frame;
+			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 			this.Vel = s.Vel;
@@ -136,6 +139,7 @@ namespace ScriptEditor
 		public void Clear ()
 		{
 			Frame = 0;
+			Group = 0;
 			ImgName = "Clear";
 			CalcState = CLC_ST.CLC_MAINTAIN;
 			BD_RutName.Clear ();
@@ -153,6 +157,7 @@ namespace ScriptEditor
 		public void Copy ( Script s )
 		{
 			this.Frame = s.Frame;
+			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 			this.Vel = s.Vel;
@@ -184,6 +189,7 @@ namespace ScriptEditor
 			Script s = (Script)obj;
 
 			if ( this.Frame != s.Frame ) { return false; }
+			if ( this.Group != s.Group ) { return false; }
 			if ( this.ImgName != s.ImgName ) { return false; }
 			if ( this.Pos != s.Pos ) { return false; }
 			if ( this.Vel != s.Vel ) { return false; }
@@ -204,7 +210,8 @@ namespace ScriptEditor
 		public override int GetHashCode ()
 		{
 			int i0  = Frame;
-			int i2  = i0  ^ ImgName.GetHashCode ();
+			int i1  = i0  ^ Group;
+			int i2  = i1  ^ ImgName.GetHashCode ();
 			int i3  = i2  ^ Pos.GetHashCode ();
 			int i4  = i3  ^ Vel.GetHashCode ();
 			int i5  = i4  ^ Acc.GetHashCode ();

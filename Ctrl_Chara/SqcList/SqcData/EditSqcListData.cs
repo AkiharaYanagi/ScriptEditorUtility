@@ -39,7 +39,7 @@ namespace ScriptEditor
 			if ( Exist () )
 			{
 				SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
-				sqcDt.L_ImgDt.RemoveAt ( SelectedImage );
+				sqcDt.BD_ImgDt.RemoveAt ( SelectedImage );
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace ScriptEditor
 			{
 				//イメージ
 				SequenceData scqDt = Dt.L_Sqc.Get ( sqc );
-				if ( 0 <= image && image < scqDt.L_ImgDt.Count () )
+				if ( 0 <= image && image < scqDt.BD_ImgDt.Count () )
 				{
 					//両方成立のとき
 					return true;
@@ -79,11 +79,11 @@ namespace ScriptEditor
 			if ( SelectedImage == 0 ) { return; }
 
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
-			if ( sqcDt.L_ImgDt.Count () < 2 ) { return; }
+			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
 
-			ImageData imgDt_temp = sqcDt.L_ImgDt [ SelectedImage ];
-			sqcDt.L_ImgDt [ SelectedImage ] = sqcDt.L_ImgDt [ SelectedImage - 1 ];
-			sqcDt.L_ImgDt [ SelectedImage - 1 ] = imgDt_temp;
+			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
+			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ SelectedImage - 1 ];
+			sqcDt.BD_ImgDt [ SelectedImage - 1 ] = imgDt_temp;
 
 //			STS_TXT.Trace ("Prev.");
 		}
@@ -93,12 +93,12 @@ namespace ScriptEditor
 			if ( ! Exist () ) { return; }
 
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
-			if ( sqcDt.L_ImgDt.Count () < 2 ) { return; }
-			if ( SelectedImage == sqcDt.L_ImgDt.Count () - 1 ) { return; }
+			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
+			if ( SelectedImage == sqcDt.BD_ImgDt.Count () - 1 ) { return; }
 
-			ImageData imgDt_temp = sqcDt.L_ImgDt [ SelectedImage ];
-			sqcDt.L_ImgDt [ SelectedImage ] = sqcDt.L_ImgDt [ SelectedImage + 1 ];
-			sqcDt.L_ImgDt [ SelectedImage + 1 ] = imgDt_temp;
+			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
+			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ SelectedImage + 1 ];
+			sqcDt.BD_ImgDt [ SelectedImage + 1 ] = imgDt_temp;
 
 //			STS_TXT.Trace ("Next.");
 		}
@@ -116,7 +116,7 @@ namespace ScriptEditor
 			int nImage = 0;
 			foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
 			{
-				nImage += sqcDt.L_ImgDt.Count ();
+				nImage += sqcDt.BD_ImgDt.Count ();
 			}
 
 			//すべてのスクリプトに設定
@@ -125,9 +125,9 @@ namespace ScriptEditor
 				string strImage_0 = "ImgName";	//仮イメージ名指定
 				foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
 				{
-					if ( 0 < sqcDt.L_ImgDt.Count () )
+					if ( 0 < sqcDt.BD_ImgDt.Count () )
 					{
-						strImage_0 = sqcDt.L_ImgDt[0].Name;
+						strImage_0 = sqcDt.BD_ImgDt[0].Name;
 						break;
 					}
 				}
@@ -136,9 +136,9 @@ namespace ScriptEditor
 				{
 					foreach ( Script scp in sqcDt.Sqc.ListScript )
 					{
-						if ( sqcDt.L_ImgDt.Count () > 0 )
+						if ( sqcDt.BD_ImgDt.Count () > 0 )
 						{
-							scp.ImgName = sqcDt.L_ImgDt [ 0 ].Name;
+							scp.ImgName = sqcDt.BD_ImgDt [ 0 ].Name;
 						}
 						else
 						{
@@ -154,7 +154,7 @@ namespace ScriptEditor
 		{
 			foreach ( SequenceData sqcDt in Dt.L_Sqc.GetEnumerable () )
 			{
-				sqcDt.L_ImgDt.Clear ();
+				sqcDt.BD_ImgDt.Clear ();
 			}
 		}
 

@@ -62,6 +62,7 @@
     <Compile Include="InputTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListUtility.cs" />
     <Compile Include="OpenFolder_CodePack.cs" />
     <Compile Include="PointUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

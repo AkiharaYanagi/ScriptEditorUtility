@@ -143,10 +143,12 @@ namespace ScriptEditor
 		{
 			Route rut = (Route)ob;
 			sw.Write ( rut.Name + "," );
-			sw.Write ( rut.Summary + "," );
-			sw.Write ( ";" );
+			sw.Write ( rut.Summary + ";" );	//前半区切り";"セミコロン
+			int i = 0;
+			int count = rut.BD_BranchName.Count ();
 			foreach ( TName tn in rut.BD_BranchName.GetEnumerable() )
 			{
+				if ( count < i ++ ) { break; }	//リストの最後には","カンマを追加しない
 				sw.Write ( tn.Name + "," );
 			}
 			sw.Write ( ";" );
@@ -156,11 +158,14 @@ namespace ScriptEditor
 		{
 			Route rut = new Route ();
 			string str = sr.ReadLine ();
-			string[] str_spl_semi = str.Split ( ';' );
+			string[] str_spl_semi = str.Split ( ';' ); //	"前半";"後半";
+			
+			//前半	"名前","要約";
 			string[] str_pre = str_spl_semi[0].Split(',');
 			rut.Name = str_pre[0];
 			rut.Summary = str_pre[1];
 
+			//後半	"ブランチ名",……,"ブランチ名";
 			string[] str_brcName = str_spl_semi[1].Split(',');
 			foreach ( string strName in str_brcName )
 			{
