@@ -27,12 +27,13 @@ namespace ScriptEditor
 		public void Clear ()
 		{
 			ClearScript ();
-			BD_Image.Clear ();
+			ClearImage ();
 		}
 
-		//イメージを残しスクリプトのみクリア
+		//スクリプトのみクリア
 		public void ClearScript ()
 		{
+			//手動で内部クリア
 			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
 			foreach ( Sequence seq in bl_sqc )
 			{
@@ -41,11 +42,19 @@ namespace ScriptEditor
 			BD_Sequence.Clear ();
 		}
 
+		//イメージのみクリア
+		public void ClearImage ()
+		{
+			BD_Image.Clear ();
+		}
+
 		//コピー
 		public virtual void Copy ( Compend srcCompend )
 		{
 			Clear ();
+			BD_Sequence.DeepCopy ( srcCompend.BD_Sequence );
 
+#if false
 			//手動でディープコピーする
 			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
 			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
@@ -60,6 +69,7 @@ namespace ScriptEditor
 				Sequence seq = (Sequence)kvp.Value;
 				bl_sqc.Add ( new Sequence ( seq ) );
 			}
+#endif
 
 			CopyImageList ( srcCompend );
 		}
@@ -67,12 +77,17 @@ namespace ScriptEditor
 		//イメージデータ部分のコピー
 		public void CopyImageList ( Compend srcCompend )
 		{
+			ClearImage ();
+			BD_Image.DeepCopy ( srcCompend.BD_Image );
+
+#if false
 			//イメージデータはディープコピーする
 			BindingList < ImageData > bl_imgdt = srcCompend.BD_Image.GetBindingList();
 			foreach ( ImageData imageData in bl_imgdt )
 			{
 				this.BD_Image.Add ( new ImageData ( imageData ) );
 			}
+#endif
 		}
 
 		//全シークエンス内でのスクリプト最大数
@@ -108,22 +123,11 @@ namespace ScriptEditor
 		//Action型指定 コピー
 		public override void Copy ( Compend srcCompend )
 		{
-			//ディープコピー
 			base.Clear ();
 
-			BL_SQC bl_sqc = base.BD_Sequence.GetBindingList ();
-			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
-			foreach ( Action act in src_bl_sqc )
-			{
-				bl_sqc.Add ( new Action ( act ) );
-			}
-			DCT_SQC dct_sqc = base.BD_Sequence.GetDictionary ();
-			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
-			foreach ( KeyValuePair < string, Sequence > kvp in src_dct_sqc )
-			{
-				Action a = (Action)kvp.Value;
-				dct_sqc.Add ( a.Name, new Action ( a ) );
-			}
+			//ディープコピー
+			//引数：Sequenceを受けて新規Actionを生成して返すデリゲート
+			BD_Sequence.DeepCopy ( srcCompend.BD_Sequence, sqc=>new Action(sqc) );
 
 			CopyImageList ( srcCompend );
 		}
@@ -148,6 +152,7 @@ namespace ScriptEditor
 		{
 			base.Clear ();
 
+#if false
 			BL_SQC bl_sqc = base.BD_Sequence.GetBindingList ();
 			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
 			foreach ( Effect ef in src_bl_sqc )
@@ -162,6 +167,11 @@ namespace ScriptEditor
 				Effect e = (Effect)kvp.Value;
 				dct_sqc.Add ( e.Name, new Effect ( e ) );
 			}
+#endif
+			//ディープコピー
+			//引数：Sequenceを受けて新規Effectを生成して返すデリゲート
+			BD_Sequence.DeepCopy ( srcCompend.BD_Sequence, sqc=>new Effect(sqc) );
+
 
 			CopyImageList ( srcCompend );
 		}

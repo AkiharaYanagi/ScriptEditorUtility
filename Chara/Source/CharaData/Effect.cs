@@ -29,6 +29,12 @@ namespace ScriptEditor
 //			Clear ();
 		}
 
+		//継承元から生成するコンストラクタ
+		public Effect ( Sequence sqc )
+		{
+			base.Copy ( sqc );
+		}
+
 		//コピーコンストラクタ
 		public Effect ( Effect effect )
 		{

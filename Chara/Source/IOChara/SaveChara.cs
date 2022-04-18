@@ -32,6 +32,8 @@ namespace ScriptEditor
 			CharaToDoc chtom = new CharaToDoc ();
 			MemoryStream mstrmChara = chtom.Run ( chara );
 
+			if( mstrmChara is null ) { return; }	//何もしないで続行
+
 			//ストリームリーダにセット
 			StreamReader strmReaderChara = new StreamReader ( mstrmChara, Encoding.UTF8 );
 

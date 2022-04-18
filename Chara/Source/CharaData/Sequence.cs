@@ -7,7 +7,7 @@ namespace ScriptEditor
 	//	<シークエンス>		各フレーム毎のスクリプトをリスト状に持つ
 	//		┣名前
 	//		┣[]スクリプト
-	//		┣汎用パラメータ(SqcParamを継承)
+	//		///┣汎用パラメータ(SqcParamを継承)
 	//================================================================
 	[Serializable]
 	public class Sequence : IName
@@ -15,6 +15,7 @@ namespace ScriptEditor
 		//名前
 		public string Name { get; set; } = "SqcName";
 		public string GetName () { return Name; }
+		public override string ToString () { return this.Name; }
 
 		//スクリプトリスト
 		public List<Script> ListScript { get; set; } = new List<Script> ();
@@ -27,7 +28,7 @@ namespace ScriptEditor
 		public Sequence ( string str )
 		{
 			this.Name = str;
-			ListScript.Add ( new Script () );   //自動的にスクリプトを持つ
+			//ListScript.Add ( new Script () );   //自動的にスクリプトを持つ
 		}
 
 		//コピーコンストラクタ
@@ -57,7 +58,7 @@ namespace ScriptEditor
 		//	※　スクリプトリストが０のまま扱わない
 		public virtual void Clear ()
 		{
-			Name = "";
+			Name = "Clear";
 			foreach ( Script script in ListScript )
 			{
 				script.Clear ();
@@ -65,7 +66,7 @@ namespace ScriptEditor
 			ListScript.Clear ();
 		}
 
-		//コピー
+		//全体コピー
 		public virtual void Copy ( Sequence sequence )
 		{
 			Clear ();
@@ -76,10 +77,14 @@ namespace ScriptEditor
 			}
 		}
 
-		//ToStringオーバーライド
-		public override string ToString ()
+		//スクリプトリストのみコピー
+		public virtual void CopyScpList ( Sequence sequence )
 		{
-			return this.Name;
+			ListScript.Clear ();
+			foreach ( Script script in sequence.ListScript )
+			{
+				ListScript.Add ( new Script ( script ) );
+			}
 		}
 	}
 

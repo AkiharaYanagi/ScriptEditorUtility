@@ -18,8 +18,8 @@ namespace ScriptEditor
 	//		┣[]ルート
 	//		┣[]接触枠	┣[]攻撃枠	┣[]防御枠	┣[]相殺枠
 	//		┣[]エフェクト発生
-	//		┣攻撃値
-	//		┣暗転	┣振動
+	//		┣パラメータ(戦闘)
+	//		┣パラメータ(演出)
 	//================================================================
 
 	//スクリプト項目に追加するとき以下を更新
@@ -32,44 +32,35 @@ namespace ScriptEditor
 	public class Script
 	{
 		//--------------------------------------------------------------------
-		//アクション内スクリプトリストにおける自身のフレーム数(番目)
+		//	ID
+		//--------------------------------------------------------------------
+		//シークエンス内スクリプトリストにおける自身のフレーム数(番目)
 		public int Frame { get; set; } = 0;
 
 		//編集用グループ値 (0はグループ無し、１からグループ生成)
 		public int Group { get; set; } = 0;
 
 		//--------------------------------------------------------------------
-		//位置
+		//表示
 		//--------------------------------------------------------------------
-		//キャラ内のイメージリストにおけるイメージ名
+		//表示画像 名前指定
 		public string ImgName { get; set; } = "ImgName";
 
 		//--------------------------------------------------------------------
 		//位置
 		//--------------------------------------------------------------------
+		//(基準位置からの画像表示補正位置)
 		public Point Pos { get; set; } = new Point ( -250, -500 );
 		public void SetPos ( int x, int y ) { Pos = new Point ( x, y ); }
 		public void SetPosX ( int x ) { Pos = new Point ( x, Pos.Y ); }
 		public void SetPosY ( int y ) { Pos = new Point ( Pos.X, y ); }
 
-		public Point Vel { get; set; } = new Point ( 0, 0 );
-		public void SetVel ( int x, int y ) { Vel = new Point ( x, y ); }
-		public void SetVelX ( int x ) { Vel = new Point ( x, Vel.Y ); }
-		public void SetVelY ( int y ) { Vel = new Point ( Vel.X, y ); }
-
-		public Point Acc { get; set; } = new Point ( 0, 0 );
-		public void SetAcc ( int x, int y ) { Acc = new Point ( x, y ); }
-		public void SetAccX ( int x ) { Acc = new Point ( x, Acc.Y ); }
-		public void SetAccY ( int y ) { Acc = new Point ( Acc.X, y ); }
-
 		//計算状態(加算/代入/持続)
 		public CLC_ST CalcState { get; set; } = new CLC_ST ();
 
 		//------------------------------------------------
-		//スクリプト分岐
+		//ルートネームリスト (スクリプト分岐)
 		//------------------------------------------------
-
-		//ルートネームリスト
 		public BD_Tn BD_RutName = new BD_Tn ();
 
 		//------------------------------------------------
@@ -89,19 +80,8 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//値
 		//------------------------------------------------
-		public int Power { get; set; } = 0;			//攻撃値
-		public int BlackOut { get; set; } = 0;		//暗転[F]
-		public int Vibration { get; set; } = 0;		//振動[F](全体)
-		public int Stop { get; set; } = 0;			//停止[F](全体)
-
-		//------
-		public int Radian { get; set; } = 0;			//回転
-		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
-		public int AfterImage_N { get; set; } = 0;		//残像[個]
-		public int AfterImage_time { get; set; } = 0;	//残像[F] 持続
-		public int Vibration_S { get; set; } = 0;		//振動[F](個別)
-		public Color Color { get; set; } = new Color ();	//色調変更
-		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
+		public ScriptParam_Battle Param_Btl = new ScriptParam_Battle ();
+		public ScriptParam_Effect Param_Ef = new ScriptParam_Effect ();
 
 
 		//================================================================
@@ -118,8 +98,6 @@ namespace ScriptEditor
 			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
-			this.Vel = s.Vel;
-			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
 
 			this.BD_RutName = new BindingDictionary<TName> ();
@@ -129,10 +107,10 @@ namespace ScriptEditor
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
 			this.ListARect = new List < Rectangle > ( s.ListARect );
 			this.ListORect = new List < Rectangle > ( s.ListORect );
-			this.Power = s.Power;
 			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
-			this.BlackOut = s.BlackOut;
-			this.Vibration = s.Vibration;
+
+			this.Param_Btl = new ScriptParam_Battle ( s.Param_Btl );
+			this.Param_Ef = new ScriptParam_Effect ( s.Param_Ef );
 		}
 
 		//初期化
@@ -141,16 +119,19 @@ namespace ScriptEditor
 			Frame = 0;
 			Group = 0;
 			ImgName = "Clear";
+			Pos = new Point ();
 			CalcState = CLC_ST.CLC_MAINTAIN;
+
 			BD_RutName.Clear ();
 			ListCRect.Clear ();
 			ListARect.Clear ();
 			ListHRect.Clear ();
 			ListORect.Clear ();
-			Power = 0;
+
 			BD_EfGnrt.Clear ();
-			BlackOut = 0;
-			Vibration = 0;
+
+			Param_Btl.Clear ();
+			Param_Ef.Clear ();
 		}
 
 		//コピー
@@ -160,18 +141,16 @@ namespace ScriptEditor
 			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
-			this.Vel = s.Vel;
-			this.Acc = s.Acc;
 			this.CalcState = s.CalcState;
 			this.BD_RutName.DeepCopy ( s.BD_RutName );
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
 			this.ListARect = new List < Rectangle > ( s.ListARect );
 			this.ListORect = new List < Rectangle > ( s.ListORect );
-			this.Power = s.Power;
 			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
-			this.BlackOut = s.BlackOut;
-			this.Vibration = s.Vibration;
+
+			this.Param_Btl.Copy ( s.Param_Btl );
+			this.Param_Ef.Copy ( s.Param_Ef );
 		}
 
 
@@ -192,15 +171,12 @@ namespace ScriptEditor
 			if ( this.Group != s.Group ) { return false; }
 			if ( this.ImgName != s.ImgName ) { return false; }
 			if ( this.Pos != s.Pos ) { return false; }
-			if ( this.Vel != s.Vel ) { return false; }
-			if ( this.Acc != s.Acc ) { return false; }
 			if ( this.CalcState != s.CalcState ) { return false; }
 			if ( ! this.BD_RutName.SequenceEqual ( s.BD_RutName ) ) { return false; }
 			if ( ! this.ListCRect.SequenceEqual ( s.ListCRect ) ) { return false; }
 			if ( ! this.ListHRect.SequenceEqual ( s.ListHRect ) ) { return false; }
 			if ( ! this.ListARect.SequenceEqual ( s.ListARect ) ) { return false; }
 			if ( ! this.ListORect.SequenceEqual ( s.ListORect ) ) { return false; }
-			if ( this.Power != s.Power ) { return false; }
 			if ( ! this.BD_EfGnrt.SequenceEqual ( s.BD_EfGnrt ) ) { return false; }
 
 			return true;
@@ -213,9 +189,7 @@ namespace ScriptEditor
 			int i1  = i0  ^ Group;
 			int i2  = i1  ^ ImgName.GetHashCode ();
 			int i3  = i2  ^ Pos.GetHashCode ();
-			int i4  = i3  ^ Vel.GetHashCode ();
-			int i5  = i4  ^ Acc.GetHashCode ();
-			int i6  = i5  ^ CalcState.GetHashCode ();
+			int i6  = i3  ^ CalcState.GetHashCode ();
 			int i7  = i6  ^ BD_RutName.GetHashCode ();
 			int i8  = i7  ^ ListCRect.GetHashCode ();
 			int i9  = i8  ^ ListHRect.GetHashCode ();

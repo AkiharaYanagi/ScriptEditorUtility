@@ -2,11 +2,13 @@
 {
 	//================================================================
 	//	◆アクション		各フレームのスクリプトリストを持つ
-	//		┣[]スクリプト
+	//		base	┣[]スクリプト
 	//		┣次アクション
 	//		┣アクション属性
 	//		┣アクション体勢
-	//		┣消費バランス値
+	//
+	//		┣ヒット数
+	//		┣ヒット間隔
 	//================================================================
 
 	//-------------------------------------------------------
@@ -22,8 +24,11 @@
 		//アクション体勢
 		public ActionPosture Posture { get; set; } = ActionPosture.STAND;
 
-		//消費バランス
-		public int _Balance { get; set; } = 0;
+		//ヒット数
+		public int HitNum { get; set; } = 1;
+
+		//ヒット間隔[F}
+		public int HitPitch { get; set; } = 10;
 
 
 		//----------------------------------------------------------------------------
@@ -36,7 +41,12 @@
 		public Action ( string str ) : base ( str )
 		{
 			//@info baseのコンストラクタの後でbase.Clear()が呼ばれてしまうのでClear()を用いない
-//			Clear ();
+		}
+
+		//継承元から生成するコンストラクタ
+		public Action ( Sequence sqc )
+		{
+			base.Copy ( sqc );
 		}
 
 		//コピーコンストラクタ
@@ -44,21 +54,21 @@
 		{
 			base.Copy ( action );
 
-//			this.NextIndex = action.NextIndex;
 			this.NextActionName = action.NextActionName;
 			this.Category = action.Category;
 			this.Posture = action.Posture;
-			this._Balance = action._Balance;
+			this.HitNum = action.HitNum;
+			this.HitPitch = action.HitPitch;
 	}
 
 		//クリア
 		public override void Clear ()
 		{
-//			NextIndex = 0;
 			NextActionName = "Next";
 			Category = ActionCategory.NEUTRAL;
 			Posture = ActionPosture.STAND;
-			_Balance = 0;
+			HitNum = 0;
+			HitPitch = 0;
 
 			base.Clear ();
 		}
@@ -68,11 +78,11 @@
 		{
 			base.Copy ( action );
 
-//			this.NextIndex = action.NextIndex;
 			this.NextActionName = action.NextActionName;
 			this.Category = action.Category;
 			this.Posture = action.Posture;
-			this._Balance = action._Balance;
+			this.HitNum = action.HitNum;
+			this.HitPitch = action.HitPitch;
 		}
 	}
 

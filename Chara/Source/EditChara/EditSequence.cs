@@ -5,7 +5,8 @@
 	//---------------------------------------------------------------------
 	public class EditSequence
 	{
-		public Sequence Sqc { get; set; } = null;
+		//編集対象シークエンス
+		public Sequence Sqc { get; set; } = new	Sequence ();
 
 		public void Assosiate ( Sequence s )
 		{
@@ -20,24 +21,30 @@
 
 		//コンペンドを指定してすべてのシークエンス中のスクリプトを編集
 		//引数：スクリプトを対象とした編集デリゲート
-		public delegate void FuncEditScript ( Script scp );
-		public void EditAllScript ( Compend cmpd, FuncEditScript editScp )
+		public void EditAllScript ( Compend cmpd, System.Action < Script > F_EditScp )
 		{
-			foreach ( Sequence sqc in cmpd.BD_Sequence.GetBindingList () )
+			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
 			{
 				foreach ( Script scp in sqc.ListScript )
 				{
-					editScp ( scp );
+					F_EditScp ( scp );
 				}
 			}
 		}
 
-		public void EditScriptInSequence ( FuncEditScript FuncES )
+		//対象シークエンスのスクリプトに対し編集
+		public void EditScriptInSequence ( System.Action < Script > F_EditScp )
 		{
 			foreach ( Script scp in Sqc.ListScript )
 			{
-				FuncES ( scp );
+				F_EditScp ( scp );
 			}
+		}
+
+		//汎用
+		public void DoSetterInSqc_T < T > ( System.Action < Script, T > Setter, T t )
+		{
+			foreach ( Script s in Sqc.ListScript ) { Setter ( s, t ); }
 		}
 	}
 

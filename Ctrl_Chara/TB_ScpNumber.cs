@@ -2,11 +2,14 @@
 
 namespace ScriptEditor
 {
+	using PrmInt = ScriptParam < int >;
+
 	//----------------------------------------------------------------------
 	// スクリプトのパラメータに対し、数値のみ入力できるテキストボックス
 	//	[シークエンス全体]、[グループ]、[単体]、のいずれかで編集対象を設定できる
 	//----------------------------------------------------------------------
-	using PrmInt = ScriptParam < int >;
+	using Setter = System.Action < Script, int >;
+	using Getter = System.Func < Script, int >;
 
 	public class TB_ScpNumber : TextBox
 	{
@@ -14,7 +17,16 @@ namespace ScriptEditor
 		public Script Scp { get; set; } = null;
 
 		//設定用デリゲート
+		public Setter Setter = (s,i)=>{};
+		public Getter Getter = (s)=>0;
+
 		public PrmInt PrmInt { get; set; } = null;
+
+		//編集用
+		EditCompend EditCompend = null;
+
+		//表示
+		public System.Action Disp { get; set; } = ()=>{};
 
 		//コンストラクタ
 		public TB_ScpNumber ()
@@ -22,13 +34,28 @@ namespace ScriptEditor
 			this.Text = "0";
 		}
 
-		//設定用、取得用関数
+		//環境設定
+		public void SetEnvironment ( EditCompend ec, Setter setter, Getter getter )
+		{
+			EditCompend = ec;
+			Getter = getter;
+			Setter = setter;
+		}
+		public void SetEnvironment ( EditCompend ec )
+		{
+			EditCompend = ec;
+		}
+		public void SetEnvironment ( EditCompend ec, PrmInt prmInt )
+		{
+			EditCompend = ec;
+			PrmInt = prmInt;
+		}
+
+		//スクリプト関連付け
 		public void Assosiate ( Script scp )
 		{
 			Scp = scp;
-			int value = PrmInt.Getter ( Scp );
-			this.Text = value.ToString ();
-			PrmInt.Setter ( Scp, value );
+			this.Text = Getter ( scp ).ToString ();
 		}
 
 		//キー押下時(文字コード判定)
@@ -62,6 +89,7 @@ namespace ScriptEditor
 			{
 				SetValue ();		//値の設定
 				this.Invalidate ();	//画面の更新
+				Disp?.Invoke ();	//他全体の更新
 			}
 
 			base.OnKeyDown ( e );
@@ -83,24 +111,15 @@ namespace ScriptEditor
 			switch ( editTarget )
 			{
 			case EditTarget.ALL: 
-				//AllSetter ( value );
+				EditCompend.EditSequence.DoSetterInSqc_T ( Setter, value );
 			break;
 			
 			case EditTarget.GROUP:
-			
-					
-					
-					
-					//@todo グループ編集時に他スクリプトにも値を設定する
-				//GroupSetter?.Invoke ( value );
-
-
-
-
+				EditCompend.EditScript.DoSetterInGroup_T ( Setter, value );
 			break;
 			
 			case EditTarget.SINGLE:
-				PrmInt.Setter ( Scp, value );
+				Setter ( Scp, value );
 			break;
 
 			default: break;
@@ -111,8 +130,7 @@ namespace ScriptEditor
 		//更新
 		public void UpdateData ()
 		{
-			//this.Text = GetFunc ().ToString ();
-			this.Text = PrmInt.Getter ( Scp ).ToString ();
+			this.Text = Getter (Scp).ToString ();
 		}
 
 
@@ -124,8 +142,8 @@ namespace ScriptEditor
 		};
 		private EditTarget editTarget = EditTarget.SINGLE;
 
-		public void SetAll () { editTarget = EditTarget.ALL; }
-		public void SetGroup () { editTarget = EditTarget.GROUP; }
-		public void SetSingle () { editTarget = EditTarget.SINGLE; }
+		public void SetTarget_All () { editTarget = EditTarget.ALL; }
+		public void SetTarget_Group () { editTarget = EditTarget.GROUP; }
+		public void SetTarget_Single () { editTarget = EditTarget.SINGLE; }
 	}
 }

@@ -109,8 +109,11 @@ namespace ScriptEditor
 				int nPosture = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_POSTURE );
 				action.Posture = (ActionPosture) nPosture;
 
-				//消費バランス値
-				action._Balance = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_BALANCE );
+				//ヒット数
+				action.HitNum = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_HITNUM );
+
+				//ヒット間隔[F}
+				action.HitPitch = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_HIT_PITCH );
 
 				//子Element <Script> 数は不定
 				ReadScriptList ( action, elemAction.Elements );
@@ -162,8 +165,8 @@ namespace ScriptEditor
 
 				//位置, 速度, 加速度
 				s.Pos = IOChara.AttrToPoint ( e, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
-				s.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
-				s.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
+				s.Param_Btl.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
+				s.Param_Btl.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
 
 				//計算状態
 				int clcst = IOChara.AttrToInt ( e, (int)ATTR_SCP.CLC_ST );
@@ -171,11 +174,11 @@ namespace ScriptEditor
 
 
 				//値
-				s.Power = IOChara.AttrToInt ( e, (int)ATTR_SCP.POWER );			//攻撃値
-				s.BlackOut = IOChara.AttrToInt ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
-				s.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
-				s.Stop = IOChara.AttrToInt ( e, (int)ATTR_SCP.STOP );				//停止[F]
-				s.Radian = IOChara.AttrToInt ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
+				s.Param_Btl.Power = IOChara.AttrToInt ( e, (int)ATTR_SCP.POWER );			//攻撃値
+				s.Param_Ef.BlackOut = IOChara.AttrToInt ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
+				s.Param_Ef.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
+				s.Param_Ef.Stop = IOChara.AttrToInt ( e, (int)ATTR_SCP.STOP );				//停止[F]
+				s.Param_Ef.Radian = IOChara.AttrToInt ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
 
 
 				//-----------------------------------------------------------------------------

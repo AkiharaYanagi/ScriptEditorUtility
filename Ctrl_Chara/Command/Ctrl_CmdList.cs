@@ -141,6 +141,12 @@ namespace ScriptEditor
 				string str_btn = str_split [ index ++ ];
 				for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
 				{
+					//データ移行
+					if ( str_btn.Length < GameKeyCommand.BtnNum )
+					{
+						str_btn += "4444";
+					}
+
 					string chBtn = str_btn [ i ].ToString();
 					gameKey.Btn [ i ] = (GKC_ST)int.Parse ( chBtn );
 				}

@@ -10,6 +10,7 @@ namespace ScriptEditor
 	{
 		//設定ファイル
 		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
+		private string filename = "testChara.dat";
 
 		public Form1 ()
 		{
@@ -22,23 +23,30 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
+
 			//テストデータの作成
 			Chara ch_test = new Chara ();
 
-#if false
-			TestCharaData tcd = new TestCharaData ();
-			tcd.Make ( ch_test );
-
+			//------------------------------------
+			//test
+			//テストデータの作成
+			TestCharaData testCharaData = new TestCharaData ();
+			ch_test.Clear ();
+			testCharaData.Make ( ch_test );
 			//キャラデータのテスト
 			TestChara testChara = new TestChara ();
 			testChara.Test ( ch_test );
-
+			//------------------------------------
 			//ファイルIOテスト
 			SaveChara saveChara = new SaveChara ( filename, ch_test );
 			Chara ch_load = new Chara ();
 			LoadChara loadChara = new LoadChara ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
+#if false
 #endif
+			ch_test.Clear ();
+
+
 			//テストデータ
 			foreach ( string name in Enum.GetNames ( typeof ( ENM_BRC ) ) )
 			{

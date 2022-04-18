@@ -64,6 +64,8 @@
     <Compile Include="Source\CharaData\EffectGenerate.cs" />
     <Compile Include="Source\CharaData\ImageData.cs" />
     <Compile Include="Source\CharaData\Script.cs" />
+    <Compile Include="Source\CharaData\ScriptParam_Effect.cs" />
+    <Compile Include="Source\CharaData\ScriptParam_Battle.cs" />
     <Compile Include="Source\CharaData\Sequence.cs" />
     <Compile Include="Source\EditChara\EditAction.cs" />
     <Compile Include="Source\EditChara\EditBehavior.cs" />

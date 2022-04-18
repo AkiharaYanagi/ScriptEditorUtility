@@ -60,7 +60,6 @@ namespace ScriptEditor
 //					 + "," + a.NextIndex
 					 + "," + (int)a.Category
 					 + "," + (int)a.Posture
-					 + "," + a._Balance
 					 + " ); " );
 				strmWriter.Write ( "\n" );
 
@@ -73,28 +72,13 @@ namespace ScriptEditor
 					strmWriter.Write ( "\t\t\t\t{\n" );
 					strmWriter.Write ( "\t\t\t\t\t" );
 					strmWriter.Write ( "Script script = NewScript ( " );
-//					strmWriter.Write ( s.ImgIndex );
 					strmWriter.Write ( ", " + s.Pos.X );
 					strmWriter.Write ( ", " + s.Pos.Y );
-					strmWriter.Write ( ", " + s.Vel.X );
-					strmWriter.Write ( ", " + s.Vel.Y );
-					strmWriter.Write ( ", " + s.Acc.X );
-					strmWriter.Write ( ", " + s.Acc.Y );
+					strmWriter.Write ( ", " + s.Param_Btl.Vel.X );
+					strmWriter.Write ( ", " + s.Param_Btl.Vel.Y );
+					strmWriter.Write ( ", " + s.Param_Btl.Acc.X );
+					strmWriter.Write ( ", " + s.Param_Btl.Acc.Y );
 					strmWriter.Write ( " ); \n" );
-#if false
-					//ブランチを必要個数確保
-					BindingList<Branch> lb = s.ListBranch.GetBindingList ();
-					if ( 0 < lb.Count ) { strmWriter.Write ( "\t\t\t\t\t" + "/* SIZE_BRANCH = " + lb.Count + "; */ { " ); }
-					for ( int iBranch = 0; iBranch > lb.Count; ++iBranch )
-					{
-						Branch b = lb[ iBranch ];
-						strmWriter.Write ( "Branch branch = new Branch ();" );
-//						strmWriter.Write ( "branch.IndexCommand = " + b.IndexCommand + "; " );
-//						strmWriter.Write ( "branch.IndexAction = " + b.IndexAction + "; " );
-						strmWriter.Write ( "script.ListBranch.Add ( branch ); " );
-					}
-					if ( 0 < lb.Count ) { strmWriter.Write ( "}\n" ); }
-#endif
 
 					//Efジェネレートを必要個数確保
 					BindingList<EffectGenerate> le = s.BD_EfGnrt.GetBindingList ();
@@ -103,7 +87,6 @@ namespace ScriptEditor
 					{
 						EffectGenerate eg = le[ iEfGnrt ];
 						strmWriter.Write ( "EffectGenerate efGnrt = new EffectGenerate (); " );
-//						strmWriter.Write ( "efGnrt.id.i = " + eg.Id + "; " );
 						strmWriter.Write ( "efGnrt.ptGnrt.x.i = " + eg.Pt.X + "; " );
 						strmWriter.Write ( "efGnrt.ptGnrt.y.i = " + eg.Pt.Y + "; " );
 						strmWriter.Write ( "script.ListGenerateEf.Add ( efGnrt ); " );
@@ -185,7 +168,6 @@ namespace ScriptEditor
 				Name = name,
 				Category = ( ActionCategory ) category,
 				Posture = ( ActionPosture ) posture,
-				_Balance = balance
 			};
 			return action;
 		}

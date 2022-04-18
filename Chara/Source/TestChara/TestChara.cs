@@ -28,7 +28,7 @@ namespace ScriptEditor
 			TestClearChara ( copyChara );
 
 			//名前指定
-			TestNameAssign ( ch );
+//			TestNameAssign ( ch );
 		}
 
 
@@ -94,7 +94,6 @@ namespace ScriptEditor
 		string noname = "";
 		public void _TestNameAssign ( Chara ch )
 		{
-
 			//スクリプト -> イメージ, ルート
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{

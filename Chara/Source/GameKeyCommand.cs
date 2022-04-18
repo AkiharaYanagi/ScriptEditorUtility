@@ -102,7 +102,11 @@ namespace ScriptEditor
 			B_2,
 			B_3,
 		}
-		public const int BtnNum = 4;
+
+		//ボタン数
+//		public const int BtnNum = 4;
+		public const int BtnNum = 8;
+		
 		public GKC_ST [] Btn { set; get; } = new GKC_ST [ BtnNum ];
 
 		//---------------------------------------------------

@@ -21,6 +21,15 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
+			//------------------------------------
+			//test
+			Chara ch = new Chara ();
+			TestCharaData testCharaData = new TestCharaData ();
+			testCharaData.Make ( ch );
+			TestChara testChara = new TestChara ();
+			testChara.Test ( ch );
+			//------------------------------------
+
 			ctrl_cmdlst.SetEnvironment ( ctrl_stg );
 			ctrl_cmdlst.LoadData ();
 		}

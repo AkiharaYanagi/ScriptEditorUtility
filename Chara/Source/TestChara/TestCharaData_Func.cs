@@ -130,7 +130,7 @@ namespace ScriptEditor
 				s.Group = 1; 
 				s.ImgName = "AirBackDash_00.png";
 				s.CalcState = CLC_ST.CLC_MAINTAIN;
-				s.SetAccY ( 2 );
+				s.Param_Btl.SetAccY ( 2 );
 				s.ListCRect.Clear ();
 			} );
 
@@ -287,13 +287,13 @@ namespace ScriptEditor
 				s.Group = 1; 
 				s.ImgName = "Part_6H_02.png";
 				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
-				s.Vel = new Point ( 10, 0 );
+				s.Param_Btl.Vel = new Point ( 10, 0 );
 			} );
 			BL_Script bl_OD0_L = bd_act.Get ( i_OD0 ).ListScript;
 			Script scpOD0 = bl_OD0_L [ 0 ];
-			scpOD0.Vel = new Point ( 0, 0 );
-			scpOD0.BlackOut = 30;
-			scpOD0.Stop = 10;
+			scpOD0.Param_Btl.Vel = new Point ( 0, 0 );
+			scpOD0.Param_Ef.BlackOut = 30;
+			scpOD0.Param_Ef.Stop = 10;
 			scpOD0.ImgName = "StarMassStrike_01.png";
 
 			EffectGenerate efgn = new EffectGenerate ()

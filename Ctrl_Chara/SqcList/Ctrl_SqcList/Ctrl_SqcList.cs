@@ -94,6 +94,12 @@ namespace ScriptEditor
 			ctrl_ImageTable1.UpdateData ();
 		}
 
+		//イメージのみ再読み込み
+		public void UpdateImage ()
+		{
+			ctrl_ImageTable1.UpdateImage ();
+		}
+
 		//データ適用
 		public void ApplyData ()
 		{

@@ -2,6 +2,8 @@
 
 namespace ScriptEditor
 {
+
+#if false
 	//----------------------------------------------------------------------
 	// スクリプトのパラメータに対し、16進数のみ入力できるテキストボックス
 	//	[シークエンス全体]、[グループ]、[単体]、のいずれかで編集対象を設定できる
@@ -129,4 +131,8 @@ namespace ScriptEditor
 		public void SetGroup () { editTarget = EditTarget.GROUP; }
 		public void SetSingle () { editTarget = EditTarget.SINGLE; }
 	}
+
+
+#endif
+
 }

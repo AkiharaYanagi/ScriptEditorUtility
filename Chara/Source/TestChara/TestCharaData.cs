@@ -57,6 +57,7 @@ namespace ScriptEditor
 		{
 			//EditCharaに設定
 			EditChara.Inst.SetCharaDara ( ch );
+			ch.Clear ();	//ダミーをクリア
 
 			//イメージリスト
 			MakeImage ( ch );

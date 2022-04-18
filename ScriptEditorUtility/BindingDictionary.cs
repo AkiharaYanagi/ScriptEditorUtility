@@ -193,6 +193,17 @@ namespace ScriptEditor
 			}
 		}
 
+		//型指定ディープコピー
+		//Derived_New : Tを引数に継承型を生成するデリゲート
+		public void DeepCopy ( BindingDictionary < T > bd_t, System.Func < T, T > Derived_New )
+		{
+			Clear ();
+			foreach ( T t in bd_t.BL_t )
+			{
+				this.Add ( Derived_New ( t )  );
+			}
+		}
+
 		//個数
 		public int Count ()
 		{

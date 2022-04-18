@@ -157,6 +157,11 @@ namespace ScriptEditor
 		{
 			EditData.LoadImageFromDir ( Tb_ImgDir.Text );
 		}
+		public void UpdateImage ()
+		{
+			EditData.ClearImage ();
+			EditData.LoadImageFromDir ( Tb_ImgDir.Text );
+		}
 
 		//書出
 		private void Btn_Save_Click ( object sender, System.EventArgs e )

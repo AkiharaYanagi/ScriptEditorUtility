@@ -55,7 +55,8 @@ namespace ScriptEditor
 		ELAC_NEXT_ID,
 		ELAC_CATEGORY,
 		ELAC_POSTURE,
-		ELAC_BALANCE,
+		ELAC_HITNUM,
+		ELAC_HIT_PITCH,
 	}
 
 	public enum ATTR_SCP

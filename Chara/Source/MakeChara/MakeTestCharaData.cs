@@ -16,7 +16,6 @@ namespace ScriptEditor
 				Name = name,
 				Category = ( ActionCategory ) category,
 				Posture = ( ActionPosture ) posture,
-				_Balance = balance,
 			};
 			return action;
 		}
@@ -25,12 +24,11 @@ namespace ScriptEditor
 		{
 			Script script = new Script
 			{
-//				ImgIndex = imgIndex,
 				Pos = pt,
-				Vel = vel,
-				Acc = acc,
-				Power = power,
 			};
+			script.Param_Btl.Vel = vel;
+			script.Param_Btl.Acc = acc;
+			script.Param_Btl.Power = power;
 			return script;
 		}
 	}
