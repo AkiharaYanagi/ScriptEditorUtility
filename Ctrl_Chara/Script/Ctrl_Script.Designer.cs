@@ -37,17 +37,15 @@
 			this.Lbl_Img = new System.Windows.Forms.Label();
 			this.Tb_Frame = new System.Windows.Forms.TextBox();
 			this.Lbl_Frame = new System.Windows.Forms.Label();
-			this.TbScp_Y = new ScriptEditor.TB_ScpNumber();
-			this.TbScp_X = new ScriptEditor.TB_ScpNumber();
-			this.CB_ClcSt = new System.Windows.Forms.ComboBox();
 			this.lbl_clc = new System.Windows.Forms.Label();
+			this.Lbl_Vel = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Lbl_Pos
 			// 
 			this.Lbl_Pos.AutoSize = true;
-			this.Lbl_Pos.Location = new System.Drawing.Point(15, 114);
+			this.Lbl_Pos.Location = new System.Drawing.Point(15, 120);
 			this.Lbl_Pos.Name = "Lbl_Pos";
 			this.Lbl_Pos.Size = new System.Drawing.Size(48, 12);
 			this.Lbl_Pos.TabIndex = 1;
@@ -108,7 +106,7 @@
 			this.Tb_Img.Location = new System.Drawing.Point(211, 81);
 			this.Tb_Img.Name = "Tb_Img";
 			this.Tb_Img.ReadOnly = true;
-			this.Tb_Img.Size = new System.Drawing.Size(89, 19);
+			this.Tb_Img.Size = new System.Drawing.Size(90, 19);
 			this.Tb_Img.TabIndex = 31;
 			// 
 			// Lbl_Img
@@ -141,38 +139,6 @@
 			this.Lbl_Frame.TabIndex = 28;
 			this.Lbl_Frame.Text = "Frame";
 			// 
-			// TbScp_Y
-			// 
-			this.TbScp_Y.Disp = null;
-			this.TbScp_Y.Location = new System.Drawing.Point(122, 111);
-			this.TbScp_Y.Name = "TbScp_Y";
-			this.TbScp_Y.PrmInt = null;
-			this.TbScp_Y.Scp = null;
-			this.TbScp_Y.Size = new System.Drawing.Size(38, 19);
-			this.TbScp_Y.TabIndex = 0;
-			this.TbScp_Y.Text = "0";
-			// 
-			// TbScp_X
-			// 
-			this.TbScp_X.Disp = null;
-			this.TbScp_X.Location = new System.Drawing.Point(78, 111);
-			this.TbScp_X.Name = "TbScp_X";
-			this.TbScp_X.PrmInt = null;
-			this.TbScp_X.Scp = null;
-			this.TbScp_X.Size = new System.Drawing.Size(38, 19);
-			this.TbScp_X.TabIndex = 0;
-			this.TbScp_X.Text = "0";
-			// 
-			// CB_ClcSt
-			// 
-			this.CB_ClcSt.FormattingEnabled = true;
-			this.CB_ClcSt.Location = new System.Drawing.Point(226, 110);
-			this.CB_ClcSt.Margin = new System.Windows.Forms.Padding(2);
-			this.CB_ClcSt.Name = "CB_ClcSt";
-			this.CB_ClcSt.Size = new System.Drawing.Size(74, 20);
-			this.CB_ClcSt.TabIndex = 33;
-			this.CB_ClcSt.SelectionChangeCommitted += new System.EventHandler(this.CB_ClcSt_SelectionChangeCommitted_1);
-			// 
 			// lbl_clc
 			// 
 			this.lbl_clc.AutoSize = true;
@@ -183,20 +149,27 @@
 			this.lbl_clc.TabIndex = 32;
 			this.lbl_clc.Text = "ClcSt";
 			// 
+			// Lbl_Vel
+			// 
+			this.Lbl_Vel.AutoSize = true;
+			this.Lbl_Vel.Location = new System.Drawing.Point(15, 150);
+			this.Lbl_Vel.Name = "Lbl_Vel";
+			this.Lbl_Vel.Size = new System.Drawing.Size(46, 12);
+			this.Lbl_Vel.TabIndex = 1;
+			this.Lbl_Vel.Text = "Vel(X,Y)";
+			// 
 			// _Ctrl_Script
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.CB_ClcSt);
 			this.Controls.Add(this.lbl_clc);
 			this.Controls.Add(this.Tb_Img);
 			this.Controls.Add(this.Lbl_Img);
 			this.Controls.Add(this.Tb_Frame);
 			this.Controls.Add(this.Lbl_Frame);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.Lbl_Vel);
 			this.Controls.Add(this.Lbl_Pos);
-			this.Controls.Add(this.TbScp_Y);
-			this.Controls.Add(this.TbScp_X);
 			this.Name = "_Ctrl_Script";
 			this.Size = new System.Drawing.Size(429, 424);
 			this.groupBox1.ResumeLayout(false);
@@ -207,10 +180,7 @@
 		}
 
 		#endregion
-
-		private ScriptEditor.TB_ScpNumber TbScp_X;
 		private System.Windows.Forms.Label Lbl_Pos;
-		private TB_ScpNumber TbScp_Y;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.RadioButton RB_TRG_SGL;
 		private System.Windows.Forms.RadioButton RB_TRG_GRP;
@@ -219,7 +189,7 @@
 		private System.Windows.Forms.Label Lbl_Img;
 		public System.Windows.Forms.TextBox Tb_Frame;
 		private System.Windows.Forms.Label Lbl_Frame;
-		public System.Windows.Forms.ComboBox CB_ClcSt;
 		private System.Windows.Forms.Label lbl_clc;
+		private System.Windows.Forms.Label Lbl_Vel;
 	}
 }

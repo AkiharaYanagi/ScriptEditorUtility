@@ -99,7 +99,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Script\Ctrl_ClcSt.cs" />
+    <Compile Include="Script\Cmpnt_ClcSt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Script\Cmpnt_Int.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Script\Ctrl_Script.cs">
       <SubType>UserControl</SubType>
     </Compile>

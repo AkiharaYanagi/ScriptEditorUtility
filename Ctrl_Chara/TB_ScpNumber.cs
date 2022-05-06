@@ -17,8 +17,8 @@ namespace ScriptEditor
 		public Script Scp { get; set; } = null;
 
 		//設定用デリゲート
-		public Setter Setter = (s,i)=>{};
-		public Getter Getter = (s)=>0;
+//		public Setter Setter = (s,i)=>{};
+//		public Getter Getter = (s)=>0;
 
 		public PrmInt PrmInt { get; set; } = null;
 
@@ -38,8 +38,8 @@ namespace ScriptEditor
 		public void SetEnvironment ( EditCompend ec, Setter setter, Getter getter )
 		{
 			EditCompend = ec;
-			Getter = getter;
-			Setter = setter;
+//			Getter = getter;
+//			Setter = setter;
 		}
 		public void SetEnvironment ( EditCompend ec )
 		{
@@ -50,12 +50,28 @@ namespace ScriptEditor
 			EditCompend = ec;
 			PrmInt = prmInt;
 		}
+#if false
+#endif
+		public void SetEnvironment ( EditCompend ec, System.Action disp )
+		{
+			EditCompend = ec;
+			Disp = disp;
+		}
+
+
+		//更新
+		public void UpdateData ()
+		{
+//			this.Text = Getter (Scp).ToString ();
+			this.Text = PrmInt.Getter ( Scp ).ToString ();
+		}
+
 
 		//スクリプト関連付け
 		public void Assosiate ( Script scp )
 		{
 			Scp = scp;
-			this.Text = Getter ( scp ).ToString ();
+			UpdateData ();
 		}
 
 		//キー押下時(文字コード判定)
@@ -111,15 +127,15 @@ namespace ScriptEditor
 			switch ( editTarget )
 			{
 			case EditTarget.ALL: 
-				EditCompend.EditSequence.DoSetterInSqc_T ( Setter, value );
+				EditCompend.EditSequence.DoSetterInSqc_T ( PrmInt.Setter, value );
 			break;
 			
 			case EditTarget.GROUP:
-				EditCompend.EditScript.DoSetterInGroup_T ( Setter, value );
+				EditCompend.EditScript.DoSetterInGroup_T ( PrmInt.Setter, value );
 			break;
 			
 			case EditTarget.SINGLE:
-				Setter ( Scp, value );
+				PrmInt.Setter ( Scp, value );
 			break;
 
 			default: break;
@@ -127,19 +143,8 @@ namespace ScriptEditor
 			
 		}
 
-		//更新
-		public void UpdateData ()
-		{
-			this.Text = Getter (Scp).ToString ();
-		}
-
-
 		//--------------------------------------------------------
 		//編集対象切替
-		private enum EditTarget
-		{ 
-			ALL, GROUP, SINGLE,
-		};
 		private EditTarget editTarget = EditTarget.SINGLE;
 
 		public void SetTarget_All () { editTarget = EditTarget.ALL; }

@@ -2,41 +2,32 @@
 
 namespace ScriptEditor
 {
-	//スクリプトグループ編集のためのパラメータ操作クラス
-	public class IScriptParam
+	//編集対象切替
+	public enum EditTarget
+	{ 
+		ALL, GROUP, SINGLE,
+	};
+
+	//スクリプトグループ編集のためのパラメータ操作インターフェース
+	public interface IScriptParam
 	{
 		//表示
-		public System.Action Disp { get; set; } = ()=>{};
+		System.Action Disp { get; set; }
 
 		// 環境( Setter, Getter )指定
-		public virtual void SetEnvironment ( EditCompend ec, System.Action disp )
-		{
-		}
-
-		// 環境( Setter, Getter )指定
-		public virtual void SetParam < T > ( ScriptParam < T > ScpPrm  )
-		{
-		}
+		void SetEnvironment ( EditCompend ec, System.Action disp );
 
 		//更新
-		public virtual void UpdateData ()
-		{
-		}
+		void UpdateData ();
 
 		//関連付け
-		public virtual void Assosiate ( Script s )
-		{
-		}
+		void Assosiate ( Script s );
 
-		//編集対象切替
-		protected enum EditTarget
-		{ 
-			ALL, GROUP, SINGLE,
-		};
-		protected EditTarget editTarget = EditTarget.SINGLE;
+		//編集対象
+		void SetTarget_All ();
+		void SetTarget_Group ();
+		void SetTarget_Single ();
 
-		public void SetTarget_All () { editTarget = EditTarget.ALL; }
-		public void SetTarget_Group () { editTarget = EditTarget.GROUP; }
-		public void SetTarget_Single () { editTarget = EditTarget.SINGLE; }
+		void SetTarget ( EditTarget editTarget );
 	}
 }

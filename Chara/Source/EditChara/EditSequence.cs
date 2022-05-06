@@ -44,6 +44,12 @@
 		//汎用
 		public void DoSetterInSqc_T < T > ( System.Action < Script, T > Setter, T t )
 		{
+
+
+			//@todo Edit におけるSelectedSequenceの見直し
+
+
+
 			foreach ( Script s in Sqc.ListScript ) { Setter ( s, t ); }
 		}
 	}
