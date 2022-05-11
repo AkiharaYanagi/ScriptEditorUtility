@@ -25,7 +25,8 @@ namespace ScriptEditor
 		//コンストラクタ
 		public Cmpnt_Int ()
 		{
-			this.Width = 30;
+			this.Width = 40;
+			this.TextAlign = HorizontalAlignment.Right;
 		}
 
 		//---------------------------------------------------------------

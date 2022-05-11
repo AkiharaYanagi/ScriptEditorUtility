@@ -45,7 +45,7 @@
 			// Lbl_Pos
 			// 
 			this.Lbl_Pos.AutoSize = true;
-			this.Lbl_Pos.Location = new System.Drawing.Point(15, 120);
+			this.Lbl_Pos.Location = new System.Drawing.Point(3, 100);
 			this.Lbl_Pos.Name = "Lbl_Pos";
 			this.Lbl_Pos.Size = new System.Drawing.Size(48, 12);
 			this.Lbl_Pos.TabIndex = 1;
@@ -56,7 +56,7 @@
 			this.groupBox1.Controls.Add(this.RB_TRG_SGL);
 			this.groupBox1.Controls.Add(this.RB_TRG_GRP);
 			this.groupBox1.Controls.Add(this.RB_TRG_ALL);
-			this.groupBox1.Location = new System.Drawing.Point(17, 15);
+			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(246, 46);
 			this.groupBox1.TabIndex = 27;
@@ -103,7 +103,7 @@
 			// 
 			// Tb_Img
 			// 
-			this.Tb_Img.Location = new System.Drawing.Point(211, 81);
+			this.Tb_Img.Location = new System.Drawing.Point(211, 64);
 			this.Tb_Img.Name = "Tb_Img";
 			this.Tb_Img.ReadOnly = true;
 			this.Tb_Img.Size = new System.Drawing.Size(90, 19);
@@ -112,7 +112,7 @@
 			// Lbl_Img
 			// 
 			this.Lbl_Img.AutoSize = true;
-			this.Lbl_Img.Location = new System.Drawing.Point(174, 84);
+			this.Lbl_Img.Location = new System.Drawing.Point(171, 67);
 			this.Lbl_Img.Name = "Lbl_Img";
 			this.Lbl_Img.Size = new System.Drawing.Size(23, 12);
 			this.Lbl_Img.TabIndex = 30;
@@ -122,7 +122,7 @@
 			// 
 			this.Tb_Frame.BackColor = System.Drawing.SystemColors.Control;
 			this.Tb_Frame.Cursor = System.Windows.Forms.Cursors.Default;
-			this.Tb_Frame.Location = new System.Drawing.Point(78, 81);
+			this.Tb_Frame.Location = new System.Drawing.Point(54, 64);
 			this.Tb_Frame.Margin = new System.Windows.Forms.Padding(2);
 			this.Tb_Frame.Name = "Tb_Frame";
 			this.Tb_Frame.ReadOnly = true;
@@ -132,7 +132,7 @@
 			// Lbl_Frame
 			// 
 			this.Lbl_Frame.AutoSize = true;
-			this.Lbl_Frame.Location = new System.Drawing.Point(15, 84);
+			this.Lbl_Frame.Location = new System.Drawing.Point(2, 67);
 			this.Lbl_Frame.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.Lbl_Frame.Name = "Lbl_Frame";
 			this.Lbl_Frame.Size = new System.Drawing.Size(37, 12);
@@ -142,7 +142,7 @@
 			// lbl_clc
 			// 
 			this.lbl_clc.AutoSize = true;
-			this.lbl_clc.Location = new System.Drawing.Point(174, 117);
+			this.lbl_clc.Location = new System.Drawing.Point(171, 100);
 			this.lbl_clc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.lbl_clc.Name = "lbl_clc";
 			this.lbl_clc.Size = new System.Drawing.Size(33, 12);
@@ -152,7 +152,7 @@
 			// Lbl_Vel
 			// 
 			this.Lbl_Vel.AutoSize = true;
-			this.Lbl_Vel.Location = new System.Drawing.Point(15, 150);
+			this.Lbl_Vel.Location = new System.Drawing.Point(3, 130);
 			this.Lbl_Vel.Name = "Lbl_Vel";
 			this.Lbl_Vel.Size = new System.Drawing.Size(46, 12);
 			this.Lbl_Vel.TabIndex = 1;

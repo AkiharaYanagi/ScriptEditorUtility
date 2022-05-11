@@ -28,12 +28,12 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			this.ctrl_Script1 = new _Ctrl_Script();
+			this.ctrl_Script1 = new ScriptEditor._Ctrl_Script();
 			this.SuspendLayout();
 			// 
 			// ctrl_Script1
 			// 
-			this.ctrl_Script1.Location = new System.Drawing.Point(20, 21);
+			this.ctrl_Script1.Location = new System.Drawing.Point(12, 12);
 			this.ctrl_Script1.Name = "ctrl_Script1";
 			this.ctrl_Script1.Size = new System.Drawing.Size(500, 447);
 			this.ctrl_Script1.TabIndex = 0;
