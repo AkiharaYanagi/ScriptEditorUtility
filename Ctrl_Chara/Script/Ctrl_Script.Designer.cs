@@ -39,6 +39,11 @@
 			this.Lbl_Frame = new System.Windows.Forms.Label();
 			this.lbl_clc = new System.Windows.Forms.Label();
 			this.Lbl_Vel = new System.Windows.Forms.Label();
+			this.Lbl_Power = new System.Windows.Forms.Label();
+			this.Lbl_Acc = new System.Windows.Forms.Label();
+			this.Lbl_Warp = new System.Windows.Forms.Label();
+			this.Lbl_Recoil = new System.Windows.Forms.Label();
+			this.Lbl_Balance = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -158,6 +163,51 @@
 			this.Lbl_Vel.TabIndex = 1;
 			this.Lbl_Vel.Text = "Vel(X,Y)";
 			// 
+			// Lbl_Power
+			// 
+			this.Lbl_Power.AutoSize = true;
+			this.Lbl_Power.Location = new System.Drawing.Point(1, 192);
+			this.Lbl_Power.Name = "Lbl_Power";
+			this.Lbl_Power.Size = new System.Drawing.Size(36, 12);
+			this.Lbl_Power.TabIndex = 1;
+			this.Lbl_Power.Text = "Power";
+			// 
+			// Lbl_Acc
+			// 
+			this.Lbl_Acc.AutoSize = true;
+			this.Lbl_Acc.Location = new System.Drawing.Point(2, 159);
+			this.Lbl_Acc.Name = "Lbl_Acc";
+			this.Lbl_Acc.Size = new System.Drawing.Size(49, 12);
+			this.Lbl_Acc.TabIndex = 1;
+			this.Lbl_Acc.Text = "Acc(X,Y)";
+			// 
+			// Lbl_Warp
+			// 
+			this.Lbl_Warp.AutoSize = true;
+			this.Lbl_Warp.Location = new System.Drawing.Point(3, 220);
+			this.Lbl_Warp.Name = "Lbl_Warp";
+			this.Lbl_Warp.Size = new System.Drawing.Size(30, 12);
+			this.Lbl_Warp.TabIndex = 1;
+			this.Lbl_Warp.Text = "Warp";
+			// 
+			// Lbl_Recoil
+			// 
+			this.Lbl_Recoil.AutoSize = true;
+			this.Lbl_Recoil.Location = new System.Drawing.Point(2, 247);
+			this.Lbl_Recoil.Name = "Lbl_Recoil";
+			this.Lbl_Recoil.Size = new System.Drawing.Size(61, 12);
+			this.Lbl_Recoil.TabIndex = 1;
+			this.Lbl_Recoil.Text = "Recoil(I/E)";
+			// 
+			// Lbl_Balance
+			// 
+			this.Lbl_Balance.AutoSize = true;
+			this.Lbl_Balance.Location = new System.Drawing.Point(1, 275);
+			this.Lbl_Balance.Name = "Lbl_Balance";
+			this.Lbl_Balance.Size = new System.Drawing.Size(70, 12);
+			this.Lbl_Balance.TabIndex = 1;
+			this.Lbl_Balance.Text = "Balance(I/E)";
+			// 
 			// _Ctrl_Script
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -168,6 +218,11 @@
 			this.Controls.Add(this.Tb_Frame);
 			this.Controls.Add(this.Lbl_Frame);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.Lbl_Balance);
+			this.Controls.Add(this.Lbl_Recoil);
+			this.Controls.Add(this.Lbl_Warp);
+			this.Controls.Add(this.Lbl_Acc);
+			this.Controls.Add(this.Lbl_Power);
 			this.Controls.Add(this.Lbl_Vel);
 			this.Controls.Add(this.Lbl_Pos);
 			this.Name = "_Ctrl_Script";
@@ -191,5 +246,10 @@
 		private System.Windows.Forms.Label Lbl_Frame;
 		private System.Windows.Forms.Label lbl_clc;
 		private System.Windows.Forms.Label Lbl_Vel;
+		private System.Windows.Forms.Label Lbl_Power;
+		private System.Windows.Forms.Label Lbl_Acc;
+		private System.Windows.Forms.Label Lbl_Warp;
+		private System.Windows.Forms.Label Lbl_Recoil;
+		private System.Windows.Forms.Label Lbl_Balance;
 	}
 }

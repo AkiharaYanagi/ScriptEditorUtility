@@ -24,11 +24,24 @@ namespace ScriptEditor
 		//計算状態セッタ
 		private Cmpnt_ClcSt cmpnt_ClcSt = new Cmpnt_ClcSt ();
 		//数値
-		private Cmpnt_Int cmpnt_Int_px = new Cmpnt_Int();
-		private Cmpnt_Int cmpnt_Int_py = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_px = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_py = new Cmpnt_Int();
 
-		private Cmpnt_Int cmpnt_Int_vx = new Cmpnt_Int();
-		private Cmpnt_Int cmpnt_Int_vy = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_vx = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_vy = new Cmpnt_Int();
+
+		private Cmpnt_Int cmpnt_ax = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_ay = new Cmpnt_Int();
+
+		private Cmpnt_Int cmpnt_power = new Cmpnt_Int ();
+
+		private Cmpnt_Int cmpnt_warp = new Cmpnt_Int ();
+
+		private Cmpnt_Int cmpnt_recoil_I = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_recoil_E = new Cmpnt_Int();
+
+		private Cmpnt_Int cmpnt_balance_I = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_balance_E = new Cmpnt_Int();
 
 		//位置定数
 		private const int BX = 60;
@@ -40,38 +53,61 @@ namespace ScriptEditor
 		//コンストラクタ
 		public _Ctrl_Script ()
 		{
-			//コンポーネントの手動追加
-			//計算状態
+			//コントロール一連に登録
+			ls_ctrl_scpPrm.Add ( cmpnt_ClcSt );
+			ls_ctrl_scpPrm.Add ( cmpnt_px );
+			ls_ctrl_scpPrm.Add ( cmpnt_py );
+			ls_ctrl_scpPrm.Add ( cmpnt_vx );
+			ls_ctrl_scpPrm.Add ( cmpnt_vy );
+			ls_ctrl_scpPrm.Add ( cmpnt_ax );
+			ls_ctrl_scpPrm.Add ( cmpnt_ay );
+			ls_ctrl_scpPrm.Add ( cmpnt_power );
+			ls_ctrl_scpPrm.Add ( cmpnt_warp );
+			ls_ctrl_scpPrm.Add ( cmpnt_recoil_I );
+			ls_ctrl_scpPrm.Add ( cmpnt_recoil_E );
+			ls_ctrl_scpPrm.Add ( cmpnt_balance_I );
+			ls_ctrl_scpPrm.Add ( cmpnt_balance_E );
+
+			//コンポーネントの追加
+			foreach ( Control ctrl in ls_ctrl_scpPrm )
+			{
+				this.Controls.Add ( ctrl );
+			}
+
+			//コンポーネントの各種設定
 			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.CalcState=c, s=>s.CalcState ) );
-			cmpnt_ClcSt.Location = new Point ( 220, BY );
-			this.Controls.Add ( cmpnt_ClcSt );
+			cmpnt_px.SetParam ( new SP_INT ( (s,i)=>s.SetPosX(i), s=>s.Pos.X ) );
+			cmpnt_py.SetParam ( new SP_INT ( (s,i)=>s.SetPosY(i), s=>s.Pos.Y ) );
+			cmpnt_vx.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelX(i), s=>s.Param_Btl.Vel.X ) );
+			cmpnt_vy.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelY(i), s=>s.Param_Btl.Vel.Y ) );
+			cmpnt_ax.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetAccX(i), s=>s.Param_Btl.Acc.X ) );
+			cmpnt_ay.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetAccY(i), s=>s.Param_Btl.Acc.Y ) );
+			cmpnt_power.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Power=i, s=>s.Param_Btl.Power ) );
+			cmpnt_warp.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Warp=i, s=>s.Param_Btl.Warp ) );
+			cmpnt_recoil_I.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Recoil_I=i, s=>s.Param_Btl.Recoil_I ) );
+			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Recoil_I=i, s=>s.Param_Btl.Recoil_E ) );
+			cmpnt_balance_I.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Blance_I=i, s=>s.Param_Btl.Blance_I ) );
+			cmpnt_balance_E.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Blance_E=i, s=>s.Param_Btl.Blance_E ) );
 
-			cmpnt_Int_px.SetParam ( new SP_INT ( (s,i)=>s.SetPosX(i), s=>s.Pos.X ) );
-			cmpnt_Int_px.Location = new Point ( BX, BY );
-			this.Controls.Add ( cmpnt_Int_px );
-
-			cmpnt_Int_py.SetParam ( new SP_INT ( (s,i)=>s.SetPosY(i), s=>s.Pos.Y ) );
-			cmpnt_Int_py.Location = new Point ( BX + PX, BY );
-			this.Controls.Add ( cmpnt_Int_py );
-
-			cmpnt_Int_vx.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelX(i), s=>s.Param_Btl.Vel.X ) );
-			cmpnt_Int_vx.Location = new Point ( BX, BY + PY );
-			this.Controls.Add ( cmpnt_Int_vx );
-
-			cmpnt_Int_vy.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelY(i), s=>s.Param_Btl.Vel.Y ) );
-			cmpnt_Int_vy.Location = new Point ( BX + PX, BY + PY );
-			this.Controls.Add ( cmpnt_Int_vy );
+			//コンポーネントの位置
+			cmpnt_ClcSt.Location	 = new Point ( 220		, BY );
+			cmpnt_px.Location		 = new Point ( BX		, BY + PY * 0 );
+			cmpnt_py.Location		 = new Point ( BX + PX	, BY + PY * 0 );
+			cmpnt_vx.Location		 = new Point ( BX		, BY + PY * 1 );
+			cmpnt_vy.Location		 = new Point ( BX + PX	, BY + PY * 1 );
+			cmpnt_ax.Location		 = new Point ( BX		, BY + PY * 2 );
+			cmpnt_ay.Location		 = new Point ( BX + PX	, BY + PY * 2 );
+			cmpnt_power.Location	 = new Point ( BX		, BY + PY * 3 );
+			cmpnt_warp.Location		 = new Point ( BX		, BY + PY * 4 );
+			cmpnt_recoil_I.Location	 = new Point ( BX		, BY + PY * 5 );
+			cmpnt_recoil_E.Location	 = new Point ( BX + PX	, BY + PY * 5 );
+			cmpnt_balance_I.Location = new Point ( BX		, BY + PY * 6 );
+			cmpnt_balance_E.Location = new Point ( BX + PX	, BY + PY * 6 );
 
 			//デフォルトの初期化
 			InitializeComponent ();
-
-			//コントロール一連に登録
-			ls_ctrl_scpPrm.Add ( cmpnt_Int_px );
-			ls_ctrl_scpPrm.Add ( cmpnt_Int_py );
-			ls_ctrl_scpPrm.Add ( cmpnt_Int_vx );
-			ls_ctrl_scpPrm.Add ( cmpnt_Int_vy );
-			ls_ctrl_scpPrm.Add ( cmpnt_ClcSt );
 		}
+
 
 		//環境設置
 		public void SetEnvironment ( EditCompend ec, System.Action disp )
