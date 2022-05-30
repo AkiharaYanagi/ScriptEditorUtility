@@ -62,5 +62,10 @@
 		//FLG_0, 
 	}
 
+	//キャラ関連 定数
+	public class ConstChara
+	{
+		public const int NumRect = 8;
+	}
 
 }

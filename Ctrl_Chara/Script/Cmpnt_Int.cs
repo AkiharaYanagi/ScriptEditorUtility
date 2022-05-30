@@ -16,7 +16,7 @@ namespace ScriptEditor
 		public System.Action Disp { get; set; } = () =>{};
 
 		//対象指定
-		private EditTarget editTarget = EditTarget.SINGLE;
+		private EditTargetScript editTarget = EditTargetScript.SINGLE;
 	
 		//編集用
 		private EditCompend EditCompend = null;
@@ -61,10 +61,10 @@ namespace ScriptEditor
 			UpdateData ();
 		}
 		
-		public void SetTarget_All () { editTarget = EditTarget.ALL; }
-		public void SetTarget_Group () { editTarget = EditTarget.GROUP; }
-		public void SetTarget_Single () { editTarget = EditTarget.SINGLE; }
-		public void SetTarget ( EditTarget et ) { editTarget = et; }
+		public void SetTarget_All () { editTarget = EditTargetScript.ALL; }
+		public void SetTarget_Group () { editTarget = EditTargetScript.GROUP; }
+		public void SetTarget_Single () { editTarget = EditTargetScript.SINGLE; }
+		public void SetTarget ( EditTargetScript et ) { editTarget = et; }
 
 		//---------------------------------------------------------------
 		//コントロールによる値設定
@@ -121,15 +121,15 @@ namespace ScriptEditor
 			//編集対象
 			switch ( editTarget )
 			{
-			case EditTarget.ALL: 
+			case EditTargetScript.ALL: 
 				EditCompend.EditSequence.DoSetterInSqc_T ( ScpPrm.Setter, value );
 			break;
 			
-			case EditTarget.GROUP:
+			case EditTargetScript.GROUP:
 				EditCompend.EditScript.DoSetterInGroup_T ( ScpPrm.Setter, value );
 			break;
 			
-			case EditTarget.SINGLE:
+			case EditTargetScript.SINGLE:
 				ScpPrm.Setter ( Scp, value );
 			break;
 

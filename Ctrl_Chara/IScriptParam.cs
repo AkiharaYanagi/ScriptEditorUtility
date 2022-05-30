@@ -3,7 +3,7 @@
 namespace ScriptEditor
 {
 	//編集対象切替
-	public enum EditTarget
+	public enum EditTargetScript
 	{ 
 		ALL, GROUP, SINGLE,
 	};
@@ -28,6 +28,6 @@ namespace ScriptEditor
 		void SetTarget_Group ();
 		void SetTarget_Single ();
 
-		void SetTarget ( EditTarget editTarget );
+		void SetTarget ( EditTargetScript editTarget );
 	}
 }

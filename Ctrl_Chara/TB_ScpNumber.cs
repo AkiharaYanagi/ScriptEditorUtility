@@ -126,15 +126,15 @@ namespace ScriptEditor
 
 			switch ( editTarget )
 			{
-			case EditTarget.ALL: 
+			case EditTargetScript.ALL: 
 				EditCompend.EditSequence.DoSetterInSqc_T ( PrmInt.Setter, value );
 			break;
 			
-			case EditTarget.GROUP:
+			case EditTargetScript.GROUP:
 				EditCompend.EditScript.DoSetterInGroup_T ( PrmInt.Setter, value );
 			break;
 			
-			case EditTarget.SINGLE:
+			case EditTargetScript.SINGLE:
 				PrmInt.Setter ( Scp, value );
 			break;
 
@@ -145,10 +145,10 @@ namespace ScriptEditor
 
 		//--------------------------------------------------------
 		//編集対象切替
-		private EditTarget editTarget = EditTarget.SINGLE;
+		private EditTargetScript editTarget = EditTargetScript.SINGLE;
 
-		public void SetTarget_All () { editTarget = EditTarget.ALL; }
-		public void SetTarget_Group () { editTarget = EditTarget.GROUP; }
-		public void SetTarget_Single () { editTarget = EditTarget.SINGLE; }
+		public void SetTarget_All () { editTarget = EditTargetScript.ALL; }
+		public void SetTarget_Group () { editTarget = EditTargetScript.GROUP; }
+		public void SetTarget_Single () { editTarget = EditTargetScript.SINGLE; }
 	}
 }

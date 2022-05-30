@@ -85,6 +85,18 @@
     <Compile Include="Ctrl_Branch.Designer.cs">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListRect\Ctrl_AllRect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListRect\Ctrl_AllRect.Designer.cs">
+      <DependentUpon>Ctrl_AllRect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListRect\Ctrl_ListRect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListRect\Ctrl_ListRect.Designer.cs">
+      <DependentUpon>Ctrl_ListRect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ctrl_Route.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -98,6 +110,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RB_ScriptTarget.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RB_ScriptTarget.Designer.cs">
+      <DependentUpon>RB_ScriptTarget.cs</DependentUpon>
     </Compile>
     <Compile Include="Script\Cmpnt_ClcSt.cs">
       <SubType>Component</SubType>
@@ -164,12 +182,21 @@
     <EmbeddedResource Include="Ctrl_Branch.resx">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListRect\Ctrl_AllRect.resx">
+      <DependentUpon>Ctrl_AllRect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListRect\Ctrl_ListRect.resx">
+      <DependentUpon>Ctrl_ListRect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ctrl_Route.resx">
       <DependentUpon>Ctrl_Route.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RB_ScriptTarget.resx">
+      <DependentUpon>RB_ScriptTarget.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Script\Ctrl_Script.resx">
       <DependentUpon>Ctrl_Script.cs</DependentUpon>

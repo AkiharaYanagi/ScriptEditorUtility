@@ -86,12 +86,25 @@ namespace ScriptEditor
 
 			//スクリプト内イメージ指定名
 			EditData.ResetImageName ();
+
+			//更新
+			this.Refresh ();
 		}
+
+		//描画
+		protected override void OnPaint ( PaintEventArgs e )
+		{
+			ctrl_ImageTable1.Invalidate ();
+			ELB_Sqc.Invalidate ();
+			base.OnPaint ( e ); 
+		}
+
 
 		//データ更新
 		public void UpdateData ()
 		{
 			ctrl_ImageTable1.UpdateData ();
+			ELB_Sqc.Refresh ();
 		}
 
 		//イメージのみ再読み込み

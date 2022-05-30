@@ -17,7 +17,6 @@ namespace ScriptEditor
 		EditCompend EditCompend = null;
 
 		//コントロール集合
-		private List < TB_ScpNumber > ls_tbsn = new List<TB_ScpNumber> ();
 		private List < IScriptParam > ls_ctrl_scpPrm = new List<IScriptParam> ();
 
 		//コンポーネント
@@ -43,6 +42,9 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_balance_I = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_balance_E = new Cmpnt_Int();
 
+		//編集対象を切り替えるラジオボタン
+		private RB_ScriptTarget rb_ScpTgt = new RB_ScriptTarget ();
+
 		//位置定数
 		private const int BX = 60;
 		private const int PX = 50;
@@ -53,6 +55,10 @@ namespace ScriptEditor
 		//コンストラクタ
 		public _Ctrl_Script ()
 		{
+			//編集対象を切り替えるラジオボタン
+			rb_ScpTgt.ls_ctrl_scpPrm = ls_ctrl_scpPrm;
+			this.Controls.Add ( rb_ScpTgt );
+
 			//コントロール一連に登録
 			ls_ctrl_scpPrm.Add ( cmpnt_ClcSt );
 			ls_ctrl_scpPrm.Add ( cmpnt_px );
@@ -135,20 +141,30 @@ namespace ScriptEditor
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.Assosiate ( s ); }
 		}
 
+		//-----------------------------------------------------------------------------
 		//ラジオボタンで編集範囲を設定
 		private void RB_TRG_ALL_CheckedChanged ( object sender, EventArgs e )
 		{
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_All (); }
+			if ( RB_TRG_ALL.Checked )
+			{
+				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_All (); }
+			}
 		}
 
 		private void RB_TRG_GRP_CheckedChanged ( object sender, EventArgs e )
 		{
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Group (); }
+			if ( RB_TRG_GRP.Checked )
+			{
+				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Group (); }
+			}
 		}
 
 		private void RB_TRG_SGL_CheckedChanged ( object sender, EventArgs e )
 		{
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Single (); }
+			if ( RB_TRG_SGL.Checked )
+			{
+				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Single (); }
+			}
 		}
 
 
