@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 
 namespace ScriptEditor
@@ -7,7 +8,8 @@ namespace ScriptEditor
 	using BL_Sqc = BindingList < Sequence >;
 	using L_Scp = List < Script >;
 
-	delegate void FuncEditScript ( Script scp );
+//	delegate void FuncEditScript ( Script scp );
+	using Fc_Scp = System.Action < Script >;
 
 	//---------------------------------------------------------------------
 	// コンペンド(アクション/エフェクトの集合)を受けて編集する
@@ -128,14 +130,28 @@ namespace ScriptEditor
 		}
 
 		//---------------------------------------------------------------------
-		//	シークエンス
+		//	シークエンスリストに対しての編集
 		//---------------------------------------------------------------------
+
+		//すべてのスクリプトの編集
+		internal void EditAllScript ( Compend compend, Fc_Scp f_editScp )
+		{
+			foreach ( Sequence sqc in compend.BD_Sequence.GetBindingList () )
+			{
+				foreach ( Script scp in sqc.ListScript )
+				{
+					f_editScp ( scp );
+				}
+			}
+		}
+
 		//末尾にシークエンス追加
 		public void AddSequence ( Sequence s )
 		{
 			Compend.BD_Sequence.Add ( s );
 		}
 
+		//継承先で型指定の追加関数を実装
 		public virtual void Add ()
 		{
 		}

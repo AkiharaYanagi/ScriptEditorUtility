@@ -7,6 +7,7 @@ namespace ScriptEditor
 {
 	using BD_Tn = BindingDictionary < TName >;
 	using BD_EfGn = BindingDictionary < EffectGenerate >;
+	using LsRect = List < Rectangle >;
 
 	//================================================================
 	//	◆スクリプト		キャラにおけるアクションの１フレームの値
@@ -67,10 +68,10 @@ namespace ScriptEditor
 		//枠
 		//------------------------------------------------
 		//接触枠(Collision), 攻撃枠(Attack), 当り枠(Hit), 相殺枠(Offset)
-		public List<Rectangle> ListCRect { get; set; } = new List<Rectangle> ();
-		public List<Rectangle> ListHRect { get; set; } = new List<Rectangle> ();
-		public List<Rectangle> ListARect { get; set; } = new List<Rectangle> ();
-		public List<Rectangle> ListORect { get; set; } = new List<Rectangle> ();
+		public LsRect ListCRect { get; set; } = new LsRect ();
+		public LsRect ListHRect { get; set; } = new LsRect ();
+		public LsRect ListARect { get; set; } = new LsRect ();
+		public LsRect ListORect { get; set; } = new LsRect ();
 
 		//------------------------------------------------
 		//エフェクト生成

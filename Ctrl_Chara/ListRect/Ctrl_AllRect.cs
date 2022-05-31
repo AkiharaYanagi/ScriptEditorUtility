@@ -6,19 +6,27 @@ using System.Collections.Generic;
 
 namespace ScriptEditor
 {
-	delegate void Func ( object sender, EventArgs args );
+	delegate void EventFunc ( object sender, EventArgs args );
 
 	public partial class Ctrl_AllRect : UserControl
 	{
+		//各 枠リスト
 		private List < Ctrl_ListRect > Ls_LsRect = new List<Ctrl_ListRect> ();
 		private const int nLsRect = 4;
+
+		//仕切線
 		private List < Label > labels = new List<Label> ();
 		private const int nLabel = 5;
+
 		private const int PH = 100;
 
 		//選択ボタン
 		private List < Button > LsButton = new List<Button> ();
 
+		//編集
+		public EditCompend EditCompend { get; set; } = null;
+
+		//-----------------------------------------------------------------------
 		//コンストラクタ
 		public Ctrl_AllRect ()
 		{
@@ -43,7 +51,7 @@ namespace ScriptEditor
 			}
 
 			//選択ボタン
-			Func[] funcs = { Select_C_Rect, Select_H_Rect, Select_A_Rect, Select_O_Rect };
+			EventFunc[] funcs = { Select_C_Rect, Select_H_Rect, Select_A_Rect, Select_O_Rect };
 			for ( int i = 0; i < nLsRect; ++ i )
 			{
 				Button btn = new Button ();
@@ -60,6 +68,21 @@ namespace ScriptEditor
 			SelectRect ( 0 );
 
 			InitializeComponent ();
+		}
+
+		public void SetEnvironment ( EditCompend ec )
+		{
+			EditCompend = ec;
+		}
+
+		public void Assosiate ( Script scp )
+		{
+
+		}
+
+		public void UpdateData ()
+		{
+
 		}
 
 		private void SetLabel ( Label lbl, int x, int y )
@@ -149,7 +172,8 @@ namespace ScriptEditor
 		//ペースト：グループ
 		private void Btn_PasteGroup_Click ( object sender, EventArgs e )
 		{
-
+			EditScript es = EditCompend?.EditScript;
+			es?.DoGroup ( s=>s.ListCRect = new List<Rectangle>(CopyListRect) );
 		}
 
 		//ペースト：シークエンス

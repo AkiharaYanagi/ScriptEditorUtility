@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
 
 namespace ScriptEditor
 {
-
-#if false
-	using PrmPoint = ScriptParam < Point >;
-	using LsRect = List < Rectangle >;
-	using GS_LsRect = System.Action < Script, List < Rectangle > >;
-
-#endif
 	//---------------------------------------------------------------------
 	//	Setter, Getter
 	//---------------------------------------------------------------------
@@ -26,88 +17,5 @@ namespace ScriptEditor
 			Getter = getter;
 		}
 	}
-#if false
 
-	//スクリプトの構造を以て、上記クラスをまとめて持つ
-	//コンストラクタで各パラメータの設定用デリゲート(セッタ,ゲッタ)をラムダ式で初期化する
-	public class ScriptSetter
-	{
-		public PrmInt pos_x = new PrmInt ( (s, i)=> s.SetPosX ( i ), s=>s.Pos.X );
-		public PrmInt pos_y = new PrmInt ( (s, i)=> s.SetPosY ( i ), s=>s.Pos.Y );
-		public PrmPoint pos = new PrmPoint ( (s, pt)=> s.Pos = pt, s=>s.Pos );
-
-		public PrmInt vel_x = new PrmInt ( (s, i)=> s.Param_Btl.SetVelX ( i ), s=>s.Param_Btl.Vel.X );
-		public PrmInt vel_y = new PrmInt ( (s, i)=> s.Param_Btl.SetVelY ( i ), s=>s.Param_Btl.Vel.Y );
-		public PrmPoint vel = new PrmPoint ( (s, pt)=> s.Param_Btl.Vel = pt, s=>s.Param_Btl.Vel );
-
-		public PrmInt acc_x = new PrmInt ( (s, i)=> s.Param_Btl.SetAccX ( i ), s=>s.Param_Btl.Acc.X );
-		public PrmInt acc_y = new PrmInt ( (s, i)=> s.Param_Btl.SetAccY ( i ), s=>s.Param_Btl.Acc.Y );
-		public PrmPoint acc = new PrmPoint ( (s, pt)=> s.Param_Btl.Acc = pt, s=>s.Param_Btl.Acc );
-
-		public PrmInt power = new PrmInt ( (s, i)=> s.Param_Btl.Power = i, s=>s.Param_Btl.Power );
-
-		//-------------------------------------------------------------------------------
-		//枠リストのグループへの変更はリストのコピーを行う
-		public GS_LsRect GroupSettterCRect = (s,l)=>s.ListCRect = new LsRect ( l );
-		public GS_LsRect GroupSettterHRect = (s,l)=>s.ListHRect = new LsRect ( l );
-		public GS_LsRect GroupSettterARect = (s,l)=>s.ListARect = new LsRect ( l );
-		public GS_LsRect GroupSettterORect = (s,l)=>s.ListORect = new LsRect ( l );
-	}
-#endif
-
-
-
-#if false
-	//---------------------------------------------------------------------
-	// スクリプトの編集をする
-	//---------------------------------------------------------------------
-	public partial class EditScript
-	{
-		//Setter, Getter
-		public ScriptSetter ScpSetter { get; set; } = new ScriptSetter ();
-
-		//選択中グループに対して、グループセッタを用いて値を設定する
-		private void DoGroupSetter ( System.Action < Script, int > groupSetter, int v )
-		{
-//			Restruct ();
-			foreach ( Script s in SelectedGroup ) { groupSetter ( s, v ); }
-		}
-
-		public void AllSet ( System.Action < Script, int > setter, int v )
-		{
-			foreach ( Script s in L_Scp ) { setter ( s, v ); }
-		}
-
-		//汎用
-		public void DoGroupSetterT < T > ( System.Action < Script, T > groupSetter, T t )
-		{
-			foreach ( Script s in SelectedGroup ) { groupSetter ( s, t ); }
-		}
-
-		//各グループセッタの呼出
-		public void GroupSetterPosX ( int v ) { DoGroupSetter ( ScpSetter.pos_x.Setter, v ); }
-		public void GroupSetterPosY ( int v ) { DoGroupSetter ( ScpSetter.pos_y.Setter, v ); }
-		public void GroupSetterVelX ( int v ) { DoGroupSetter ( ScpSetter.vel_x.Setter, v ); }
-		public void GroupSetterVelY ( int v ) { DoGroupSetter ( ScpSetter.vel_y.Setter, v ); }
-		public void GroupSetterAccX ( int v ) { DoGroupSetter ( ScpSetter.acc_x.Setter, v ); }
-		public void GroupSetterAccY ( int v ) { DoGroupSetter ( ScpSetter.acc_y.Setter, v ); }
-		public void GroupSetterPower ( int v ) { DoGroupSetter ( ScpSetter.power.Setter, v ); }
-
-		public void GroupSetterCRect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterCRect, l ); }
-		public void GroupSetterHRect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterHRect, l ); }
-		public void GroupSetterARect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterARect, l ); }
-		public void GroupSetterORect ( LsRect l ) { DoGroupSetterT ( ScpSetter.GroupSettterORect, l ); }
-	}
-#endif
-	//---------------------------------------------------------------------
-	// スクリプト グループに対し編集をする
-	//---------------------------------------------------------------------
-	public partial class EditScript
-	{
-		//汎用
-		public void DoSetterInGroup_T < T > ( System.Action < Script, T > Setter, T t )
-		{
-			foreach ( Script s in SelectedGroup ) { Setter ( s, t ); }
-		}
-	}
 }

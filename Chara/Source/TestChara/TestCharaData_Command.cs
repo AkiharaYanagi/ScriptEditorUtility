@@ -380,7 +380,7 @@ namespace ScriptEditor
 			eg.SelectSequence ( 0 );
 			eg.SelectedScript.SetPos ( -120, -220 );
 			EditEffect ee = eg.EditEffect;
-			ee.EditAllScript ( chara.garnish, s => { s.ImgName = "Ef0.png"; } );
+			eg.EditAllScript ( chara.garnish, s => { s.ImgName = "Ef0.png"; } );
 			Effect e = eg.Get ();
 
 #if false

@@ -1,6 +1,4 @@
 ﻿using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace ScriptEditor
 {
@@ -19,6 +17,15 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			this.Text = "FormListRect";
+
+			//キャラ初期化
+			Chara ch = new Chara ();
+			MakeTestCharaData mtcd = new MakeTestCharaData ();
+			mtcd.Make ( ch );
+			EditChara.Inst.SetCharaDara ( ch );
+
+			ctrl_AllRect.SetEnvironment ( EditChara.Inst.EditBehavior );
+
 		}
 	}
 }

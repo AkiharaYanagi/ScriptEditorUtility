@@ -1,5 +1,7 @@
 ﻿namespace ScriptEditor
 {
+	using Fc_Scp = System.Action < Script >;
+
 	//---------------------------------------------------------------------
 	// シークエンスの編集をする
 	//---------------------------------------------------------------------
@@ -13,44 +15,16 @@
 			Sqc = s;
 		}
 
-		public void SetName ( string strName )
+		//対象シークエンスのスクリプトにセッタと値を反映
+		public void DoSetterInSqc_T < T > ( System.Action < Script, T > Setter, T t )
 		{
-			Sqc.Name = strName;
-		}
-
-
-		//コンペンドを指定してすべてのシークエンス中のスクリプトを編集
-		//引数：スクリプトを対象とした編集デリゲート
-		public void EditAllScript ( Compend cmpd, System.Action < Script > F_EditScp )
-		{
-			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
-			{
-				foreach ( Script scp in sqc.ListScript )
-				{
-					F_EditScp ( scp );
-				}
-			}
+			foreach ( Script s in Sqc.ListScript ) { Setter ( s, t ); }
 		}
 
 		//対象シークエンスのスクリプトに対し編集
-		public void EditScriptInSequence ( System.Action < Script > F_EditScp )
+		public void EditScriptInSequence ( Fc_Scp F_EditScp )
 		{
-			foreach ( Script scp in Sqc.ListScript )
-			{
-				F_EditScp ( scp );
-			}
-		}
-
-		//汎用
-		public void DoSetterInSqc_T < T > ( System.Action < Script, T > Setter, T t )
-		{
-
-
-			//@todo Edit におけるSelectedSequenceの見直し
-
-
-
-			foreach ( Script s in Sqc.ListScript ) { Setter ( s, t ); }
+			foreach ( Script scp in Sqc.ListScript ) { F_EditScp ( scp ); }
 		}
 	}
 

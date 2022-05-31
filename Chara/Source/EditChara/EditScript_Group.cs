@@ -4,22 +4,22 @@ namespace ScriptEditor
 {
 	using LScp = List < Script >;
 
+	//---------------------------------------------------------------------
+	//グループ（スクリプトの参照リスト）
+	//ScriptがグループIDを持つ
+	//Sequenceが変更されるたびに編集用リストを再構築する
+	//0(グループ外)も含め、グループ成立しているIDを記録する
+	//---------------------------------------------------------------------
 	public partial class EditScript
 	{
 		//対象スクリプトリスト(シークエンス内)
 		public LScp L_Scp { get; set; } = null;
 
-		//---------------------------------------------------------------------
-		//グループ（スクリプトの参照リスト）
-		//ScriptがグループIDを持ち、Sequenceが変更されるたびに
-		//編集用リストを再構築する
-		//0(グループ外)も含め、グループ成立しているIDを記録する
-		//---------------------------------------------------------------------
 		//グループリスト
 		List < LScp > L_ScriptGroup = new List<LScp> ();
 
 		//選択中グループ
-		LScp SelectedGroup = null;
+		LScp SelectedGroup = new LScp ();
 		public int SelectedGroupIndex { get; set; } = 0;
 
 
@@ -166,13 +166,19 @@ namespace ScriptEditor
 			}
 		}
 
-		//選択中のグループに対して処理
+		//---------------------------------------------------------------------
+		// スクリプト グループに対し編集をする
+		//---------------------------------------------------------------------
+		//グループ内スクリプトにセッタと値を反映
+		public void DoSetterInGroup_T < T > ( System.Action < Script, T > Setter, T t )
+		{
+			foreach ( Script s in SelectedGroup ) { Setter ( s, t ); }
+		}
+
+		//グループ内スクリプトに対して処理
 		public void DoGroup ( System.Action < Script > Func )
 		{
-			foreach ( Script s in SelectedGroup )
-			{
-				Func ( s );
-			}
+			foreach ( Script s in SelectedGroup ) { Func ( s ); }
 		}
 	}
 }
