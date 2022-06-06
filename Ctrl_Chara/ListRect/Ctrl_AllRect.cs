@@ -58,7 +58,7 @@ namespace ScriptEditor
 				btn.Text = "";
 				btn.BackColor = Color.LightGray;
 				btn.Size = new Size ( 20, 60 );
-				btn.Location = new Point ( 370, 20 + i * PH );
+				btn.Location = new Point ( 370, 10 + i * PH );
 				btn.Click += new EventHandler ( funcs [ i ] );
 				LsButton.Add ( btn );
 				this.Controls.Add ( btn );
@@ -77,7 +77,10 @@ namespace ScriptEditor
 
 		public void Assosiate ( Script scp )
 		{
-
+			Ls_LsRect [0].Assosiate ( scp.ListCRect );
+			Ls_LsRect [1].Assosiate ( scp.ListHRect );
+			Ls_LsRect [2].Assosiate ( scp.ListARect );
+			Ls_LsRect [3].Assosiate ( scp.ListORect );
 		}
 
 		public void UpdateData ()
@@ -85,6 +88,13 @@ namespace ScriptEditor
 
 		}
 
+		//各コントロール取得
+		public Ctrl_ListRect GetCtrlListCRect () { return Ls_LsRect [0]; }
+		public Ctrl_ListRect GetCtrlListHRect () { return Ls_LsRect [1]; }
+		public Ctrl_ListRect GetCtrlListARect () { return Ls_LsRect [2]; }
+		public Ctrl_ListRect GetCtrlListORect () { return Ls_LsRect [3]; }
+
+		//仕切線
 		private void SetLabel ( Label lbl, int x, int y )
 		{
 			lbl.Text = "";
@@ -126,7 +136,7 @@ namespace ScriptEditor
 		private void SelectRect ( int index )
 		{
 			foreach ( Button b in LsButton ) { b.BackColor = Color.FromName("Control"); }
-			LsButton [ index ].BackColor = Color.Aqua;
+			LsButton [ index ].BackColor = Color.Bisque;
 			SelectedLsRect = Ls_LsRect [ index ];
 			Invalidate ();
 		}

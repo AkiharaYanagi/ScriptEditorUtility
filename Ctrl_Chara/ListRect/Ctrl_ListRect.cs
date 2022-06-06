@@ -33,6 +33,11 @@ namespace ScriptEditor
 			Pb_Num.Invalidate ();
 		}
 
+		public void SetCharaData ( )
+		{
+
+		}
+
 		public void Assosiate ( LsRect lsr )
 		{
 			LsRect = lsr;
@@ -50,12 +55,20 @@ namespace ScriptEditor
 			Tbn_Y.Text = r.Y.ToString ();
 			Tbn_W.Text = r.Width.ToString ();
 			Tbn_H.Text = r.Height.ToString ();
+
+			Pb_Num.Invalidate ();
+			this.Invalidate ();
 		}
 
 		public Rectangle GetRect ( int index )
 		{
 			if ( index < 0 || LsRect.Count <= index ) { return new Rectangle (); }
 			return LsRect [ index ];
+		}
+
+		public void SetRect ( Rectangle r )
+		{
+			LsRect [ SelectedIndex ] = r;
 		}
 
 		public void SetRect_X ( int x )
@@ -163,8 +176,10 @@ namespace ScriptEditor
 		public System.Action < Ctrl_ListRect > Selected { get; set; } = s=>{};
 		private void Ctrl_ListRect_Click ( object sender, System.EventArgs e )
 		{
+#if false
 			Selected?.Invoke ( this );
 			this.BackColor = Color.AliceBlue;
+#endif
 		}
 
 		public void UnSelected ()
