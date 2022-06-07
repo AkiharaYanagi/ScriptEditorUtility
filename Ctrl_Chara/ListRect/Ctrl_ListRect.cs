@@ -56,6 +56,11 @@ namespace ScriptEditor
 			Tbn_W.Text = r.Width.ToString ();
 			Tbn_H.Text = r.Height.ToString ();
 
+			if ( LsRect.Count <= SelectedIndex ) 
+			{
+				SelectedIndex = -1;
+			}
+
 			Pb_Num.Invalidate ();
 			this.Invalidate ();
 		}
@@ -68,6 +73,7 @@ namespace ScriptEditor
 
 		public void SetRect ( Rectangle r )
 		{
+			if ( SelectedIndex < 0 || LsRect.Count <= SelectedIndex ) { return; }
 			LsRect [ SelectedIndex ] = r;
 		}
 
