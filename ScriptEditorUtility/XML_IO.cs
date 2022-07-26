@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace ScriptEditor
 {
+	//-------------------------------------------------------
+	//	汎用クラスTに対応するXML入出力
+	//-------------------------------------------------------
 	public static class XML_IO
 	{
 		public static string SettingFilename { set; get; } = "setting.xml";	//保存ファイル名
@@ -24,13 +27,23 @@ namespace ScriptEditor
 		//読込
 		public static object Load ( Type T )
 		{
+			//---------------------------------------------------------
 			//ファイルの存在しないとき
-			if ( ! File.Exists ( SettingFilename ) ) { return Activator.CreateInstance ( T ); }
+			if ( ! File.Exists ( SettingFilename ) )
+			{
+				//作成して保存して返す
+				var t = Activator.CreateInstance ( T );
+				Save ( t );
+				return t; 
+			}
 
+			//---------------------------------------------------------
+			//ファイルが存在するとき
+
+			//読込
 			//XMLファイルの設定
 			XmlSerializer serializer = new XmlSerializer ( T );
 
-			//読込
 			using ( FileStream fs = new FileStream ( SettingFilename, FileMode.Open ) )
 			{
 				return serializer.Deserialize ( fs );

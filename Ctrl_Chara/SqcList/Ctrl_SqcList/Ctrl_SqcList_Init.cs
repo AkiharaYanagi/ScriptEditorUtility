@@ -66,7 +66,7 @@ namespace ScriptEditor
 			ELB_Sqc.SetIOFunc ( SaveSqcDt, LoadSqcDt );
 		}
 
-		//書出
+		//引き渡し用 書出関数
 		public void SaveSqcDt ( object ob, StreamWriter sw )
 		{
 			SequenceData sqcDt = (SequenceData)ob;
@@ -82,15 +82,27 @@ namespace ScriptEditor
 			}
 		}
 
-		//読込
+
+
+		//アクションリストのデータ構造定義
+		enum _LoadSqcData
+		{
+			NAME,	//名前
+			CTG,	//カテゴリ
+			N_SCP,	//スクリプト個数
+			NEXT,	//次アクション名
+		};
+
+		//引き渡し用 読込関数
 		public void LoadSqcDt ( StreamReader sr )
 		{
 			SequenceData sqcDt = new SequenceData (){ Sqc = New_Object() };
-			
+
+			//アクションリストのテキストデータをカンマ分割
 			string[] str_spl = sr.ReadLine ().Split ( ',' );
-			sqcDt.Name = str_spl[0];
-			sqcDt.Sqc.Name = str_spl[0];
-			sqcDt.nScript = int.Parse ( str_spl[1] );
+			sqcDt.Name = str_spl [ (int)_LoadSqcData.NAME ];
+			sqcDt.Sqc.Name = str_spl[ (int)_LoadSqcData.NAME ];
+			sqcDt.nScript = int.Parse ( str_spl[ (int)_LoadSqcData.N_SCP ] );
 			for ( int i = 0; i < sqcDt.nScript; ++ i )
 			{
 				sqcDt.Sqc.ListScript.Add ( new Script () );
@@ -99,9 +111,12 @@ namespace ScriptEditor
 			//アクションのみ
 			if ( CTRL_SQC.ACTION == flag_sqc_derived )
 			{
-				Action act = (Action)sqcDt.Sqc;
-				act.Category = (ActionCategory)Enum.Parse ( typeof(ActionCategory), str_spl[2] );
-				act.NextActionName = str_spl[3];
+				ScriptEditor.Action act = (ScriptEditor.Action)sqcDt.Sqc;
+				
+				Type t = typeof ( ActionCategory );
+				int i2 = (int)_LoadSqcData.N_SCP;
+				act.Category = (ActionCategory)Enum.Parse ( t, str_spl [ i2 ] );
+				act.NextActionName = str_spl[ (int)_LoadSqcData.NEXT ];
 			}
 
 			ELB_Sqc.Add ( sqcDt );
