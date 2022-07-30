@@ -70,9 +70,10 @@ namespace ScriptEditor
 			InitializeComponent ();
 		}
 
-		public void SetEnvironment ( EditCompend ec )
+		public void SetEnvironment ( EditCompend ec, System.Action UpdateFunc )
 		{
 			EditCompend = ec;
+			SetUpdateFunc ( UpdateFunc );
 		}
 
 		public void Assosiate ( Script scp )
@@ -86,6 +87,14 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 
+		}
+
+		public void SetUpdateFunc ( System.Action UpdateFunc )
+		{
+			Ls_LsRect [0].UpdateAll = UpdateFunc;
+			Ls_LsRect [1].UpdateAll = UpdateFunc;
+			Ls_LsRect [2].UpdateAll = UpdateFunc;
+			Ls_LsRect [3].UpdateAll = UpdateFunc;
 		}
 
 		//各コントロール取得

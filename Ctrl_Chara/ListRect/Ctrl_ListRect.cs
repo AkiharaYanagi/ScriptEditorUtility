@@ -18,6 +18,10 @@ namespace ScriptEditor
 		//選択位置
 		public int SelectedIndex { get; set; } = -1;
 
+		//親更新
+		public System.Action UpdateAll { get; set; } = null;
+
+
 		//コンストラクタ
 		public Ctrl_ListRect ()
 		{
@@ -63,6 +67,7 @@ namespace ScriptEditor
 
 			Pb_Num.Invalidate ();
 			this.Invalidate ();
+			UpdateAll?.Invoke ();	//全体更新
 		}
 
 		public Rectangle GetRect ( int index )
@@ -152,7 +157,6 @@ namespace ScriptEditor
 				SelectedIndex = pt_x;
 			}
 			UpdateData ();
-			Pb_Num.Invalidate ();
 		}
 
 		//追加ボタン
@@ -161,7 +165,8 @@ namespace ScriptEditor
 			if ( LsRect.Count < ConstChara.NumRect )
 			{
 				LsRect.Add ( new Rectangle () );
-				Pb_Num.Invalidate ();
+				SelectedIndex = LsRect.Count;
+				UpdateData ();
 			}
 		}
 
@@ -174,7 +179,7 @@ namespace ScriptEditor
 
 			if ( SelectedIndex > LsRect.Count - 1 ) { SelectedIndex = -1; }
 
-			Pb_Num.Invalidate ();
+			UpdateData ();
 		}
 
 		//====================================================================
