@@ -88,8 +88,8 @@ namespace ScriptEditor
 		enum _LoadSqcData
 		{
 			NAME,	//名前
-			CTG,	//カテゴリ
 			N_SCP,	//スクリプト個数
+			CTG,	//カテゴリ
 			NEXT,	//次アクション名
 		};
 

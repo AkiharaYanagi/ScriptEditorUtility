@@ -82,7 +82,8 @@ namespace ScriptEditor
 			SetLvrCell ();
 
 			//ラジオボタンに反映
-			RB_Disp ( SlctKey.GetSt ( Cmd ) );
+//			RB_Disp ( SlctKey.GetSt ( Cmd ) );
+			RB_Disp ( SlctKey.GetLeverSt () );
 			
 			Invalidate ();
 		}
@@ -128,22 +129,11 @@ namespace ScriptEditor
 
 			//表示に位置を渡す
 			int index = px + py * 3;
-			DspCmd.SlctKey.SelectedIndex = index;
+			System.Diagnostics.Debug.WriteLine ( index.ToString () );
 
-			System.Diagnostics.Debug.Write ( "SetLvrCell(); " );
-			System.Diagnostics.Debug.WriteLine ( index );
-
-#if false
-			//回転順のインデックスに変換
-			//  6 5 4
-			//  7 * 3
-			//  0→1 2
-			int index = px + py * 3;
-			int[] ary = { 7, 6, 5, 8, 0, 4, 1, 2, 3 };
-			if ( -1 == ary[index] ) { return; }
-
-			DspCmd.SelectedIndex = ary [ index ];
-#endif
+			//表示位置から対応レバーに変換して保存
+			//DspCmd.SlctKey.SelectedLvrIndex = (GK_L)index;
+			DspCmd.SlctKey.SetDispToLvr ( index );
 		}
 
 		//ラジオボタンに反映

@@ -92,49 +92,72 @@ namespace ScriptEditor
 			pb_Command1.Invalidate ();
 		}
 
-		//ラジオボタンによるキータイミング変更
+		//---------------------------------------------------------------------------
+		//ラジオボタンのON切替によるキータイミング変更
 		private void RB_OFF_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_OFF );
-			pb_Command1.Invalidate ();
+			if ( RB_OFF.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_OFF );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_PUSH_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_PUSH );
-			pb_Command1.Invalidate ();
+			if ( RB_PUSH.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_PUSH );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_RELE_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_RELE );
-			pb_Command1.Invalidate ();
+			if ( RB_RELE.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_RELE );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_ON_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_ON );
-			pb_Command1.Invalidate ();
+			if ( RB_ON.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_ON );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_Wild_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_WILD );
-			pb_Command1.Invalidate ();
+			if ( RB_WILD.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_WILD );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_IS_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_IS );
-			pb_Command1.Invalidate ();
+			if ( RB_IS.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_IS );
+				pb_Command1.Invalidate ();
+			}
 		}
 
 		private void RB_NIS_CheckedChanged ( object sender, EventArgs e )
 		{
-			EdtCmd.Timing ( GKC_ST.KEY_NIS );
-			pb_Command1.Invalidate ();
+			if ( RB_NIS.Checked )
+			{
+				EdtCmd.Timing ( GKC_ST.KEY_NIS );
+				pb_Command1.Invalidate ();
+			}
 		}
 
+		//---------------------------------------------------------------------------
 		//否定のチェックボックス
 		private void CHK_Not_CheckedChanged ( object sender, EventArgs e )
 		{

@@ -8,32 +8,29 @@ namespace ScriptEditor
 	//----------------------------------------------------------------------
 	public class TBN_Command : TextBox
 	{
-		//関連付けられる数値
-//		public RefInt refInt { get; set; }
-
 		//全てのスクリプトに適用するための操作用
-		public EditCommand editCommand { get; set; }
+		public EditCommand EdtCmd { get; set; }
 
 		//スクリプト表示の更新用
-		public DispCommand dispCommand { get; set; }
+		public DispCommand DspCmd { get; set; }
 
 		//設定対象
-		Command command { get; set; }
+		Command Cmd { get; set; }
 
 		//デリゲートを用いたTypeへの値設定
-		public System.Action < ScriptEditor.Command, int > SetFunc { get; set; }
+		public System.Action < Command, int > SetFunc { get; set; }
 
 		//------------------------------------------------------
 		//初期化
 		public void Load ( EditCommand ec, DispCommand dc )
 		{
-			editCommand = ec;
-			dispCommand = dc;
-			command = editCommand.Cmd;
+			EdtCmd = ec;
+			DspCmd = dc;
+			Cmd = EdtCmd.Cmd;
 		}
 
 		//文字キー押下時
-		protected override void  OnKeyPress ( KeyPressEventArgs e )
+		protected override void OnKeyPress ( KeyPressEventArgs e )
 		{
 			char c = e.KeyChar;
 
@@ -54,72 +51,20 @@ namespace ScriptEditor
  			base.OnKeyPress(e);
 		}
 
-		//キーボード入力時
-		protected override void OnKeyDown ( KeyEventArgs e )
-		{
-#if false
-			//テキストが空のとき何もしない
-			if ( this.Text.Length == 0 ) { return; }
-
-			//コマンドが０のとき何もしない
-			if ( null == command ) { return; }
-
-			//テキストボックスに数値が入力されていてEnterが押されたとき、
-			//関連付けられた値を保存
-			if ( e.KeyCode == Keys.Enter )
-			{
-				if ( refInt == null ) { return; }
-
-				int value = 0;
-				try
-				{
-					value = int.Parse ( this.Text );
-				}
-				catch	//int.Parse(s)が失敗したとき
-				{
-					System.Media.SystemSounds.Question.Play ();
-					return;
-				}
-				refInt.i = value;
-
-				//ロード時に設定したデリゲートから対象タイプに値を設置
-				SetFunc ( command, value );
-
-				//画面の更新
-//				dispCommand.Disp ( e );
-			}
-#endif
-
-			base.OnKeyDown ( e );
-		}
-
 		//関連付と更新
-		public void Select ( ScriptEditor.Command cmd )
+		public void Select ( Command cmd )
 		{
-			this.command = cmd;
-//            refInt = cmd.LimitTime;
-//            Text = cmd.LimitTime.i.ToString();
+			this.Cmd = cmd;
 			Invalidate ();
 		}
 
-#if false
-		public void Update ( RefInt ri )
-		{
-			this.refInt = ri;
-			this.Text = ri.i.ToString ();
-		}
-
-		public void UpdateText ()
-		{
-			this.Text = this.refInt.i.ToString ();
-		}
-#endif
-
+		//------------------------------------------------------
+		//コンポーネント初期化
 		private void InitializeComponent ()
 		{
 			this.SuspendLayout();
 			this.ResumeLayout(false);
-
 		}
+
 	}
 }

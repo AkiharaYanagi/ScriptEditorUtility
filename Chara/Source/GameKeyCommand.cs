@@ -62,7 +62,6 @@ namespace ScriptEditor
 		public enum LeverCommand
 		{
 			//方向
-//			C_N = 0,	//入力無
 			C_1 = 0,
 			C_2 = 1,
 			C_3 = 2,
@@ -71,23 +70,13 @@ namespace ScriptEditor
 			C_8 = 5,
 			C_7 = 6,
 			C_4 = 7,
-#if false
-			//方向要素(Element)(いずれか)
-			C_2E = 8,
-			C_6E = 9,
-			C_8E = 10,
-			C_4E = 11,
-#endif
 
-			//未指定
-//			C_N = 12,
-			C_N = 8,
+			C_N = 8,	//未指定
 		}
-//		public const int LeverCommandNum = 12;
 		public const int LeverCommandNum = 8;
 
 		//======================================================================================
-		//レバー判定状態
+		//レバー判定状態 (レバー定義((int)C_X)でインデックスを指定)
 		public GKC_ST [] Lvr { set; get; } = new GKC_ST [ LeverCommandNum ];
 
 		//現在レバーインデックス
@@ -101,10 +90,13 @@ namespace ScriptEditor
 			B_1,
 			B_2,
 			B_3,
+			B_4,
+			B_5,
+			B_6,
+			B_7,
 		}
 
 		//ボタン数
-//		public const int BtnNum = 4;
 		public const int BtnNum = 8;
 		
 		public GKC_ST [] Btn { set; get; } = new GKC_ST [ BtnNum ];

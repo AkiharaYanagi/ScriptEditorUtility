@@ -16,7 +16,7 @@
 		public int Frame { get; set; } = 0;
 
 		//レバー選択位置
-		public int SelectedIndex { get; set; } = 0;
+		public GK_L SelectedLvr { get; set; } = GK_L.C_N;
 
 		//キー種類
 		public enum KeyKind
@@ -64,28 +64,58 @@
 			return ret; 
 		}
 
+		//選択中レバー方向の状態を取得
+		public GKC_ST GetLeverSt ()
+		{
+			GKC_ST ret = GKC_ST.KEY_WILD;
+			GameKeyCommand gkc = Cmd.ListGameKeyCommand [ Frame ];
+			ret = gkc.Lvr [ (int)SelectedLvr ];
+			return ret;
+		}
+
+		//対象コマンドに状態を設定
 		public void SetSt ( Command cmd, GKC_ST gkcst )
 		{
 			if ( cmd.ListGameKeyCommand.Count <= Frame ) { return; }
 
 			GameKeyCommand gkc = cmd.ListGameKeyCommand [ Frame ];
 
-			//表示インデックスからレバーインデックスに変換
-			// 0 1 2		6 5 4	(	7 8 9	)
-			// 3 4 5	→	7   3	(	4   6	)
-			// 6 7 8		0 1 2	(	1 2 3	)
-
-			int[] ary = { 6, 5, 4, 7, 8, 3, 0, 1, 2 };
-			int indexLvr = ary [ SelectedIndex ];
-
 			switch ( Kind )
 			{
-			case KeyKind.ARROW: gkc.SetLvrSt ( gkcst, (GK_L)indexLvr ); break;
+			case KeyKind.ARROW: gkc.SetLvrSt ( gkcst, SelectedLvr ); break;
 			case KeyKind.KEY_L: gkc.Btn [ 0 ] = gkcst; break;
 			case KeyKind.KEY_Ma: gkc.Btn [ 1 ] = gkcst; break;
 			case KeyKind.KEY_Mb: gkc.Btn [ 2 ] = gkcst; break;
 			case KeyKind.KEY_H: gkc.Btn [ 3 ] = gkcst; break;
 			}
+		}
+
+		//表示上の位置からレバーインデックスに変換して保存
+		public void SetDispToLvr ( int indexOfDisp )
+		{
+			SelectedLvr = IndexOfDisp_ToLvr ( indexOfDisp );
+		}
+
+		public GK_L IndexOfDisp_ToLvr ( int indexOfDisp )
+		{
+			//表示インデックスからレバーインデックスに変換
+			// 0 1 2		C7 C8 C9
+			// 3 4 5	→	C4 CN C6
+			// 6 7 8		C1 C2 C3
+
+			GK_L[] ary = { GK_L.C_7, GK_L.C_8, GK_L.C_9, GK_L.C_4, GK_L.C_N, GK_L.C_6, GK_L.C_1, GK_L.C_2, GK_L.C_3 };
+			return ary [ indexOfDisp ];
+		}
+
+		public int LvrTo_IndexOfDisp ()
+		{
+			//レバーインデックスから表示インデックスに変換
+			//C7 C8 C9		0 1 2		
+			//C4 CN C6	→	3 4 5		
+			//C1 C2 C3		6 7 8		
+
+			int[] ary = { 6, 7, 8, 5, 2, 1, 0, 3, 8 };
+			return ary [ (int)SelectedLvr ];
 		}
 	}
 }

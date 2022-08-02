@@ -76,9 +76,6 @@
       <DependentUpon>Pb_Command.cs</DependentUpon>
     </Compile>
     <Compile Include="Command\SelectKey.cs" />
-    <Compile Include="Command\TBN_Command.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Ctrl_Branch.cs">
       <SubType>UserControl</SubType>
     </Compile>

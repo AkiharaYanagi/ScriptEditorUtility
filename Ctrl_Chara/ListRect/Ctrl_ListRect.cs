@@ -134,6 +134,7 @@ namespace ScriptEditor
 				if( SelectedIndex != -1 )
 				{
 					g.FillRectangle ( Brushes.Red, SelectedIndex * 20, 0, W, H );
+					g.FillRectangle ( Brushes.White, SelectedIndex * 20 + 2, 0 + 2, W - 4, H - 4 );
 				}
 			
 				//罫線
@@ -165,7 +166,7 @@ namespace ScriptEditor
 			if ( LsRect.Count < ConstChara.NumRect )
 			{
 				LsRect.Add ( new Rectangle () );
-				SelectedIndex = LsRect.Count;
+				SelectedIndex = LsRect.Count - 1;
 				UpdateData ();
 			}
 		}
@@ -177,7 +178,14 @@ namespace ScriptEditor
 
 			LsRect.RemoveAt ( LsRect.Count - 1 );
 
-			if ( SelectedIndex > LsRect.Count - 1 ) { SelectedIndex = -1; }
+			if ( LsRect.Count < 1 )
+			{
+				SelectedIndex = -1; 
+			}
+			else if ( SelectedIndex > LsRect.Count - 1 )
+			{
+				SelectedIndex = LsRect.Count - 1;
+			}
 
 			UpdateData ();
 		}

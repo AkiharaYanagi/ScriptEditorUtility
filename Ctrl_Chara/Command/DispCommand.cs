@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-using ScriptEditor;
 using System.Diagnostics;
 
 namespace ScriptEditor
@@ -29,24 +28,6 @@ namespace ScriptEditor
 		//--------------------------------------------------------------------------
 		//内部使用定数
 		//画像指定(リソース) 
-#if false
-		private readonly Image [,] AryImgLvr = new Image [,]
-		{
-			{ PR.Off, PR.CMD_On_01, PR.CMD_Push_01, PR.CMD_Rele_01, PR.wild, PR.CMD_Is_01, PR.CMD_Nis_01 }, 
-			{ PR.Off, PR.CMD_On_02, PR.CMD_Push_02, PR.CMD_Rele_02, PR.wild, PR.CMD_Is_02, PR.CMD_Nis_02 }, 
-			{ PR.Off, PR.CMD_On_03, PR.CMD_Push_03, PR.CMD_Rele_03, PR.wild, PR.CMD_Is_03, PR.CMD_Nis_03 }, 
-			{ PR.Off, PR.CMD_On_06, PR.CMD_Push_06, PR.CMD_Rele_06, PR.wild, PR.CMD_Is_06, PR.CMD_Nis_06 }, 
-			{ PR.Off, PR.CMD_On_09, PR.CMD_Push_09, PR.CMD_Rele_09, PR.wild, PR.CMD_Is_09, PR.CMD_Nis_09 }, 
-			{ PR.Off, PR.CMD_On_08, PR.CMD_Push_08, PR.CMD_Rele_08, PR.wild, PR.CMD_Is_08, PR.CMD_Nis_08 }, 
-			{ PR.Off, PR.CMD_On_07, PR.CMD_Push_07, PR.CMD_Rele_07, PR.wild, PR.CMD_Is_07, PR.CMD_Nis_07 }, 
-			{ PR.Off, PR.CMD_On_04, PR.CMD_Push_04, PR.CMD_Rele_04, PR.wild, PR.CMD_Is_04, PR.CMD_Nis_04 }, 
-			{ PR.Off, PR.CMD_On_2E, PR.CMD_Push_2E, PR.CMD_Rele_2E, PR.wild, PR.CMD_Is_2E, PR.CMD_Nis_2E }, 
-			{ PR.Off, PR.CMD_On_6E, PR.CMD_Push_6E, PR.CMD_Rele_6E, PR.wild, PR.CMD_Is_6E, PR.CMD_Nis_6E }, 
-			{ PR.Off, PR.CMD_On_8E, PR.CMD_Push_8E, PR.CMD_Rele_8E, PR.wild, PR.CMD_Is_8E, PR.CMD_Nis_8E }, 
-			{ PR.Off, PR.CMD_On_4E, PR.CMD_Push_4E, PR.CMD_Rele_4E, PR.wild, PR.CMD_Is_4E, PR.CMD_Nis_4E }, 
-		};
-#endif
-
 		private readonly Image [] AryImgLvr_ = new Image []
 		{
 			PR.CmdAr_OFF, PR.CmdAr_On, PR.CmdAr_Push, PR.CmdAr_Rele, PR.CmdAr_Wild, PR.CmdAr_Is, PR.CmdAr_Nis,
@@ -80,7 +61,6 @@ namespace ScriptEditor
 		//描画
 		public void Disp ( PaintEventArgs e )
 		{
-//			Debug.WriteLine ("pb_Command1_Paint");			
 			Graphics g = e.Graphics;
 
 			//リソース使用の宣言
@@ -131,7 +111,7 @@ namespace ScriptEditor
 				//レバー
 				GKC_ST gkcst = gc.GetLvrSt ();
 				int indexLvr = (int)gc.GetLever ();
-				// g.DrawImage ( AryImgLvr [ indexLvr, (int)gkcstL ], CW + CW * iFrame, RH, CW, RH );
+
 				for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
 				{
 					int imgIndex = (int) gc.Lvr [ i ];
@@ -188,8 +168,9 @@ namespace ScriptEditor
 			}
 
 			//レバーカーソル
-			int si_x = SlctKey.SelectedIndex % 3;
-			int si_y = SlctKey.SelectedIndex / 3;
+			int dispIndex = SlctKey.LvrTo_IndexOfDisp ();
+			int si_x = dispIndex % 3;
+			int si_y = dispIndex / 3;
 			int Lvr_w = 16;
 			int Lvr_h = 16;
 			int Lvr_x = CW + ( Lvr_w * si_x ) - 3 + CW * SlctKey.Frame;
