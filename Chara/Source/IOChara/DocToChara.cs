@@ -295,10 +295,11 @@ namespace ScriptEditor
 					gameKey.Not = elemKey.Attributes[ atrbIndex ].Value.CompareTo ( "True" ) == 0;
 
 					//レバー
-					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+					//for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+					foreach ( GK_L key in gameKey.DctLvrSt.Keys )
 					{
 						string strLvr = elemKey.Attributes [ ++ atrbIndex ].Value;
-						gameKey.Lvr [ i ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
+						gameKey.DctLvrSt [ key ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
 					}
 #if false
 					int id = IOChara.Parse ( elemKey, ++ atrbIndex );

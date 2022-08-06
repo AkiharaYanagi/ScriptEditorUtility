@@ -16,7 +16,7 @@
 		public int Frame { get; set; } = 0;
 
 		//レバー選択位置
-		public GK_L SelectedLvr { get; set; } = GK_L.C_N;
+		public GK_L SelectedLvr { get; set; } = GK_L.LVR_N;
 
 		//キー種類
 		public enum KeyKind
@@ -103,7 +103,7 @@
 			// 3 4 5	→	C4 CN C6
 			// 6 7 8		C1 C2 C3
 
-			GK_L[] ary = { GK_L.C_7, GK_L.C_8, GK_L.C_9, GK_L.C_4, GK_L.C_N, GK_L.C_6, GK_L.C_1, GK_L.C_2, GK_L.C_3 };
+			GK_L[] ary = { GK_L.LVR_7, GK_L.LVR_8, GK_L.LVR_9, GK_L.LVR_4, GK_L.LVR_N, GK_L.LVR_6, GK_L.LVR_1, GK_L.LVR_2, GK_L.LVR_3 };
 			return ary [ indexOfDisp ];
 		}
 
