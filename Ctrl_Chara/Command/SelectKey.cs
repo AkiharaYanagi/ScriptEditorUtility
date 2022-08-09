@@ -1,7 +1,8 @@
 ﻿namespace ScriptEditor
 {
-	using GK_L = GameKeyCommand.LeverCommand;
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
+	using GK_ST = GameKeyCommand.GameKeyCommandState;
 
 	//選択されているコマンド中のキー
 	public class SelectKey
@@ -22,10 +23,13 @@
 		public enum KeyKind
 		{
 			ARROW,
+#if false
 			KEY_L,
 			KEY_Ma,
 			KEY_Mb,
 			KEY_H
+#endif
+			BUTTON,
 		}
 
 		public KeyKind Kind { get; set; } = KeyKind.ARROW;
@@ -45,13 +49,13 @@
 			return cmd.ListGameKeyCommand [ Frame ];
 		}
 
-		public GKC_ST GetSt ( Command cmd )
+		public GK_ST GetSt ( Command cmd )
 		{
-			if ( cmd.ListGameKeyCommand.Count <= Frame ) { return GKC_ST.KEY_WILD; }
+			if ( cmd.ListGameKeyCommand.Count <= Frame ) { return GK_ST.KEY_WILD; }
 
 			GameKeyCommand gkc = cmd.ListGameKeyCommand [ Frame ];
 
-			GKC_ST ret = GKC_ST.KEY_OFF;
+			GK_ST ret = GK_ST.KEY_OFF;
 			switch ( Kind )
 			{
 			case KeyKind.ARROW: ret = gkc.GetLvrSt (); break;
@@ -65,16 +69,16 @@
 		}
 
 		//選択中レバー方向の状態を取得
-		public GKC_ST GetLeverSt ()
+		public GK_ST GetLeverSt ()
 		{
-			GKC_ST ret = GKC_ST.KEY_WILD;
+			GK_ST ret = GK_ST.KEY_WILD;
 			GameKeyCommand gkc = Cmd.ListGameKeyCommand [ Frame ];
-			ret = gkc.Lvr [ (int)SelectedLvr ];
+			ret = gkc.DctLvrSt [ SelectedLvr ];
 			return ret;
 		}
 
 		//対象コマンドに状態を設定
-		public void SetSt ( Command cmd, GKC_ST gkcst )
+		public void SetSt ( Command cmd, GK_ST gkcst )
 		{
 			if ( cmd.ListGameKeyCommand.Count <= Frame ) { return; }
 

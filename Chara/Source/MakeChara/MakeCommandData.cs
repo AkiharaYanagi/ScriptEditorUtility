@@ -9,8 +9,8 @@ namespace ScriptEditor
 {
 	//エイリアスの設定
 	using GKC_ST = GameKeyCommand.GameKeyCommandState;
-	using GK_L = GameKeyCommand.LeverCommand;
-	using GK_B = GameKeyCommand.ButtonCommand;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
 
 	using BD_CMD = BindingDictionary < Command >;
 	using BD_BRC = BindingDictionary < Branch >;
@@ -200,7 +200,7 @@ namespace ScriptEditor
 			{
 				lgk.Add ( new GameKeyCommand () );
 			}
-			lgk [ index ].Btn[ (int)btn ] = st;
+			lgk [ index ].DctBtnSt [ btn ] = st;
 		}
 
 		private void SetCmdLvr ( BD_CMD bd_c, ENM_CMD name_cmd, int index, int limit, GKC_ST st, GK_L gk_l )

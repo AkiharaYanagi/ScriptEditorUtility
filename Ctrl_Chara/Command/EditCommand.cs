@@ -31,6 +31,7 @@ namespace ScriptEditor
 		{
 			if ( Cmd.ListGameKeyCommand.Count <= 0 ) { return; }
 
+			//キー状態を次へ移項する(enumを次に)
 			GKC_ST gkcst = SlctKey.GetSt ( Cmd );
 			if ( GKC_ST.KEY_WILD == gkcst )
 			{
@@ -38,7 +39,7 @@ namespace ScriptEditor
 			}
 			else
 			{
-				SlctKey.SetSt ( Cmd, gkcst.Next () );
+				SlctKey.SetSt ( Cmd, gkcst.Next () );	//EnumExtentions
 			}
 		}
 
