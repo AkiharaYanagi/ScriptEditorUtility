@@ -30,8 +30,11 @@ namespace ScriptEditor
 	// 
 	//-------------------------------------------------------------------
 
-	using GK_L = GameKeyCommand.LeverCommand;
 	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
+	using DCT_L_ST = Dictionary < GameKeyData.Lever, GameKeyCommand.GameKeyCommandState >;
+	using DCT_B_ST = Dictionary < GameKeyData.Button, GameKeyCommand.GameKeyCommandState >;
 
 	//====================================================================
 	//1[F]のコマンド条件に用いるクラス
@@ -56,6 +59,7 @@ namespace ScriptEditor
 		}
 
 		//---------------------------------------------------
+#if false
 		//レバー入力種類
 		//矢印テンキー表示を[1]から１回転
 		//  7 8 9
@@ -76,17 +80,18 @@ namespace ScriptEditor
 			LVR_N = 8,	//未指定,またはニュートラル
 		}
 		public const int LeverCommandNum = 8;
+#endif
 
 		//======================================================================================
 		//レバー判定状態 (レバー定義((int)C_X)でインデックスを指定)
 //		public GKC_ST [] Lvr { set; get; } = new GKC_ST [ LeverCommandNum ];
-
-		public Dictionary < GK_L, GK_ST > DctLvrSt = new Dictionary < GK_L, GK_ST > ();
+		public DCT_L_ST DctLvrSt = new DCT_L_ST ();
 
 		//現在レバーインデックス
-//		public GK_L IdLvr { get; set; } = 0;
+		//		public GK_L IdLvr { get; set; } = 0;
 
 		//---------------------------------------------------
+#if false
 		//ボタン状態 (8ボタン)
 		public enum ButtonCommand
 		{
@@ -102,8 +107,10 @@ namespace ScriptEditor
 
 		//ボタン数
 		public const int BtnNum = 8;
+#endif
 		
-		public GK_ST [] Btn { set; get; } = new GK_ST [ BtnNum ];
+//		public GK_ST [] Btn { set; get; } = new GK_ST [ GameKeyData.BTN_NUM ];
+		public DCT_B_ST DctBtnSt = new DCT_B_ST ();
 
 		//---------------------------------------------------
 		//否定のフラグ
@@ -130,11 +137,21 @@ namespace ScriptEditor
 			DctLvrSt.Add ( GK_L.LVR_7, GK_ST.KEY_WILD );
 			DctLvrSt.Add ( GK_L.LVR_4, GK_ST.KEY_WILD );
 
-		
-			for ( int i = 0; i < BtnNum; ++ i )
+#if false
+			for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
 			{
 				Btn [ i ] = GK_ST.KEY_WILD;
 			}
+#endif
+			DctBtnSt.Add ( GK_B.BTN_0, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_1, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_2, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_3, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_4, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_5, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_6, GK_ST.KEY_WILD );
+			DctBtnSt.Add ( GK_B.BTN_7, GK_ST.KEY_WILD );
+
 		}
 
 
@@ -264,21 +281,31 @@ namespace ScriptEditor
 		//戻値：適合したらtrue、それ以外はfalse
 		public bool CompareTarget ( GameKeyData gameKeyData, bool dirRight )
 		{
+			const int LN = GameKeyData.LVR_NUM;
+			const int BN = GameKeyData.BTN_NUM;
+
 			//チェック用(反転などの操作をするためにディープコピーとする)
 			GameKeyData gk = new GameKeyData ( gameKeyData );
 
 			//比較するかどうか(条件がワイルドの時は比較しない)
-			bool[] bWildLvr = new bool [ LeverCommandNum ];
-			bool[] bWildBtn = new bool[ BtnNum ];
+			bool[] bWildLvr = new bool [ LN ];
+			bool[] bWildBtn = new bool[ BN ];
 
 			//比較結果
-			bool[] b_Lvr = new bool [ LeverCommandNum ];
-			bool[] b_Btn = new bool[ BtnNum ];
+			bool[] b_Lvr = new bool [ LN ];
+			bool[] b_Btn = new bool[ BN ];
 
+<<<<<<< HEAD
 			InitBoolArray ( bWildLvr, LeverCommandNum );
 			InitBoolArray ( bWildBtn, BtnNum );
 			InitBoolArray ( b_Lvr, LeverCommandNum );
 			InitBoolArray ( b_Btn, BtnNum );
+=======
+			InitArray ( bWildLvr, LN );
+			InitArray ( bWildBtn, BN );
+			InitArray ( b_Lvr, LN );
+			InitArray ( b_Btn, BN );
+>>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 
 			//-----------------------------------------------------------------
 			//左向きのとき左右を入れ替え
@@ -287,9 +314,13 @@ namespace ScriptEditor
 			//-----------------------------------------------------------------
 			//比較して結果を保存
 			//レバー
-			CompareKey ( LeverCommandNum, DctLvrSt, bWildLvr, b_Lvr, gameKeyData.Lvr, gameKeyData.PreLbr );
+			CompareKey ( LN, DctLvrSt, bWildLvr, b_Lvr, gameKeyData.Lvr, gameKeyData.PreLbr );
 			//ボタン
+<<<<<<< HEAD
 			CompareKey ( BtnNum, Btn, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
+=======
+			CompareKey ( BN, DctBtnSt, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
+>>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 
 			//-----------------------------------------------------------------
 			//まとめ
@@ -300,9 +331,17 @@ namespace ScriptEditor
 			//いずれかを返す場合
 			bool ret = true;
 
+<<<<<<< HEAD
 			//調査対象かつ適合かどうか
 			ret &= CheckWild ( LeverCommandNum, bWildLvr, b_Lvr );
 			ret &= CheckWild ( BtnNum, bWildBtn, b_Btn );
+=======
+			//レバー
+			ret &= CheckWild ( LN, bWildLvr, b_Lvr );
+
+			//ボタン
+			ret &= CheckWild ( BN, bWildBtn, b_Btn );
+>>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 
 			//否定の場合は反転して返す (排他的論理和)
 			return ret ^ this.Not;
@@ -353,16 +392,45 @@ namespace ScriptEditor
 			return true;
 		}
 
+
 		//比較
+<<<<<<< HEAD
 		private void CompareKey ( int num, GK_ST [] stAry, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
+=======
+		private void CompareKey ( int num, DCT_L_ST dct, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
+>>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 		{
-			for ( int i = 0; i < num; ++ i )
+			int i = 0;
+			foreach ( GK_L key in dct.Keys )
 			{
 				//一時変数
 				bool b = bDataAry[i];
 				bool pb = bPreAry[i];
+				
+				switch ( dct [ key ] )
+				{
+				//条件がワイルドの場合は比較しない
+				case GK_ST.KEY_WILD: bWildAry[i] = true; break;
+				//各種状態で結果を決める
+				case GK_ST.KEY_ON  : bResultAry[i] = b; break;
+				case GK_ST.KEY_OFF : bResultAry[i] = ! b; break;
+				case GK_ST.KEY_PUSH: bResultAry[i] = b && ! pb; break;
+				case GK_ST.KEY_RELE: bResultAry[i] = ! b && pb; break;
+				}
 
-				switch ( stAry [ i ] )
+				++ i;
+			}
+		}
+
+		private void CompareKey ( int num, DCT_B_ST dct, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
+		{
+			int i = 0;
+			foreach ( GK_B key in dct.Keys )
+			{
+				bool b = bDataAry[i];
+				bool pb = bPreAry[i];
+
+				switch ( dct [ key ] )
 				{
 				//条件がワイルドの場合は比較しない
 				case GK_ST.KEY_WILD: bWildAry[i] = true; break;
@@ -371,6 +439,8 @@ namespace ScriptEditor
 				case GK_ST.KEY_PUSH: bResultAry[i] = b && ! pb; break;
 				case GK_ST.KEY_RELE: bResultAry[i] = ! b && pb; break;
 				}
+
+				++ i;
 			}
 		}
 
@@ -397,7 +467,7 @@ namespace ScriptEditor
 			GameKeyCommand g = (GameKeyCommand)obj;
 			
 			if ( ! this.DctLvrSt.SequenceEqual ( g.DctLvrSt ) ) { return false; }
-			if ( ! this.Btn.SequenceEqual ( g.Btn ) ) { return false; }
+			if ( ! this.DctBtnSt.SequenceEqual ( g.DctBtnSt ) ) { return false; }
 			if ( ! (this.Not == g.Not) ) { return false; }
 
 			return true;
@@ -406,7 +476,7 @@ namespace ScriptEditor
 		public override int GetHashCode ()
 		{
 			int i0 = DctLvrSt.GetHashCode ();
-			int i2 = i0 ^ Btn.GetHashCode ();
+			int i2 = i0 ^ DctBtnSt.GetHashCode ();
 			int i3 = i2 ^ Not.GetHashCode ();
 			return i3;
 		}

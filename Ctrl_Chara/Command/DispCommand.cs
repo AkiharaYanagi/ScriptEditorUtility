@@ -5,7 +5,9 @@ using System.Diagnostics;
 namespace ScriptEditor
 {
 	using PR = global::Ctrl_Chara.Properties.Resources;
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
 
 	public class DispCommand
 	{
@@ -90,11 +92,11 @@ namespace ScriptEditor
 			}
 
 			//見出：レバー(十字),ボタン(L,Ma,Mb,H)
-			g.DrawImage ( PR.arrow, 0, RH * 1, CW, RH );
-			g.DrawImage ( PR.command_L , 0, RH * 2, CW, RH );
-			g.DrawImage ( PR.command_Ma, 0, RH * 3, CW, RH );
-			g.DrawImage ( PR.command_Mb, 0, RH * 4, CW, RH );
-			g.DrawImage ( PR.command_H , 0, RH * 5, CW, RH );
+			g.DrawImage ( PR.arrow		, 0, RH * 1, CW, RH );
+			g.DrawImage ( PR.command_L	, 0, RH * 2, CW, RH );
+			g.DrawImage ( PR.command_Ma	, 0, RH * 3, CW, RH );
+			g.DrawImage ( PR.command_Mb	, 0, RH * 4, CW, RH );
+			g.DrawImage ( PR.command_H	, 0, RH * 5, CW, RH );
 
 			//全体背景
 			//枠外
@@ -109,30 +111,30 @@ namespace ScriptEditor
 			foreach ( GameKeyCommand gc in Cmd.ListGameKeyCommand )
 			{
 				//レバー
-				GKC_ST gkcst = gc.GetLvrSt ();
-				int indexLvr = (int)gc.GetLever ();
-
-				for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
+				int iLvr = 0;
+				foreach ( GK_L key in gc.DctLvrSt.Keys )
 				{
-					int imgIndex = (int) gc.Lvr [ i ];
+					int imgIndex = (int) gc.DctLvrSt [ key ];
 						
-					int pos_i = ItoLvr [ i ] - 1;
+					int pos_i = ItoLvr [ iLvr ] - 1;
 					int x = CW + CW * iFrame + ( 16 * (pos_i % 3) );
 					int y = RH + ( 16 * (2 - (pos_i / 3) ) );
 
 					g.DrawImage ( AryImgLvr_ [ imgIndex ], x, y, 16, 16 );
 					
-					if ( GKC_ST.KEY_WILD != gc.Lvr [ i ] )
+					if ( GK_ST.KEY_WILD != gc.DctLvrSt [ key ] )
 					{
-						g.DrawString ( ItoLvr[ i ].ToString (), font1, Brushes.Black, x + 2, y );
+						g.DrawString ( ItoLvr[ iLvr ].ToString (), font1, Brushes.Black, x + 2, y );
 					}
+
+					++ iLvr;
 				}
 
 				//ボタン
 				int iBtn = 0;
-				for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
+				foreach ( GK_B key in gc.DctBtnSt.Keys )
 				{
-					GKC_ST gkcstB = gc.Btn [ iBtn ];
+					GK_ST gkcstB = gc.DctBtnSt [ key ];
 					g.DrawImage ( AryImgBtn [ iBtn, (int)gkcstB ], CW + CW * iFrame, RH * 2 + RH * iBtn, CW, RH );
 					++ iBtn;
 				}

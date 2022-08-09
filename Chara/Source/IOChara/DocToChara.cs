@@ -7,7 +7,8 @@ namespace ScriptEditor
 {
 	using BL_Sqc = BindingList < Sequence >;
 	using GK_ST = GameKeyCommand.GameKeyCommandState;
-	using GK_L = GameKeyCommand.LeverCommand;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
 
 	//==================================================
 	//	ドキュメント型からキャラへ変換する
@@ -310,10 +311,10 @@ namespace ScriptEditor
 #endif
 
 					//ボタン
-					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
+					foreach ( GK_B key in gameKey.DctBtnSt.Keys )
 					{
 						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
-						gameKey.Btn [ i ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
+						gameKey.DctBtnSt [ key ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
 					}
 
 					//コマンドに加える

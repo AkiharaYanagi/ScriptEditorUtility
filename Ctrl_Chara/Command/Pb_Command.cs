@@ -4,7 +4,8 @@ using System.Drawing;
 
 namespace ScriptEditor
 {
-	using GK_L = GameKeyCommand.LeverCommand;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
 	using GKC_ST = GameKeyCommand.GameKeyCommandState;
 
 	public partial class Pb_Command : PictureBox

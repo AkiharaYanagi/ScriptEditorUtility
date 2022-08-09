@@ -6,8 +6,9 @@ using System.IO;
 
 namespace ScriptEditor
 {
-	using GKC_L = GameKeyCommand.LeverCommand;
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
+	using GK_ST = GameKeyCommand.GameKeyCommandState;
 
 	public partial class Ctrl_CmdList :UserControl
 	{
@@ -88,16 +89,17 @@ namespace ScriptEditor
 				sw.Write ( gkc.Not.ToString () + "," );
 
 				//レバー
-				foreach ( GKC_ST gkcst in gkc.Lvr )
+				foreach ( GK_L key in gkc.DctLvrSt.Keys )
 				{
-					sw.Write ( ((int)gkcst).ToString () );
+
+					sw.Write ( gkc.DctLvrSt [ key ].ToString () );
 				}
 				sw.Write ( "," );
 
 				//ボタン
-				foreach ( GKC_ST gkcst in gkc.Btn )
+				foreach ( GK_B key in gkc.DctBtnSt.Keys )
 				{
-					sw.Write ( ((int)gkcst).ToString () );
+					sw.Write ( gkc.DctBtnSt [ key ].ToString () );
 				}
 
 				//ゲームキー区切り
@@ -127,28 +129,28 @@ namespace ScriptEditor
 				GameKeyCommand gameKey = new GameKeyCommand ();
 
 				//否定
-				gameKey.Not = Boolean.Parse ( str_split [ index ++ ] );
+				gameKey.Not = bool.Parse ( str_split [ index ++ ] );
 
 				//レバー
 				string str_lvr = str_split [ index ++ ];
-				for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+				for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
 				{
 					string chLvr = str_lvr [ i ].ToString();
-					gameKey.Lvr [ i ] = (GKC_ST)int.Parse ( chLvr );
+					gameKey.DctLvrSt [ (GK_L)i ] = (GK_ST)int.Parse ( chLvr );
 				}
 
 				//ボタン
 				string str_btn = str_split [ index ++ ];
-				for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
+				for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
 				{
 					//データ移行
-					if ( str_btn.Length < GameKeyCommand.BtnNum )
+					if ( str_btn.Length < GameKeyData.BTN_NUM )
 					{
 						str_btn += "4444";
 					}
 
 					string chBtn = str_btn [ i ].ToString();
-					gameKey.Btn [ i ] = (GKC_ST)int.Parse ( chBtn );
+					gameKey.DctBtnSt [ (GK_B)i ] = (GK_ST)int.Parse ( chBtn );
 				}
 
 				//コマンドに加える

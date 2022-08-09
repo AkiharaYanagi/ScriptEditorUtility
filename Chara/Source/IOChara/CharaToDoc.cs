@@ -13,6 +13,8 @@ namespace ScriptEditor
 	using BD_CMD = BindingDictionary < Command >;
 	using BD_BRC = BindingDictionary < Branch >;
 	using BD_RUT = BindingDictionary < Route >;
+	using GK_L = GameKeyData.Lever;
+	using GK_B = GameKeyData.Button;
 
 	//============================================================
 	//キャラからをスクリプトの対象となる値を読み込み、
@@ -277,16 +279,16 @@ namespace ScriptEditor
 					sw.Write ( " Not=\"" + gameKey.Not.ToString () + "\"" );
 
 					//レバー(全方向)
-					for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
+					foreach ( GK_L key in gameKey.DctLvrSt.Keys )
 					{
-						sw.Write ( " Key_" + i.ToString() + "=\"" );
-						sw.Write ( gameKey.Lvr[i].ToString () + "\"" );
+						sw.Write ( " Key_" + key.ToString() + "=\"" );
+						sw.Write ( gameKey.DctLvrSt [ key ].ToString () + "\"" );
 					}
 
 					//ボタン
-					for ( int i = 0; i < GameKeyCommand.BtnNum; ++ i )
+					foreach ( GK_B key in gameKey.DctBtnSt.Keys )
 					{
-						sw.Write ( " Btn_" + i.ToString () + " =\"" + gameKey.Btn[ i ].ToString () + "\"" );
+						sw.Write ( " Btn_" + key.ToString () + " =\"" + gameKey.DctBtnSt [ key ].ToString () + "\"" );
 					}
 					sw.Write ( ">" );
 
