@@ -295,17 +295,10 @@ namespace ScriptEditor
 			bool[] b_Lvr = new bool [ LN ];
 			bool[] b_Btn = new bool[ BN ];
 
-<<<<<<< HEAD
-			InitBoolArray ( bWildLvr, LeverCommandNum );
-			InitBoolArray ( bWildBtn, BtnNum );
-			InitBoolArray ( b_Lvr, LeverCommandNum );
-			InitBoolArray ( b_Btn, BtnNum );
-=======
-			InitArray ( bWildLvr, LN );
-			InitArray ( bWildBtn, BN );
-			InitArray ( b_Lvr, LN );
-			InitArray ( b_Btn, BN );
->>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
+			InitBoolArray ( bWildLvr, LN );
+			InitBoolArray ( bWildBtn, BN );
+			InitBoolArray ( b_Lvr, LN );
+			InitBoolArray ( b_Btn, BN );
 
 			//-----------------------------------------------------------------
 			//左向きのとき左右を入れ替え
@@ -316,11 +309,7 @@ namespace ScriptEditor
 			//レバー
 			CompareKey ( LN, DctLvrSt, bWildLvr, b_Lvr, gameKeyData.Lvr, gameKeyData.PreLbr );
 			//ボタン
-<<<<<<< HEAD
-			CompareKey ( BtnNum, Btn, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
-=======
 			CompareKey ( BN, DctBtnSt, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
->>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 
 			//-----------------------------------------------------------------
 			//まとめ
@@ -331,17 +320,11 @@ namespace ScriptEditor
 			//いずれかを返す場合
 			bool ret = true;
 
-<<<<<<< HEAD
-			//調査対象かつ適合かどうか
-			ret &= CheckWild ( LeverCommandNum, bWildLvr, b_Lvr );
-			ret &= CheckWild ( BtnNum, bWildBtn, b_Btn );
-=======
 			//レバー
 			ret &= CheckWild ( LN, bWildLvr, b_Lvr );
 
 			//ボタン
 			ret &= CheckWild ( BN, bWildBtn, b_Btn );
->>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 
 			//否定の場合は反転して返す (排他的論理和)
 			return ret ^ this.Not;
@@ -394,11 +377,7 @@ namespace ScriptEditor
 
 
 		//比較
-<<<<<<< HEAD
-		private void CompareKey ( int num, GK_ST [] stAry, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
-=======
 		private void CompareKey ( int num, DCT_L_ST dct, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
->>>>>>> b4ffcd1c13f289c3c668ba173275a28cb8347ec1
 		{
 			int i = 0;
 			foreach ( GK_L key in dct.Keys )

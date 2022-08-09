@@ -137,6 +137,7 @@ namespace ScriptEditor
 					GK_ST gkcstB = gc.DctBtnSt [ key ];
 					g.DrawImage ( AryImgBtn [ iBtn, (int)gkcstB ], CW + CW * iFrame, RH * 2 + RH * iBtn, CW, RH );
 					++ iBtn;
+					if ( iBtn >= SelectKey.DispKeyaNum ) { break; }
 				}
 
 				//否定

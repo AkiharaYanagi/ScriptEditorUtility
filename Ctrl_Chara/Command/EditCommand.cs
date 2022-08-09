@@ -26,6 +26,7 @@ namespace ScriptEditor
 			Cmd.ListGameKeyCommand.RemoveAt ( Cmd.ListGameKeyCommand.Count - 1 );
 		}
 
+#if false
 		//キー変更
 		public void UpKey ()
 		{
@@ -57,6 +58,7 @@ namespace ScriptEditor
 				SlctKey.SetSt ( Cmd, gkcst.Prev () );
 			}
 		}
+#endif
 
 		//タイミング変更
 		public void Timing ( GKC_ST gkcst )

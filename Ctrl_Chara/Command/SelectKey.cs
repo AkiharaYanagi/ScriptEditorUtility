@@ -19,18 +19,17 @@
 		//レバー選択位置
 		public GK_L SelectedLvr { get; set; } = GK_L.LVR_N;
 
-		//キー種類
+		//キー種類毎の表示位置
 		public enum KeyKind
 		{
 			ARROW,
-#if false
 			KEY_L,
 			KEY_Ma,
 			KEY_Mb,
-			KEY_H
-#endif
+			KEY_H,
 			BUTTON,
 		}
+		public const int DispKeyaNum = 4;
 
 		public KeyKind Kind { get; set; } = KeyKind.ARROW;
 
@@ -49,6 +48,7 @@
 			return cmd.ListGameKeyCommand [ Frame ];
 		}
 
+#if false
 		public GK_ST GetSt ( Command cmd )
 		{
 			if ( cmd.ListGameKeyCommand.Count <= Frame ) { return GK_ST.KEY_WILD; }
@@ -67,6 +67,7 @@
 
 			return ret; 
 		}
+#endif
 
 		//選択中レバー方向の状態を取得
 		public GK_ST GetLeverSt ()
@@ -86,11 +87,11 @@
 
 			switch ( Kind )
 			{
-			case KeyKind.ARROW: gkc.SetLvrSt ( gkcst, SelectedLvr ); break;
-			case KeyKind.KEY_L: gkc.Btn [ 0 ] = gkcst; break;
-			case KeyKind.KEY_Ma: gkc.Btn [ 1 ] = gkcst; break;
-			case KeyKind.KEY_Mb: gkc.Btn [ 2 ] = gkcst; break;
-			case KeyKind.KEY_H: gkc.Btn [ 3 ] = gkcst; break;
+			case KeyKind.ARROW	: gkc.SetLvrSt ( gkcst, SelectedLvr ); break;
+			case KeyKind.KEY_L	: gkc.DctBtnSt [ GK_B.BTN_0 ] = gkcst; break;
+			case KeyKind.KEY_Ma	: gkc.DctBtnSt [ GK_B.BTN_1 ] = gkcst; break;
+			case KeyKind.KEY_Mb	: gkc.DctBtnSt [ GK_B.BTN_2 ] = gkcst; break;
+			case KeyKind.KEY_H	: gkc.DctBtnSt [ GK_B.BTN_3 ] = gkcst; break;
 			}
 		}
 
