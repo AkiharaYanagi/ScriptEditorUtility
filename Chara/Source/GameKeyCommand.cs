@@ -260,7 +260,7 @@ namespace ScriptEditor
 		//======================================================================
 		//比較
 		//thisの状態がチェックするコマンド条件、引数がプレイヤ入力
-		//引数：コマンド成立条件となるゲームキー状態, キャラクタ向き(右正)
+		//引数：比較するゲームキー状態, キャラクタ向き(右正)
 		//戻値：適合したらtrue、それ以外はfalse
 		public bool CompareTarget ( GameKeyData gameKeyData, bool dirRight )
 		{
@@ -275,51 +275,48 @@ namespace ScriptEditor
 			bool[] b_Lvr = new bool [ LeverCommandNum ];
 			bool[] b_Btn = new bool[ BtnNum ];
 
-			InitArray ( bWildLvr, LeverCommandNum );
-			InitArray ( bWildBtn, BtnNum );
-			InitArray ( b_Lvr, LeverCommandNum );
-			InitArray ( b_Btn, BtnNum );
+			InitBoolArray ( bWildLvr, LeverCommandNum );
+			InitBoolArray ( bWildBtn, BtnNum );
+			InitBoolArray ( b_Lvr, LeverCommandNum );
+			InitBoolArray ( b_Btn, BtnNum );
 
 			//-----------------------------------------------------------------
 			//左向きのとき左右を入れ替え
 			FlipData ( gk, dirRight );
 
 			//-----------------------------------------------------------------
-			//比較
+			//比較して結果を保存
 			//レバー
 			CompareKey ( LeverCommandNum, DctLvrSt, bWildLvr, b_Lvr, gameKeyData.Lvr, gameKeyData.PreLbr );
 			//ボタン
-			CompareKey ( GameKeyData.BTN_NUM, Btn, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
+			CompareKey ( BtnNum, Btn, bWildBtn, b_Btn, gameKeyData.Btn, gameKeyData.PreBtn );
 
 			//-----------------------------------------------------------------
 			//まとめ
 
-			//すべてワイルドの場合true
-			if ( AllTrue ( bWildLvr ) && AllTrue ( bWildBtn ) ) { return true; }
+			//すべてワイルドの場合trueを返す
+			if ( AreAllTrue ( bWildLvr ) && AreAllTrue ( bWildBtn ) ) { return true; }
 
 			//いずれかを返す場合
 			bool ret = true;
 
-			//レバー
+			//調査対象かつ適合かどうか
 			ret &= CheckWild ( LeverCommandNum, bWildLvr, b_Lvr );
-
-			//ボタン
-			ret &= CheckWild ( GameKeyData.BTN_NUM, bWildBtn, b_Btn );
+			ret &= CheckWild ( BtnNum, bWildBtn, b_Btn );
 
 			//否定の場合は反転して返す (排他的論理和)
 			return ret ^ this.Not;
 		}
 
-		private void InitArray ( bool[] ary, int length )
+		//---------------------------------------------------------------------------
+		//bool配列初期化
+		private void InitBoolArray ( bool[] ary, int length )
 		{
 			for ( int i = 0; i < length; ++ i )
 			{
 				ary [ i ] = false;
 			}
 		}
-
-		//======================================================================
-
 
 		//キーデータ左右入替
 		private void FlipData ( GameKeyData gk, bool dirRight )
@@ -347,7 +344,7 @@ namespace ScriptEditor
 		}
 
 		//すべてtrueかどうか
-		private bool AllTrue ( bool [] bAry )
+		private bool AreAllTrue ( bool [] bAry )
 		{
 			foreach ( bool b in bAry )
 			{
@@ -357,10 +354,11 @@ namespace ScriptEditor
 		}
 
 		//比較
-		private void CompareKey ( int num, GK_ST [] stAry, bool[] bWildAry, bool[] bAry, bool[] bDataAry, bool[] bPreAry )
+		private void CompareKey ( int num, GK_ST [] stAry, bool[] bWildAry, bool[] bResultAry, bool[] bDataAry, bool[] bPreAry )
 		{
 			for ( int i = 0; i < num; ++ i )
 			{
+				//一時変数
 				bool b = bDataAry[i];
 				bool pb = bPreAry[i];
 
@@ -368,10 +366,10 @@ namespace ScriptEditor
 				{
 				//条件がワイルドの場合は比較しない
 				case GK_ST.KEY_WILD: bWildAry[i] = true; break;
-				case GK_ST.KEY_ON  : bAry[i] = b; break;
-				case GK_ST.KEY_OFF : bAry[i] = ! b; break;
-				case GK_ST.KEY_PUSH: bAry[i] = b && ! pb; break;
-				case GK_ST.KEY_RELE: bAry[i] = ! b && pb; break;
+				case GK_ST.KEY_ON  : bResultAry[i] = b; break;
+				case GK_ST.KEY_OFF : bResultAry[i] = ! b; break;
+				case GK_ST.KEY_PUSH: bResultAry[i] = b && ! pb; break;
+				case GK_ST.KEY_RELE: bResultAry[i] = ! b && pb; break;
 				}
 			}
 		}
