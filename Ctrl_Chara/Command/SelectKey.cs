@@ -4,7 +4,7 @@
 	using GK_B = GameKeyData.Button;
 	using GK_ST = GameKeyCommand.GameKeyCommandState;
 
-	//選択されているコマンド中のキー
+	//選択されているコマンド表中のキー
 	public class SelectKey
 	{
 		//未選択状態

@@ -377,7 +377,10 @@ namespace ScriptEditor
 					{
 						Func_Save?.Invoke ( listBox1.SelectedItem, sw );
 					}
-					FilePath = saveFileDialog.FileName;
+
+					//@info 単体の時はパスを保存しない
+					//FilePath = saveFileDialog.FileName;
+					
 					Func_SavePath?.Invoke ( saveFileDialog.FileName );
 				}
 			}

@@ -91,15 +91,14 @@ namespace ScriptEditor
 				//レバー
 				foreach ( GK_L key in gkc.DctLvrSt.Keys )
 				{
-
-					sw.Write ( gkc.DctLvrSt [ key ].ToString () );
+					sw.Write ( (int)( gkc.DctLvrSt [ key ] ) );
 				}
 				sw.Write ( "," );
 
 				//ボタン
 				foreach ( GK_B key in gkc.DctBtnSt.Keys )
 				{
-					sw.Write ( gkc.DctBtnSt [ key ].ToString () );
+					sw.Write ( (int)( gkc.DctBtnSt [ key ] ) );
 				}
 
 				//ゲームキー区切り
@@ -120,6 +119,7 @@ namespace ScriptEditor
 
 			//名前
 			cmd.Name = str_split [ index ++ ];
+			
 			//受付時間
 			cmd.LimitTime = int.Parse ( str_split [ index ++ ] );
 

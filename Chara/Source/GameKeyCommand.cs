@@ -136,6 +136,7 @@ namespace ScriptEditor
 			DctLvrSt.Add ( GK_L.LVR_8, GK_ST.KEY_WILD );
 			DctLvrSt.Add ( GK_L.LVR_7, GK_ST.KEY_WILD );
 			DctLvrSt.Add ( GK_L.LVR_4, GK_ST.KEY_WILD );
+			DctLvrSt.Add ( GK_L.LVR_N, GK_ST.KEY_WILD );
 
 #if false
 			for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )

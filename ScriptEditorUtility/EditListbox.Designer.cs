@@ -172,7 +172,7 @@
 			// 
 			this.Btn_Folder.Location = new System.Drawing.Point(3, 3);
 			this.Btn_Folder.Name = "Btn_Folder";
-			this.Btn_Folder.Size = new System.Drawing.Size(120, 20);
+			this.Btn_Folder.Size = new System.Drawing.Size(194, 20);
 			this.Btn_Folder.TabIndex = 8;
 			this.Btn_Folder.Text = "フォルダ";
 			this.Btn_Folder.UseVisualStyleBackColor = true;

@@ -18,8 +18,7 @@ namespace ScriptEditor
 		public SelectKey SlctKey { get; set; } = new SelectKey ();
 
 		//レバー選択位置
-//		public int SelectedIndex = 0;
-		public readonly int [] ItoLvr = { 1, 2, 3, 6, 9, 8, 7, 4 }; 
+		public readonly int [] ItoLvr = { 1, 2, 3, 6, 9, 8, 7, 4, 5 }; 
 
 		//データ設定
 		public void Set ( Command cmd )
