@@ -29,6 +29,7 @@ namespace ScriptEditor
 			//データ
 			Chara chara = new Chara ();
 
+			//アクション・エフェクト切替テスト
 #if true
 			Ctrl_SqcList.CTRL_SQC ac = Ctrl_SqcList.CTRL_SQC.ACTION;
 			ctrl_SqcList1.SetEnviroment ( ac, ()=>new Action(), ctrl_stg );
@@ -37,6 +38,7 @@ namespace ScriptEditor
 			ctrl_SqcList1.SetEnviroment ( ef, ()=>new Effect (), ctrl_stg );
 #endif
 
+			//読込
 			ctrl_SqcList1.LoadCtrl();
 			ctrl_SqcList1.SetCharaData ( chara.behavior );
 			ctrl_SqcList1.LoadData ();

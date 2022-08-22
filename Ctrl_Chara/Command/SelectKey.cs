@@ -2,7 +2,7 @@
 {
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
-	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_ST = GameKeyData.GameKeyState;
 
 	//選択されているコマンド表中のキー
 	public class SelectKey
@@ -75,6 +75,25 @@
 			GK_ST ret = GK_ST.KEY_WILD;
 			GameKeyCommand gkc = Cmd.ListGameKeyCommand [ Frame ];
 			ret = gkc.DctLvrSt [ SelectedLvr ];
+			return ret;
+		}
+
+		//選択中キー(レバー,ボタンのいずれか)状態を取得
+		public GK_ST GeSelectedKeySt ()
+		{
+			GK_ST ret = GK_ST.KEY_WILD;
+			GameKeyCommand gkc = Cmd.ListGameKeyCommand [ Frame ];
+
+			switch ( Kind )
+			{
+			case KeyKind.ARROW : ret = gkc.DctLvrSt [ SelectedLvr ]; break;
+			case KeyKind.KEY_L : ret = gkc.DctBtnSt [ GK_B.BTN_0 ]; break;
+			case KeyKind.KEY_Ma: ret = gkc.DctBtnSt [ GK_B.BTN_1 ]; break;
+			case KeyKind.KEY_Mb: ret = gkc.DctBtnSt [ GK_B.BTN_2 ]; break;
+			case KeyKind.KEY_H : ret = gkc.DctBtnSt [ GK_B.BTN_3 ]; break;
+			default:break;
+			}
+			
 			return ret;
 		}
 

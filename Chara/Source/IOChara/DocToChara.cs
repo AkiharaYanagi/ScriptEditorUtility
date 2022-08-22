@@ -5,8 +5,7 @@ using System.Drawing;
 
 namespace ScriptEditor
 {
-	using BL_Sqc = BindingList < Sequence >;
-	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_ST = GameKeyData.GameKeyState;
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
 
@@ -296,11 +295,12 @@ namespace ScriptEditor
 					gameKey.Not = elemKey.Attributes[ atrbIndex ].Value.CompareTo ( "True" ) == 0;
 
 					//レバー
-					//for ( int i = 0; i < GameKeyCommand.LeverCommandNum; ++ i )
-					foreach ( GK_L key in gameKey.DctLvrSt.Keys )
+					//@info foreach節で対象コンテナを書き換えるとエラーなのでforを用いる
+					for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
+					//foreach ( GK_L key in gameKey.DctLvrSt.Keys )
 					{
 						string strLvr = elemKey.Attributes [ ++ atrbIndex ].Value;
-						gameKey.DctLvrSt [ key ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
+						gameKey.DctLvrSt [ (GK_L)i ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
 					}
 #if false
 					int id = IOChara.Parse ( elemKey, ++ atrbIndex );
@@ -311,10 +311,11 @@ namespace ScriptEditor
 #endif
 
 					//ボタン
-					foreach ( GK_B key in gameKey.DctBtnSt.Keys )
+					for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
+					//foreach ( GK_B key in gameKey.DctBtnSt.Keys )
 					{
 						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
-						gameKey.DctBtnSt [ key ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
+						gameKey.DctBtnSt [ (GK_B)i ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
 					}
 
 					//コマンドに加える

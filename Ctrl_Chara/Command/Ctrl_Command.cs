@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace ScriptEditor
 {
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GKC_ST = GameKeyData.GameKeyState;
 
 	public partial class Ctrl_Command : UserControl
 	{

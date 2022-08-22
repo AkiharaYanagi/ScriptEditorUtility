@@ -117,7 +117,7 @@ namespace ScriptEditor
 		public void ApplyData ()
 		{
 			//SqcDtからCompendに戻す
-			//Sequenceで生成しているとき、Actionにアップキャストできない問題
+			//@info Sequenceで生成しているとき、Actionにアップキャストできない問題
 			//-> New_Action()をデリゲートで指定
 			EditData.ApplyData ();
 		}

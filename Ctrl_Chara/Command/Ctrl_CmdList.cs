@@ -8,7 +8,7 @@ namespace ScriptEditor
 {
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
-	using GK_ST = GameKeyCommand.GameKeyCommandState;
+	using GK_ST = GameKeyData.GameKeyState;
 
 	public partial class Ctrl_CmdList :UserControl
 	{

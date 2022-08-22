@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace ScriptEditor
 {
 	//エイリアスの設定
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GKC_ST = GameKeyData.GameKeyState;
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
 

@@ -38,6 +38,12 @@ namespace ScriptEditor
 		public string FilePath { get; set; } = "";
 		public System.Action < string > Func_SavePath = (s)=>{};	//パスの保存
 
+		//保存ファイル名
+		public string SaveOneFileName { get; set; } = "SaveOneFile.txt";
+		public string LoadOneFileName { get; set; } = "LoadOneFile.txt";
+		public string SaveAllFileName { get; set; } = "SaveAllFile.txt";
+		public string LoadAllFileName { get; set; } = "LoadAllFile.txt";
+
 		//----------------------------------------------------------
 		//コンストラクタ
 		public EditListbox ()
@@ -369,7 +375,7 @@ namespace ScriptEditor
 			{
 				saveFileDialog.DefaultExt = "txt";
 				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
-				saveFileDialog.FileName = "save_one.txt";
+				saveFileDialog.FileName = SaveOneFileName;
 
 				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
 				{
@@ -379,9 +385,7 @@ namespace ScriptEditor
 					}
 
 					//@info 単体の時はパスを保存しない
-					//FilePath = saveFileDialog.FileName;
-					
-					Func_SavePath?.Invoke ( saveFileDialog.FileName );
+//					Func_SavePath?.Invoke ( saveFileDialog.FileName );
 				}
 			}
 			_UpdateData ();
@@ -394,7 +398,7 @@ namespace ScriptEditor
 			{
 				openFileDialog.DefaultExt = "txt";
 				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
-				openFileDialog.FileName = "load_one.txt";
+				openFileDialog.FileName = LoadOneFileName;
 
 				if ( openFileDialog.ShowDialog () == DialogResult.OK )
 				{
@@ -420,7 +424,7 @@ namespace ScriptEditor
 			{
 				saveFileDialog.DefaultExt = "txt";
 				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
-				saveFileDialog.FileName = "save_all.txt";
+				saveFileDialog.FileName = Path.GetFileName ( FilePath );
 
 				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
 				{
@@ -446,7 +450,7 @@ namespace ScriptEditor
 			{
 				openFileDialog.DefaultExt = "txt";
 				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
-				openFileDialog.FileName = "load_all.txt";
+				openFileDialog.FileName = Path.GetFileName ( FilePath );
 
 				if ( openFileDialog.ShowDialog () == DialogResult.OK )
 				{

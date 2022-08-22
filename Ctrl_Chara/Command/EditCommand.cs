@@ -2,7 +2,7 @@
 
 namespace ScriptEditor
 {
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GKC_ST = GameKeyData.GameKeyState;
 
 	public class EditCommand
 	{

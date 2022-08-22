@@ -6,7 +6,7 @@ namespace ScriptEditor
 {
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
-	using GKC_ST = GameKeyCommand.GameKeyCommandState;
+	using GKC_ST = GameKeyData.GameKeyState;
 
 	public partial class Pb_Command : PictureBox
 	{
@@ -77,14 +77,15 @@ namespace ScriptEditor
 			}
 
 			//選択
-			SlctKey.Set ( Cmd, pt.X, (SelectKey.KeyKind)pt.Y );
+			SelectKey.KeyKind kind = (SelectKey.KeyKind)pt.Y;
+			SlctKey.Set ( Cmd, pt.X, kind );
 
 			//レバー位置選択
 			SetLvrCell ();
 
-			//ラジオボタンに反映
+			//各ラジオボタンに反映
 //			RB_Disp ( SlctKey.GetSt ( Cmd ) );
-			RB_Disp ( SlctKey.GetLeverSt () );
+			RB_Disp ( SlctKey.GeSelectedKeySt () );
 			
 			Invalidate ();
 		}
