@@ -136,6 +136,20 @@ namespace ScriptEditor
 			}
 		}
 
+		//繰り返し可能な初期化
+		public void Init ()
+		{
+			//１つ以上存在したら選択
+			if ( EL_Branch.Count () > 0 )
+			{
+				EL_Branch.GetListBox ().SelectedIndex = 0;
+				Branch br = EL_Branch.Get ();
+				Cb_Command.Enabled = true;
+				Cb_Command.SelectedValue = br.NameCommand;
+				SelectSequence ( br.NameSequence );
+			}
+		}
+
 		//コンボボックスユーザ選択時
 
 		//条件

@@ -124,7 +124,17 @@ namespace ScriptEditor
 		private void SelectBranch ()
 		{
 			//ブランチの選択
-			if ( 0 == EL_Branch.GetListBox().Items.Count ) { return; }
+			if ( 0 == EL_Branch.GetListBox().Items.Count )
+			{
+				CB_Branch.SelectedIndex = -1;
+				CB_Branch.Enabled = false;
+				return; 
+			}
+			else
+			{
+				CB_Branch.Enabled = true;
+			}
+
 			TName tn = EL_Branch.Get ();
 			CB_Branch.SelectedValue = tn.Name;
 		}
