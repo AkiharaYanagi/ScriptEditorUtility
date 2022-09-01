@@ -134,7 +134,8 @@ namespace ScriptEditor
 		//---------------------------------------------------------------------
 
 		//すべてのスクリプトの編集
-		internal void EditAllScript ( Compend compend, Fc_Scp f_editScp )
+		//internal void EditAllScript ( Compend compend, Fc_Scp f_editScp )
+		public void EditAllScript ( Compend compend, Fc_Scp f_editScp )
 		{
 			foreach ( Sequence sqc in compend.BD_Sequence.GetBindingList () )
 			{
@@ -142,6 +143,15 @@ namespace ScriptEditor
 				{
 					f_editScp ( scp );
 				}
+			}
+		}
+
+		//シークエンス内スクリプトすべてに対して編集
+		public void EditScriptInSequence ( Fc_Scp Fc )
+		{
+			foreach ( Script scp in SelectedSequence.ListScript )
+			{
+				Fc ( scp );
 			}
 		}
 
