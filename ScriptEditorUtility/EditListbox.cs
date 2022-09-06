@@ -486,6 +486,21 @@ namespace ScriptEditor
 				FilePath = filepath;
 			}
 		}
+
+		//上書保存
+		public void SaveOverwrite ()
+		{
+			using ( StreamWriter sw = new StreamWriter ( SaveAllFileName ) )
+			{
+				foreach ( object ob in listBox1.Items )
+				{
+					Func_Save?.Invoke ( ob, sw );
+					
+					//最後の改行(単体保存の繰り返しのため)
+					sw.Write ( '\n' );
+				}
+			}
+		}
 	}
 
 }

@@ -11,7 +11,9 @@ namespace ScriptEditor
 	{
 		public static string SettingFilename { set; get; } = "setting.xml";	//保存ファイル名
 		
-		//保存
+		//============================================
+		//◆ 保存
+		//============================================
 		public static void Save ( object ob )
 		{
 			//クラスをXMLファイルに保存
@@ -24,7 +26,18 @@ namespace ScriptEditor
 			}
 		}
 
-		//読込
+		public static void Save ( string filename, object ob )
+		{
+			SettingFilename = filename;
+			Save ( ob );
+		}
+
+		//============================================
+		//◆ 読込
+		//
+		// T t = (T)XML_IO.Load ( typeof ( T ) );
+		//
+		//============================================
 		public static object Load ( Type T )
 		{
 			//---------------------------------------------------------
@@ -48,6 +61,17 @@ namespace ScriptEditor
 			{
 				return serializer.Deserialize ( fs );
 			}
+		}
+
+		public static object Load ( object ob )
+		{
+			return Load ( ob.GetType () );
+		}
+
+		public static object Load ( string filename, object ob )
+		{
+			SettingFilename = filename;
+			return Load ( ob );
 		}
 	}
 }

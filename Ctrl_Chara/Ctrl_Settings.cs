@@ -2,7 +2,10 @@
 
 namespace ScriptEditor
 {
-	//Ctrl類で追加する設定保存
+	//----------------------------------------------------------------------
+	//Ctrl類で用いるパスを保存
+	//	保存読込はXML_IOを用いる
+	//----------------------------------------------------------------------
 	public class Ctrl_Settings : Settings
 	{
 		public string File_ActionList { get; set; } = "ActionList.txt";		//アクションリスト

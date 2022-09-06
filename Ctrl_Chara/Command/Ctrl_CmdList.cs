@@ -18,6 +18,7 @@ namespace ScriptEditor
 		//設定ファイル
 		private Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
 
+		//コンストラクタ
 		public Ctrl_CmdList ()
 		{
 			InitializeComponent ();
@@ -51,6 +52,7 @@ namespace ScriptEditor
 		public void SetEnvironment ( Ctrl_Settings stgs )
 		{
 			Ctrl_Stgs = stgs;
+			EL_Cmd.SaveAllFileName = stgs.File_CommandList;
 		}
 
 		public void SetCharaData ( Chara ch )
@@ -158,6 +160,12 @@ namespace ScriptEditor
 			}
 
 			EL_Cmd.Add ( cmd );
+		}
+
+		//上書保存
+		public void SaveOverwrite ()
+		{
+			EL_Cmd.SaveOverwrite ();
 		}
 
 	}

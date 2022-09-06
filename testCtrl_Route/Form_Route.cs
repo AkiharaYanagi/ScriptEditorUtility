@@ -38,7 +38,8 @@ namespace ScriptEditor
 			testChara.Test ( ch_test );
 			//------------------------------------
 			//ファイルIOテスト
-			SaveChara saveChara = new SaveChara ( filename, ch_test );
+			SaveChara saveChara = new SaveChara ();
+			saveChara.Do ( filename, ch_test );
 			Chara ch_load = new Chara ();
 			LoadChara loadChara = new LoadChara ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
