@@ -186,6 +186,9 @@ namespace ScriptEditor
 		//ディープコピー
 		public void DeepCopy ( BindingDictionary < T > bd_t )
 		{
+			//同一オブジェクトのときは何もしない
+			if ( ReferenceEquals ( this, bd_t ) ) { return; }
+
 			Clear ();
 			foreach ( T t in bd_t.BL_t )
 			{
@@ -197,6 +200,9 @@ namespace ScriptEditor
 		//Derived_New : Tを引数に継承型を生成するデリゲート
 		public void DeepCopy ( BindingDictionary < T > bd_t, System.Func < T, T > Derived_New )
 		{
+			//同一オブジェクトのときは何もしない
+			if ( ReferenceEquals ( this, bd_t ) ) { return; }
+
 			Clear ();
 			foreach ( T t in bd_t.BL_t )
 			{
