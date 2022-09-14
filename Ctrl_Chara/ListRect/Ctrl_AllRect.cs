@@ -6,13 +6,22 @@ using System.Collections.Generic;
 
 namespace ScriptEditor
 {
+	using LRect = List < Rectangle >;
 	delegate void EventFunc ( object sender, EventArgs args );
 
 	public partial class Ctrl_AllRect : UserControl
 	{
-		//各 枠リスト
+		//各種類 枠リスト
 		private List < Ctrl_ListRect > Ls_LsRect = new List<Ctrl_ListRect> ();
 		private const int nLsRect = 4;
+
+		enum KindRect
+		{
+			CRect = 0,
+			HRect = 1,
+			ARect = 2,
+			ORect = 3,
+		};
 
 		//仕切線
 		private List < Label > labels = new List<Label> ();
@@ -22,6 +31,9 @@ namespace ScriptEditor
 
 		//選択ボタン
 		private List < Button > LsButton = new List<Button> ();
+
+		//選択枠リスト種類
+		private KindRect SelectedIndexRect = KindRect.CRect;
 
 		//編集
 		public EditCompend EditCompend { get; set; } = null;
@@ -127,7 +139,7 @@ namespace ScriptEditor
 		//コピー
 
 		//コピー保存
-		private List<Rectangle> CopyListRect = new List<Rectangle> ();
+		private LRect CopyListRect = new LRect ();
 
 		//選択
 		private Ctrl_ListRect SelectedLsRect = null;
@@ -137,16 +149,22 @@ namespace ScriptEditor
 			SelectedLsRect = cls;
 		}
 
-		private void Select_C_Rect ( object s, EventArgs e ) { SelectRect ( 0 ); }
-		private void Select_H_Rect ( object s, EventArgs e ) { SelectRect ( 1 ); }
-		private void Select_A_Rect ( object s, EventArgs e ) { SelectRect ( 2 ); }
-		private void Select_O_Rect ( object s, EventArgs e ) { SelectRect ( 3 ); }
+		private void Select_C_Rect ( object s, EventArgs e ) { SelectRect ( KindRect.CRect ); }
+		private void Select_H_Rect ( object s, EventArgs e ) { SelectRect ( KindRect.HRect ); }
+		private void Select_A_Rect ( object s, EventArgs e ) { SelectRect ( KindRect.ARect ); }
+		private void Select_O_Rect ( object s, EventArgs e ) { SelectRect ( KindRect.ORect ); }
 
-		private void SelectRect ( int index )
+		private void SelectRect ( KindRect kindRect )
 		{
+			//ボタン表示
 			foreach ( Button b in LsButton ) { b.BackColor = Color.FromName("Control"); }
-			LsButton [ index ].BackColor = Color.Bisque;
-			SelectedLsRect = Ls_LsRect [ index ];
+			LsButton [ (int)kindRect ].BackColor = Color.Bisque;
+
+			//選択を保存
+			SelectedLsRect = Ls_LsRect [ (int)kindRect ];
+			SelectedIndexRect = kindRect;
+
+			//再描画
 			Invalidate ();
 		}
 
@@ -192,13 +210,34 @@ namespace ScriptEditor
 		private void Btn_PasteGroup_Click ( object sender, EventArgs e )
 		{
 			EditScript es = EditCompend?.EditScript;
-			es?.DoGroup ( s=>s.ListCRect = new List<Rectangle>(CopyListRect) );
+			switch ( SelectedIndexRect )
+			{
+			case KindRect.CRect: es?.DoGroup ( s=>s.ListCRect = new LRect(CopyListRect) ); break;
+			case KindRect.HRect: es?.DoGroup ( s=>s.ListHRect = new LRect(CopyListRect) ); break;
+			case KindRect.ARect: es?.DoGroup ( s=>s.ListARect = new LRect(CopyListRect) ); break;
+			case KindRect.ORect: es?.DoGroup ( s=>s.ListORect = new LRect(CopyListRect) ); break;
+			}
+			
 		}
 
 		//ペースト：シークエンス
 		private void Btn_PasteSequence_Click ( object sender, EventArgs e )
 		{
+			Action < Action < Script > > F = EditCompend.EditScriptInSequence;
 
+			switch ( SelectedIndexRect )
+			{
+			case KindRect.CRect: F ( s=>{ s.ListCRect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.HRect: F ( s=>{ s.ListHRect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.ARect: F ( s=>{ s.ListARect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.ORect: F ( s=>{ s.ListORect = new LRect ( CopyListRect ); } ); break;
+			}
+		}
+
+		//内部関数：New List
+		private LRect NewLRect ( LRect src )
+		{
+			return new LRect ( src );
 		}
 	}
 }
