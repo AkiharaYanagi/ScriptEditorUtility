@@ -14,11 +14,21 @@ namespace ScriptEditor
 	//==================================================================================
 	public partial class LoadChara
 	{
-		public LoadChara ( string filename, Chara chara )
+		//-------------------------------------------------------------
+		//	コンストラクタ
+		//-------------------------------------------------------------
+		public LoadChara ()
+		{
+		}
+
+		//-------------------------------------------------------------
+		//	実行
+		//-------------------------------------------------------------
+		public void Do ( string filepath, Chara chara )
 		{
 			try
 			{
-				_Load ( filename, chara );
+				_Load ( filepath, chara );
 			}
 			catch ( ArgumentException e )
 			{
@@ -33,19 +43,19 @@ namespace ScriptEditor
 
 		//対象ファイルを読み込み、Document形式で一時保存
 		//その後、キャラデータを指定ドキュメントから変換
-		private void _Load ( string filename, Chara chara )
+		private void _Load ( string filepath, Chara chara )
 		{
 			//ファイルが存在しないとき何もしない
-			if ( ! File.Exists ( filename ) )
+			if ( ! File.Exists ( filepath ) )
 			{
-				MessageBox.Show ( filename + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "ファイルが存在しませんでした。" );
 			}
 
 			//拡張子確認
-			if ( Path.GetExtension ( filename ).CompareTo ( ".dat" ) != 0 )
+			if ( Path.GetExtension ( filepath ).CompareTo ( ".dat" ) != 0 )
 			{
-				MessageBox.Show ( filename + "は拡張子が.datと異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				MessageBox.Show ( filepath + "は拡張子が.datと異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "拡張子が.datと異なります。" );
 			}
 
@@ -53,7 +63,7 @@ namespace ScriptEditor
 			chara.Clear ();
 
 			//ファイルストリーム開始
-			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );
+			FileStream fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read );
 			BinaryReader biReaderFile = new BinaryReader ( fstrm, Encoding.ASCII );
 
 			Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
@@ -69,7 +79,7 @@ namespace ScriptEditor
 			uint version = biReaderFile.ReadUInt32 ();
 			if ( CONST.VER != version )
 			{
-				MessageBox.Show ( filename + "はバージョンが " + version + "で" + CONST.VER + " と異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				MessageBox.Show ( filepath + "はバージョンが " + version + "で" + CONST.VER + " と異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "バージョンが異なります。" );
 			}
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
@@ -18,17 +19,28 @@ namespace ScriptEditor
 	public class SaveChara
 	{
 		//-------------------------------------------------------------
-		//コンストラクタ
+		//	コンストラクタ
 		//-------------------------------------------------------------
 		public SaveChara ()
 		{
 		}
 
 		//-------------------------------------------------------------
-		//保存
-		//引数　filename : 保存ファイル名, chara : 保存対象キャラ
+		//	実行
+		//引数　filepath : 保存ファイルパス, chara : 保存対象キャラ
 		//-------------------------------------------------------------
-		public void Do ( string filename, Chara chara )
+		public void Do ( string filepath, Chara chara )
+		{
+			try
+			{
+				_Save ( filepath, chara );
+			}
+			catch ( ArgumentException e )
+			{
+			}
+		}
+
+		private void _Save ( string filepath, Chara chara )
 		{
 			//データが無かったら何もしない
 			if ( chara == null ) { return; }
@@ -46,7 +58,7 @@ namespace ScriptEditor
 			//確認用テキストファイル(.txt)書出
 
 			//ファイル名の拡張子を.datから.txtに変える
-			string filenameTxt = Path.GetFileNameWithoutExtension ( filename ) + ".txt";
+			string filenameTxt = Path.GetFileNameWithoutExtension ( filepath ) + ".txt";
 
 			//ファイルにテキスト書出用ストリームを設定する
 			StreamWriter strmWriter = new StreamWriter ( filenameTxt, false, Encoding.UTF8 );
@@ -90,7 +102,7 @@ namespace ScriptEditor
 			//(スクリプト + イメージ) ファイル(.dat)書出
 
 			//書出対象ファイル
-			FileStream fstrm = new FileStream ( filename, FileMode.Create, FileAccess.Write );
+			FileStream fstrm = new FileStream ( filepath, FileMode.Create, FileAccess.Write );
 			BinaryWriter biWriterFile = new BinaryWriter ( fstrm, Encoding.UTF8 );
 
 			//ストリーム読書用一時領域

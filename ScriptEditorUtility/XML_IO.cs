@@ -9,7 +9,7 @@ namespace ScriptEditor
 	//-------------------------------------------------------
 	public static class XML_IO
 	{
-		public static string SettingFilename { set; get; } = "setting.xml";	//保存ファイル名
+		public static string SettingFilepath { set; get; } = "setting.xml";	//保存ファイルパス
 		
 		//============================================
 		//◆ 保存
@@ -20,7 +20,7 @@ namespace ScriptEditor
 			XmlSerializer serializer = new XmlSerializer ( ob.GetType () );
 
 			//書出
-			using ( FileStream fs = new FileStream ( SettingFilename, FileMode.Create ) )
+			using ( FileStream fs = new FileStream ( SettingFilepath, FileMode.Create ) )
 			{
 				serializer.Serialize ( fs, ob );
 			}
@@ -28,7 +28,7 @@ namespace ScriptEditor
 
 		public static void Save ( string filename, object ob )
 		{
-			SettingFilename = filename;
+			SettingFilepath = filename;
 			Save ( ob );
 		}
 
@@ -42,7 +42,7 @@ namespace ScriptEditor
 		{
 			//---------------------------------------------------------
 			//ファイルの存在しないとき
-			if ( ! File.Exists ( SettingFilename ) )
+			if ( ! File.Exists ( SettingFilepath ) )
 			{
 				//作成して保存して返す
 				var t = Activator.CreateInstance ( T );
@@ -57,7 +57,7 @@ namespace ScriptEditor
 			//XMLファイルの設定
 			XmlSerializer serializer = new XmlSerializer ( T );
 
-			using ( FileStream fs = new FileStream ( SettingFilename, FileMode.Open ) )
+			using ( FileStream fs = new FileStream ( SettingFilepath, FileMode.Open ) )
 			{
 				return serializer.Deserialize ( fs );
 			}
@@ -70,7 +70,7 @@ namespace ScriptEditor
 
 		public static object Load ( string filename, object ob )
 		{
-			SettingFilename = filename;
+			SettingFilepath = filename;
 			return Load ( ob );
 		}
 	}

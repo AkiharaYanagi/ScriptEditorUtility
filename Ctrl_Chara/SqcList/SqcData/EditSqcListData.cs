@@ -10,6 +10,8 @@ namespace ScriptEditor
 		//対象データ
 		public SqcListData Dt { get; set; } = null;
 
+		public Compend Compend { get; set; } = null;
+
 		//選択シークエンス
 		public int SelectedSqc { get; set; } = 0;
 
@@ -194,7 +196,7 @@ namespace ScriptEditor
 		public void SaveImageToDir ( string imgDir )
 		{
 			SaveImage saveImage = new SaveImage ();
-			saveImage.Run ( Dt, imgDir );
+			saveImage.Run ( Dt, imgDir, Compend );
 		}
 	}
 }

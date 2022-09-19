@@ -41,7 +41,8 @@ namespace ScriptEditor
 			SaveChara saveChara = new SaveChara ();
 			saveChara.Do ( filename, ch_test );
 			Chara ch_load = new Chara ();
-			LoadChara loadChara = new LoadChara ( filename, ch_load );
+			LoadChara loadChara = new LoadChara ();
+			loadChara.Do ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
 #if false
 #endif

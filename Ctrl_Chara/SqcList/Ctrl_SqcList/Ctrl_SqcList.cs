@@ -63,6 +63,7 @@ namespace ScriptEditor
 		{
 			Cmpd = cmpd;
 			Data.SetData ( cmpd );
+			EditData.Compend = Cmpd;
 		}
 
 		//データ読込
