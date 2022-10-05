@@ -153,6 +153,7 @@ namespace ScriptEditor
 			{
 				//代入用
 				Script s = new Script ();
+				s.Clear ();
 
 				//フレーム数
 				s.Frame = frame;

@@ -57,7 +57,7 @@ namespace ScriptEditor
 		public void SetPosY ( int y ) { Pos = new Point ( Pos.X, y ); }
 
 		//計算状態(加算/代入/持続)
-		public CLC_ST CalcState { get; set; } = new CLC_ST ();
+		public CLC_ST CalcState { get; set; } = CLC_ST.CLC_SUBSTITUDE;
 
 		//------------------------------------------------
 		//ルートネームリスト (スクリプト分岐)
@@ -89,7 +89,8 @@ namespace ScriptEditor
 		//コンストラクタ
 		public Script ()
 		{
-			CalcState = CLC_ST.CLC_MAINTAIN;
+			ListCRect.Add ( new Rectangle ( -50, -350, 120, 350 ) );
+			ListHRect.Add ( new Rectangle ( -60, -360, 130, 370 ) );
 		}
 
 		//コピーコンストラクタ
@@ -121,7 +122,7 @@ namespace ScriptEditor
 			Group = 0;
 			ImgName = "Clear";
 			Pos = new Point ();
-			CalcState = CLC_ST.CLC_MAINTAIN;
+			CalcState = CLC_ST.CLC_SUBSTITUDE;
 
 			BD_RutName.Clear ();
 			ListCRect.Clear ();

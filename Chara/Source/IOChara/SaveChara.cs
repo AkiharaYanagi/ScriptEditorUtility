@@ -37,6 +37,7 @@ namespace ScriptEditor
 			}
 			catch ( ArgumentException e )
 			{
+				Debug.WriteLine ( e );
 			}
 		}
 

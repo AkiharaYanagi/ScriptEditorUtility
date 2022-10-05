@@ -62,9 +62,12 @@ namespace ScriptEditor
 		//選択中のスクリプトを削除
 		public void RemScript ()
 		{
-			int i = SelectedSequence.ListScript.IndexOf ( SelectedScript );
+			L_Scp ls = SelectedSequence.ListScript;
+			if ( ls.Count < 1 ) { return; }
+	
+			int i = ls.IndexOf ( SelectedScript );
 			if ( i < 1 ) { return; }
-			SelectedSequence.ListScript.RemoveAt ( i - 1 );
+			ls.RemoveAt ( i );
 		}
 
 		//複数削除

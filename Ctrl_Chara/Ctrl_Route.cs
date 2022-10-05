@@ -15,10 +15,10 @@ namespace ScriptEditor
 		//コントロール(ルート)
 		EditListbox < Route > EL_Route = new EditListbox < Route > ();
 
-		//コントロール(ブランチ)
+		//コントロール(ブランチネーム)
 		EditListbox < TName > EL_Branch = new EditListbox < TName > ();
 
-		//ブランチ参照
+		//キャラのブランチデータ参照
 		BD_Brc BD_Branch = new BD_Brc ();
 
 		//設定ファイル
@@ -85,16 +85,17 @@ namespace ScriptEditor
 		//キャラデータの設定
 		public void SetCharaData ( Chara ch )
 		{
-			//保存
+			//ブランチの元データを保存
 			BD_Branch = ch.BD_Branch;
-			CB_Branch.DataSource = BD_Branch.GetBindingList ();
 
-			//リストに登録
+			//ブランチをコントロールに設定
+			CB_Branch.DataSource = ch.BD_Branch.GetBindingList ();
+
+			//ルートをリストに登録
 			EL_Route.SetData ( ch.BD_Route );
 
-			if ( EL_Route.Count () < 1 ) { return; }
-
 			//データの設定
+			if ( EL_Route.Count () < 1 ) { return; }
 			SetRoute ( EL_Route.Get() );
 		}
 
@@ -113,7 +114,11 @@ namespace ScriptEditor
 		//ルートの設定
 		public void SetRoute ( Route rut )
 		{
+			//名前
 			Tb_Summary.Text = rut.Summary;
+
+			//ブランチネーム
+			if ( rut.BD_BranchName.Count () < 1 ) { return; }
 			EL_Branch.SetData ( rut.BD_BranchName );
 
 			//ブランチの選択
@@ -158,8 +163,9 @@ namespace ScriptEditor
 			int count = rut.BD_BranchName.Count ();
 			foreach ( TName tn in rut.BD_BranchName.GetEnumerable() )
 			{
-				if ( count < i ++ ) { break; }	//リストの最後には","カンマを追加しない
-				sw.Write ( tn.Name + "," );
+				sw.Write ( tn.Name );
+				if ( count == ++ i ) { break; }	//リストの最後には","カンマを追加しない
+				sw.Write ( "," );
 			}
 			sw.Write ( ";" );
 		}
