@@ -31,9 +31,9 @@ namespace ScriptEditor
 		}
 
 		private DirectInput dInput = new DirectInput ();
-		public static void UpdateData ( object sender, EventArgs e )
+		public static void UpdateData ( object sender, EventArgs e )	
 		{
-
+			
 		}
 	}
 }

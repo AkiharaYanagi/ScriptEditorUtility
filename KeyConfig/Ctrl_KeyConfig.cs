@@ -10,6 +10,9 @@ namespace ScriptEditor
 		//操作用
 		private List < RadioButton > L_RB = new List<RadioButton> (); 
 
+//		private KeyboardInput;
+
+
 		public Ctrl_KeyConfig ()
 		{
 			InitializeComponent ();
@@ -59,6 +62,11 @@ namespace ScriptEditor
 				e.IsInputKey = true;
 				break;
 			}
+		}
+
+		public void UpdateData ( string txt )
+		{
+			Tb_Up.Text = txt;
 		}
 	}
 }
