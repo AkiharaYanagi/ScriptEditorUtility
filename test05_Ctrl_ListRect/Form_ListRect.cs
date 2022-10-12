@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ScriptEditor
 {
@@ -6,6 +7,7 @@ namespace ScriptEditor
 	{
 		public Form_ListRect ()
 		{
+			Debug.WriteLine ( "Form1();\n" );
 			//位置
 			FormUtility.InitPosition ( this );
 

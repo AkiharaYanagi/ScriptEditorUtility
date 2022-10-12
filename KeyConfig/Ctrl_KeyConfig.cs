@@ -1,52 +1,110 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
+
+using SlimDX.DirectInput;
 
 
 namespace ScriptEditor
 {
+	//ラジオボタンとテキストボックス
+	public struct RBTB
+	{
+		public RadioButton rb;
+		public TextBox tb;
+
+		public void Set ( RadioButton r, TextBox t )
+		{
+			rb = r;
+			tb = t;
+		}
+	}
+
+	//コントロール
 	public partial class Ctrl_KeyConfig : UserControl
 	{
-		//操作用
-		private List < RadioButton > L_RB = new List<RadioButton> (); 
+		//コントロール操作用
+		private RBTB [] ARY_RBTB;
+		private const int RBTB_NUM = 24;
 
-//		private KeyboardInput;
+		//DirectInput入力
+		private DxInput dxInput = new DxInput ();
+
+		//現在ラジオボタン位置
+//		private RadioButton rbPos;
+		private RBTB rbtbPos;
 
 
+		//コンストラクタ
 		public Ctrl_KeyConfig ()
 		{
 			InitializeComponent ();
 
-			L_RB.Add ( RB_P1Up );
-			L_RB.Add ( RB_P1Down );
-			L_RB.Add ( RB_P1Left );
-			L_RB.Add ( RB_P1Right );
-			L_RB.Add ( RB_P1Btn0 );
-			L_RB.Add ( RB_P1Btn1 );
-			L_RB.Add ( RB_P1Btn2 );
-			L_RB.Add ( RB_P1Btn3 );
-			L_RB.Add ( RB_P1Btn4 );
-			L_RB.Add ( RB_P1Btn5 );
-			L_RB.Add ( RB_P1Btn6 );
-			L_RB.Add ( RB_P1Btn7 );
+			//入力初期化
+			dxInput.Load ();
 
-			L_RB.Add ( RB_P2Up );
-			L_RB.Add ( RB_P2Down );
-			L_RB.Add ( RB_P2Left );
-			L_RB.Add ( RB_P2Right );
-			L_RB.Add ( RB_P2Btn0 );
-			L_RB.Add ( RB_P2Btn1 );
-			L_RB.Add ( RB_P2Btn2 );
-			L_RB.Add ( RB_P2Btn3 );
-			L_RB.Add ( RB_P2Btn4 );
-			L_RB.Add ( RB_P2Btn5 );
-			L_RB.Add ( RB_P2Btn6 );
-			L_RB.Add ( RB_P2Btn7 );
+			//コントロール操作用
+			ARY_RBTB = new RBTB [ RBTB_NUM ];
 
-			foreach ( RadioButton rb in L_RB )
+			ARY_RBTB [  0 ].Set ( RB_P1Up,		Tb_P1Up );
+			ARY_RBTB [  1 ].Set ( RB_P1Down,	Tb_P1Down );
+			ARY_RBTB [  2 ].Set ( RB_P1Left,	Tb_P1Left );
+			ARY_RBTB [  3 ].Set ( RB_P1Right,	Tb_P1Right );
+			ARY_RBTB [  4 ].Set ( RB_P1Btn0,	Tb_P1Btn0 );
+			ARY_RBTB [  5 ].Set ( RB_P1Btn1,	Tb_P1Btn1 );
+			ARY_RBTB [  6 ].Set ( RB_P1Btn2,	Tb_P1Btn2 );
+			ARY_RBTB [  7 ].Set ( RB_P1Btn3,	Tb_P1Btn3 );
+			ARY_RBTB [  8 ].Set ( RB_P1Btn4,	Tb_P1Btn4 );
+			ARY_RBTB [  9 ].Set ( RB_P1Btn5,	Tb_P1Btn5 );
+			ARY_RBTB [ 10 ].Set ( RB_P1Btn6,	Tb_P1Btn6 );
+			ARY_RBTB [ 11 ].Set ( RB_P1Btn7,	Tb_P1Btn7 );
+			ARY_RBTB [ 12 ].Set ( RB_P2Up,		Tb_P2Up );
+			ARY_RBTB [ 13 ].Set ( RB_P2Down,	Tb_P2Down );
+			ARY_RBTB [ 14 ].Set ( RB_P2Left,	Tb_P2Left );
+			ARY_RBTB [ 15 ].Set ( RB_P2Right,	Tb_P2Right );
+			ARY_RBTB [ 16 ].Set ( RB_P2Btn0,	Tb_P2Btn0  );
+			ARY_RBTB [ 17 ].Set ( RB_P2Btn1,	Tb_P2Btn1  );
+			ARY_RBTB [ 18 ].Set ( RB_P2Btn2,	Tb_P2Btn2  );
+			ARY_RBTB [ 19 ].Set ( RB_P2Btn3,	Tb_P2Btn3  );
+			ARY_RBTB [ 20 ].Set ( RB_P2Btn4,	Tb_P2Btn4  );
+			ARY_RBTB [ 21 ].Set ( RB_P2Btn5,	Tb_P2Btn5  );
+			ARY_RBTB [ 22 ].Set ( RB_P2Btn6,	Tb_P2Btn6  );
+			ARY_RBTB [ 23 ].Set ( RB_P2Btn7,	Tb_P2Btn7  );
+
+			//コントロール共通初期化
+			foreach ( RBTB rbtb in ARY_RBTB )
 			{
-				rb.PreviewKeyDown += new PreviewKeyDownEventHandler ( RB_PreviewKeyDown );
+				rbtb.rb.PreviewKeyDown += new PreviewKeyDownEventHandler ( RB_PreviewKeyDown );
 			}
+
+			//選択位置
+//			rbPos = RB_P1Up;
+			rbtbPos = ARY_RBTB [ 0 ];
+
+#if false
+			//タスク
+			Action act = Thread;
+			Task task = Task.Run ( act );
+#endif
+
+			//タイマ
+			Timer timer = new Timer ();
+//			timer.Tick += new EventHandler ( UpdateData );
+			timer.Tick += (e,s)=>
+			{
+				//入力の更新と取得
+				dxInput.Update ();
+				DeviceInput di = dxInput.PushInput ();
+
+				//入力があったらテキストボックスを更新して次へ
+				if ( DeviceType.Other != di.Type )
+				{
+					rbtbPos.tb.Text = di.ToString();
+					RBTB_Next ( rbtbPos );
+					rbtbPos.rb.Checked = true;
+				}
+			};
+			timer.Interval = 16;
+			timer.Start ();
 		}
 
 
@@ -64,9 +122,57 @@ namespace ScriptEditor
 			}
 		}
 
-		public void UpdateData ( string txt )
+#if false
+		public static void Thread ()
 		{
-			Tb_Up.Text = txt;
+			Timer timer = new Timer ();
+			timer.Tick += new EventHandler ( UpdateData );
+			timer.Interval = 16;
+			timer.Start ();
+		}
+#endif
+
+		
+#if false
+		private static int count = 0;
+		public static void UpdateData ( object sender, EventArgs e )	
+		{
+			if ( ++ count > 60 ) 
+			{
+				Debug.WriteLine ( "UpdateData:: count = " + count.ToString() + "\n" ); 
+				count = 0;
+			}
+
+			dxKeyboard.Update ();
+
+			Key k = dxKeyboard.GetKey ();
+			Debug.WriteLine ( k.ToString() ); 
+		}
+#endif
+
+		//@info timerからでもstaticでないメンバ変数が変更可能かどうか
+		//->	ラムダ式でアクセス可能
+
+		//ラジオボタンを次へ
+		private void RBTB_Next ( RBTB rbtb )
+		{
+			//全検索
+			for ( int i = 0; i < RBTB_NUM; ++ i ) 
+			{
+				//該当したら
+				if ( rbtb.rb == ARY_RBTB [ i ].rb )
+				{
+					//末尾の場合
+					if ( i == RBTB_NUM - 1 )
+					{
+						rbtbPos = ARY_RBTB [ 0 ];
+					}
+					else
+					{
+						rbtbPos = ARY_RBTB [ i + 1 ];	// i + 1
+					}
+				}
+			}
 		}
 	}
 }

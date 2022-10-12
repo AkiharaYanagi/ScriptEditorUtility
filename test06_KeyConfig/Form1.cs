@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading.Tasks;
-
-using SlimDX.DirectInput;
+using System.Diagnostics;
 
 
 namespace ScriptEditor
@@ -14,26 +12,14 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
+			Debug.WriteLine ( "Form1();\n" );
 			Ctrl_KeyConfig keyConfig = new Ctrl_KeyConfig ();
 			this.Controls.Add ( keyConfig );
-
-			Action act = Thread;
-			Task task = Task.Run ( act );
 		}
 
 
-		public static void Thread ()
+		private void Form1_FormClosed ( object sender, FormClosedEventArgs e )
 		{
-			Timer timer = new Timer ();
-			timer.Tick += new EventHandler ( UpdateData );
-			timer.Interval = 16;
-			timer.Start ();
-		}
-
-		private DirectInput dInput = new DirectInput ();
-		public static void UpdateData ( object sender, EventArgs e )	
-		{
-			
 		}
 	}
 }

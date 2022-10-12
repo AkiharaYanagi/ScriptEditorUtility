@@ -7,33 +7,88 @@ using System;
 using SlimDX.DirectInput;
 
 
-namespace KeyConfig
+namespace ScriptEditor
 {
 	public class DeviceInput
 	{
 		//デバイスタイプ
-		public DeviceType Type { get; set; } = DeviceType.Keyboard;
+		public DeviceType Type { get; set; } = DeviceType.Other;
 
-		public JoyStickInput JoyStickInput { get; set; }
-		public Key keyboard { get; set; }
+		public JoystickInput JoystickInput { get; set; }
+		public Key keyboardInput { get; set; }
 
 		public DeviceInput ()
 		{
 
 		}
+
+		public override string ToString ()
+		{
+			string str = "";
+			switch ( Type )
+			{
+			case DeviceType.Joystick: str = JoystickInput.ToString (); break;
+			case DeviceType.Keyboard: str =  keyboardInput.ToString (); break;
+			default: break;
+			}
+			return str;
+		}
 	}
 
+	//レバー定義
+	public enum LEVER
+	{
+		LVR_UP,
+		LVR_DOWN,
+		LVR_LEFT,
+		LVR_RIGHT,
+	}
 
 	//ジョイスティック入力
-	public struct JoyStickInput
+	public class JoystickInput
 	{
-		public int DeviceID;
-		public int ButtonID;
+		public int DeviceID = 0;
 
-		public JoyStickInput ( int device, int button )
+		//入力の種類
+		public ObjectDeviceType ObDbcType = ObjectDeviceType.NoData;
+
+		//ボタン
+		public int ButtonID = 0;
+
+		//レバー
+		public LEVER lvr = LEVER.LVR_UP;
+
+		public JoystickInput ()
+		{
+
+		}
+
+		public JoystickInput ( int device, int button )
 		{
 			DeviceID = device;
 			ButtonID = button;
+		}
+
+		public override string ToString ()
+		{
+			string ret = "";
+
+			if ( ObDbcType == ObjectDeviceType.Button )
+			{
+				ret = "Joy" + DeviceID.ToString () + "_Btn" + ButtonID;
+			}
+
+			if ( ObDbcType == ObjectDeviceType.PointOfViewController )
+			{
+				ret = "Joy" + DeviceID.ToString () + "_" + lvr.ToString ();
+			}
+
+			if ( ObDbcType == ObjectDeviceType.Axis )
+			{
+				ret = "Joy" + DeviceID.ToString () + "_" + lvr.ToString ();
+			}
+
+			return ret;
 		}
 	}
 }
