@@ -74,6 +74,7 @@ namespace ScriptEditor
 			foreach ( RBTB rbtb in ARY_RBTB )
 			{
 				rbtb.rb.PreviewKeyDown += new PreviewKeyDownEventHandler ( RB_PreviewKeyDown );
+				rbtb.rb.CheckedChanged += new EventHandler ( RB_Seleceted );
 			}
 
 			//選択位置
@@ -122,33 +123,24 @@ namespace ScriptEditor
 			}
 		}
 
-#if false
-		public static void Thread ()
+		//ラジオボタン選択時
+		private void RB_Seleceted ( object sender, EventArgs e )
 		{
-			Timer timer = new Timer ();
-			timer.Tick += new EventHandler ( UpdateData );
-			timer.Interval = 16;
-			timer.Start ();
-		}
-#endif
+			//発生元を変換
+			RadioButton rb = (RadioButton)sender;
 
-		
-#if false
-		private static int count = 0;
-		public static void UpdateData ( object sender, EventArgs e )	
-		{
-			if ( ++ count > 60 ) 
+			//検索
+			foreach ( RBTB rbtb in ARY_RBTB )
 			{
-				Debug.WriteLine ( "UpdateData:: count = " + count.ToString() + "\n" ); 
-				count = 0;
+				if ( rbtb.rb == rb )
+				{
+					//選択
+					rbtbPos = rbtb;
+					break;
+				}
 			}
-
-			dxKeyboard.Update ();
-
-			Key k = dxKeyboard.GetKey ();
-			Debug.WriteLine ( k.ToString() ); 
 		}
-#endif
+
 
 		//@info timerからでもstaticでないメンバ変数が変更可能かどうか
 		//->	ラムダ式でアクセス可能
@@ -174,5 +166,17 @@ namespace ScriptEditor
 				}
 			}
 		}
+
+		//フォルダ
+		private void Btn_Folder_Click ( object sender, EventArgs e )
+		{
+			FormUtility.OpenCurrentDir ( );
+		}
+
+		//保存
+		private void Btn_Save_Click ( object sender, EventArgs e )
+		{
+		}
+
 	}
 }

@@ -78,6 +78,8 @@
 			this.Tb_P1Btn7 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.Btn_Folder = new System.Windows.Forms.Button();
+			this.Btn_Save = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// Tb_P2Btn7
@@ -534,10 +536,34 @@
 			this.label2.TabIndex = 2;
 			this.label2.Text = "Player2";
 			// 
+			// Btn_Folder
+			// 
+			this.Btn_Folder.Font = new System.Drawing.Font("MS UI Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Folder.Location = new System.Drawing.Point(29, 362);
+			this.Btn_Folder.Name = "Btn_Folder";
+			this.Btn_Folder.Size = new System.Drawing.Size(68, 37);
+			this.Btn_Folder.TabIndex = 3;
+			this.Btn_Folder.Text = "フォルダ";
+			this.Btn_Folder.UseVisualStyleBackColor = true;
+			this.Btn_Folder.Click += new System.EventHandler(this.Btn_Folder_Click);
+			// 
+			// Btn_Save
+			// 
+			this.Btn_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.Btn_Save.Location = new System.Drawing.Point(267, 350);
+			this.Btn_Save.Name = "Btn_Save";
+			this.Btn_Save.Size = new System.Drawing.Size(87, 49);
+			this.Btn_Save.TabIndex = 5;
+			this.Btn_Save.Text = "保存";
+			this.Btn_Save.UseVisualStyleBackColor = false;
+			this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
+			// 
 			// Ctrl_KeyConfig
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.Btn_Save);
+			this.Controls.Add(this.Btn_Folder);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Tb_P2Btn7);
@@ -589,7 +615,7 @@
 			this.Controls.Add(this.RB_P1Btn0);
 			this.Controls.Add(this.RB_P2Btn2);
 			this.Name = "Ctrl_KeyConfig";
-			this.Size = new System.Drawing.Size(375, 341);
+			this.Size = new System.Drawing.Size(383, 422);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -646,5 +672,7 @@
 		private System.Windows.Forms.TextBox Tb_P1Btn7;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button Btn_Folder;
+		private System.Windows.Forms.Button Btn_Save;
 	}
 }

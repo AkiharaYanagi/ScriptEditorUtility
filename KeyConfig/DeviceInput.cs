@@ -14,21 +14,25 @@ namespace ScriptEditor
 		//デバイスタイプ
 		public DeviceType Type { get; set; } = DeviceType.Other;
 
+		//各デバイス入力
 		public JoystickInput JoystickInput { get; set; }
 		public Key keyboardInput { get; set; }
 
-		public DeviceInput ()
+		//コンストラクタ
+		public DeviceInput ( DeviceType t, Key k )
 		{
-
+			Type = t;
+			keyboardInput = k;
 		}
 
+		//文字列
 		public override string ToString ()
 		{
 			string str = "";
 			switch ( Type )
 			{
 			case DeviceType.Joystick: str = JoystickInput.ToString (); break;
-			case DeviceType.Keyboard: str =  keyboardInput.ToString (); break;
+			case DeviceType.Keyboard: str = keyboardInput.ToString (); break;
 			default: break;
 			}
 			return str;

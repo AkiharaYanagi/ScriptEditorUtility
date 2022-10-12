@@ -1,4 +1,4 @@
-﻿namespace KeyConfig
+﻿namespace ScriptEditor
 {
 	//ゲームで用いる入力種類
     public enum GameInput
