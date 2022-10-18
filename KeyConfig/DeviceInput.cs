@@ -19,6 +19,10 @@ namespace ScriptEditor
 		public Key keyboardInput { get; set; } = Key.Unknown;
 
 		//コンストラクタ
+		public DeviceInput ()
+		{
+		}
+
 		public DeviceInput ( DeviceType t, Key k )
 		{
 			Type = t;
