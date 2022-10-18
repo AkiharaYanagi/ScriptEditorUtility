@@ -88,7 +88,7 @@ namespace ScriptEditor
 				{
 					if ( b )
 					{
-						jsi.ObDbcType = ObjectDeviceType.Button;
+						jsi.ObDvcType = ObjectDeviceType.Button;
 						jsi.DeviceID = deviceID;
 						jsi.ButtonID = buttonID;
 						return jsi;
@@ -127,7 +127,7 @@ namespace ScriptEditor
 						//前回もtrueだった場合、非該当
 						if ( ary_pre_b [ buttonID ] ) { continue; }
 
-						jsi.ObDbcType = ObjectDeviceType.Button;
+						jsi.ObDvcType = ObjectDeviceType.Button;
 						jsi.ButtonID = buttonID;
 						return jsi;
 					}
@@ -152,26 +152,26 @@ namespace ScriptEditor
 					//前回も同一だった場合、非該当
 					if ( pov == 0 && pre_pov == -1 )
 					{
-						jsi.ObDbcType = ObjectDeviceType.PointOfViewController;
-						jsi.lvr = LEVER.LVR_UP;
+						jsi.ObDvcType = ObjectDeviceType.PointOfViewController;
+						jsi.lvr = LEVER.UP;
 						return jsi;
 					}
 					if ( pov == 9000 && pre_pov == -1 )
 					{
-						jsi.ObDbcType = ObjectDeviceType.PointOfViewController;
-						jsi.lvr = LEVER.LVR_RIGHT;
+						jsi.ObDvcType = ObjectDeviceType.PointOfViewController;
+						jsi.lvr = LEVER.RIGHT;
 						return jsi;
 					}
 					if ( pov == 18000 && pre_pov == -1 )
 					{
-						jsi.ObDbcType = ObjectDeviceType.PointOfViewController;
-						jsi.lvr = LEVER.LVR_DOWN;
+						jsi.ObDvcType = ObjectDeviceType.PointOfViewController;
+						jsi.lvr = LEVER.DOWN;
 						return jsi;
 					}
 					if ( pov == 27000 && pre_pov == -1 )
 					{
-						jsi.ObDbcType = ObjectDeviceType.PointOfViewController;
-						jsi.lvr = LEVER.LVR_LEFT;
+						jsi.ObDvcType = ObjectDeviceType.PointOfViewController;
+						jsi.lvr = LEVER.LEFT;
 						return jsi;
 					}
 				}
@@ -185,26 +185,26 @@ namespace ScriptEditor
 
 				if ( y < -500 && pre_y >= -500)
 				{
-					jsi.ObDbcType = ObjectDeviceType.Axis;
-					jsi.lvr = LEVER.LVR_UP;
+					jsi.ObDvcType = ObjectDeviceType.Axis;
+					jsi.lvr = LEVER.UP;
 					return jsi;
 				}
 				if ( y > 500 && pre_y <= 500)
 				{
-					jsi.ObDbcType = ObjectDeviceType.Axis;
-					jsi.lvr = LEVER.LVR_DOWN;
+					jsi.ObDvcType = ObjectDeviceType.Axis;
+					jsi.lvr = LEVER.DOWN;
 					return jsi;
 				}
 				if ( x < -500 && pre_x >= -500)
 				{
-					jsi.ObDbcType = ObjectDeviceType.Axis;
-					jsi.lvr = LEVER.LVR_LEFT;
+					jsi.ObDvcType = ObjectDeviceType.Axis;
+					jsi.lvr = LEVER.LEFT;
 					return jsi;
 				}
 				if ( x > 500 && pre_x <= 500)
 				{
-					jsi.ObDbcType = ObjectDeviceType.Axis;
-					jsi.lvr = LEVER.LVR_RIGHT;
+					jsi.ObDvcType = ObjectDeviceType.Axis;
+					jsi.lvr = LEVER.RIGHT;
 					return jsi;
 				}
 

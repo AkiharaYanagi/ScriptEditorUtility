@@ -35,11 +35,11 @@ namespace ScriptEditor
 		//入力の取得
 		public DeviceInput GetInput ()
 		{
-			DeviceInput di = new DeviceInput ();
+			DeviceInput di = new DeviceInput ( DeviceType.Other, Key.A );
 			
 			//ジョイスティック
 			JoystickInput ji = dxJoystick.GetInput ();
-			if ( ji.ObDbcType != ObjectDeviceType.NoData )
+			if ( ji.ObDvcType != ObjectDeviceType.NoData )
 			{
 				di.Type = DeviceType.Joystick;
 				di.JoystickInput = ji;
@@ -62,11 +62,11 @@ namespace ScriptEditor
 		//押した瞬間の取得
 		public DeviceInput PushInput ()
 		{
-			DeviceInput di = new DeviceInput ();
+			DeviceInput di = new DeviceInput ( DeviceType.Other, Key.A );
 
 			//ジョイスティック
 			JoystickInput ji = dxJoystick.PushInput ();
-			if ( ji.ObDbcType != ObjectDeviceType.NoData )
+			if ( ji.ObDvcType != ObjectDeviceType.NoData )
 			{
 				di.Type = DeviceType.Joystick;
 				di.JoystickInput = ji;

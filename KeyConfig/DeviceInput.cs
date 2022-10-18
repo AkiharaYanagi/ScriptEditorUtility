@@ -15,8 +15,8 @@ namespace ScriptEditor
 		public DeviceType Type { get; set; } = DeviceType.Other;
 
 		//各デバイス入力
-		public JoystickInput JoystickInput { get; set; }
-		public Key keyboardInput { get; set; }
+		public JoystickInput JoystickInput { get; set; } = new JoystickInput ();
+		public Key keyboardInput { get; set; } = Key.Unknown;
 
 		//コンストラクタ
 		public DeviceInput ( DeviceType t, Key k )
@@ -39,28 +39,19 @@ namespace ScriptEditor
 		}
 	}
 
-	//レバー定義
-	public enum LEVER
-	{
-		LVR_UP,
-		LVR_DOWN,
-		LVR_LEFT,
-		LVR_RIGHT,
-	}
-
 	//ジョイスティック入力
 	public class JoystickInput
 	{
 		public int DeviceID = 0;
 
 		//入力の種類
-		public ObjectDeviceType ObDbcType = ObjectDeviceType.NoData;
+		public ObjectDeviceType ObDvcType = ObjectDeviceType.NoData;
 
 		//ボタン
 		public int ButtonID = 0;
 
 		//レバー
-		public LEVER lvr = LEVER.LVR_UP;
+		public LEVER lvr = LEVER.UP;
 
 		public JoystickInput ()
 		{
@@ -77,19 +68,19 @@ namespace ScriptEditor
 		{
 			string ret = "";
 
-			if ( ObDbcType == ObjectDeviceType.Button )
+			if ( ObDvcType == ObjectDeviceType.Button )
 			{
 				ret = "Joy" + DeviceID.ToString () + "_Btn" + ButtonID;
 			}
 
-			if ( ObDbcType == ObjectDeviceType.PointOfViewController )
+			if ( ObDvcType == ObjectDeviceType.PointOfViewController )
 			{
-				ret = "Joy" + DeviceID.ToString () + "_" + lvr.ToString ();
+				ret = "Joy" + DeviceID.ToString () + "_POV_" + lvr.ToString ();
 			}
 
-			if ( ObDbcType == ObjectDeviceType.Axis )
+			if ( ObDvcType == ObjectDeviceType.Axis )
 			{
-				ret = "Joy" + DeviceID.ToString () + "_" + lvr.ToString ();
+				ret = "Joy" + DeviceID.ToString () + "_Axis_" + lvr.ToString ();
 			}
 
 			return ret;

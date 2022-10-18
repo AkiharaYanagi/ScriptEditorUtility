@@ -11,17 +11,35 @@ namespace ScriptEditor
 	{
 		public RadioButton rb;
 		public TextBox tb;
-
-		public void Set ( RadioButton r, TextBox t )
+		public void Set ( RadioButton r, TextBox t ) { rb = r; tb = t; }
+		public static bool operator == ( RBTB rbtb0, RBTB rbtb1 )
 		{
-			rb = r;
-			tb = t;
+			bool b0 = ( rbtb0.rb == rbtb1.rb );
+			bool b1 = ( rbtb0.tb == rbtb1.tb );
+			return b0 && b1;
+		}
+		public static bool operator != ( RBTB rbtb0, RBTB rbtb1 )
+		{
+			bool b0 = ( rbtb0.rb != rbtb1.rb );
+			bool b1 = ( rbtb0.tb != rbtb1.tb );
+			return b0 && b1;
+		}
+		public override bool Equals ( object obj )
+		{
+			return base.Equals ( obj ); 
+		}
+		public override int GetHashCode ()
+		{
+			return base.GetHashCode ();
 		}
 	}
 
-	//コントロール
+	//コントロール総合
 	public partial class Ctrl_KeyConfig : UserControl
 	{
+		//対象データ
+		private KeySettings keyStgs = new KeySettings ();
+
 		//コントロール操作用
 		private RBTB [] ARY_RBTB;
 		private const int RBTB_NUM = 24;
@@ -30,7 +48,6 @@ namespace ScriptEditor
 		private DxInput dxInput = new DxInput ();
 
 		//現在ラジオボタン位置
-//		private RadioButton rbPos;
 		private RBTB rbtbPos;
 
 
@@ -42,33 +59,38 @@ namespace ScriptEditor
 			//入力初期化
 			dxInput.Load ();
 
+			//自動読込
+//			keyStgs.Save ();
+			keyStgs.Load ();
+
 			//コントロール操作用
 			ARY_RBTB = new RBTB [ RBTB_NUM ];
 
-			ARY_RBTB [  0 ].Set ( RB_P1Up,		Tb_P1Up );
-			ARY_RBTB [  1 ].Set ( RB_P1Down,	Tb_P1Down );
-			ARY_RBTB [  2 ].Set ( RB_P1Left,	Tb_P1Left );
-			ARY_RBTB [  3 ].Set ( RB_P1Right,	Tb_P1Right );
-			ARY_RBTB [  4 ].Set ( RB_P1Btn0,	Tb_P1Btn0 );
-			ARY_RBTB [  5 ].Set ( RB_P1Btn1,	Tb_P1Btn1 );
-			ARY_RBTB [  6 ].Set ( RB_P1Btn2,	Tb_P1Btn2 );
-			ARY_RBTB [  7 ].Set ( RB_P1Btn3,	Tb_P1Btn3 );
-			ARY_RBTB [  8 ].Set ( RB_P1Btn4,	Tb_P1Btn4 );
-			ARY_RBTB [  9 ].Set ( RB_P1Btn5,	Tb_P1Btn5 );
-			ARY_RBTB [ 10 ].Set ( RB_P1Btn6,	Tb_P1Btn6 );
-			ARY_RBTB [ 11 ].Set ( RB_P1Btn7,	Tb_P1Btn7 );
-			ARY_RBTB [ 12 ].Set ( RB_P2Up,		Tb_P2Up );
-			ARY_RBTB [ 13 ].Set ( RB_P2Down,	Tb_P2Down );
-			ARY_RBTB [ 14 ].Set ( RB_P2Left,	Tb_P2Left );
-			ARY_RBTB [ 15 ].Set ( RB_P2Right,	Tb_P2Right );
-			ARY_RBTB [ 16 ].Set ( RB_P2Btn0,	Tb_P2Btn0  );
-			ARY_RBTB [ 17 ].Set ( RB_P2Btn1,	Tb_P2Btn1  );
-			ARY_RBTB [ 18 ].Set ( RB_P2Btn2,	Tb_P2Btn2  );
-			ARY_RBTB [ 19 ].Set ( RB_P2Btn3,	Tb_P2Btn3  );
-			ARY_RBTB [ 20 ].Set ( RB_P2Btn4,	Tb_P2Btn4  );
-			ARY_RBTB [ 21 ].Set ( RB_P2Btn5,	Tb_P2Btn5  );
-			ARY_RBTB [ 22 ].Set ( RB_P2Btn6,	Tb_P2Btn6  );
-			ARY_RBTB [ 23 ].Set ( RB_P2Btn7,	Tb_P2Btn7  );
+			ARY_RBTB [ (int)GameInput.P1_UP		].Set ( RB_P1Up,	Tb_P1Up );
+			ARY_RBTB [ (int)GameInput.P1_DOWN	].Set ( RB_P1Down,	Tb_P1Down );
+			ARY_RBTB [ (int)GameInput.P1_LEFT	].Set ( RB_P1Left,	Tb_P1Left );
+			ARY_RBTB [ (int)GameInput.P1_RIGHT	].Set ( RB_P1Right,	Tb_P1Right );
+			ARY_RBTB [ (int)GameInput.P1_KEY0	].Set ( RB_P1Btn0,	Tb_P1Btn0 );
+			ARY_RBTB [ (int)GameInput.P1_KEY1	].Set ( RB_P1Btn1,	Tb_P1Btn1 );
+			ARY_RBTB [ (int)GameInput.P1_KEY2	].Set ( RB_P1Btn2,	Tb_P1Btn2 );
+			ARY_RBTB [ (int)GameInput.P1_KEY3	].Set ( RB_P1Btn3,	Tb_P1Btn3 );
+			ARY_RBTB [ (int)GameInput.P1_KEY4	].Set ( RB_P1Btn4,	Tb_P1Btn4 );
+			ARY_RBTB [ (int)GameInput.P1_KEY5	].Set ( RB_P1Btn5,	Tb_P1Btn5 );
+			ARY_RBTB [ (int)GameInput.P1_KEY6	].Set ( RB_P1Btn6,	Tb_P1Btn6 );
+			ARY_RBTB [ (int)GameInput.P1_KEY7	].Set ( RB_P1Btn7,	Tb_P1Btn7 );
+					   
+			ARY_RBTB [ (int)GameInput.P2_UP		].Set ( RB_P2Up,	Tb_P2Up );
+			ARY_RBTB [ (int)GameInput.P2_DOWN	].Set ( RB_P2Down,	Tb_P2Down );
+			ARY_RBTB [ (int)GameInput.P2_LEFT	].Set ( RB_P2Left,	Tb_P2Left );
+			ARY_RBTB [ (int)GameInput.P2_RIGHT	].Set ( RB_P2Right,	Tb_P2Right );
+			ARY_RBTB [ (int)GameInput.P2_KEY0	].Set ( RB_P2Btn0,	Tb_P2Btn0  );
+			ARY_RBTB [ (int)GameInput.P2_KEY1	].Set ( RB_P2Btn1,	Tb_P2Btn1  );
+			ARY_RBTB [ (int)GameInput.P2_KEY2	].Set ( RB_P2Btn2,	Tb_P2Btn2  );
+			ARY_RBTB [ (int)GameInput.P2_KEY3	].Set ( RB_P2Btn3,	Tb_P2Btn3  );
+			ARY_RBTB [ (int)GameInput.P2_KEY4	].Set ( RB_P2Btn4,	Tb_P2Btn4  );
+			ARY_RBTB [ (int)GameInput.P2_KEY5	].Set ( RB_P2Btn5,	Tb_P2Btn5  );
+			ARY_RBTB [ (int)GameInput.P2_KEY6	].Set ( RB_P2Btn6,	Tb_P2Btn6  );
+			ARY_RBTB [ (int)GameInput.P2_KEY7	].Set ( RB_P2Btn7,	Tb_P2Btn7  );
 
 			//コントロール共通初期化
 			foreach ( RBTB rbtb in ARY_RBTB )
@@ -77,28 +99,24 @@ namespace ScriptEditor
 				rbtb.rb.CheckedChanged += new EventHandler ( RB_Seleceted );
 			}
 
-			//選択位置
-//			rbPos = RB_P1Up;
-			rbtbPos = ARY_RBTB [ 0 ];
+			//関連付け
+			Assosiate ( keyStgs );
 
-#if false
-			//タスク
-			Action act = Thread;
-			Task task = Task.Run ( act );
-#endif
+			//選択位置
+			rbtbPos = ARY_RBTB [ 0 ];
 
 			//タイマ
 			Timer timer = new Timer ();
-//			timer.Tick += new EventHandler ( UpdateData );
 			timer.Tick += (e,s)=>
 			{
 				//入力の更新と取得
 				dxInput.Update ();
 				DeviceInput di = dxInput.PushInput ();
 
-				//入力があったらテキストボックスを更新して次へ
+				//入力があったら対象データとテキストボックスを更新して次へ
 				if ( DeviceType.Other != di.Type )
 				{
+					keyStgs.Set ( GetGameInput ( rbtbPos ), di );
 					rbtbPos.tb.Text = di.ToString();
 					RBTB_Next ( rbtbPos );
 					rbtbPos.rb.Checked = true;
@@ -167,6 +185,32 @@ namespace ScriptEditor
 			}
 		}
 
+		//データ関連付け
+		public void Assosiate ( KeySettings stgs )
+		{
+			foreach ( GameInput gmIpt in Enum.GetValues ( typeof ( GameInput ) ) )
+			{
+				DeviceInput dvcIpt = stgs.Dct_Gm_Dvc [ gmIpt ];
+
+				ARY_RBTB [ (int)gmIpt ].tb.Text = dvcIpt.ToString();
+			}
+		}
+
+		//RBTBの選択からGameInputを取得する
+		private GameInput GetGameInput ( RBTB rbtb )
+		{
+			int i = 0;
+			foreach ( RBTB _rbtb in ARY_RBTB )
+			{
+				if ( rbtb == _rbtb )
+				{
+					return (GameInput)i;
+				}
+				++ i;
+			}
+			return GameInput.P1_UP;
+		}
+
 		//フォルダ
 		private void Btn_Folder_Click ( object sender, EventArgs e )
 		{
@@ -176,6 +220,7 @@ namespace ScriptEditor
 		//保存
 		private void Btn_Save_Click ( object sender, EventArgs e )
 		{
+			keyStgs.Save ();
 		}
 
 	}

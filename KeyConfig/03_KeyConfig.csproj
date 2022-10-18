@@ -62,14 +62,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvertDxToSlim.cs" />
+    <Compile Include="ConvertSlimToDx.cs" />
     <Compile Include="Ctrl_KeyConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Ctrl_KeyConfig.Designer.cs">
       <DependentUpon>Ctrl_KeyConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Define.cs" />
+    <Compile Include="KeyDefine.cs" />
     <Compile Include="DeviceInput.cs" />
+    <Compile Include="DirectInput_KeyEnum.cs" />
     <Compile Include="DxInput.cs" />
     <Compile Include="DxJoystick.cs" />
     <Compile Include="DxKeyboard.cs" />
