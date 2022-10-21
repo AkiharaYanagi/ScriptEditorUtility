@@ -15,7 +15,7 @@ namespace ScriptEditor
 	public class KeySettings
 	{
 		//保存ファイル名
-		private string Filename = "keyConfig.dat";
+		private readonly string Filename = "keyConfig.dat";
 
 		//ゲーム入力とデバイス入力
 		public DCT_GM_DVC Dct_Gm_Dvc = new DCT_GM_DVC ();
@@ -28,33 +28,6 @@ namespace ScriptEditor
 				Dct_Gm_Dvc.Add ( gi, new DeviceInput () );
 			}
 			SetDefault ();
-#if false
-			Dct_Gm_Dvc.Add ( GameInput.P1_UP, new DeviceInput ( DeviceType.Keyboard, Key.UpArrow ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_DOWN, new DeviceInput ( DeviceType.Keyboard, Key.DownArrow ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_LEFT, new DeviceInput ( DeviceType.Keyboard, Key.LeftArrow ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_RIGHT, new DeviceInput ( DeviceType.Keyboard, Key.RightArrow ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY0, new DeviceInput ( DeviceType.Keyboard, Key.Z ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY1, new DeviceInput ( DeviceType.Keyboard, Key.X ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY2, new DeviceInput ( DeviceType.Keyboard, Key.C ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY3, new DeviceInput ( DeviceType.Keyboard, Key.V ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY4, new DeviceInput ( DeviceType.Keyboard, Key.Comma ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY5, new DeviceInput ( DeviceType.Keyboard, Key.Period ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY6, new DeviceInput ( DeviceType.Keyboard, Key.Slash ) );
-			Dct_Gm_Dvc.Add ( GameInput.P1_KEY7, new DeviceInput ( DeviceType.Keyboard, Key.Backslash ) );
-
-			Dct_Gm_Dvc.Add ( GameInput.P2_UP, new DeviceInput ( DeviceType.Keyboard, Key.Home ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_DOWN, new DeviceInput ( DeviceType.Keyboard, Key.End ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_LEFT, new DeviceInput ( DeviceType.Keyboard, Key.Delete ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_RIGHT, new DeviceInput ( DeviceType.Keyboard, Key.PageUp ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY0, new DeviceInput ( DeviceType.Keyboard, Key.A ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY1, new DeviceInput ( DeviceType.Keyboard, Key.S ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY2, new DeviceInput ( DeviceType.Keyboard, Key.D ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY3, new DeviceInput ( DeviceType.Keyboard, Key.F ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY4, new DeviceInput ( DeviceType.Keyboard, Key.L ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY5, new DeviceInput ( DeviceType.Keyboard, Key.Semicolon ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY6, new DeviceInput ( DeviceType.Keyboard, Key.Colon ) );
-			Dct_Gm_Dvc.Add ( GameInput.P2_KEY7, new DeviceInput ( DeviceType.Keyboard, Key.RightBracket ) );
-#endif
 		}
 
 		//保存
@@ -75,17 +48,17 @@ namespace ScriptEditor
 					//各デバイスの記録
 					switch ( dvcIpt.Type )
 					{
-						case DeviceType.Keyboard:
+					case DeviceType.Keyboard:
 						int iKey = cnvSToD.Keyboard ( dvcIpt.keyboardInput );
 						bw.Write ( iKey );
-						break;
+					break;
 
-						case DeviceType.Joystick:
+					case DeviceType.Joystick:
 						bw.Write ( dvcIpt.JoystickInput.DeviceID );
 						bw.Write ( cnvSToD.CnvJoyType ( dvcIpt.JoystickInput.ObDvcType ) );
-						bw.Write ( (int)dvcIpt.JoystickInput.lvr );
 						bw.Write ( dvcIpt.JoystickInput.ButtonID );
-						break;
+						bw.Write ( (int)dvcIpt.JoystickInput.lvr );
+					break;
 					}
 
 				}
@@ -106,7 +79,7 @@ namespace ScriptEditor
 				}
 			}			
 			//ファイルが見つからないとき
-			catch ( FileNotFoundException e )
+			catch ( Exception e ) when ( e is FileNotFoundException || e is FileLoadException)
 			{
 				e.ToString ();
 				//デフォルトの値を設定
@@ -117,7 +90,6 @@ namespace ScriptEditor
 		private void _Load ( BinaryReader br )
 		{
 			ConvertDxToSlim cnvDToS = new ConvertDxToSlim ();
-
 			foreach ( GameInput gmIpt in Dct_Gm_Dvc.Keys )
 			{
 				DeviceInput dvcIpt = Dct_Gm_Dvc [ gmIpt ];
@@ -136,8 +108,8 @@ namespace ScriptEditor
 					case DeviceType.Joystick:
 					dvcIpt.JoystickInput.DeviceID = br.ReadInt32 ();
 					dvcIpt.JoystickInput.ObDvcType = cnvDToS.CnvJoyType ( (JOY_INPUT_TYPE)br.ReadInt32 () );
-					dvcIpt.JoystickInput.lvr = (LEVER)br.ReadInt32 ();
 					dvcIpt.JoystickInput.ButtonID = br.ReadInt32 ();
+					dvcIpt.JoystickInput.lvr = (LEVER)br.ReadInt32 ();
 					break;
 				}
 			}
@@ -168,7 +140,7 @@ namespace ScriptEditor
 			Set ( GameInput.P2_UP		, new DeviceInput ( DeviceType.Keyboard, Key.Home ) );
 			Set ( GameInput.P2_DOWN		, new DeviceInput ( DeviceType.Keyboard, Key.End ) );
 			Set ( GameInput.P2_LEFT		, new DeviceInput ( DeviceType.Keyboard, Key.Delete ) );
-			Set ( GameInput.P2_RIGHT	, new DeviceInput ( DeviceType.Keyboard, Key.PageUp ) );
+			Set ( GameInput.P2_RIGHT	, new DeviceInput ( DeviceType.Keyboard, Key.PageDown ) );
 			Set ( GameInput.P2_KEY0		, new DeviceInput ( DeviceType.Keyboard, Key.A ) );
 			Set ( GameInput.P2_KEY1		, new DeviceInput ( DeviceType.Keyboard, Key.S ) );
 			Set ( GameInput.P2_KEY2		, new DeviceInput ( DeviceType.Keyboard, Key.D ) );

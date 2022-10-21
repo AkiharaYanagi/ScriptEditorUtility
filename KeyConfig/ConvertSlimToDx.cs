@@ -199,8 +199,8 @@ namespace ScriptEditor
 			switch ( joy_type )
 			{
 			case ObjectDeviceType.Axis: ret = (int)JOY_INPUT_TYPE.AXIS; break;
-			case ObjectDeviceType.PointOfViewController: ret = (int)JOY_INPUT_TYPE.BUTTON; break;
-			case ObjectDeviceType.Button: ret = (int)JOY_INPUT_TYPE.NO_DATA; break;
+			case ObjectDeviceType.PointOfViewController: ret = (int)JOY_INPUT_TYPE.POINT_OF_VIEW; break;
+			case ObjectDeviceType.Button: ret = (int)JOY_INPUT_TYPE.BUTTON; break;
 			}
 
 			return ret;
