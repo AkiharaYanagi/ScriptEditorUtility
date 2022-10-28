@@ -54,6 +54,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test06_KeyConfig", "test06_
 		{BBD091FD-C176-4A2F-B2B3-35C300D85D7F} = {BBD091FD-C176-4A2F-B2B3-35C300D85D7F}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test07_CharaIOBin", "test07_CharaIOBin\test07_CharaIOBin.csproj", "{B02DA989-8ED6-4943-AE04-13F8DFE82396}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
+		{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8} = {8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +164,14 @@ Global
 		{51A8129E-0FF9-44A9-81F4-44B70950ADB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51A8129E-0FF9-44A9-81F4-44B70950ADB2}.Release|x86.ActiveCfg = Release|x86
 		{51A8129E-0FF9-44A9-81F4-44B70950ADB2}.Release|x86.Build.0 = Release|x86
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Debug|x86.ActiveCfg = Debug|x86
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Debug|x86.Build.0 = Debug|x86
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Release|x86.ActiveCfg = Release|Any CPU
+		{B02DA989-8ED6-4943-AE04-13F8DFE82396}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

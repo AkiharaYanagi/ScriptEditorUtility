@@ -115,7 +115,7 @@ namespace ScriptEditor
 		//グループの選択
 		public void SelectGroup ( int group )
 		{
-			if ( group >= L_ScriptGroup.Count ) { return; }
+			if ( group > L_ScriptGroup.Count ) { return; }
 
 			//値の記録
 			SelectedGroupIndex = group;
