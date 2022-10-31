@@ -88,6 +88,39 @@
 			BD_Route.DeepCopy ( ch.BD_Route );
 		}
 
+		//----------------------------------------------------------------
+		//名前からインデックスを取得
 
+		//アクション
+		public int GetIndexOfAction ( string nameAction )
+		{
+			return behavior.BD_Sequence.IndexOf ( nameAction );
+		}
+		//エフェクト
+		public int GetIndexOfEffect ( string nameEffect )
+		{
+			return garnish.BD_Sequence.IndexOf ( nameEffect );
+		}
+		//コマンド
+		public int GetIndexOfCommand ( string nameCommand )
+		{
+			return BD_Command.IndexOf ( nameCommand );
+		}
+		//ブランチ
+		public int GetIndexOfBranch ( string nameBranch )
+		{
+			return BD_Branch.IndexOf ( nameBranch );
+		}
+		//ルート
+		public int GetIndexOfRoute ( string nameRoute )
+		{
+			return BD_Route.IndexOf ( nameRoute );
+		}
+
+		//イメージ
+		public int GetIndexOfImage ( string nameImage )
+		{
+			return behavior.BD_Image.IndexOf ( nameImage );
+		}
 	}
 }

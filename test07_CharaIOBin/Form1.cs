@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
+
 
 namespace ScriptEditor
 {
@@ -9,6 +11,8 @@ namespace ScriptEditor
 
 		public Form1 ()
 		{
+			Debug.Write ( "debug" );
+
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 

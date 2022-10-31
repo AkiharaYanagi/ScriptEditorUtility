@@ -37,14 +37,41 @@ namespace ScriptEditor
 		}
 
 		private void _Save ( string filepath, Chara chara )
-		{
+		{ 
+			string dir = Directory.GetCurrentDirectory () ;
+			Debug.WriteLine ( dir );
+
 			//データが無かったら何もしない
 			if ( chara == null ) { return; }
 
 			//一時メモリストリーム
 			MemoryStream ms = new MemoryStream ();
-			BinaryWriter bw = new BinaryWriter ( ms, Encoding.ASCII );
+			BinaryWriter bw = new BinaryWriter ( ms, Encoding.UTF8 );
 
+			//behavior
+			Behavior bhv = chara.behavior;
+			byte nAct = (byte)bhv.BD_Sequence.Count ();
+			bw.Write ( nAct );
+			foreach ( Action act in bhv.BD_Sequence.GetEnumerable () )
+			{
+				bw.Write ( (byte)chara.GetIndexOfAction ( act.NextActionName ) ); 
+				bw.Write ( (byte)act.Category );
+				bw.Write ( (byte)act.Posture );
+				bw.Write ( (byte)act.HitNum );
+				bw.Write ( (byte)act.HitPitch );
+				bw.Write ( (byte)act.Balance );
+
+				//Sequence
+				byte nScp = (byte)act.ListScript.Count;
+				bw.Write ( nScp ); 
+				for ( int i = 0; i < nScp; ++ i )
+				{ 
+					Script scp = act.ListScript [ i ];
+					bw.Write ( chara.GetIndexOfImage ( scp.ImgName ) );
+				}
+			}
+
+			//--------------------------------------------------------
 			//Command
 			
 			//個数 [1byte]
@@ -52,10 +79,9 @@ namespace ScriptEditor
 			bw.Write ( nCommand );
 
 			//実データ [sizeof ( Command ) * n]
-			//コマンド
 			foreach ( Command cmd in chara.BD_Command.GetEnumerable () )
 			{
-				bw.Write ( cmd.Name );
+				bw.Write ( cmd.Name );		//string (length , [UTF8])
 				bw.Write ( (byte)cmd.LimitTime );
 
 				//ゲームキー
@@ -80,6 +106,43 @@ namespace ScriptEditor
 				}
 			}
 
+			//--------------------------------------------------------
+			//Branch
+
+			//個数 [1byte]
+			byte nBrc = (byte)chara.BD_Branch.Count ();
+			bw.Write ( nBrc );
+
+			//実データ [sizeof ( Branch ) * n]
+			foreach ( Branch brc in chara.BD_Branch.GetEnumerable () )
+			{
+				bw.Write ( brc.Name );		//string (length , [UTF8])
+				bw.Write ( (byte)brc.Condition );	//enum -> byte
+				bw.Write ( (byte)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> byte
+				bw.Write ( (byte)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> byte
+				bw.Write ( (byte)brc.Frame );	//int -> byte
+			}
+
+			//--------------------------------------------------------
+			//Route
+
+			//個数 [1byte]
+			byte nRut = (byte)chara.BD_Route.Count ();
+			bw.Write ( nRut );
+
+			//実データ [sizeof ( Route ) * n]
+			foreach ( Route rut in chara.BD_Route.GetEnumerable () )
+			{
+				bw.Write ( rut.Name );      //string (length , [UTF8])
+				byte nBrnName = (byte)rut.BD_BranchName.Count ();
+				bw.Write ( nBrnName );
+				foreach ( TName brcName in rut.BD_BranchName.GetEnumerable () )
+				{
+					bw.Write ( (byte)chara.GetIndexOfBranch ( brcName.Name ) );	//int -> byte
+				}
+			}
+
+			//--------------------------------------------------------
 			bw.Flush ();
 
 
