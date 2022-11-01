@@ -51,7 +51,7 @@ namespace ScriptEditor
 			//--------------------------------------------------------
 			//chara 各種データ書出
 			SaveBinBehavior ( bw, chara );	//behavior
-			SaveBinGernish ( bw, chara );	//gernish
+			SaveBinGarnish ( bw, chara );	//garnish
 			SaveBinCommand ( bw, chara );	//Command
 			SaveBinBranch ( bw, chara );	//Branch
 			SaveBinRoute ( bw, chara );		//Route

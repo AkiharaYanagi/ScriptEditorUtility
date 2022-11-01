@@ -19,6 +19,7 @@ namespace ScriptEditor
 		//behavior
 		public void SaveBinBehavior ( BinaryWriter bw, Chara chara )
 		{
+			//Action : Sequence
 			Behavior bhv = chara.behavior;
 			byte nAct = (byte)bhv.BD_Sequence.Count ();
 			bw.Write ( nAct );
@@ -31,38 +32,21 @@ namespace ScriptEditor
 				bw.Write ( (byte)act.HitPitch );
 				bw.Write ( (byte)act.Balance );
 
-				//Sequence
-				byte nScp = (byte)act.ListScript.Count;
-				bw.Write ( nScp ); 
-				foreach ( Script scp in act.ListScript )
-				{ 
-					//イメージインデックス
-					bw.Write ( chara.GetIndexOfImage ( scp.ImgName ) );
-
-					//位置
-					bw.Write ( scp.Pos.X );		//int
-					bw.Write ( scp.Pos.Y );		//int
-					bw.Write ( (int)scp.CalcState );
-					
-					//ルート
-					bw.Write ( (byte)scp.BD_RutName.Count() );
-					foreach ( TName tn in scp.BD_RutName.GetEnumerable () )
-					{
-						bw.Write ( chara.GetIndexOfRoute ( tn.Name ) );
-					}
-
-					//枠
-					SaveBinListRect ( bw, scp.ListCRect );
-					SaveBinListRect ( bw, scp.ListHRect );
-					SaveBinListRect ( bw, scp.ListARect );
-					SaveBinListRect ( bw, scp.ListORect );
-				}
+				SaveBinListScript ( bw, chara, act.ListScript );
 			}
 		}
 		//---------------------------------------------------------------------
 		//gernish
-		public void SaveBinGernish ( BinaryWriter bw, Chara chara )
+		public void SaveBinGarnish ( BinaryWriter bw, Chara chara )
 		{
+			//Effect : Sequence
+			Garnish gns = chara.garnish;
+			byte nGns = (byte)gns.BD_Sequence.Count ();
+			bw.Write ( nGns );
+			foreach ( Effect efc in gns.BD_Sequence.GetEnumerable () )
+			{
+				SaveBinListScript ( bw, chara, efc.ListScript );
+			}
 		}
 
 		//---------------------------------------------------------------------
@@ -144,6 +128,50 @@ namespace ScriptEditor
 		}
 
 		//---------------------------------------------------------------------
+		//ListScript
+		void SaveBinListScript ( BinaryWriter bw, Chara chara, List < Script > lsScp )
+		{
+			byte nScp = (byte)lsScp.Count;
+			bw.Write ( nScp ); 
+			foreach ( Script scp in lsScp )
+			{ 
+				//イメージインデックス
+				bw.Write ( chara.GetIndexOfImage ( scp.ImgName ) );
+
+				//位置
+				bw.Write ( scp.Pos.X );		//int
+				bw.Write ( scp.Pos.Y );		//int
+				bw.Write ( (int)scp.CalcState );
+					
+				//ルート
+				bw.Write ( (byte)scp.BD_RutName.Count() );
+				foreach ( TName tn in scp.BD_RutName.GetEnumerable () )
+				{
+					bw.Write ( chara.GetIndexOfRoute ( tn.Name ) );
+				}
+
+				//枠
+				SaveBinListRect ( bw, scp.ListCRect );
+				SaveBinListRect ( bw, scp.ListHRect );
+				SaveBinListRect ( bw, scp.ListARect );
+				SaveBinListRect ( bw, scp.ListORect );
+
+				//エフェクト生成
+				bw.Write ( scp.BD_EfGnrt.Count () );
+				foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
+				{ 
+					bw.Write ( chara.GetIndexOfEffect ( efGnrt.EfName ) );
+					bw.Write ( efGnrt.Pt.X );	//int
+					bw.Write ( efGnrt.Pt.Y );	//int
+					bw.Write ( efGnrt.Z );		//int
+					bw.Write ( efGnrt.Gnrt );	//bool
+					bw.Write ( efGnrt.Loop );	//bool
+					bw.Write ( efGnrt.Sync );	//bool
+				}
+			}
+		}
+
+		//---------------------------------------------------------------------
 		//ListRect
 		void SaveBinListRect ( BinaryWriter bw, List < Rectangle > listRect )
 		{
@@ -155,6 +183,40 @@ namespace ScriptEditor
 				bw.Write ( rct.Bottom );
 				bw.Write ( rct.Right );
 			}
+		}
+
+		//---------------------------------------------------------------------
+		//ScriptParam_Battle
+		void SaveBinScrPrmBtl ( BinaryWriter bw, Script scp )
+		{
+			ScriptParam_Battle prm = scp.Param_Btl;
+			bw.Write ( prm.Vel.X );
+			bw.Write ( prm.Vel.Y );
+			bw.Write ( prm.Acc.X );
+			bw.Write ( prm.Acc.Y );
+			bw.Write ( prm.Power );
+			bw.Write ( prm.Warp );
+			bw.Write ( prm.Recoil_I );
+			bw.Write ( prm.Recoil_E );
+			bw.Write ( prm.Blance_I );
+			bw.Write ( prm.Blance_E );
+		}
+
+		//---------------------------------------------------------------------
+		//ScriptParam_Staging
+		void SaveBinScrPrmStg ( BinaryWriter bw, Script scp )
+		{
+			ScriptParam_Staging prm = scp.Param_Ef;
+			bw.Write ( prm.BlackOut );
+			bw.Write ( prm.Vibration );
+			bw.Write ( prm.Stop );
+			bw.Write ( prm.Radian );
+			bw.Write ( prm.AfterImage_pitch );
+			bw.Write ( prm.AfterImage_N );
+			bw.Write ( prm.AfterImage_time );
+			bw.Write ( prm.Vibration_S );
+			bw.Write ( (uint)prm.Color.ToArgb () );
+			bw.Write ( prm.Color_time );
 		}
 
 	}
