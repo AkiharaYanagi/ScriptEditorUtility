@@ -10,7 +10,7 @@ namespace ScriptEditor
 	//		┣回転	┣残像間隔	┣残像個数	┣残像持続
 	//		┣個別振動	┣色調変更	┣色調変更持続
 	//================================================================
-	public class ScriptParam_Effect
+	public class ScriptParam_Staging
 	{
 		//演出(全体)
 		public int BlackOut { get; set; } = 0;		//暗転[F]
@@ -30,12 +30,12 @@ namespace ScriptEditor
 		//================================================================
 
 		//コンストラクタ
-		public ScriptParam_Effect ()
+		public ScriptParam_Staging ()
 		{
 		}
 
 		//コピーコンストラクタ
-		public ScriptParam_Effect ( ScriptParam_Effect src )
+		public ScriptParam_Staging ( ScriptParam_Staging src )
 		{
 			this.BlackOut = src.BlackOut;
 			this.Vibration = src.Vibration;
@@ -67,7 +67,7 @@ namespace ScriptEditor
 		}
 
 		//コピー
-		public void Copy ( ScriptParam_Effect src )
+		public void Copy ( ScriptParam_Staging src )
 		{
 			this.BlackOut = src.BlackOut;
 			this.Vibration = src.Vibration;

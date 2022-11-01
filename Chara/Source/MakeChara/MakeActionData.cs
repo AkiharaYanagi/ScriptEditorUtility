@@ -109,7 +109,7 @@ namespace ScriptEditor
 					Script s = new Script ()
 					{	
 						Group = 1,
-						Pos = new Point ( -250, -450 ),		
+						//Pos = new Point ( -250, -450 ),		
 					};
 
 					string imgname = ch.behavior.BD_Image.Get ( 0 )?.Name;

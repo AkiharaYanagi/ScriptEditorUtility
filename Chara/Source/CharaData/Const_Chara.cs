@@ -65,9 +65,9 @@
 	}
 
 	//キャラ関連 定数
-	public class ConstChara
+	public enum ConstChara
 	{
-		public const int NumRect = 8;
+		NumRect = 8,
 	}
 
 }

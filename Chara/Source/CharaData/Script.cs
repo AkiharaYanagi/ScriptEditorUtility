@@ -82,7 +82,7 @@ namespace ScriptEditor
 		//値
 		//------------------------------------------------
 		public ScriptParam_Battle Param_Btl = new ScriptParam_Battle ();
-		public ScriptParam_Effect Param_Ef = new ScriptParam_Effect ();
+		public ScriptParam_Staging Param_Ef = new ScriptParam_Staging ();
 
 
 		//================================================================
@@ -112,7 +112,7 @@ namespace ScriptEditor
 			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
 
 			this.Param_Btl = new ScriptParam_Battle ( s.Param_Btl );
-			this.Param_Ef = new ScriptParam_Effect ( s.Param_Ef );
+			this.Param_Ef = new ScriptParam_Staging ( s.Param_Ef );
 		}
 
 		//初期化
