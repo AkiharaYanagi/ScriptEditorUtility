@@ -56,9 +56,6 @@ namespace ScriptEditor
 		public void SetPosX ( int x ) { Pos = new Point ( x, Pos.Y ); }
 		public void SetPosY ( int y ) { Pos = new Point ( Pos.X, y ); }
 
-		//計算状態(加算/代入/持続)
-		public CLC_ST CalcState { get; set; } = CLC_ST.CLC_SUBSTITUDE;
-
 		//------------------------------------------------
 		//ルートネームリスト (スクリプト分岐)
 		//------------------------------------------------
@@ -68,6 +65,7 @@ namespace ScriptEditor
 		//枠
 		//------------------------------------------------
 		//接触枠(Collision), 攻撃枠(Attack), 当り枠(Hit), 相殺枠(Offset)
+		//ScriptEditor と ゲームメイン では上限は定数(ConshChara.NumRect = 8)
 		public LsRect ListCRect { get; set; } = new LsRect ();
 		public LsRect ListHRect { get; set; } = new LsRect ();
 		public LsRect ListARect { get; set; } = new LsRect ();
@@ -100,7 +98,6 @@ namespace ScriptEditor
 			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
-			this.CalcState = s.CalcState;
 
 			this.BD_RutName = new BindingDictionary<TName> ();
 			BD_RutName.DeepCopy ( s.BD_RutName );
@@ -122,7 +119,6 @@ namespace ScriptEditor
 			Group = 0;
 			ImgName = "Clear";
 			Pos = new Point ();
-			CalcState = CLC_ST.CLC_SUBSTITUDE;
 
 			BD_RutName.Clear ();
 			ListCRect.Clear ();
@@ -143,7 +139,6 @@ namespace ScriptEditor
 			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
-			this.CalcState = s.CalcState;
 			this.BD_RutName.DeepCopy ( s.BD_RutName );
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
@@ -173,7 +168,6 @@ namespace ScriptEditor
 			if ( this.Group != s.Group ) { return false; }
 			if ( this.ImgName != s.ImgName ) { return false; }
 			if ( this.Pos != s.Pos ) { return false; }
-			if ( this.CalcState != s.CalcState ) { return false; }
 			if ( ! this.BD_RutName.SequenceEqual ( s.BD_RutName ) ) { return false; }
 			if ( ! this.ListCRect.SequenceEqual ( s.ListCRect ) ) { return false; }
 			if ( ! this.ListHRect.SequenceEqual ( s.ListHRect ) ) { return false; }
@@ -191,8 +185,7 @@ namespace ScriptEditor
 			int i1  = i0  ^ Group;
 			int i2  = i1  ^ ImgName.GetHashCode ();
 			int i3  = i2  ^ Pos.GetHashCode ();
-			int i6  = i3  ^ CalcState.GetHashCode ();
-			int i7  = i6  ^ BD_RutName.GetHashCode ();
+			int i7  = i3  ^ BD_RutName.GetHashCode ();
 			int i8  = i7  ^ ListCRect.GetHashCode ();
 			int i9  = i8  ^ ListHRect.GetHashCode ();
 			int i10 = i9  ^ ListARect.GetHashCode ();

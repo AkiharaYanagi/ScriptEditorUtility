@@ -48,6 +48,11 @@ namespace ScriptEditor
 			MemoryStream ms = new MemoryStream ();
 			BinaryWriter bw = new BinaryWriter ( ms, Encoding.UTF8 );
 
+			//test
+			int i = 0x01234567;
+			bw.Write ( i );
+			bw.Write ( 0x000F0000 );
+
 			//--------------------------------------------------------
 			//chara 各種データ書出
 			SaveBinBehavior ( bw, chara );	//behavior

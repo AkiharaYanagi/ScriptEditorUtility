@@ -33,7 +33,6 @@ namespace ScriptEditor
 				Script s = bl_s [ i ];
 				s.Group = group;
 				s.ImgName = imgname;
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Pos = new Point ( -250, -450 );
 
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
@@ -59,7 +58,6 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "FrontMove_00.png";
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Param_Btl.SetVelX ( 15 );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
@@ -83,7 +81,6 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "BackMove_00.png";
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Param_Btl.SetVelX ( -15 );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
@@ -109,7 +106,6 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = imgName;
-				s.CalcState = CLC_ST.CLC_ADD;
 				s.Param_Btl.SetVelX ( vel_x );
 				s.Param_Btl.SetVelY ( -25 );
 				s.Param_Btl.SetAccY ( 1 );
@@ -144,7 +140,6 @@ namespace ScriptEditor
 				s.Group = group;
 				s.ImgName = imgname;
 				s.Param_Btl.Vel = new Point ( 20, 0 );
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Pos = new Point ( -250, -450 );
 
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
@@ -165,7 +160,6 @@ namespace ScriptEditor
 			eb.EditSequence.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = imgName;
 				s.ListARect.Add ( new Rectangle ( 130, -250, 60, 100 ) );
 //				s.ListORect.Add ( new Rectangle ( 20, -220, 40, 40 ) );
@@ -181,7 +175,6 @@ namespace ScriptEditor
 			eb.EditSequence.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = imgName;
 				s.Param_Btl.SetVelX ( -5 );
 			} );

@@ -180,7 +180,7 @@ namespace ScriptEditor
 				strmWriter.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
 				strmWriter.Write ( " VX=\"" + script.Param_Btl.Vel.X + "\" VY=\"" + script.Param_Btl.Vel.Y + "\"" );
 				strmWriter.Write ( " AX=\"" + script.Param_Btl.Acc.X + "\" AY=\"" + script.Param_Btl.Acc.Y + "\"" );
-				strmWriter.Write ( " CLC_ST=\"" + (int)script.CalcState + "\"" );
+				strmWriter.Write ( " CLC_ST=\"" + (int)script.Param_Btl.CalcState + "\"" );
 				strmWriter.Write ( " Power=\"" + script.Param_Btl.Power + "\"" );
 				strmWriter.Write ( " BlackOut=\"" + script.Param_Ef.BlackOut + "\"" );
 				strmWriter.Write ( " Vibration=\"" + script.Param_Ef.Vibration + "\"" );
@@ -220,7 +220,7 @@ namespace ScriptEditor
 					strmWriter.Write ( " EfName=\"" + efGnrt.EfName + "\"" );
 					strmWriter.Write ( " EfGnrt_PtX=\"" + efGnrt.Pt.X + "\"" );
 					strmWriter.Write ( " EfGnrt_PtY=\"" + efGnrt.Pt.Y + "\"" );
-					strmWriter.Write ( " EfGnrt_PtZ=\"" + efGnrt.Z + "\"" );
+					strmWriter.Write ( " EfGnrt_PtZ=\"" + efGnrt.Z_PER100F + "\"" );
 					strmWriter.Write ( " Gnrt=\"" + efGnrt.Gnrt + "\"" );
 					strmWriter.Write ( " Loop=\"" + efGnrt.Loop + "\"" );
 					strmWriter.Write ( " Sync=\"" + efGnrt.Sync + "\"" );

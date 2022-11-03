@@ -129,7 +129,7 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "AirBackDash_00.png";
-				s.CalcState = CLC_ST.CLC_MAINTAIN;
+				s.Param_Btl.CalcState = CLC_ST.CLC_MAINTAIN;
 				s.Param_Btl.SetAccY ( 2 );
 				s.ListCRect.Clear ();
 			} );
@@ -220,21 +220,18 @@ namespace ScriptEditor
 			ea.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 			} );
 			BL_Script bl_SP0_L = bd_act.Get ( (int)ENM_ACT.SP0_L ).ListScript;
 			for ( int i = 0; i < 4; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 				s.ListARect.Clear ();
 			}
 			for ( int i = 4; i < 8; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_00.png";
 				s.ListARect.Clear ();
 				s.ListARect.Add ( new Rectangle ( 50, -300, 200, 50 ) );
@@ -244,7 +241,6 @@ namespace ScriptEditor
 			for ( int i = 8; i < 12; ++ i )
 			{
 				Script s = bl_SP0_L [ i ];
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_01.png";
 				s.ListARect.Clear ();
 			}
@@ -256,7 +252,6 @@ namespace ScriptEditor
 			ea.EditScriptInSequence ( s =>
 			{
 				s.Group = 1; 
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.ImgName = "StarMassStrike_02.png";
 			} );
 
@@ -286,7 +281,6 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "Part_6H_02.png";
-				s.CalcState = CLC_ST.CLC_SUBSTITUDE;
 				s.Param_Btl.Vel = new Point ( 10, 0 );
 			} );
 			BL_Script bl_OD0_L = bd_act.Get ( i_OD0 ).ListScript;

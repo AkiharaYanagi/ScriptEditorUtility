@@ -19,6 +19,9 @@ namespace ScriptEditor
 		//	戦闘パラメータ
 		//--------------------------------------------------------------------
 
+		//計算状態(加算/代入/持続)
+		public CLC_ST CalcState { get; set; } = CLC_ST.CLC_SUBSTITUDE;
+
 		//速度
 		public Point Vel { get; set; } = new Point ( 0, 0 );
 		public void SetVel ( int x, int y ) { Vel = new Point ( x, y ); }
@@ -50,6 +53,7 @@ namespace ScriptEditor
 		//コピーコンストラクタ
 		public ScriptParam_Battle ( ScriptParam_Battle src )
 		{
+			this.CalcState = src.CalcState;
 			this.Vel = src.Vel;		//@info Drawing.Pointは値型
 			this.Acc = src.Acc;
 			this.Power = src.Power;
@@ -63,6 +67,7 @@ namespace ScriptEditor
 		//初期化
 		public void Clear ()
 		{
+			CalcState = CLC_ST.CLC_SUBSTITUDE;
 			this.Vel = new Point ();
 			this.Acc = new Point ();
 			this.Power = 0;
@@ -76,6 +81,7 @@ namespace ScriptEditor
 		//コピー
 		public void Copy ( ScriptParam_Battle src )
 		{
+			this.CalcState = src.CalcState;
 			this.Vel = src.Vel;		//@info Drawing.Pointは値型
 			this.Acc = src.Acc;
 			this.Power = src.Power;

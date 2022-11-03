@@ -164,17 +164,21 @@ namespace ScriptEditor
 				//イメージ名
 				s.ImgName =  e.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
 
-				//位置, 速度, 加速度
+				//イメージ表示位置
 				s.Pos = IOChara.AttrToPoint ( e, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
-				s.Param_Btl.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
-				s.Param_Btl.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
+
+				//---------------------------------------------------------------
+				//戦闘パラメータ
 
 				//計算状態
 				int clcst = IOChara.AttrToInt ( e, (int)ATTR_SCP.CLC_ST );
-				s.CalcState = (CLC_ST)clcst;
+				s.Param_Btl.CalcState = (CLC_ST)clcst;
 
+				//速度, 加速度
+				s.Param_Btl.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
+				s.Param_Btl.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
 
-				//値
+				//各種値
 				s.Param_Btl.Power = IOChara.AttrToInt ( e, (int)ATTR_SCP.POWER );			//攻撃値
 				s.Param_Ef.BlackOut = IOChara.AttrToInt ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
 				s.Param_Ef.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
@@ -212,7 +216,7 @@ namespace ScriptEditor
 					efGnrt.Pt = new Point ( pt_x, pt_y );
 
 					//Z位置
-					efGnrt.Z = IOChara.AttrToInt ( elmEfGnrt, (int)ELMT_EFGNRT.ELEG_PT_Z );
+					efGnrt.Z_PER100F = IOChara.AttrToInt ( elmEfGnrt, (int)ELMT_EFGNRT.ELEG_PT_Z );
 
 					//生成
 					efGnrt.Gnrt = bool.Parse ( la[ (int)ELMT_EFGNRT.ELEG_GNRT ].Value );

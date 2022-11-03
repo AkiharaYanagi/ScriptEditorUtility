@@ -141,7 +141,6 @@ namespace ScriptEditor
 				//位置
 				bw.Write ( scp.Pos.X );		//int
 				bw.Write ( scp.Pos.Y );		//int
-				bw.Write ( (int)scp.CalcState );
 					
 				//ルート
 				bw.Write ( (byte)scp.BD_RutName.Count() );
@@ -160,14 +159,20 @@ namespace ScriptEditor
 				bw.Write ( scp.BD_EfGnrt.Count () );
 				foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
 				{ 
-					bw.Write ( chara.GetIndexOfEffect ( efGnrt.EfName ) );
+					bw.Write ( (uint)chara.GetIndexOfEffect ( efGnrt.EfName ) );	//uint
 					bw.Write ( efGnrt.Pt.X );	//int
 					bw.Write ( efGnrt.Pt.Y );	//int
-					bw.Write ( efGnrt.Z );		//int
+					bw.Write ( efGnrt.Z_PER100F );		//int
 					bw.Write ( efGnrt.Gnrt );	//bool
 					bw.Write ( efGnrt.Loop );	//bool
 					bw.Write ( efGnrt.Sync );	//bool
 				}
+
+				//バトルパラメータ
+				SaveBinScrPrmBtl ( bw, scp );
+
+				//ステージング(演出)パラメータ
+				SaveBinScrPrmStg ( bw, scp );
 			}
 		}
 
@@ -175,7 +180,8 @@ namespace ScriptEditor
 		//ListRect
 		void SaveBinListRect ( BinaryWriter bw, List < Rectangle > listRect )
 		{
-			//個数は固定 ConstChara.NumRect = 8
+			//上限は固定 ConstChara.NumRect = 8
+			//それ以下は０からの可変
 			foreach ( Rectangle rct in listRect )
 			{
 				bw.Write ( rct.Top );
@@ -190,6 +196,7 @@ namespace ScriptEditor
 		void SaveBinScrPrmBtl ( BinaryWriter bw, Script scp )
 		{
 			ScriptParam_Battle prm = scp.Param_Btl;
+			bw.Write ( (int)prm.CalcState );
 			bw.Write ( prm.Vel.X );
 			bw.Write ( prm.Vel.Y );
 			bw.Write ( prm.Acc.X );
@@ -218,6 +225,6 @@ namespace ScriptEditor
 			bw.Write ( (uint)prm.Color.ToArgb () );
 			bw.Write ( prm.Color_time );
 		}
-
+		
 	}
 }
