@@ -20,9 +20,9 @@ namespace ScriptEditor
 		//------
 		//演出(個別)
 		public int Radian { get; set; } = 0;		//回転
-		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
 		public int AfterImage_N { get; set; } = 0;		//残像[個]
 		public int AfterImage_time { get; set; } = 0;	//残像[F] 持続
+		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
 		public int Vibration_S { get; set; } = 0;		//振動[F](個別)
 		public Color Color { get; set; } = new Color ();	//色調変更
 		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
