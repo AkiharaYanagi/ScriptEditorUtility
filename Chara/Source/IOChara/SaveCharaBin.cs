@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Drawing.Imaging;
 
 
 namespace ScriptEditor
@@ -45,8 +46,9 @@ namespace ScriptEditor
 			if ( chara == null ) { return; }
 
 			//一時メモリストリーム
-			MemoryStream ms = new MemoryStream ();
-			BinaryWriter bw = new BinaryWriter ( ms, Encoding.UTF8 );
+			using ( MemoryStream ms = new MemoryStream () )
+			using ( BinaryWriter bw = new BinaryWriter ( ms, Encoding.UTF8 ) )
+			{
 
 			//--------------------------------------------------------
 			//chara 各種データ書出
@@ -59,10 +61,18 @@ namespace ScriptEditor
 			//--------------------------------------------------------
 			bw.Flush ();
 
+			//----
+			//イメージ部
+			WriteListImage ( bw, chara.behavior.BD_Image );
+			WriteListImage ( bw, chara.garnish.BD_Image );
+
+			//--------------------------------------------------------
+			
 
 			//最後にファイルに書出
-			FileStream fs = new FileStream ( filepath, FileMode.Create, FileAccess.Write );
-			BinaryWriter bwFl = new BinaryWriter( fs );
+			using ( FileStream fs = new FileStream ( filepath, FileMode.Create, FileAccess.Write ) )
+			using ( BinaryWriter bwFl = new BinaryWriter( fs ) )
+			{
 
 			//バージョン
 			bwFl.Write ( (byte)CONST.VER );
@@ -81,8 +91,42 @@ namespace ScriptEditor
 			}
 
 
-			bw.Close ();
-			ms.Close ();
+			}	//using
+
+			}
+		}
+
+		private void WriteListImage ( BinaryWriter bw, BindingDictionary < ImageData > bdImg )
+		{
+			//ストリーム読込→書出用
+			const int size = 4096;	//バッファサイズ
+			byte [] buffer = new byte [ size ];	//バッファ
+			int numBytes = 0;	//書込バイト数
+
+			//個数
+			bw.Write ( (byte)bdImg.Count() );
+
+			//実データ
+			foreach ( ImageData id in bdImg.GetEnumerable () )
+			{
+				//イメージを一時領域に書出
+				using ( MemoryStream msImg = new MemoryStream () )
+				{
+				id.Img.Save ( msImg, ImageFormat.Png );
+				
+				//サイズ
+				bw.Write ( (uint)msImg.Length );
+
+				//------------
+				//実データ
+				msImg.Seek ( 0, SeekOrigin.Begin );
+				while ( ( numBytes = msImg.Read ( buffer, 0, size ) ) > 0 )
+				{ 
+					bw.Write ( buffer, 0, numBytes );
+				}
+
+				}	//using
+			}
 		}
 	}
 }
