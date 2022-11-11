@@ -33,7 +33,15 @@ namespace ScriptEditor
 		{
 			try
 			{
-				_Save ( filepath, chara );
+				//Document形式側の名前を変更する
+				//(Filename) + "Doc" + (拡張子)
+				string fn = Path.GetFileNameWithoutExtension ( filepath );
+				string ex = Path.GetExtension ( filepath );
+				_Save ( fn + "Doc" + ex, chara );
+
+				//バイナリ保存も同時に行う
+				SaveCharaBin saveCharaBin = new SaveCharaBin ();
+				saveCharaBin.Do ( filepath, chara );
 			}
 			catch ( ArgumentException e )
 			{

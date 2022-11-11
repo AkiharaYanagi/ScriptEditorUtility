@@ -81,7 +81,7 @@ namespace ScriptEditor
 			}
 
 			//コンポーネントの各種設定
-			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.CalcState=c, s=>s.CalcState ) );
+			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.Param_Btl.CalcState=c, s=>s.Param_Btl.CalcState ) );
 			cmpnt_px.SetParam ( new SP_INT ( (s,i)=>s.SetPosX(i), s=>s.Pos.X ) );
 			cmpnt_py.SetParam ( new SP_INT ( (s,i)=>s.SetPosY(i), s=>s.Pos.Y ) );
 			cmpnt_vx.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelX(i), s=>s.Param_Btl.Vel.X ) );

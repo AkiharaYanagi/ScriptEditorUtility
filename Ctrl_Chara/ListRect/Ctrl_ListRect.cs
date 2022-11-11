@@ -163,7 +163,7 @@ namespace ScriptEditor
 		//追加ボタン
 		private void Btn_Add_Click ( object sender, System.EventArgs e )
 		{
-			if ( LsRect.Count < ConstChara.NumRect )
+			if ( LsRect.Count < (int)ConstChara.NumRect )
 			{
 				LsRect.Add ( new Rectangle () );
 				SelectedIndex = LsRect.Count - 1;

@@ -33,7 +33,7 @@ namespace ScriptEditor
 			{
 				this.Items.Add ( clcst );
 			}
-			ScpPrm = new ScriptParam<CLC_ST> ( (s,c)=>s.CalcState=c, s=>s.CalcState );
+			ScpPrm = new ScriptParam<CLC_ST> ( (s,c)=>s.Param_Btl.CalcState=c, s=>s.Param_Btl.CalcState );
 		}
 
 		//プルダウンメニューで選択したとき
@@ -82,7 +82,7 @@ namespace ScriptEditor
 		//更新
 		public void UpdateData ()
 		{
-			int i = this.Items.IndexOf ( Scp.CalcState );
+			int i = this.Items.IndexOf ( Scp.Param_Btl.CalcState );
 			this.SelectedIndex = i;
 			Disp ();
 		}
