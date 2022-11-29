@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettingsData.cs" />
     <Compile Include="BindingDictionary.cs" />
     <Compile Include="DefineColor.cs" />
     <Compile Include="EditListbox.cs">
@@ -84,7 +85,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TName.cs" />
-    <Compile Include="AppSettings.cs" />
+    <Compile Include="AppSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="AppSettings.Designer.cs">
       <DependentUpon>AppSettings.cs</DependentUpon>
     </Compile>

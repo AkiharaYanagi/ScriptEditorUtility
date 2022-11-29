@@ -13,8 +13,7 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			Debug.WriteLine ( "Form1();\n" );
-			Ctrl_KeyConfig keyConfig = new Ctrl_KeyConfig ();
-			this.Controls.Add ( keyConfig );
+			this.Controls.Add ( new Ctrl_KeyConfig () );
 		}
 	}
 }

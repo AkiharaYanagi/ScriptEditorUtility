@@ -148,6 +148,7 @@
 			this.Btn_Folder.TabIndex = 17;
 			this.Btn_Folder.Text = "フォルダ";
 			this.Btn_Folder.UseVisualStyleBackColor = true;
+			this.Btn_Folder.Click += new System.EventHandler(this.Btn_Folder_Click);
 			// 
 			// Btn_cancel
 			// 
@@ -159,6 +160,7 @@
 			this.Btn_cancel.TabIndex = 16;
 			this.Btn_cancel.Text = "キャンセルして終了";
 			this.Btn_cancel.UseVisualStyleBackColor = false;
+			this.Btn_cancel.Click += new System.EventHandler(this.Btn_cancel_Click);
 			// 
 			// Btn_Save
 			// 
@@ -169,8 +171,9 @@
 			this.Btn_Save.TabIndex = 15;
 			this.Btn_Save.Text = "保存して終了";
 			this.Btn_Save.UseVisualStyleBackColor = false;
+			this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
 			// 
-			// UserControl1
+			// AppSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -179,7 +182,7 @@
 			this.Controls.Add(this.Btn_Folder);
 			this.Controls.Add(this.Btn_cancel);
 			this.Controls.Add(this.Btn_Save);
-			this.Name = "UserControl1";
+			this.Name = "AppSettings";
 			this.Size = new System.Drawing.Size(331, 309);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
