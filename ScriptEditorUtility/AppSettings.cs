@@ -25,6 +25,9 @@ namespace ScriptEditor
 			BL_Resol.Add ( new Resolution ( (int)RESOLUTION.R1_W, (int)RESOLUTION.R1_H ) );
 			BL_Resol.Add ( new Resolution ( (int)RESOLUTION.R2_W, (int)RESOLUTION.R2_H ) );
 			Cb_WndSz.DataSource = BL_Resol;
+
+			AppSttg.Load ( FileName );
+			SetData ( AppSttg );
 		}
 
 		//対象データの設定
@@ -103,26 +106,12 @@ namespace ScriptEditor
 
 		private void Rb_Cursor_CheckedChanged ( object sender, EventArgs e )
 		{
-			if ( Rb_Cursor.Checked )
-			{
-				AppSttg.Start_pos = AppSettingsData.START_POS.Cursor;
-			}
-			else
-			{
-				AppSttg.Start_pos = AppSettingsData.START_POS.Display;
-			}
+			AppSttg.Start_pos = AppSettingsData.START_POS.Cursor;
 		}
 
-		private void groupBox2_Enter ( object sender, EventArgs e )
+		private void Rb_Display_CheckedChanged ( object sender, EventArgs e )
 		{
-			if ( Rb_Cursor.Checked )
-			{
-				AppSttg.Start_pos = AppSettingsData.START_POS.Cursor;
-			}
-			else
-			{
-				AppSttg.Start_pos = AppSettingsData.START_POS.Display;
-			}
+			AppSttg.Start_pos = AppSettingsData.START_POS.Display;
 		}
 	}
 }
