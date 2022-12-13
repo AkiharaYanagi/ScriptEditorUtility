@@ -85,6 +85,11 @@ namespace ScriptEditor
 				//デフォルトの値を設定
 				SetDefault ();
 			}
+			catch
+			{
+				//デフォルトの値を設定
+				SetDefault ();
+			}
 		}
 
 		private void _Load ( BinaryReader br )
