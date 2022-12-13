@@ -60,7 +60,6 @@ namespace ScriptEditor
 			dxInput.Load ();
 
 			//自動読込
-//			keyStgs.Save ();
 			keyStgs.Load ();
 
 			//コントロール操作用

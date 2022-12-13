@@ -64,6 +64,7 @@
 			this.Cb_DisplayN.Name = "Cb_DisplayN";
 			this.Cb_DisplayN.Size = new System.Drawing.Size(164, 20);
 			this.Cb_DisplayN.TabIndex = 5;
+			this.Cb_DisplayN.SelectionChangeCommitted += new System.EventHandler(this.Cb_DisplayN_SelectedIndexChanged);
 			// 
 			// Rb_Cursor
 			// 
@@ -75,6 +76,7 @@
 			this.Rb_Cursor.TabStop = true;
 			this.Rb_Cursor.Text = "カーソル位置";
 			this.Rb_Cursor.UseVisualStyleBackColor = true;
+			this.Rb_Cursor.CheckedChanged += new System.EventHandler(this.Rb_Cursor_CheckedChanged);
 			// 
 			// Rb_Display
 			// 
@@ -86,6 +88,7 @@
 			this.Rb_Display.TabStop = true;
 			this.Rb_Display.Text = "ディスプレイ中央";
 			this.Rb_Display.UseVisualStyleBackColor = true;
+			this.Rb_Display.CheckedChanged += new System.EventHandler(this.Rb_Display_CheckedChanged);
 			// 
 			// groupBox1
 			// 
@@ -110,6 +113,7 @@
 			this.Rb_Wnd.TabStop = true;
 			this.Rb_Wnd.Text = "ウィンドウ";
 			this.Rb_Wnd.UseVisualStyleBackColor = true;
+			this.Rb_Wnd.CheckedChanged += new System.EventHandler(this.Rb_Wnd_CheckedChanged);
 			// 
 			// Rb_Flscr
 			// 
@@ -121,6 +125,7 @@
 			this.Rb_Flscr.TabStop = true;
 			this.Rb_Flscr.Text = "フルスクリーン";
 			this.Rb_Flscr.UseVisualStyleBackColor = true;
+			this.Rb_Flscr.CheckedChanged += new System.EventHandler(this.Rb_Flscr_CheckedChanged);
 			// 
 			// label1
 			// 
@@ -139,6 +144,7 @@
 			this.Cb_WndSz.Name = "Cb_WndSz";
 			this.Cb_WndSz.Size = new System.Drawing.Size(96, 20);
 			this.Cb_WndSz.TabIndex = 2;
+			this.Cb_WndSz.SelectionChangeCommitted += new System.EventHandler(this.Cb_WndSz_SelectedIndexChanged);
 			// 
 			// Btn_Folder
 			// 
