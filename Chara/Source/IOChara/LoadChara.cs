@@ -77,9 +77,9 @@ namespace ScriptEditor
 
 			//バージョンの取得
 			uint version = biReaderFile.ReadUInt32 ();
-			if ( CONST.VER != version )
+			if ( IO_CONST.VER != version )
 			{
-				MessageBox.Show ( filepath + "はバージョンが " + version + "で" + CONST.VER + " と異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				MessageBox.Show ( filepath + "はバージョンが " + version + "で" + IO_CONST.VER + " と異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "バージョンが異なります。" );
 			}
 

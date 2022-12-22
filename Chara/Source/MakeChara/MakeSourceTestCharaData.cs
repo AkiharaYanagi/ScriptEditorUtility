@@ -43,7 +43,7 @@ namespace ScriptEditor
 " );
 	
 			//バージョン
-			strmWriter.Write ( "\t\t\t// VER:" + CONST.VER.ToString() + "\n" );
+			strmWriter.Write ( "\t\t\t// VER:" + IO_CONST.VER.ToString() + "\n" );
 			
 			//ビヘイビア(アクションリスト)
 			BindingList<Sequence> la = chara.behavior.BD_Sequence.GetBindingList ();

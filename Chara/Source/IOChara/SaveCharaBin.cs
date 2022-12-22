@@ -58,14 +58,14 @@ namespace ScriptEditor
 			SaveBinBranch ( bw, chara );	//Branch
 			SaveBinRoute ( bw, chara );		//Route
 
-			//--------------------------------------------------------
-			bw.Flush ();
+			long script_size = ms.Length; 
 
-			//----
 			//イメージ部
 			WriteListImage ( bw, chara.behavior.BD_Image );
 			WriteListImage ( bw, chara.garnish.BD_Image );
 
+			//--------------------------------------------------------
+			bw.Flush ();
 			//--------------------------------------------------------
 			
 
@@ -74,10 +74,10 @@ namespace ScriptEditor
 			using ( BinaryWriter bwFl = new BinaryWriter( fs ) )
 			{
 
-			//バージョン
-			bwFl.Write ( (byte)CONST.VER );
+			//バージョン(uint)
+			bwFl.Write ( IO_CONST.VER );
 
-			//サイズ4,294,967,296[byte]まで
+			//サイズ(uint)4,294,967,296[byte]まで
 			bwFl.Write ( (uint) ms.Length );
 
 			const int SIZE = 4096;	//バッファサイズ
@@ -93,7 +93,7 @@ namespace ScriptEditor
 
 			}	//using
 
-			}
+			}	//using
 		}
 
 		private void WriteListImage ( BinaryWriter bw, BindingDictionary < ImageData > bdImg )

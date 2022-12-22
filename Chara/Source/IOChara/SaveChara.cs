@@ -34,14 +34,16 @@ namespace ScriptEditor
 			try
 			{
 				//Document形式側の名前を変更する
-				//(Filename) + "Doc" + (拡張子)
-				string fn = Path.GetFileNameWithoutExtension ( filepath );
-				string ex = Path.GetExtension ( filepath );
-				_Save ( fn + "Doc" + ex, chara );
+				_Save ( filepath, chara );
 
 				//バイナリ保存も同時に行う
+				//(Filename) + "Bin" + (拡張子)
+				string fn = Path.GetFileNameWithoutExtension ( filepath );
+				string ex = Path.GetExtension ( filepath );
+				string path_Bin = fn + "Bin" + ex;
+
 				SaveCharaBin saveCharaBin = new SaveCharaBin ();
-				saveCharaBin.Do ( filepath, chara );
+				saveCharaBin.Do ( path_Bin, chara );
 			}
 			catch ( ArgumentException e )
 			{
@@ -120,7 +122,7 @@ namespace ScriptEditor
 			int numBytes;		//バイト数
 
 			//ver書出
-			biWriterFile.Write ( ( uint ) CONST.VER );
+			biWriterFile.Write ( ( uint ) IO_CONST.VER );
 
 			//スクリプト部・サイズ書出
 			biWriterFile.Write ( ( uint ) mstrmScript.Length );

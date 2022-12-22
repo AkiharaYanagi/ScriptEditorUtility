@@ -55,7 +55,7 @@ namespace ScriptEditor
 			{
 			//全体タグとバージョン
 			strmWriter.Write ( "<Chara>\n" );
-			strmWriter.Write ( "<ver>" + CONST.VER + "</ver>\n\n" );
+			strmWriter.Write ( "<ver>" + IO_CONST.VER + "</ver>\n\n" );
 
 			//メインイメージリストヘッダ
 			WriteListImageHeader ( strmWriter, ch.behavior, "Image" );

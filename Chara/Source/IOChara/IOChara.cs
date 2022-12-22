@@ -8,7 +8,7 @@ namespace ScriptEditor
 	//
 	//==================================================================================
 	
-	public static class CONST
+	public static class IO_CONST
 	{
 		public const uint VER = 110;
 	}
