@@ -17,6 +17,9 @@ namespace ScriptEditor
 			RB_TRG_ALL.CheckedChanged += RB_TRG_ALL_CheckedChanged;
 			RB_TRG_GRP.CheckedChanged += RB_TRG_GRP_CheckedChanged;
 			RB_TRG_SGL.CheckedChanged += RB_TRG_SGL_CheckedChanged;
+
+			//初期位置
+			RB_TRG_GRP.Checked = true;
 		}
 
 		//ラジオボタンで編集範囲を設定

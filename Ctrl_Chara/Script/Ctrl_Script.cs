@@ -141,31 +141,6 @@ namespace ScriptEditor
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.Assosiate ( s ); }
 		}
 
-		//-----------------------------------------------------------------------------
-		//ラジオボタンで編集範囲を設定
-		private void RB_TRG_ALL_CheckedChanged ( object sender, EventArgs e )
-		{
-			if ( RB_TRG_ALL.Checked )
-			{
-				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_All (); }
-			}
-		}
-
-		private void RB_TRG_GRP_CheckedChanged ( object sender, EventArgs e )
-		{
-			if ( RB_TRG_GRP.Checked )
-			{
-				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Group (); }
-			}
-		}
-
-		private void RB_TRG_SGL_CheckedChanged ( object sender, EventArgs e )
-		{
-			if ( RB_TRG_SGL.Checked )
-			{
-				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Single (); }
-			}
-		}
 
 
 	}

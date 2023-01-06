@@ -29,10 +29,6 @@
 		private void InitializeComponent ()
 		{
 			this.Lbl_Pos = new System.Windows.Forms.Label();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.RB_TRG_SGL = new System.Windows.Forms.RadioButton();
-			this.RB_TRG_GRP = new System.Windows.Forms.RadioButton();
-			this.RB_TRG_ALL = new System.Windows.Forms.RadioButton();
 			this.Tb_Img = new System.Windows.Forms.TextBox();
 			this.Lbl_Img = new System.Windows.Forms.Label();
 			this.Tb_Frame = new System.Windows.Forms.TextBox();
@@ -44,7 +40,6 @@
 			this.Lbl_Warp = new System.Windows.Forms.Label();
 			this.Lbl_Recoil = new System.Windows.Forms.Label();
 			this.Lbl_Balance = new System.Windows.Forms.Label();
-			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Lbl_Pos
@@ -55,56 +50,6 @@
 			this.Lbl_Pos.Size = new System.Drawing.Size(48, 12);
 			this.Lbl_Pos.TabIndex = 1;
 			this.Lbl_Pos.Text = "Pos(X,Y)";
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.RB_TRG_SGL);
-			this.groupBox1.Controls.Add(this.RB_TRG_GRP);
-			this.groupBox1.Controls.Add(this.RB_TRG_ALL);
-			this.groupBox1.Location = new System.Drawing.Point(164, 350);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(246, 46);
-			this.groupBox1.TabIndex = 27;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "対象";
-			// 
-			// RB_TRG_SGL
-			// 
-			this.RB_TRG_SGL.AutoSize = true;
-			this.RB_TRG_SGL.Checked = true;
-			this.RB_TRG_SGL.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.RB_TRG_SGL.Location = new System.Drawing.Point(170, 18);
-			this.RB_TRG_SGL.Name = "RB_TRG_SGL";
-			this.RB_TRG_SGL.Size = new System.Drawing.Size(58, 20);
-			this.RB_TRG_SGL.TabIndex = 25;
-			this.RB_TRG_SGL.TabStop = true;
-			this.RB_TRG_SGL.Text = "単体";
-			this.RB_TRG_SGL.UseVisualStyleBackColor = true;
-			this.RB_TRG_SGL.CheckedChanged += new System.EventHandler(this.RB_TRG_SGL_CheckedChanged);
-			// 
-			// RB_TRG_GRP
-			// 
-			this.RB_TRG_GRP.AutoSize = true;
-			this.RB_TRG_GRP.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.RB_TRG_GRP.Location = new System.Drawing.Point(88, 18);
-			this.RB_TRG_GRP.Name = "RB_TRG_GRP";
-			this.RB_TRG_GRP.Size = new System.Drawing.Size(76, 20);
-			this.RB_TRG_GRP.TabIndex = 24;
-			this.RB_TRG_GRP.Text = "グループ";
-			this.RB_TRG_GRP.UseVisualStyleBackColor = true;
-			this.RB_TRG_GRP.CheckedChanged += new System.EventHandler(this.RB_TRG_GRP_CheckedChanged);
-			// 
-			// RB_TRG_ALL
-			// 
-			this.RB_TRG_ALL.AutoSize = true;
-			this.RB_TRG_ALL.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.RB_TRG_ALL.Location = new System.Drawing.Point(23, 18);
-			this.RB_TRG_ALL.Name = "RB_TRG_ALL";
-			this.RB_TRG_ALL.Size = new System.Drawing.Size(58, 20);
-			this.RB_TRG_ALL.TabIndex = 23;
-			this.RB_TRG_ALL.Text = "全体";
-			this.RB_TRG_ALL.UseVisualStyleBackColor = false;
-			this.RB_TRG_ALL.CheckedChanged += new System.EventHandler(this.RB_TRG_ALL_CheckedChanged);
 			// 
 			// Tb_Img
 			// 
@@ -217,7 +162,6 @@
 			this.Controls.Add(this.Lbl_Img);
 			this.Controls.Add(this.Tb_Frame);
 			this.Controls.Add(this.Lbl_Frame);
-			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.Lbl_Balance);
 			this.Controls.Add(this.Lbl_Recoil);
 			this.Controls.Add(this.Lbl_Warp);
@@ -227,8 +171,6 @@
 			this.Controls.Add(this.Lbl_Pos);
 			this.Name = "_Ctrl_Script";
 			this.Size = new System.Drawing.Size(429, 424);
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -236,10 +178,6 @@
 
 		#endregion
 		private System.Windows.Forms.Label Lbl_Pos;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.RadioButton RB_TRG_SGL;
-		private System.Windows.Forms.RadioButton RB_TRG_GRP;
-		private System.Windows.Forms.RadioButton RB_TRG_ALL;
 		private System.Windows.Forms.TextBox Tb_Img;
 		private System.Windows.Forms.Label Lbl_Img;
 		public System.Windows.Forms.TextBox Tb_Frame;
