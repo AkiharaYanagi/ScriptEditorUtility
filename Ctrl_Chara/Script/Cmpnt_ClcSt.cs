@@ -17,7 +17,7 @@ namespace ScriptEditor
 		public System.Action Disp { get; set; } = () =>{};
 
 		//対象指定
-		private EditTargetScript editTarget = EditTargetScript.SINGLE;
+		private EditTargetScript editTarget = EditTargetScript.GROUP;
 	
 		//編集用
 		private EditCompend EditCompend = null;

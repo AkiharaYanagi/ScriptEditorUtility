@@ -38,9 +38,10 @@ namespace ScriptEditor
 
 				//バイナリ保存も同時に行う
 				//(Filename) + "Bin" + (拡張子)
+				string dir = Path.GetDirectoryName ( filepath ) + "\\";
 				string fn = Path.GetFileNameWithoutExtension ( filepath );
 				string ex = Path.GetExtension ( filepath );
-				string path_Bin = fn + "Bin" + ex;
+				string path_Bin = dir + fn + "Bin" + ex;
 
 				SaveCharaBin saveCharaBin = new SaveCharaBin ();
 				saveCharaBin.Do ( path_Bin, chara );

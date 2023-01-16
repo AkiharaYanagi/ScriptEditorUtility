@@ -110,6 +110,12 @@ namespace ScriptEditor
 			cmpnt_balance_I.Location = new Point ( BX		, BY + PY * 6 );
 			cmpnt_balance_E.Location = new Point ( BX + PX	, BY + PY * 6 );
 
+			//初期化
+			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )
+			{
+				iscp.SetTarget_Group ();
+			}
+
 			//デフォルトの初期化
 			InitializeComponent ();
 		}
