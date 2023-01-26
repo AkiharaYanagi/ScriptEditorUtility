@@ -111,6 +111,10 @@ namespace ScriptEditor
 			}
 			return unusedGroup;
 		}
+		public int GetUnusedIndex ()
+		{
+			return GetUnusedIndex ( L_Scp );
+		}
 
 		//グループの選択
 		public void SelectGroup ( int group )
