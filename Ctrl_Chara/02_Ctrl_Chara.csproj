@@ -40,8 +40,7 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chara, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Chara">
       <HintPath>..\Chara\bin\x86\Debug\Chara.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,7 +50,7 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -182,6 +181,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Command\Ctrl_Command.resx">
       <DependentUpon>Ctrl_Command.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Command\Pb_Command.resx">
       <DependentUpon>Pb_Command.cs</DependentUpon>
@@ -384,6 +384,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\ResourceCommand\wild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

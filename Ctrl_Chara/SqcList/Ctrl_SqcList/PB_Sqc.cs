@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace ScriptEditor
 {
-	//System.TierとSystem.Windows.Forms.Timerで曖昧なので明示的宣言
+	//System.TimerとSystem.Windows.Forms.Timerで曖昧なので明示的宣言
 	using STimer = System.Timers.Timer;
 
 	//シークエンスデータの画像表示コントロール

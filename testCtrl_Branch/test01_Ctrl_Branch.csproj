@@ -41,8 +41,11 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chara">
+      <HintPath>..\Chara\bin\x86\Debug\Chara.dll</HintPath>
+    </Reference>
     <Reference Include="Ctrl_Chara">
-      <HintPath>..\Ctrl_Chara\bin\Debug\Ctrl_Chara.dll</HintPath>
+      <HintPath>..\Ctrl_Chara\bin\x86\Debug\Ctrl_Chara.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -51,7 +54,7 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,12 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chara\01_Chara.csproj">
-      <Project>{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}</Project>
-      <Name>01_Chara</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

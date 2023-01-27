@@ -114,6 +114,7 @@ namespace ScriptEditor
 				ScriptEditor.Action act = (ScriptEditor.Action)sqcDt.Sqc;
 				
 				Type t = typeof ( ActionCategory );
+				string[] names = Enum.GetNames ( typeof ( ActionCategory ) );
 				int i2 = (int)_LoadSqcData.CTG;
 				act.Category = (ActionCategory)Enum.Parse ( t, str_spl [ i2 ] );
 				act.NextActionName = str_spl[ (int)_LoadSqcData.NEXT ];

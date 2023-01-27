@@ -426,6 +426,8 @@ namespace ScriptEditor
 				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
 				saveFileDialog.FileName = Path.GetFileName ( FilePath );
 
+				saveFileDialog.OverwritePrompt = false;
+
 				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
 				{
 					using ( StreamWriter sw = new StreamWriter ( saveFileDialog.FileName ) )

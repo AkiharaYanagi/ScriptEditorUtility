@@ -64,6 +64,8 @@ namespace ScriptEditor
 		public void ApplyData ()
 		{
 			//L_SqcからCompendに戻す
+			// ※Compendの状態を優先する
+			//	L_Sqcにおける追加、削除などの変更点のみを反映する
 			Compend.BD_Sequence.Clear ();
 			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
 			{

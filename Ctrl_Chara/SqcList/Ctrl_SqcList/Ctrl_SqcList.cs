@@ -105,6 +105,11 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			ctrl_ImageTable1.UpdateData ();
+
+			
+			ELB_Sqc._UpdateData ();
+
+
 			ELB_Sqc.Refresh ();
 		}
 

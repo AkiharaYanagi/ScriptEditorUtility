@@ -46,7 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
     <Reference Include="System" />

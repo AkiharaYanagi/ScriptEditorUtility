@@ -41,11 +41,11 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chara">
-      <HintPath>..\Chara\bin\Debug\Chara.dll</HintPath>
+    <Reference Include="Ctrl_Chara">
+      <HintPath>..\Ctrl_Chara\bin\x86\Debug\Ctrl_Chara.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,12 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ctrl_Chara\02_Ctrl_Chara.csproj">
-      <Project>{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}</Project>
-      <Name>02_Ctrl_Chara</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
