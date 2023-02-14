@@ -8,7 +8,7 @@ namespace ScriptEditor
 	public class Route : IName
 	{
 		//名前
-		public string Name { get; set; } = "RutName";
+		public string Name { get; set; } = "RutName0";
 		public string GetName () { return Name; }
 
 		//摘要

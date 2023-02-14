@@ -81,6 +81,8 @@ namespace ScriptEditor
 			listBox1.DisplayMember = "Name";
 			BD_T.ResetItems ();
 
+			_UpdateData ();
+
 			//@info 非表示状態でDataSouceを入れ替えると例外が発生する
 
 			//変更時イベント
@@ -90,8 +92,8 @@ namespace ScriptEditor
 		//更新
 		public void _UpdateData ()
 		{
-			if ( listBox1.Items.Count <= 0 ) { return; }
-			if ( listBox1.SelectedIndex < 0 ) { return; }
+			if ( listBox1.Items.Count <= 0 ) { Tb_Name.Text = ""; return; }
+			if ( listBox1.SelectedIndex < 0 ) { Tb_Name.Text = ""; return; }
 
 			T t = (T)listBox1.SelectedItem;
 			Tb_Name.Text = t.Name;
@@ -154,18 +156,23 @@ namespace ScriptEditor
 			int n = listBox1.Items.Count;
 			int slct = listBox1.SelectedIndex;
 
-			//リストが０より大きく、選択されているとき
-			if ( 0 < n && 0 <= slct )
+			//リストが０より大きく、末尾以外が選択されているとき
+			if ( 0 < n && 0 <= slct && slct < n )
 			{
-				//挿入
-				BD_T.Insert ( slct, New_T () );
+				//次の位置に挿入
+				BD_T.Insert ( slct + 1, New_T () );
+
+				//選択位置を次にする
+				listBox1.SelectedIndex = slct + 1;
 			}
 			else
 			{
-				//末尾に追加
+				//選択位置が末尾のとき、さらに後に追加
 				BD_T.Add ( New_T () );
 				listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			}
+
+			//更新
 			BD_T.ResetItems ();
 		}
 
@@ -237,7 +244,7 @@ namespace ScriptEditor
 
 		//イベント：リストボックス選択変更時
 		public Event SelectedIndexChanged { get; set; } = null;
-		private void listBox1_SelectedIndexChanged ( object sender, System.EventArgs e )
+		private void listBox1_SelectedIndexChanged ( object sender, EventArgs e )
 		{
 			if  ( listBox1.SelectedItem is null ) { return; }
 			Tb_Name.Text = ((T)listBox1.SelectedItem).Name;

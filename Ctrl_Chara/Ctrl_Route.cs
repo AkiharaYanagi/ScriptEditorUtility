@@ -40,7 +40,8 @@ namespace ScriptEditor
 
 			//追加時
 			EL_Route.Listbox_Add = ()=>SetRoute ( EL_Route.Get() );
-			//選択変更時
+			//ルート選択変更時
+			//ブランチも表示を更新する
 			EL_Route.SelectedIndexChanged = ()=>SetRoute ( EL_Route.Get() );
 
 			//名前存在チェック
@@ -118,7 +119,23 @@ namespace ScriptEditor
 			Tb_Summary.Text = rut.Summary;
 
 			//ブランチネーム
-			if ( rut.BD_BranchName.Count () < 1 ) { return; }
+			if ( rut.BD_BranchName.Count () < 1 ) 
+			{
+				//0のときも空欄表示
+				EL_Branch.SetData ( rut.BD_BranchName );
+
+				return; 
+			}
+			EL_Branch.SetData ( rut.BD_BranchName );
+
+			//ブランチの選択
+			SelectBranch ();
+		}
+
+		//ルートの選択
+		private void SelectRoute ()
+		{
+			Route rut = EL_Route.Get();
 			EL_Branch.SetData ( rut.BD_BranchName );
 
 			//ブランチの選択

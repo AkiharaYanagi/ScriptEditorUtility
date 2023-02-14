@@ -11,6 +11,7 @@ namespace ScriptEditor
 		//設定ファイル
 		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
 		private string filename = "testChara.dat";
+		private string filenamebin = "charaBin.dat";
 
 		public Form1 ()
 		{
@@ -23,7 +24,7 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
-
+			//------------------------------------
 			//テストデータの作成
 			Chara ch_test = new Chara ();
 
@@ -44,6 +45,13 @@ namespace ScriptEditor
 			LoadChara loadChara = new LoadChara ();
 			loadChara.Do ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
+
+			//LoadBin
+			Chara charaBin = new Chara ();
+			LoadCharaBin loadCharaBin = new LoadCharaBin ();
+			loadCharaBin.Do ( filenamebin, charaBin );
+
+
 #if false
 #endif
 			ch_test.Clear ();

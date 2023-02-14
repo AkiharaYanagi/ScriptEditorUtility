@@ -200,7 +200,7 @@ namespace ScriptEditor
 		void SaveBinScrPrmBtl ( BinaryWriter bw, Script scp )
 		{
 			ScriptParam_Battle prm = scp.Param_Btl;
-			int i = (int)prm.CalcState ;
+//			int i = (int)prm.CalcState ;
 			bw.Write ( (int)prm.CalcState );
 			bw.Write ( prm.Vel.X );
 			bw.Write ( prm.Vel.Y );

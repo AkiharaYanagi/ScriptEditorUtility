@@ -59,15 +59,34 @@ namespace ScriptEditor
 		//内部チェックして重ならない名前を返す
 		public string UniqueName ( string name )
 		{
-			string newname = name;
+			//同一名前が無いときそのまま返す
+			if ( ! DCT_t.ContainsKey ( name ) ) { return name; }
 
-			//同一の値のとき例外が発生するので、重ならないよう前もって名前に追加命名("*+0")する
-			int i = 0;
-			while ( DCT_t.ContainsKey ( newname ) )
+			//同一名があるとき
+			string name_base = name;
+
+			//末尾が数値かどうか
+			string tail = "";
+			int nDigit = 0;
+			do
 			{
-				newname = typeof ( T ).ToString () + i.ToString ();
-				++ i;
+				++ nDigit;
+				tail = name.Substring ( name.Length - nDigit, nDigit );
 			}
+			while ( int.TryParse ( tail, out int i ) );
+
+			name_base = name.Substring ( 0, name.Length - nDigit + 1 ); 
+
+
+			//同一の値のとき例外が発生するので、重ならないよう前もって名前に追加命名("*"+"0")する
+			int count = 0;
+			string newname = "";
+			do
+			{
+				newname = name_base + count.ToString ();
+				++ count;
+			}
+			while ( DCT_t.ContainsKey ( newname ) );
 
 			return newname;
 		}
@@ -150,8 +169,8 @@ namespace ScriptEditor
 
 		public void Remove ( string name )
 		{
-			DCT_t.Remove ( name );
 			BL_t.Remove ( DCT_t [ name ] );
+			DCT_t.Remove ( name );
 		}
 
 		public void Remove ( T t )
