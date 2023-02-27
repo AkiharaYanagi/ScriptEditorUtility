@@ -110,6 +110,11 @@ namespace ScriptEditor
 			EL_Route.LoadData ( Ctrl_Stgs.File_RouteList );
 		}
 
+		public void UpdateData ()
+		{
+			BD_Branch.ResetItems ();
+		}
+
 
 		//==============================================================
 		//ルートの設定
