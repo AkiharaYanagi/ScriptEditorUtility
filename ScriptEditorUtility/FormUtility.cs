@@ -53,7 +53,7 @@ namespace ScriptEditor
 
 		//==============================================================
 		//ステータスバー表示
-		public static ToolStripStatusLabel ToolStripStatusLabel { get; set; } = null;
+		public static ToolStripStatusLabel ToolStripStatusLabel { get; set; } = new ToolStripStatusLabel ();
 
 		public static void Trace ( string str )
 		{
