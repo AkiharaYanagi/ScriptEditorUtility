@@ -164,7 +164,7 @@ namespace ScriptEditor
 		}
 
 		//内部：スクリプトリストの書出
-		private void WriteListScript ( StreamWriter strmWriter, Compend cmpd, List<Script> listScript )
+		private void WriteListScript ( StreamWriter sw, Compend cmpd, List<Script> listScript )
 		{
 			//スクリプト
 			foreach ( Script script in listScript )
@@ -173,29 +173,36 @@ namespace ScriptEditor
 				//if ( -1 == imageID )
 					//{ throw new Exception ( "name error" ); }
 	
-				strmWriter.Write ( "\t\t<Script" );
-				strmWriter.Write ( " Group=\"" + script.Group + "\"" );
-				strmWriter.Write ( " ImageName=\"" + script.ImgName + "\"" );
-				strmWriter.Write ( " ImageID=\"" + imageID + "\"" );
-				strmWriter.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
-				strmWriter.Write ( " VX=\"" + script.Param_Btl.Vel.X + "\" VY=\"" + script.Param_Btl.Vel.Y + "\"" );
-				strmWriter.Write ( " AX=\"" + script.Param_Btl.Acc.X + "\" AY=\"" + script.Param_Btl.Acc.Y + "\"" );
-				strmWriter.Write ( " CLC_ST=\"" + (int)script.Param_Btl.CalcState + "\"" );
-				strmWriter.Write ( " Power=\"" + script.Param_Btl.Power + "\"" );
-				strmWriter.Write ( " BlackOut=\"" + script.Param_Ef.BlackOut + "\"" );
-				strmWriter.Write ( " Vibration=\"" + script.Param_Ef.Vibration + "\"" );
-				strmWriter.Write ( " Stop=\"" + script.Param_Ef.Stop + "\"" );
-				strmWriter.Write ( " Radian=\"" + script.Param_Ef.Radian + "\"" );
-				strmWriter.Write ( " AfterImage_pitch=\"" + script.Param_Ef.AfterImage_pitch + "\"" );
-				strmWriter.Write ( " AfterImage_N=\"" + script.Param_Ef.AfterImage_N + "\"" );
-				strmWriter.Write ( " AfterImage_time=\"" + script.Param_Ef.AfterImage_time + "\"" );
-				strmWriter.Write ( " Vibration_S=\"" + script.Param_Ef.Vibration_S + "\"" );
-				strmWriter.Write ( " Color=\"" + script.Param_Ef.Color + "\"" );
-				strmWriter.Write ( " Color_time=\"" + script.Param_Ef.Color_time + "\"" );
-				strmWriter.Write ( ">\n" );
+				sw.Write ( "\t\t<Script" );
+				sw.Write ( " Group=\"" + script.Group + "\"" );
+				sw.Write ( " ImageName=\"" + script.ImgName + "\"" );
+				sw.Write ( " ImageID=\"" + imageID + "\"" );
+				sw.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
+#if false
+				sw.Write ( " VX=\"" + script.Param_Btl.Vel.X + "\" VY=\"" + script.Param_Btl.Vel.Y + "\"" );
+				sw.Write ( " AX=\"" + script.Param_Btl.Acc.X + "\" AY=\"" + script.Param_Btl.Acc.Y + "\"" );
+				sw.Write ( " CLC_ST=\"" + (int)script.Param_Btl.CalcState + "\"" );
+				sw.Write ( " Power=\"" + script.Param_Btl.Power + "\"" );
+				sw.Write ( " BlackOut=\"" + script.Param_Ef.BlackOut + "\"" );
+				sw.Write ( " Vibration=\"" + script.Param_Ef.Vibration + "\"" );
+#endif
+				WriteBattleParam ( sw, script.BtlPrm );
+#if false
+				sw.Write ( " Stop=\"" + script.Param_Ef.Stop + "\"" );
+				sw.Write ( " Radian=\"" + script.Param_Ef.Radian + "\"" );
+				sw.Write ( " AfterImage_pitch=\"" + script.Param_Ef.AfterImage_pitch + "\"" );
+				sw.Write ( " AfterImage_N=\"" + script.Param_Ef.AfterImage_N + "\"" );
+				sw.Write ( " AfterImage_time=\"" + script.Param_Ef.AfterImage_time + "\"" );
+				sw.Write ( " Vibration_S=\"" + script.Param_Ef.Vibration_S + "\"" );
+				sw.Write ( " Color=\"" + script.Param_Ef.Color + "\"" );
+				sw.Write ( " Color_time=\"" + script.Param_Ef.Color_time + "\"" );
+#endif
+				WriteStageParam ( sw, script.StgPrm );
+
+				sw.Write ( ">\n" );
 
 				//ルートリスト
-				strmWriter.Write ( "\t\t\t<RouteList>\n" );
+				sw.Write ( "\t\t\t<RouteList>\n" );
 				//ルート
 				foreach ( TName rutName in script.BD_RutName.GetEnumerable() )
 				{
@@ -203,38 +210,68 @@ namespace ScriptEditor
 					if ( -1 == indexRoute ) 
 						{ throw new Exception ( "name error : " ); }
 
-					strmWriter.Write ( "\t\t\t\t<Route" );
-					strmWriter.Write ( " Name=\"" + rutName.Name + "\" ID=\"" + indexRoute.ToString() + "\"" );
-					strmWriter.Write ( "></Route>\n" );
+					sw.Write ( "\t\t\t\t<Route" );
+					sw.Write ( " Name=\"" + rutName.Name + "\" ID=\"" + indexRoute.ToString() + "\"" );
+					sw.Write ( "></Route>\n" );
 				}
-				strmWriter.Write ( "\t\t\t</RouteList>\n" );
+				sw.Write ( "\t\t\t</RouteList>\n" );
 
 
 				//Efジェネレートリスト
-				strmWriter.Write ( "\t\t\t<EfGenerateList Num=\"" + script.BD_EfGnrt.Count() + "\">\n" );
+				sw.Write ( "\t\t\t<EfGenerateList Num=\"" + script.BD_EfGnrt.Count() + "\">\n" );
 				//Efジェネレート
 				foreach ( EffectGenerate efGnrt in script.BD_EfGnrt.GetBindingList () )
 				{
-					strmWriter.Write ( "\t\t\t\t<EfGenerate" );
-					strmWriter.Write ( " Name=\"" + efGnrt.Name + "\"" );
-					strmWriter.Write ( " EfName=\"" + efGnrt.EfName + "\"" );
-					strmWriter.Write ( " EfGnrt_PtX=\"" + efGnrt.Pt.X + "\"" );
-					strmWriter.Write ( " EfGnrt_PtY=\"" + efGnrt.Pt.Y + "\"" );
-					strmWriter.Write ( " EfGnrt_PtZ=\"" + efGnrt.Z_PER100F + "\"" );
-					strmWriter.Write ( " Gnrt=\"" + efGnrt.Gnrt + "\"" );
-					strmWriter.Write ( " Loop=\"" + efGnrt.Loop + "\"" );
-					strmWriter.Write ( " Sync=\"" + efGnrt.Sync + "\"" );
-					strmWriter.Write ( "></EfGenerate>\n" );
+					sw.Write ( "\t\t\t\t<EfGenerate" );
+					sw.Write ( " Name=\"" + efGnrt.Name + "\"" );
+					sw.Write ( " EfName=\"" + efGnrt.EfName + "\"" );
+					sw.Write ( " EfGnrt_PtX=\"" + efGnrt.Pt.X + "\"" );
+					sw.Write ( " EfGnrt_PtY=\"" + efGnrt.Pt.Y + "\"" );
+					sw.Write ( " EfGnrt_PtZ=\"" + efGnrt.Z_PER100F + "\"" );
+					sw.Write ( " Gnrt=\"" + efGnrt.Gnrt + "\"" );
+					sw.Write ( " Loop=\"" + efGnrt.Loop + "\"" );
+					sw.Write ( " Sync=\"" + efGnrt.Sync + "\"" );
+					sw.Write ( "></EfGenerate>\n" );
 				}
-				strmWriter.Write ( "\t\t\t</EfGenerateList>\n" );
+				sw.Write ( "\t\t\t</EfGenerateList>\n" );
 
-				WriteListRect ( strmWriter, script.ListCRect, "CollisionRect" );	//ぶつかり枠リスト
-				WriteListRect ( strmWriter, script.ListARect, "AttackRect" );		//攻撃枠リスト
-				WriteListRect ( strmWriter, script.ListHRect, "HitRect" );			//当り枠リスト
-				WriteListRect ( strmWriter, script.ListORect, "OffsetRect" );		//相殺枠リスト
+				WriteListRect ( sw, script.ListCRect, "CollisionRect" );	//ぶつかり枠リスト
+				WriteListRect ( sw, script.ListARect, "AttackRect" );		//攻撃枠リスト
+				WriteListRect ( sw, script.ListHRect, "HitRect" );			//当り枠リスト
+				WriteListRect ( sw, script.ListORect, "OffsetRect" );		//相殺枠リスト
 
-				strmWriter.Write ( "\t\t</Script>\n" );
+				sw.Write ( "\t\t</Script>\n" );
 			}
+		}
+
+		//バトルパラメータの書出
+		private void WriteBattleParam ( StreamWriter sw, ScriptParam_Battle btlPrm )
+		{
+			sw.Write ( " CLC_ST=\"" + (int)btlPrm.CalcState + "\"" );
+			sw.Write ( " VX=\"" + btlPrm.Vel.X + "\" VY=\"" + btlPrm.Vel.Y + "\"" );
+			sw.Write ( " AX=\"" + btlPrm.Acc.X + "\" AY=\"" + btlPrm.Acc.Y + "\"" );
+			sw.Write ( " Power=\"" + btlPrm.Power + "\"" );
+			sw.Write ( " Warp=\"" + btlPrm.Warp + "\"" );
+			sw.Write ( " Recoil_I=\"" + btlPrm.Recoil_I + "\"" );
+			sw.Write ( " Recoil_E=\"" + btlPrm.Recoil_E + "\"" );
+			sw.Write ( " Blance_I=\"" + btlPrm.Blance_I + "\"" );
+			sw.Write ( " Blance_E=\"" + btlPrm.Blance_E + "\"" );
+		}
+
+		//演出パラメータの書出
+		private void WriteStageParam ( StreamWriter sw, ScriptParam_Staging stgPrm )
+		{
+			sw.Write ( " BlackOut=\"" + stgPrm.BlackOut + "\"" );
+			sw.Write ( " Vibration=\"" + stgPrm.Vibration + "\"" );
+			sw.Write ( " Stop=\"" + stgPrm.Stop + "\"" );
+
+			sw.Write ( " Radian=\"" + stgPrm.Radian + "\"" );
+			sw.Write ( " AfterImage_pitch=\"" + stgPrm.AfterImage_pitch + "\"" );
+			sw.Write ( " AfterImage_N=\"" + stgPrm.AfterImage_N + "\"" );
+			sw.Write ( " AfterImage_time=\"" + stgPrm.AfterImage_time + "\"" );
+			sw.Write ( " Vibration_S=\"" + stgPrm.Vibration_S + "\"" );
+			sw.Write ( " Color=\"" + stgPrm.Color + "\"" );
+			sw.Write ( " Color_time=\"" + stgPrm.Color_time + "\"" );
 		}
 
 		//枠の書出	

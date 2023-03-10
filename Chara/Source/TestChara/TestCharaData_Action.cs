@@ -65,7 +65,7 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "FrontMove_00.png";
-				s.Param_Btl.SetVelX ( 15 );
+				s.BtlPrm.SetVelX ( 15 );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
@@ -87,7 +87,7 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = "BacktMove_00.png";
-				s.Param_Btl.SetVelX ( -15 );
+				s.BtlPrm.SetVelX ( -15 );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上必殺技 ) );
 				s.BD_RutName.Add ( new TName ( ENM_RUT.特殊 ) );
@@ -112,9 +112,9 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = imgName;
-				s.Param_Btl.SetVelX ( vel_x );
-				s.Param_Btl.SetVelY ( -25 );
-				s.Param_Btl.SetAccY ( 1 );
+				s.BtlPrm.SetVelX ( vel_x );
+				s.BtlPrm.SetVelY ( -25 );
+				s.BtlPrm.SetAccY ( 1 );
 				s.ListCRect.Clear ();
 			}
 		}
@@ -142,7 +142,7 @@ namespace ScriptEditor
 				Script s = bl_s [ i ];
 				s.Group = group;
 				s.ImgName = imgname;
-				s.Param_Btl.Vel = new Point ( 20, 0 );
+				s.BtlPrm.Vel = new Point ( 20, 0 );
 				s.Pos = new Point ( -250, -450 );
 
 				s.BD_RutName.Add ( new TName ( ENM_RUT.地上超必 ) );
@@ -179,7 +179,7 @@ namespace ScriptEditor
 			{
 				s.Group = 1; 
 				s.ImgName = imgName;
-				s.Param_Btl.SetVelX ( -5 );
+				s.BtlPrm.SetVelX ( -5 );
 			} );
 
 		}

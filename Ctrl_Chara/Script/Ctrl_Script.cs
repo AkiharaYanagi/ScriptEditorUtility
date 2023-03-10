@@ -81,19 +81,19 @@ namespace ScriptEditor
 			}
 
 			//コンポーネントの各種設定
-			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.Param_Btl.CalcState=c, s=>s.Param_Btl.CalcState ) );
+			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.BtlPrm.CalcState=c, s=>s.BtlPrm.CalcState ) );
 			cmpnt_px.SetParam ( new SP_INT ( (s,i)=>s.SetPosX(i), s=>s.Pos.X ) );
 			cmpnt_py.SetParam ( new SP_INT ( (s,i)=>s.SetPosY(i), s=>s.Pos.Y ) );
-			cmpnt_vx.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelX(i), s=>s.Param_Btl.Vel.X ) );
-			cmpnt_vy.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetVelY(i), s=>s.Param_Btl.Vel.Y ) );
-			cmpnt_ax.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetAccX(i), s=>s.Param_Btl.Acc.X ) );
-			cmpnt_ay.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.SetAccY(i), s=>s.Param_Btl.Acc.Y ) );
-			cmpnt_power.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Power=i, s=>s.Param_Btl.Power ) );
-			cmpnt_warp.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Warp=i, s=>s.Param_Btl.Warp ) );
-			cmpnt_recoil_I.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Recoil_I=i, s=>s.Param_Btl.Recoil_I ) );
-			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Recoil_I=i, s=>s.Param_Btl.Recoil_E ) );
-			cmpnt_balance_I.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Blance_I=i, s=>s.Param_Btl.Blance_I ) );
-			cmpnt_balance_E.SetParam ( new SP_INT ( (s,i)=>s.Param_Btl.Blance_E=i, s=>s.Param_Btl.Blance_E ) );
+			cmpnt_vx.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.SetVelX(i), s=>s.BtlPrm.Vel.X ) );
+			cmpnt_vy.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.SetVelY(i), s=>s.BtlPrm.Vel.Y ) );
+			cmpnt_ax.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.SetAccX(i), s=>s.BtlPrm.Acc.X ) );
+			cmpnt_ay.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.SetAccY(i), s=>s.BtlPrm.Acc.Y ) );
+			cmpnt_power.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Power=i, s=>s.BtlPrm.Power ) );
+			cmpnt_warp.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Warp=i, s=>s.BtlPrm.Warp ) );
+			cmpnt_recoil_I.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_I=i, s=>s.BtlPrm.Recoil_I ) );
+			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_I=i, s=>s.BtlPrm.Recoil_E ) );
+			cmpnt_balance_I.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_I=i, s=>s.BtlPrm.Blance_I ) );
+			cmpnt_balance_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_E=i, s=>s.BtlPrm.Blance_E ) );
 
 			//コンポーネントの位置
 			cmpnt_ClcSt.Location	 = new Point ( 220		, BY );

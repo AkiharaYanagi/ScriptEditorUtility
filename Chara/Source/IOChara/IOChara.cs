@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Diagnostics;
+
 
 namespace ScriptEditor
 {
@@ -18,7 +20,16 @@ namespace ScriptEditor
 	{
 		public static int AttrToInt ( Element e, int attr )
 		{
-			return int.Parse ( e.Attributes[ attr ].Value );
+			int i = 0;
+			try
+			{
+				i = int.Parse ( e.Attributes[ attr ].Value );
+			}
+			catch ( System.Exception exc )
+			{
+				Debug.Write ( exc.ToString () );
+			}
+			return i;
 		}
 
 		public static Point AttrToPoint ( Element e, int enumName0, int enumName1 )
@@ -65,14 +76,23 @@ namespace ScriptEditor
 		IMG_NAME,
 		IMG_ID,
 		X, Y, 
+		CLC_ST, 
 		VX, VY,
 		AX, AY,
-		CLC_ST, 
 		POWER,
+		WARP,
+		RECOIL_I, RECOIL_E,
+		BALANCE_I, BALANCE_E,
 		BLACKOUT,
 		VIBRATION,
 		STOP,
 		RADIAN,
+		AFTERIMAGE_PITCH,
+		AFTERIMAGE_N,
+		AFTERIMAGE_TIME,
+		VIBRATION_S,
+		COLOR,
+		COLOR_TIME,
 	}
 
 	public enum ELEMENT_SCRIPT

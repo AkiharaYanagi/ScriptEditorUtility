@@ -135,7 +135,7 @@ namespace ScriptEditor
 					Blance_I = br.ReadInt32 (),
 					Blance_E = br.ReadInt32 (),
 				};
-				scp.Param_Btl = btlPrm;
+				scp.BtlPrm = btlPrm;
 
 				//ステージングパラメータ
 				ScriptParam_Staging stgPrm = new ScriptParam_Staging ()

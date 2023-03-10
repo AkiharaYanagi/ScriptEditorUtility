@@ -36,25 +36,9 @@ namespace ScriptEditor
 		//複数挿入
 		public void MultiInsert ()
 		{
-			//未使用グループを指定する
-			int group = EditScript.GetUnusedIndex ();
-
-			//範囲
-			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
-			Script[] scripts = new Script [ e - s ];
-			for ( int i = 0; i < e - s; ++ i )
-			{
-				scripts [ i ] = new Script ();
-				scripts[i].Group = group;
-			}
-
-			//挿入
-			SelectedSequence.ListScript.InsertRange ( s, scripts );
+			MultiInsert ( new Script () );
 		}
-
-		//複数追加
-		public void MultiAdd ()
+		public void MultiInsert ( Script scp )
 		{
 			//未使用グループを指定する
 			int group = EditScript.GetUnusedIndex ();
@@ -65,7 +49,32 @@ namespace ScriptEditor
 			Script[] scripts = new Script [ e - s ];
 			for ( int i = 0; i < e - s; ++ i )
 			{
-				scripts [ i ] = new Script ();
+				scripts [ i ] = new Script ( scp );
+				scripts[i].Group = group;
+			}
+
+			//挿入
+			SelectedSequence.ListScript.InsertRange ( s, scripts );
+		}
+
+		//複数追加
+		public void MultiAdd ()
+		{
+			MultiAdd ( new Script () );
+		}
+		
+		public void MultiAdd ( Script scp )
+		{
+			//未使用グループを指定する
+			int group = EditScript.GetUnusedIndex ();
+
+			//範囲
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+			Script[] scripts = new Script [ e - s ];
+			for ( int i = 0; i < e - s; ++ i )
+			{
+				scripts [ i ] = new Script ( scp );
 				scripts[i].Group = group;
 			}
 

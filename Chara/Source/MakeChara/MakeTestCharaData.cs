@@ -26,9 +26,9 @@ namespace ScriptEditor
 			{
 				Pos = pt,
 			};
-			script.Param_Btl.Vel = vel;
-			script.Param_Btl.Acc = acc;
-			script.Param_Btl.Power = power;
+			script.BtlPrm.Vel = vel;
+			script.BtlPrm.Acc = acc;
+			script.BtlPrm.Power = power;
 			return script;
 		}
 	}

@@ -169,7 +169,7 @@ namespace ScriptEditor
 
 				//---------------------------------------------------------------
 				//戦闘パラメータ
-
+#if false
 				//計算状態
 				int clcst = IOChara.AttrToInt ( e, (int)ATTR_SCP.CLC_ST );
 				s.Param_Btl.CalcState = (CLC_ST)clcst;
@@ -184,7 +184,11 @@ namespace ScriptEditor
 				s.Param_Ef.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
 				s.Param_Ef.Stop = IOChara.AttrToInt ( e, (int)ATTR_SCP.STOP );				//停止[F]
 				s.Param_Ef.Radian = IOChara.AttrToInt ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
+#endif
+				ReadBtlPrm ( e, s.BtlPrm );
 
+				//演出パラメータ
+				ReadStgPrm ( e, s.StgPrm );
 
 				//-----------------------------------------------------------------------------
 				//Script以下のElement
@@ -247,6 +251,46 @@ namespace ScriptEditor
 			}
 		}
 
+		//バトルパラメータ
+		private void ReadBtlPrm ( Element elemBtlPrm, ScriptParam_Battle btlPrm )
+		{
+			Element e = elemBtlPrm;
+
+			//計算状態
+			int clcst = AtoI ( e, (int)ATTR_SCP.CLC_ST );
+			btlPrm.CalcState = (CLC_ST)clcst;
+
+			//速度, 加速度
+			btlPrm.Vel = AtoPt ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
+			btlPrm.Acc = AtoPt ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
+
+			//各種値
+			btlPrm.Power = AtoI ( e, (int)ATTR_SCP.POWER );		//攻撃値
+			btlPrm.Warp = AtoI ( e, (int)ATTR_SCP.WARP );		//ヒット時のけぞり[F]
+			btlPrm.Recoil_I = AtoI ( e, (int)ATTR_SCP.RECOIL_I );	//反動(x,y)(自分)
+			btlPrm.Recoil_E = AtoI ( e, (int)ATTR_SCP.RECOIL_E );	//反動(x,y)(相手)
+			btlPrm.Blance_I = AtoI ( e, (int)ATTR_SCP.BALANCE_I );	//バランス増減(自分)
+			btlPrm.Blance_E = AtoI ( e, (int)ATTR_SCP.BALANCE_E );	//バランス増減(相手)
+		}
+
+		//演出パラメータ
+		private void ReadStgPrm ( Element elemStgPrm, ScriptParam_Staging stgPrm )
+		{
+			Element e = elemStgPrm;
+
+			stgPrm.BlackOut		= AtoI ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
+			stgPrm.Vibration	= AtoI ( e, (int)ATTR_SCP.VIBRATION );		//振動[F]
+			stgPrm.Stop			= AtoI ( e, (int)ATTR_SCP.STOP );			//停止[F]
+			stgPrm.Radian		= AtoI ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
+			stgPrm.AfterImage_pitch	= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_PITCH );	//残像[個]
+			stgPrm.AfterImage_N		= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_N );		//残像[F] 持続
+			stgPrm.AfterImage_time	= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_TIME );	//残像[F] pitch
+			stgPrm.Vibration_S		= AtoI ( e, (int)ATTR_SCP.VIBRATION_S );		//振動[F](個別)
+			stgPrm.Color		= Color.FromName ( e.Attributes [ (int)ATTR_SCP.COLOR ].Value );	//色調変更
+			stgPrm.Color_time	= AtoI ( e, (int)ATTR_SCP.COLOR_TIME );				//色調変更[F]
+		}
+
+		//枠の読込
 		private void ReadRect ( List<Rectangle> listRect, Element elemRectList )
 		{
 			//個数
@@ -383,6 +427,19 @@ namespace ScriptEditor
 				chara.BD_Route.Add ( rut );
 			}
 		}
+
+		//------------------------------------------------------
+		//簡略化関数
+		private int AtoI ( Element e, int attr )
+		{
+			return IOChara.AttrToInt ( e, attr );
+		}
+
+		private Point AtoPt ( Element e, int enumName0, int enumName1 )
+		{
+			return IOChara.AttrToPoint ( e, enumName0, enumName1 );
+		}
+		//------------------------------------------------------
 
 	}
 }

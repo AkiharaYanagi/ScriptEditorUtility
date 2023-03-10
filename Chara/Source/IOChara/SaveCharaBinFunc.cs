@@ -199,7 +199,7 @@ namespace ScriptEditor
 		//ScriptParam_Battle
 		void SaveBinScrPrmBtl ( BinaryWriter bw, Script scp )
 		{
-			ScriptParam_Battle prm = scp.Param_Btl;
+			ScriptParam_Battle prm = scp.BtlPrm;
 //			int i = (int)prm.CalcState ;
 			bw.Write ( (int)prm.CalcState );
 			bw.Write ( prm.Vel.X );
@@ -218,7 +218,7 @@ namespace ScriptEditor
 		//ScriptParam_Staging
 		void SaveBinScrPrmStg ( BinaryWriter bw, Script scp )
 		{
-			ScriptParam_Staging prm = scp.Param_Ef;
+			ScriptParam_Staging prm = scp.StgPrm;
 			bw.Write ( (byte)prm.BlackOut );
 			bw.Write ( (byte)prm.Vibration );
 			bw.Write ( (byte)prm.Stop );

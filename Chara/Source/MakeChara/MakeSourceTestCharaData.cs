@@ -74,10 +74,10 @@ namespace ScriptEditor
 					strmWriter.Write ( "Script script = NewScript ( " );
 					strmWriter.Write ( ", " + s.Pos.X );
 					strmWriter.Write ( ", " + s.Pos.Y );
-					strmWriter.Write ( ", " + s.Param_Btl.Vel.X );
-					strmWriter.Write ( ", " + s.Param_Btl.Vel.Y );
-					strmWriter.Write ( ", " + s.Param_Btl.Acc.X );
-					strmWriter.Write ( ", " + s.Param_Btl.Acc.Y );
+					strmWriter.Write ( ", " + s.BtlPrm.Vel.X );
+					strmWriter.Write ( ", " + s.BtlPrm.Vel.Y );
+					strmWriter.Write ( ", " + s.BtlPrm.Acc.X );
+					strmWriter.Write ( ", " + s.BtlPrm.Acc.Y );
 					strmWriter.Write ( " ); \n" );
 
 					//Efジェネレートを必要個数確保

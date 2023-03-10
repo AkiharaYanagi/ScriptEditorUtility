@@ -79,16 +79,14 @@ namespace ScriptEditor
 		//------------------------------------------------
 		//値
 		//------------------------------------------------
-		public ScriptParam_Battle Param_Btl = new ScriptParam_Battle ();
-		public ScriptParam_Staging Param_Ef = new ScriptParam_Staging ();
+		public ScriptParam_Battle BtlPrm = new ScriptParam_Battle ();
+		public ScriptParam_Staging StgPrm = new ScriptParam_Staging ();
 
 
 		//================================================================
 		//コンストラクタ
 		public Script ()
 		{
-			ListCRect.Add ( new Rectangle ( -50, -350, 120, 350 ) );
-			ListHRect.Add ( new Rectangle ( -60, -360, 130, 370 ) );
 		}
 
 		//コピーコンストラクタ
@@ -108,8 +106,8 @@ namespace ScriptEditor
 			this.ListORect = new List < Rectangle > ( s.ListORect );
 			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
 
-			this.Param_Btl = new ScriptParam_Battle ( s.Param_Btl );
-			this.Param_Ef = new ScriptParam_Staging ( s.Param_Ef );
+			this.BtlPrm = new ScriptParam_Battle ( s.BtlPrm );
+			this.StgPrm = new ScriptParam_Staging ( s.StgPrm );
 		}
 
 		//初期化
@@ -128,8 +126,8 @@ namespace ScriptEditor
 
 			BD_EfGnrt.Clear ();
 
-			Param_Btl.Clear ();
-			Param_Ef.Clear ();
+			BtlPrm.Clear ();
+			StgPrm.Clear ();
 		}
 
 		//コピー
@@ -146,8 +144,8 @@ namespace ScriptEditor
 			this.ListORect = new List < Rectangle > ( s.ListORect );
 			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
 
-			this.Param_Btl.Copy ( s.Param_Btl );
-			this.Param_Ef.Copy ( s.Param_Ef );
+			this.BtlPrm.Copy ( s.BtlPrm );
+			this.StgPrm.Copy ( s.StgPrm );
 		}
 
 

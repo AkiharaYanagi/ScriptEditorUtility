@@ -103,7 +103,11 @@ namespace ScriptEditor
 			byte [] buffer = new byte [ size ];	//バッファ
 			int numBytes = 0;	//書込バイト数
 
-			//個数
+
+			//@todo イメージ個数をbyteからuintに変更する
+
+
+			//イメージ個数
 			bw.Write ( (byte)bdImg.Count() );
 
 			//実データ

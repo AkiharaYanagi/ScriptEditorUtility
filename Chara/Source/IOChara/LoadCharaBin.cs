@@ -3,10 +3,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Text;
+using System.Drawing;
 
 
 namespace ScriptEditor
 {
+	using BD_Img = BindingDictionary < ImageData >;
+
+
 	public partial class LoadCharaBin
 	{
 		//-------------------------------------------------------------
@@ -57,26 +61,56 @@ namespace ScriptEditor
 			chara.Clear ();
 
 			//ファイルストリーム開始
-			using ( FileStream fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
-			using ( BinaryReader biReaderFile = new BinaryReader ( fstrm, Encoding.UTF8 ) )
+			using ( var fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
+			using ( var br = new BinaryReader ( fstrm, Encoding.UTF8 ) )
 			{
 				Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
 
 				//バージョン(uint)
-				uint ver = biReaderFile.ReadUInt32 ();
+				uint ver = br.ReadUInt32 ();
 
 				//サイズ(uint)
-				uint size = biReaderFile.ReadUInt32 ();
+				uint size = br.ReadUInt32 ();
 
 				//キャラデータ
-				LoadBinBehavior ( biReaderFile, chara );
-				LoadBinGarnish ( biReaderFile, chara );
-				LoadBinCommand ( biReaderFile, chara );
-				LoadBinBranch ( biReaderFile, chara );
-				LoadBinRoute ( biReaderFile, chara );
+				LoadBinBehavior ( br, chara );
+				LoadBinGarnish ( br, chara );
+				LoadBinCommand ( br, chara );
+				LoadBinBranch ( br, chara );
+				LoadBinRoute ( br, chara );
+
+				//ビヘイビア
+				LoadImage ( br, chara.behavior.BD_Image );		   
+				//ガーニッシュ
+				LoadImage ( br, chara.garnish.BD_Image );		   
 			}
+		}
 
+		public void LoadImage ( BinaryReader br, BD_Img bd_img )
+		{
+			//イメージ個数
+			byte n = br.ReadByte ();
 
+			for ( uint ui = 0; ui < n; ++ ui )
+			{
+				//サイズ( uint -> int )
+				int size = (int)br.ReadUInt32 ();
+				//一時領域
+				byte[] buffer = new byte [ size ];
+
+				//読込
+				buffer = br.ReadBytes ( size );
+				MemoryStream ms = new MemoryStream ( buffer );
+				Image img = Image.FromStream ( ms );
+
+				ImageData imgdt = new ImageData ()
+				{
+					Img = img,
+					Name = img.ToString(),
+				};
+
+				bd_img.Add ( imgdt );
+			}
 		}
 	}
 }
