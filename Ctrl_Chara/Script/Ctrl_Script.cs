@@ -91,7 +91,7 @@ namespace ScriptEditor
 			cmpnt_power.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Power=i, s=>s.BtlPrm.Power ) );
 			cmpnt_warp.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Warp=i, s=>s.BtlPrm.Warp ) );
 			cmpnt_recoil_I.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_I=i, s=>s.BtlPrm.Recoil_I ) );
-			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_I=i, s=>s.BtlPrm.Recoil_E ) );
+			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_E=i, s=>s.BtlPrm.Recoil_E ) );
 			cmpnt_balance_I.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_I=i, s=>s.BtlPrm.Blance_I ) );
 			cmpnt_balance_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_E=i, s=>s.BtlPrm.Blance_E ) );
 
