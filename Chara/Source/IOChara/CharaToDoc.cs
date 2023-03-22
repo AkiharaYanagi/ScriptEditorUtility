@@ -143,6 +143,7 @@ namespace ScriptEditor
 			sw.Write ( " Posture=\"" + (int)act.Posture + "\"" );		//アクション体勢
 			sw.Write ( " HitNum=\"" + act.HitNum + "\"" );				//ヒット数
 			sw.Write ( " HitPitch=\"" + act.HitPitch + "\"" );			//ヒット間隔[F]
+			sw.Write ( " Balance=\"" + act.Balance + "\"" );			//ヒット間隔[F]
 			sw.Write ( ">\n" );
 		}
 

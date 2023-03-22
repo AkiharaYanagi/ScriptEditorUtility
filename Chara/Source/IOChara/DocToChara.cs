@@ -115,6 +115,9 @@ namespace ScriptEditor
 				//ヒット間隔[F}
 				action.HitPitch = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_HIT_PITCH );
 
+				//バランス
+				action.Balance = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_BALANCE );
+
 				//子Element <Script> 数は不定
 				ReadScriptList ( action, elemAction.Elements );
 

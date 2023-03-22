@@ -68,6 +68,7 @@ namespace ScriptEditor
 		ELAC_POSTURE,
 		ELAC_HITNUM,
 		ELAC_HIT_PITCH,
+		ELAC_BALANCE,
 	}
 
 	public enum ATTR_SCP
