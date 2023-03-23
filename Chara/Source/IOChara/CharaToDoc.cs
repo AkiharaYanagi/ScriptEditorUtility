@@ -209,7 +209,7 @@ namespace ScriptEditor
 				{
 					int indexRoute = Chara.BD_Route.IndexOf ( rutName.Name );
 					if ( -1 == indexRoute ) 
-						{ throw new Exception ( "name error : " ); }
+						{ throw new Exception ( "name error : " + rutName.Name ); }
 
 					sw.Write ( "\t\t\t\t<Route" );
 					sw.Write ( " Name=\"" + rutName.Name + "\" ID=\"" + indexRoute.ToString() + "\"" );
