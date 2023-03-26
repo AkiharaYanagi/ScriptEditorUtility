@@ -19,7 +19,7 @@ namespace ScriptEditor
 	{
 		//---------------------------------------------------------------------
 		//編集対象
-		public Compend Compend { get; set; } = null;
+		public Compend Compend { get; set; } = new Compend ();
 
 		//部分編集
 		public EditSequence EditSequence { get; set; } = new EditSequence ();

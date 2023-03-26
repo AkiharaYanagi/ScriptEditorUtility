@@ -84,6 +84,7 @@
     <Compile Include="Source\EditChara\EditChara_Command.cs" />
     <Compile Include="Source\EditChara\EditCompend.cs" />
     <Compile Include="Source\EditChara\EditCompend_Script.cs" />
+    <Compile Include="Source\EditChara\EditCompend_UndoRedo.cs" />
     <Compile Include="Source\EditChara\EditEffect.cs" />
     <Compile Include="Source\EditChara\EditGarnish.cs" />
     <Compile Include="Source\EditChara\EditScript.cs" />

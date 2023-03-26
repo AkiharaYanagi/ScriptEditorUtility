@@ -48,29 +48,11 @@ namespace ScriptEditor
 			BD_Image.Clear ();
 		}
 
-		//コピー
+		//コピー(ディープ)
 		public virtual void Copy ( Compend srcCompend )
 		{
 			Clear ();
 			BD_Sequence.DeepCopy ( srcCompend.BD_Sequence );
-
-#if false
-			//手動でディープコピーする
-			BL_SQC bl_sqc = BD_Sequence.GetBindingList ();
-			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
-			foreach ( Sequence seq in bl_sqc )
-			{
-				bl_sqc.Add ( new Sequence ( seq ) );
-			}
-			DCT_SQC dct_sqc = BD_Sequence.GetDictionary ();
-			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
-			foreach ( KeyValuePair < string, Sequence > kvp in dct_sqc )
-			{
-				Sequence seq = (Sequence)kvp.Value;
-				bl_sqc.Add ( new Sequence ( seq ) );
-			}
-#endif
-
 			CopyImageList ( srcCompend );
 		}
 

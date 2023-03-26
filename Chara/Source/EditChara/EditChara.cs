@@ -1,10 +1,16 @@
-﻿namespace ScriptEditor
+﻿using System.Collections.Generic;
+
+
+namespace ScriptEditor
 {
 	//==================================================================================
 	//	キャラの編集
 	//		Edit-系のクラスはキャラデータと同様なツリー構造を持ち、
 	//		FormやControlから必要な部分だけ参照される
 	//		シングルトンとしてグローバルからアクセス可能
+	//
+	//		アンドゥリドゥ
+	//
 	//==================================================================================
 	public sealed partial class EditChara
 	{
@@ -12,7 +18,10 @@
 		public static EditChara Inst { get; } = new EditChara ();
 
 		//編集中のキャラ
-		public Chara Chara { get; set; } = null;
+		public Chara Chara { get; set; } = new Chara ();
+
+		//アンドゥリドゥ
+		public List< Chara > L_Chara = new List<Chara> ();
 
 		//部分編集
 		public EditBehavior EditBehavior { get; set; } = null;
