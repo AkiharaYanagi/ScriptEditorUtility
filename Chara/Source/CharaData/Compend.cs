@@ -134,22 +134,6 @@ namespace ScriptEditor
 		{
 			base.Clear ();
 
-#if false
-			BL_SQC bl_sqc = base.BD_Sequence.GetBindingList ();
-			BL_SQC src_bl_sqc = srcCompend.BD_Sequence.GetBindingList ();
-			foreach ( Effect ef in src_bl_sqc )
-			{
-				bl_sqc.Add ( new Effect ( ef ) );
-			}
-
-			DCT_SQC dct_sqc = base.BD_Sequence.GetDictionary ();
-			DCT_SQC src_dct_sqc = srcCompend.BD_Sequence.GetDictionary ();
-			foreach ( KeyValuePair < string, Sequence > kvp in src_dct_sqc )
-			{
-				Effect e = (Effect)kvp.Value;
-				dct_sqc.Add ( e.Name, new Effect ( e ) );
-			}
-#endif
 			//ディープコピー
 			//引数：Sequenceを受けて新規Effectを生成して返すデリゲート
 			BD_Sequence.DeepCopy ( srcCompend.BD_Sequence, sqc=>new Effect(sqc) );

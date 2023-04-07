@@ -20,8 +20,9 @@ namespace ScriptEditor
 		//編集中のキャラ
 		public Chara Chara { get; set; } = new Chara ();
 
-		//アンドゥリドゥ
+		//アンドゥリドゥ用ヒストリー
 		public List< Chara > L_Chara = new List<Chara> ();
+		private int undo_pointer = -1; //初期値:-1は対象外
 
 		//部分編集
 		public EditBehavior EditBehavior { get; set; } = null;
@@ -53,6 +54,31 @@ namespace ScriptEditor
 		public void Copy ( Chara chara )
 		{
 			chara.Copy ( chara );
+		}
+
+
+
+		//----------------------------------------------------
+		// ◆ ヒストリーに記録
+		//	 各種キャラの変更タイミングで、ヒストリーに記録する
+		//----------------------------------------------------
+		public void RecordChara ()
+		{
+			L_Chara.Add ( new Chara ( Chara ) );
+			++ undo_pointer;
+		}
+
+		//アンドゥ
+		public void Undo ()
+		{
+			//初期状態が " 1 ", 変更１回で " 2 " 
+			if ( L_Chara.Count < 2 ) { return; }
+
+			//ポインタが個数の範囲外だったら何もしない
+			if ( undo_pointer < 0 || L_Chara.Count <= undo_pointer ) { return; }
+
+			//現在指定キャラデータを一つ前にする
+			Chara = L_Chara [ -- undo_pointer ];
 		}
 	}
 

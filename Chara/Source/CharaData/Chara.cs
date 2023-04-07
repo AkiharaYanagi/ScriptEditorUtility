@@ -88,6 +88,19 @@
 			BD_Route.DeepCopy ( ch.BD_Route );
 		}
 
+		//クローン (ディープコピー)
+		public void Clone ( Chara ch )
+		{
+			Clear ();
+
+			behavior.Copy ( ch.behavior );
+			garnish.Copy ( ch.garnish );
+
+			BD_Command.DeepCopy ( ch.BD_Command );
+			BD_Branch.DeepCopy ( ch.BD_Branch );
+			BD_Route.DeepCopy ( ch.BD_Route );
+		}
+
 		//----------------------------------------------------------------
 		//名前からインデックスを取得
 
