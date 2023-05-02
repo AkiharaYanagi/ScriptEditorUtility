@@ -158,7 +158,7 @@ namespace ScriptEditor
 				SaveBinListRect ( bw, scp.ListORect );
 
 				//エフェクト生成
-				bw.Write ( (byte)scp.BD_EfGnrt.Count () );
+				bw.Write ( (byte)scp.BD_EfGnrt.Count () );	//個数[byte]
 				foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
 				{ 
 					bw.Write ( (byte)chara.GetIndexOfEffect ( efGnrt.EfName ) );	//uint

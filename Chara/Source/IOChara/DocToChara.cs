@@ -172,22 +172,6 @@ namespace ScriptEditor
 
 				//---------------------------------------------------------------
 				//戦闘パラメータ
-#if false
-				//計算状態
-				int clcst = IOChara.AttrToInt ( e, (int)ATTR_SCP.CLC_ST );
-				s.Param_Btl.CalcState = (CLC_ST)clcst;
-
-				//速度, 加速度
-				s.Param_Btl.Vel = IOChara.AttrToPoint ( e, (int)ATTR_SCP.VX, (int)ATTR_SCP.VY );
-				s.Param_Btl.Acc = IOChara.AttrToPoint ( e, (int)ATTR_SCP.AX, (int)ATTR_SCP.AY );
-
-				//各種値
-				s.Param_Btl.Power = IOChara.AttrToInt ( e, (int)ATTR_SCP.POWER );			//攻撃値
-				s.Param_Ef.BlackOut = IOChara.AttrToInt ( e, (int)ATTR_SCP.BLACKOUT );		//暗転[F]
-				s.Param_Ef.Vibration = IOChara.AttrToInt ( e, (int)ATTR_SCP.VIBRATION );	//振動[F]
-				s.Param_Ef.Stop = IOChara.AttrToInt ( e, (int)ATTR_SCP.STOP );				//停止[F]
-				s.Param_Ef.Radian = IOChara.AttrToInt ( e, (int)ATTR_SCP.RADIAN );			//回転[rad]
-#endif
 				ReadBtlPrm ( e, s.BtlPrm );
 
 				//演出パラメータ
@@ -289,7 +273,19 @@ namespace ScriptEditor
 			stgPrm.AfterImage_N		= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_N );		//残像[F] 持続
 			stgPrm.AfterImage_time	= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_TIME );	//残像[F] pitch
 			stgPrm.Vibration_S		= AtoI ( e, (int)ATTR_SCP.VIBRATION_S );		//振動[F](個別)
-			stgPrm.Color		= Color.FromName ( e.Attributes [ (int)ATTR_SCP.COLOR ].Value );	//色調変更
+
+
+
+			//todo インデックスが無い
+
+			int indexColorName = (int)ATTR_SCP.COLOR;
+			string colorName = e.Attributes [ indexColorName ].Value;
+			stgPrm.Color		= Color.FromName ( colorName );	//色調変更
+			
+			
+			
+			
+			
 			stgPrm.Color_time	= AtoI ( e, (int)ATTR_SCP.COLOR_TIME );				//色調変更[F]
 		}
 

@@ -179,25 +179,7 @@ namespace ScriptEditor
 				sw.Write ( " ImageName=\"" + script.ImgName + "\"" );
 				sw.Write ( " ImageID=\"" + imageID + "\"" );
 				sw.Write ( " X=\"" + script.Pos.X + "\" Y=\"" + script.Pos.Y + "\"" );
-#if false
-				sw.Write ( " VX=\"" + script.Param_Btl.Vel.X + "\" VY=\"" + script.Param_Btl.Vel.Y + "\"" );
-				sw.Write ( " AX=\"" + script.Param_Btl.Acc.X + "\" AY=\"" + script.Param_Btl.Acc.Y + "\"" );
-				sw.Write ( " CLC_ST=\"" + (int)script.Param_Btl.CalcState + "\"" );
-				sw.Write ( " Power=\"" + script.Param_Btl.Power + "\"" );
-				sw.Write ( " BlackOut=\"" + script.Param_Ef.BlackOut + "\"" );
-				sw.Write ( " Vibration=\"" + script.Param_Ef.Vibration + "\"" );
-#endif
 				WriteBattleParam ( sw, script.BtlPrm );
-#if false
-				sw.Write ( " Stop=\"" + script.Param_Ef.Stop + "\"" );
-				sw.Write ( " Radian=\"" + script.Param_Ef.Radian + "\"" );
-				sw.Write ( " AfterImage_pitch=\"" + script.Param_Ef.AfterImage_pitch + "\"" );
-				sw.Write ( " AfterImage_N=\"" + script.Param_Ef.AfterImage_N + "\"" );
-				sw.Write ( " AfterImage_time=\"" + script.Param_Ef.AfterImage_time + "\"" );
-				sw.Write ( " Vibration_S=\"" + script.Param_Ef.Vibration_S + "\"" );
-				sw.Write ( " Color=\"" + script.Param_Ef.Color + "\"" );
-				sw.Write ( " Color_time=\"" + script.Param_Ef.Color_time + "\"" );
-#endif
 				WriteStageParam ( sw, script.StgPrm );
 
 				sw.Write ( ">\n" );
