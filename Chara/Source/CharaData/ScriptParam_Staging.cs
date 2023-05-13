@@ -24,7 +24,7 @@ namespace ScriptEditor
 		public int AfterImage_time { get; set; } = 0;	//残像[F] 持続
 		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
 		public int Vibration_S { get; set; } = 0;		//振動[F](個別)
-		public Color Color { get; set; } = new Color ();	//色調変更
+		public Color Color { get; set; } = Color.White;	//色調変更
 		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
 
 		//================================================================

@@ -274,17 +274,9 @@ namespace ScriptEditor
 			stgPrm.AfterImage_time	= AtoI ( e, (int)ATTR_SCP.AFTERIMAGE_TIME );	//残像[F] pitch
 			stgPrm.Vibration_S		= AtoI ( e, (int)ATTR_SCP.VIBRATION_S );		//振動[F](個別)
 
-
-
-			//todo インデックスが無い
-
 			int indexColorName = (int)ATTR_SCP.COLOR;
 			string colorName = e.Attributes [ indexColorName ].Value;
-			stgPrm.Color		= Color.FromName ( colorName );	//色調変更
-			
-			
-			
-			
+			stgPrm.Color		= Color.FromName ( colorName );	//色調変更			
 			
 			stgPrm.Color_time	= AtoI ( e, (int)ATTR_SCP.COLOR_TIME );				//色調変更[F]
 		}

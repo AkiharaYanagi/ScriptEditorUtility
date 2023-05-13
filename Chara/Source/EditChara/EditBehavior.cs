@@ -52,7 +52,7 @@ namespace ScriptEditor
 		//追加
 		public void AddAction ()
 		{
-			Compend.BD_Sequence.Add ( new Action ( "new Action" ) );
+			Compend.BD_Sequence.Add ( new Action () );
 		}
 		public void AddAction ( Action action )
 		{
@@ -62,7 +62,7 @@ namespace ScriptEditor
 		//挿入
 		public void InsertAction ( int index )
 		{
-			base.InsertSequence ( index, new Action ( "new Action" ) );
+			base.InsertSequence ( index, new Action () );
 		}
 
 		//削除

@@ -14,7 +14,7 @@ namespace ScriptEditor
 		{
 		}
 
-		//テスト
+		//総合テスト
 		public void Test ( Chara ch )
 		{
 			//EditCharaに設定
@@ -30,6 +30,7 @@ namespace ScriptEditor
 			//名前指定
 //			TestNameAssign ( ch );
 		}
+
 
 
 		//=====================================================================
@@ -129,6 +130,41 @@ namespace ScriptEditor
 				}
 			}
 		}
+
+		//-----------------------------------------------------------
+		//IOテスト
+
+		//対象ファイル名
+		private const string Filename = "testChara.dat";
+		private const string FilenameBin = "testCharaBin.dat";
+
+		public void TestIO ( Chara ch )
+		{
+			TestIO_Document ( ch );
+			TestIO_Bin ( ch );
+		}
+
+		//ドキュメント
+		public void TestIO_Document ( Chara ch )
+		{
+			SaveChara saveChara = new SaveChara ();
+			saveChara.Do ( Filename, ch );
+
+			LoadChara loadChara = new LoadChara ();
+			loadChara.Do ( Filename, ch );
+		}
+
+		//バイナリ
+		public void TestIO_Bin ( Chara ch )
+		{
+			SaveCharaBin saveCharaBin = new SaveCharaBin ();
+			saveCharaBin.Do ( FilenameBin, ch );
+
+			LoadCharaBin loadCharaBin = new LoadCharaBin ();
+			loadCharaBin.Do ( FilenameBin, ch );
+
+		}
+
 
 	}
 

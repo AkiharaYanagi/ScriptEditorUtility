@@ -107,7 +107,7 @@ namespace ScriptEditor
 				LoadBinListRect ( br, scp.ListORect );
 
 				//エフェクト生成
-				int nEfGnrt = br.ReadByte ();
+				int nEfGnrt = br.ReadByte ();	//個数[byte]
 				for ( int iEG = 0; iEG < nEfGnrt; ++ iEG )
 				{
 					EffectGenerate efgnrt = new EffectGenerate ()

@@ -74,9 +74,14 @@ namespace ScriptEditor
 			MakeBranchData mk_brc = new MakeBranchData ();
 			mk_brc.Make ( ch );
 
+			ch.BD_Branch[0].NameCommand = ch.BD_Command[0].Name;
+			ch.BD_Branch[0].NameSequence = ch.behavior.BD_Sequence[0].Name;
+
 			//ルートの作成
 			MakeRouteData mk_rut = new MakeRouteData ();
 			mk_rut.Make ( ch );
+
+			//ch.BD_Route[0].BD_BranchName[0] = new TName ( ch.BD_Branch[0].Name );
 
 			//エフェクト（ガーニッシュ）のテスト
 			MakeGarnish ( ch );

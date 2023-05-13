@@ -16,8 +16,12 @@
 	//アクション
 	public class Action : Sequence 
 	{
+		//デフォルトアクション名
+		public const string ActionName = "New_Action";
+
 		//次アクション名
-		public string NextActionName { get; set; } = "Stand";
+		//(空オブジェクト時にも指定しないと名前チェックエラーになる)
+		public string NextActionName { get; set; } = ActionName;
 
 		//アクション属性
 		public ActionCategory Category { get; set; } = ActionCategory.NEUTRAL;
@@ -39,12 +43,19 @@
 		//コンストラクタ
 		public Action ()	//ロード時に空白が必要
 		{
+			//IName
+			this.Name = ActionName;
+			NextActionName = ActionName;
 		}
 
 		//引数付きコンストラクタ
 		public Action ( string str ) : base ( str )
 		{
 			//@info baseのコンストラクタの後でbase.Clear()が呼ばれてしまうのでClear()を用いない
+		
+			//IName
+			this.Name = str;
+			NextActionName = str;
 		}
 
 		//継承元から生成するコンストラクタ
