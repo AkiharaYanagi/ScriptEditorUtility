@@ -119,6 +119,7 @@ namespace ScriptEditor
 		//引数：ストリーム
 		public Document ( Stream stream )
 		{
+			stream.Seek ( 0, SeekOrigin.Begin );
 			StreamReader streamReader = new StreamReader ( stream, Encoding.UTF8 );
 			DocumentFromStream ( streamReader );
 		}

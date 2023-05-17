@@ -27,8 +27,6 @@ namespace ScriptEditor
 			//テスト
 			TestChara TestChara = new TestChara ();
 			TestChara.Test ( chara );
-
-			TestChara.TestIO_Document ( chara );
 		}
 
 		//Save

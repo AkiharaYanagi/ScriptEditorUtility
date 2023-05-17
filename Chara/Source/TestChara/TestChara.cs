@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+
 
 namespace ScriptEditor
 {
@@ -28,7 +30,10 @@ namespace ScriptEditor
 			TestClearChara ( copyChara );
 
 			//名前指定
-//			TestNameAssign ( ch );
+			//TestNameAssign ( ch );
+
+			//IOテスト
+			TestIO ( ch );
 		}
 
 
@@ -141,20 +146,39 @@ namespace ScriptEditor
 		public void TestIO ( Chara ch )
 		{
 			TestIO_Document ( ch );
+			TestIO_TextFile ( ch );
 			TestIO_Bin ( ch );
 		}
 
 		//ドキュメント
 		public void TestIO_Document ( Chara ch )
 		{
+			CharaToDoc ctd = new CharaToDoc ();
+			MemoryStream ms = ctd.Run ( ch );
+			Document doc = new Document ( ms );
+
+			Chara ch_new = new Chara ();
+			DocToChara dtc = new DocToChara ();
+			dtc.Load ( doc, ch_new );
+
+			Equal ( ch, ch_new );
+
+			Debug.WriteLine ( "TestIO_Document: OK." );
+		}
+
+		//テキストファイル
+		public void TestIO_TextFile ( Chara ch )
+		{
 			SaveChara saveChara = new SaveChara ();
 			saveChara.Do ( Filename, ch );
 
 			LoadChara loadChara = new LoadChara ();
 			loadChara.Do ( Filename, ch );
+
+			Debug.WriteLine ( "TestIO_TextFile: OK." );
 		}
 
-		//バイナリ
+		//バイナリファイル
 		public void TestIO_Bin ( Chara ch )
 		{
 			SaveCharaBin saveCharaBin = new SaveCharaBin ();
@@ -163,6 +187,7 @@ namespace ScriptEditor
 			LoadCharaBin loadCharaBin = new LoadCharaBin ();
 			loadCharaBin.Do ( FilenameBin, ch );
 
+			Debug.WriteLine ( "TestIO_Bin: OK." );
 		}
 
 

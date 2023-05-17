@@ -7,8 +7,6 @@ using System.Drawing;
 
 namespace ScriptEditor
 {
-	using BD_IDT = BindingDictionary < ImageData >;
-	using BD_SQC = BindingDictionary < Sequence >;
 	using BL_SQC = BindingList < Sequence >;
 	using BD_CMD = BindingDictionary < Command >;
 	using BD_BRC = BindingDictionary < Branch >;
@@ -26,6 +24,7 @@ namespace ScriptEditor
 		//内部参照用
 		private Chara Chara = null;
 
+		//外部呼出し
 		public MemoryStream Run ( Chara ch )
 		{
 			MemoryStream ms = null;
@@ -38,11 +37,16 @@ namespace ScriptEditor
 			{
 				System.Windows.Forms.MessageBox.Show ( e.ToString (), "name error" );
 			}
+			catch ( Exception e )
+			{
+				System.Windows.Forms.MessageBox.Show ( e.ToString () );
+			}
 			
 			return ms;
 		}
 		
-		public MemoryStream _Run ( Chara ch )
+		//内部実行用
+		private MemoryStream _Run ( Chara ch )
 		{
 			Chara = ch;
 
