@@ -25,14 +25,14 @@ namespace ScriptEditor
 			Behavior bhv = chara.behavior;
 
 			//アクション個数
-			int N_Act = br.ReadByte ();
+			uint N_Act = br.ReadUInt32 ();
 
-			for ( int i = 0; i < N_Act; ++ i )
+			for ( uint i = 0; i < N_Act; ++ i )
 			{
 				Action act = new Action ()
 				{
 					Name = br.ReadString (),
-					NextActionName = "Act_" + br.ReadByte ().ToString(),	//後に名前に変換する
+					NextActionName = "Act_" + br.ReadUInt32 ().ToString(),	//uintから後に名前に変換する
 					Category = (ActionCategory) br.ReadByte (),
 					Posture = (ActionPosture) br.ReadByte (),
 					HitNum = br.ReadByte (),
@@ -62,9 +62,9 @@ namespace ScriptEditor
 			Garnish gns = chara.garnish;
 
 			//エフェクト個数
-			int N_Efc = br.ReadByte ();
+			uint N_Efc = br.ReadUInt32 ();
 
-			for ( int i = 0; i < N_Efc; ++ i )
+			for ( uint i = 0; i < N_Efc; ++ i )
 			{
 				Effect efc = new Effect ()
 				{
@@ -82,22 +82,22 @@ namespace ScriptEditor
 		private void LoadBinListScript ( BinaryReader br, List<Script> lscp )
 		{
 			//スクリプト個数
-			int N_Scp = br.ReadByte ();
+			uint N_Scp = br.ReadUInt32 ();
 			
-			for ( int i = 0; i < N_Scp; ++ i )
+			for ( uint i = 0; i < N_Scp; ++ i )
 			{
 				Script scp = new Script ()
 				{
-					ImgName = "Img_" + br.ReadByte ().ToString (),	//後にイメージ名に変換
+					ImgName = "Img_" + br.ReadUInt32 ().ToString (),	//後にイメージ名に変換
 					Pos = new Point ( br.ReadInt32 (), br.ReadInt32 () ),
 				};
 
 				//ルート名リスト
-				int nRut = br.ReadByte ();
-				for ( int iRut = 0; iRut < nRut; ++ iRut )
+				uint nRut = br.ReadUInt32 ();
+				for ( uint iRut = 0; iRut < nRut; ++ iRut )
 				{
 					//後にルート名に変換
-					scp.BD_RutName.Add ( new TName ( "Rut_" + br.ReadByte ().ToString () ) );
+					scp.BD_RutName.Add ( new TName ( "Rut_" + br.ReadUInt32 ().ToString () ) );
 				}
 
 				//枠リスト
@@ -107,8 +107,8 @@ namespace ScriptEditor
 				LoadBinListRect ( br, scp.ListORect );
 
 				//エフェクト生成
-				int nEfGnrt = br.ReadByte ();	//個数[byte]
-				for ( int iEG = 0; iEG < nEfGnrt; ++ iEG )
+				uint nEfGnrt = br.ReadUInt32 ();	//個数[uint]
+				for ( uint iEG = 0; iEG < nEfGnrt; ++ iEG )
 				{
 					EffectGenerate efgnrt = new EffectGenerate ()
 					{ 
@@ -177,8 +177,8 @@ namespace ScriptEditor
 		//コマンド
 		private void LoadBinCommand ( BinaryReader br, Chara chara )
 		{
-			int N = br.ReadByte ();
-			for ( int i = 0; i < N; ++ i )
+			uint N = br.ReadUInt32 ();
+			for ( uint i = 0; i < N; ++ i )
 			{
 				Command cmd = new Command ()
 				{
@@ -220,16 +220,16 @@ namespace ScriptEditor
 		//ブランチ
 		private void LoadBinBranch ( BinaryReader br, Chara chara )
 		{
-			int N = br.ReadByte ();
-			for ( int i = 0; i < N; ++ i )
+			uint N = br.ReadUInt32 ();
+			for ( uint i = 0; i < N; ++ i )
 			{
 				Branch brc = new Branch ()
 				{
 					Name = br.ReadString (),
 					Condition = (BranchCondition)br.ReadByte (),
-					NameCommand = "Cmd_" + br.ReadByte (),
-					NameSequence = "Seq_" + br.ReadByte (),
-					Frame = br.ReadByte (),
+					NameCommand = "Cmd_" + br.ReadUInt32 (),
+					NameSequence = "Seq_" + br.ReadUInt32 (),
+					Frame = (int)br.ReadUInt32 (),
 				};
 				chara.BD_Branch.Add ( brc );
 			}
@@ -251,19 +251,19 @@ namespace ScriptEditor
 		private void LoadBinRoute ( BinaryReader br, Chara chara )
 		{
 			//ルート個数
-			int N = br.ReadByte ();
-			for ( int i = 0; i < N; ++ i )
+			uint N = br.ReadUInt32 ();
+			for ( uint i = 0; i < N; ++ i )
 			{
 				Route rut = new Route ()
 				{
 					Name = br.ReadString (),
 				};
 				//ブランチ個数
-				int N_Brc = br.ReadByte ();
-				for ( int iBrc = 0; iBrc < N_Brc; ++ iBrc )
+				uint N_Brc = br.ReadUInt32 ();
+				for ( uint iBrc = 0; iBrc < N_Brc; ++ iBrc )
 				{
 					TName t = new TName ();
-					t.Name = "Brc_" + br.ReadByte ();
+					t.Name = "Brc_" + br.ReadUInt32 ();
 					rut.BD_BranchName.Add ( t );
 				}
 

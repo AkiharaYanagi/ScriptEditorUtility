@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 
 namespace ScriptEditor
 {
@@ -33,11 +35,34 @@ namespace ScriptEditor
 		}
 
 		//名前の更新
+		// "[通し番号000]_[シークエンス名]_[シークエンス内番号00].png"
 		public void UpdateName ()
 		{
+			//シークエンスデータに名前を反映
 			foreach ( SequenceData sqcDt in L_Sqc.GetBindingList () )
 			{
 				sqcDt.SetName ( sqcDt.Name );
+			}
+
+			//---------------------------------------------
+			//各イメージに名前をつける
+			//名前検索用
+			List < string > L_sqcName = new List < string > ();
+
+			int sqc_index = 0;	//シークエンス番号
+			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
+			{
+				string sqcName = sqcDt.Name;
+				int img_index = 0;
+				foreach ( ImageData imgdt in sqcDt.BD_ImgDt.GetEnumerable() )
+				{
+					string s0 = sqc_index.ToString ("000") + "_";
+					string s1 = sqcDt.Name + "_" ;
+					string s2 = img_index.ToString ("00") + ".png";
+					imgdt.Name = s0 + s1 + s2;
+					++ img_index;
+				}
+				++ sqc_index;
 			}
 		}
 

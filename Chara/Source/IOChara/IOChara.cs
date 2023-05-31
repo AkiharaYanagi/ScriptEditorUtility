@@ -10,6 +10,9 @@ namespace ScriptEditor
 	//
 	//==================================================================================
 	
+	//@info 自由個数設定の値はbyteではなく、uintにする
+
+
 	public static class IO_CONST
 	{
 		public const uint VER = 110;

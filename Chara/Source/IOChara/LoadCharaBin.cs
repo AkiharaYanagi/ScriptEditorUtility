@@ -89,11 +89,11 @@ namespace ScriptEditor
 		public void LoadImage ( BinaryReader br, BD_Img bd_img )
 		{
 			//イメージ個数
-			byte n = br.ReadByte ();
+			uint n = br.ReadUInt32 ();
 
 			for ( uint ui = 0; ui < n; ++ ui )
 			{
-				//サイズ( uint -> int )
+				//サイズ( uint -> int ) ( br.ReadBytes(size) のためint )
 				int size = (int)br.ReadUInt32 ();
 				//一時領域
 				byte[] buffer = new byte [ size ];

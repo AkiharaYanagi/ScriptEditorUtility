@@ -30,7 +30,7 @@ namespace ScriptEditor
 			TestClearChara ( copyChara );
 
 			//名前指定
-			//TestNameAssign ( ch );
+			TestNameAssign ( ch );
 
 			//IOテスト
 			TestIO ( ch );

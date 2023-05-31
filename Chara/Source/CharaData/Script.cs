@@ -45,7 +45,7 @@ namespace ScriptEditor
 		//表示
 		//--------------------------------------------------------------------
 		//表示画像 名前指定
-		public string ImgName { get; set; } = "ImgName";
+		public string ImgName { get; set; } = "ImgName.png";
 
 		//--------------------------------------------------------------------
 		//位置

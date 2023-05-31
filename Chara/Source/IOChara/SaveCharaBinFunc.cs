@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Drawing;
 using System.Collections.Generic;
 
@@ -21,17 +19,17 @@ namespace ScriptEditor
 		{
 			//Action : Sequence
 			Behavior bhv = chara.behavior;
-			byte nAct = (byte)bhv.BD_Sequence.Count ();
+			uint nAct = (uint)bhv.BD_Sequence.Count ();
 			bw.Write ( nAct );
 			foreach ( Action act in bhv.BD_Sequence.GetEnumerable () )
 			{
 				bw.Write ( act.Name );		//string (length , [UTF8])
-				bw.Write ( (byte)chara.GetIndexOfAction ( act.NextActionName ) ); 
+				bw.Write ( (uint)chara.GetIndexOfAction ( act.NextActionName ) ); 
 				bw.Write ( (byte)act.Category );
 				bw.Write ( (byte)act.Posture );
 				bw.Write ( (byte)act.HitNum );
 				bw.Write ( (byte)act.HitPitch );
-				bw.Write ( act.Balance );
+				bw.Write ( act.Balance );	//[int]
 
 				SaveBinListScript ( bw, chara, act.ListScript );
 			}
@@ -42,7 +40,7 @@ namespace ScriptEditor
 		{
 			//Effect : Sequence
 			Garnish gns = chara.garnish;
-			byte nGns = (byte)gns.BD_Sequence.Count ();
+			uint nGns = (uint)gns.BD_Sequence.Count ();
 			bw.Write ( nGns );
 			foreach ( Effect efc in gns.BD_Sequence.GetEnumerable () )
 			{
@@ -55,8 +53,8 @@ namespace ScriptEditor
 		//Command
 		public void SaveBinCommand ( BinaryWriter bw, Chara chara )
 		{
-			//個数 [1byte]
-			byte nCommand = (byte)chara.BD_Command.Count ();
+			//個数 [uint]
+			uint nCommand = (uint)chara.BD_Command.Count ();
 			bw.Write ( nCommand );
 
 			//実データ [sizeof ( Command ) * n]
@@ -92,8 +90,8 @@ namespace ScriptEditor
 		//Branch
 		void SaveBinBranch ( BinaryWriter bw, Chara chara )
 		{
-			//個数 [1byte]
-			byte nBrc = (byte)chara.BD_Branch.Count ();
+			//個数 [uint]
+			uint nBrc = (uint)chara.BD_Branch.Count ();
 			bw.Write ( nBrc );
 
 			//実データ [sizeof ( Branch ) * n]
@@ -101,9 +99,9 @@ namespace ScriptEditor
 			{
 				bw.Write ( brc.Name );		//string (length , [UTF8])
 				bw.Write ( (byte)brc.Condition );	//enum -> byte
-				bw.Write ( (byte)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> byte
-				bw.Write ( (byte)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> byte
-				bw.Write ( (byte)brc.Frame );	//int -> byte
+				bw.Write ( (uint)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> uint
+				bw.Write ( (uint)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> uint
+				bw.Write ( (uint)brc.Frame );	//int -> byte
 			}
 
 		}
@@ -112,19 +110,19 @@ namespace ScriptEditor
 		//Route
 		void SaveBinRoute ( BinaryWriter bw, Chara chara )
 		{
-			//個数 [1byte]
-			byte nRut = (byte)chara.BD_Route.Count ();
+			//個数 [uint]
+			uint nRut = (uint)chara.BD_Route.Count ();
 			bw.Write ( nRut );
 
 			//実データ [sizeof ( Route ) * n]
 			foreach ( Route rut in chara.BD_Route.GetEnumerable () )
 			{
 				bw.Write ( rut.Name );      //string (length , [UTF8])
-				byte nBrnName = (byte)rut.BD_BranchName.Count ();
-				bw.Write ( nBrnName );
+				uint nBrnName = (uint)rut.BD_BranchName.Count ();
+				bw.Write ( nBrnName );	//[uint]
 				foreach ( TName brcName in rut.BD_BranchName.GetEnumerable () )
 				{
-					bw.Write ( (byte)chara.GetIndexOfBranch ( brcName.Name ) );	//int -> byte
+					bw.Write ( (uint)chara.GetIndexOfBranch ( brcName.Name ) );	//int -> uint
 				}
 			}
 		}
@@ -133,22 +131,24 @@ namespace ScriptEditor
 		//ListScript
 		void SaveBinListScript ( BinaryWriter bw, Chara chara, List < Script > lsScp )
 		{
-			byte nScp = (byte)lsScp.Count;
+			uint nScp = (uint)lsScp.Count;
 			bw.Write ( nScp ); 
 			foreach ( Script scp in lsScp )
 			{ 
 				//イメージインデックス
-				bw.Write ( (byte)chara.GetIndexOfImage ( scp.ImgName ) );
+				uint img = (uint)chara.GetIndexOfImage ( scp.ImgName );
+				bw.Write ( img );
+
 
 				//位置
 				bw.Write ( scp.Pos.X );		//int
 				bw.Write ( scp.Pos.Y );		//int
 					
 				//ルート
-				bw.Write ( (byte)scp.BD_RutName.Count() );
+				bw.Write ( (uint)scp.BD_RutName.Count() );
 				foreach ( TName tn in scp.BD_RutName.GetEnumerable () )
 				{
-					bw.Write ( (byte)chara.GetIndexOfRoute ( tn.Name ) );
+					bw.Write ( (uint)chara.GetIndexOfRoute ( tn.Name ) );
 				}
 
 				//枠
@@ -158,10 +158,10 @@ namespace ScriptEditor
 				SaveBinListRect ( bw, scp.ListORect );
 
 				//エフェクト生成
-				bw.Write ( (byte)scp.BD_EfGnrt.Count () );	//個数[byte]
+				bw.Write ( (uint)scp.BD_EfGnrt.Count () );	//個数[byte]
 				foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
 				{ 
-					bw.Write ( (byte)chara.GetIndexOfEffect ( efGnrt.EfName ) );	//uint
+					bw.Write ( (uint)chara.GetIndexOfEffect ( efGnrt.EfName ) );	//uint
 					bw.Write ( efGnrt.Pt.X );	//int
 					bw.Write ( efGnrt.Pt.Y );	//int
 					bw.Write ( efGnrt.Z_PER100F );		//int

@@ -37,15 +37,22 @@ namespace ScriptEditor
 			if ( 0 == filepaths.Length )
 			{
 				//Imageを作成する
+				string filename = "000_ImgName.png";
 				Bitmap bmp = new Bitmap ( 128, 128 );
 				Graphics g = Graphics.FromImage ( bmp );
 				Font f = new Font ( "Meiryo UI", 20 );
 				g.DrawString ( "ダミー", f, Brushes.OrangeRed, 32, 64 );
 				f.Dispose ();
 				g.Dispose ();
-				bmp.Save ( imageDir + "\\000_dummy.png", System.Drawing.Imaging.ImageFormat.Png );
-				bmp.Dispose ();
+				bmp.Save ( imageDir + "//" + filename, System.Drawing.Imaging.ImageFormat.Png );
 				filepaths = Directory.GetFiles ( imageDir );
+
+				//イメージリストに追加する
+				string fn = filename.Substring ( 4 );	//先頭のインデックス("ddd_")を除く
+				ImageData imageData = new ImageData ( fn, bmp );
+				imageList.Add ( imageData );
+
+				bmp.Dispose ();
 			}
 			else
 			{
@@ -100,7 +107,6 @@ namespace ScriptEditor
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 			EditSequence ea = eb.EditSequence;
 			BD_Seq bd_act = chara.behavior.BD_Sequence;
-
 
 			//----------------------------------------------------------------
 			//Stand
