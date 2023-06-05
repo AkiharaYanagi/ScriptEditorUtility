@@ -91,6 +91,12 @@
     <Compile Include="Ctrl_Branch.Designer.cs">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ctrl_EfGnrt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ctrl_EfGnrt.Designer.cs">
+      <DependentUpon>Ctrl_EfGnrt.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListRect\Ctrl_AllRect.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ctrl_Branch.resx">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ctrl_EfGnrt.resx">
+      <DependentUpon>Ctrl_EfGnrt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListRect\Ctrl_AllRect.resx">
       <DependentUpon>Ctrl_AllRect.cs</DependentUpon>
