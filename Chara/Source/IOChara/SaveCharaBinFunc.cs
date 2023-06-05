@@ -31,7 +31,7 @@ namespace ScriptEditor
 				bw.Write ( (byte)act.HitPitch );
 				bw.Write ( act.Balance );	//[int]
 
-				SaveBinListScript ( bw, chara, act.ListScript );
+				SaveBinListScript ( bw, chara, act.ListScript, chara.behavior );
 			}
 		}
 		//---------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace ScriptEditor
 			foreach ( Effect efc in gns.BD_Sequence.GetEnumerable () )
 			{
 				bw.Write ( efc.Name );		//string (length , [UTF8])
-				SaveBinListScript ( bw, chara, efc.ListScript );
+				SaveBinListScript ( bw, chara, efc.ListScript, chara.garnish );
 			}
 		}
 
@@ -129,15 +129,16 @@ namespace ScriptEditor
 
 		//---------------------------------------------------------------------
 		//ListScript
-		void SaveBinListScript ( BinaryWriter bw, Chara chara, List < Script > lsScp )
+		//behaviorとgarnishでイメージインデックスの検索元が異なるので引数Compendで指定する
+		void SaveBinListScript ( BinaryWriter bw, Chara chara, List < Script > lsScp, Compend cmp )
 		{
 			uint nScp = (uint)lsScp.Count;
 			bw.Write ( nScp ); 
 			foreach ( Script scp in lsScp )
 			{ 
 				//イメージインデックス
-				uint img = (uint)chara.GetIndexOfImage ( scp.ImgName );
-				bw.Write ( img );
+				uint imgIndex = (uint)cmp.BD_Image.IndexOf ( scp.ImgName );
+				bw.Write ( (uint)imgIndex );
 
 
 				//位置

@@ -130,10 +130,16 @@
 			return BD_Route.IndexOf ( nameRoute );
 		}
 
-		//イメージ
-		public int GetIndexOfImage ( string nameImage )
+		//メインイメージ
+		public int GetIndexOfMainImage ( string nameImage )
 		{
 			return behavior.BD_Image.IndexOf ( nameImage );
+		}
+
+		//EFイメージ
+		public int GetIndexOfEFImage ( string nameImage )
+		{
+			return garnish.BD_Image.IndexOf ( nameImage );
 		}
 	}
 }
