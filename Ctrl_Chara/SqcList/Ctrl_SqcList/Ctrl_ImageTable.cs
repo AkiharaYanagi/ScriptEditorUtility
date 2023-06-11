@@ -221,5 +221,21 @@ namespace ScriptEditor
 				XML_IO.Save ( Ctrl_Stgs );
 			}
 		}
+
+		//ボタン：フォルダ
+		private void Btn_Folder_Click ( object sender, System.EventArgs e )
+		{
+			try
+			{
+				//ディレクトリだったら更新
+				if ( File.GetAttributes ( Tb_ImgDir.Text ).HasFlag ( FileAttributes.Directory ) )
+				{
+					FormUtility.OpenDir ( Tb_ImgDir.Text );
+				}
+			}
+			catch ( System.Exception exc )
+			{
+			}
+		}
 	}
 }

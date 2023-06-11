@@ -36,6 +36,7 @@
 			this.Btn_Load = new System.Windows.Forms.Button();
 			this.Btn_Save = new System.Windows.Forms.Button();
 			this.Btn_ImgDir = new System.Windows.Forms.Button();
+			this.Btn_Folder = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pB_Sqc1)).BeginInit();
 			this.SuspendLayout();
@@ -122,6 +123,18 @@
 			this.Btn_ImgDir.UseVisualStyleBackColor = true;
 			this.Btn_ImgDir.Click += new System.EventHandler(this.Btn_ImgDir_Click);
 			// 
+			// Btn_Folder
+			// 
+			this.Btn_Folder.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.Btn_Folder.Font = new System.Drawing.Font("MS UI Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Folder.Location = new System.Drawing.Point(280, 26);
+			this.Btn_Folder.Name = "Btn_Folder";
+			this.Btn_Folder.Size = new System.Drawing.Size(102, 21);
+			this.Btn_Folder.TabIndex = 4;
+			this.Btn_Folder.Text = "フォルダ";
+			this.Btn_Folder.UseVisualStyleBackColor = false;
+			this.Btn_Folder.Click += new System.EventHandler(this.Btn_Folder_Click);
+			// 
 			// Ctrl_ImageTable
 			// 
 			this.AllowDrop = true;
@@ -129,6 +142,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.Btn_ImgDir);
 			this.Controls.Add(this.Btn_Save);
+			this.Controls.Add(this.Btn_Folder);
 			this.Controls.Add(this.Btn_Load);
 			this.Controls.Add(this.Tb_ImgDir);
 			this.Controls.Add(this.Btn_Clear);
@@ -153,5 +167,6 @@
 		private System.Windows.Forms.Button Btn_Load;
 		private System.Windows.Forms.Button Btn_Save;
 		private System.Windows.Forms.Button Btn_ImgDir;
+		private System.Windows.Forms.Button Btn_Folder;
 	}
 }

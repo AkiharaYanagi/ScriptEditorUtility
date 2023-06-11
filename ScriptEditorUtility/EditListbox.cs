@@ -36,7 +36,7 @@ namespace ScriptEditor
 		public Func_Save Func_Save { get; set; } = (ob,sw)=>{};
 		public Func_Load Func_Load { get; set; } = sr=>{};
 		public string FilePath { get; set; } = "";
-		public System.Action < string > Func_SavePath = (s)=>{};	//パスの保存
+		public System.Action < string > Func_SavePath = s=>{};	//パスの保存
 
 		//保存ファイル名
 		public string SaveOneFileName { get; set; } = "SaveOneFile.txt";
@@ -101,7 +101,8 @@ namespace ScriptEditor
 			UpdateData?.Invoke ();
 		}
 
-		//リストボックスの手動描画
+		//リストボックスの各１項目に対しての手動描画
+		//（選択状態 または 指定条件 に該当するものを強調表示）
 		private void ListBox1_DrawItem ( object sender, DrawItemEventArgs e )
 		{
 			if ( e.Index < 0 ) { return; }
@@ -325,6 +326,7 @@ namespace ScriptEditor
 			IO_Btn_On ();
 		}
 
+		//入出力ボタンの表示設定
 		public void IO_Visible ( bool b )
 		{
 			Btn_SaveOne.Visible = b;
@@ -340,6 +342,7 @@ namespace ScriptEditor
 			Btn_Folder.Visible = b;
 		}
 
+		//入出力ボタンの動作オフ(表示はする)
 		public void IO_Btn_Off ()
 		{
 			Color clr = Color.FromArgb ( 255, 192, 192, 192 );
@@ -356,6 +359,7 @@ namespace ScriptEditor
 			Btn_Folder.Enabled = false;
 		}
 
+		//入出力ボタンの動作オン
 		public void IO_Btn_On ()
 		{
 			Color clrS = Color.FromArgb ( 255, 192, 192, 255 );

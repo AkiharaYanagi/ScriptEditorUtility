@@ -24,6 +24,7 @@ namespace ScriptEditor
 
 			//コントロール初期化
 			Ctrl_SqcList ctrl_SqcList1 = new Ctrl_SqcList ();
+			//配置
 			this.Controls.Add ( ctrl_SqcList1 );
 
 			//データ

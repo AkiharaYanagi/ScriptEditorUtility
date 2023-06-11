@@ -38,22 +38,28 @@ namespace ScriptEditor
 		//環境設定
 		public void SetEnviroment ( CTRL_SQC cs, System.Func < Sequence > new_object, Ctrl_Settings stgs )
 		{
+			//シークエンス継承フラグ(アクション、エフェクト)
 			flag_sqc_derived = cs;
 			switch ( flag_sqc_derived )
 			{
 			case CTRL_SQC.ACTION: 
 				ctrl_ImageTable1.SetAction (); 
 				label1.Text = "[アクション]";
+				ELB_Sqc.FilePath = stgs.File_ActionList;
 				break;
 			case CTRL_SQC.EFFECT: 
 				ctrl_ImageTable1.SetEffect ();
 				label1.Text = "[エフェクト]";
+				ELB_Sqc.FilePath = stgs.File_EffectList;
 				break;
 			default: break;
-			}
-
+			}			
+			
+			//新規オブジェクトの確保Func New()を指定
 			New_Object = new_object;
 			ELB_Sqc.New_T = ()=>new SequenceData(){Sqc=new_object()};
+			
+			//ディレクトリ設定
 			Ctrl_Stgs = stgs;
 			ctrl_ImageTable1.SetEnviroment ( cs, EditData, stgs );
 		}
