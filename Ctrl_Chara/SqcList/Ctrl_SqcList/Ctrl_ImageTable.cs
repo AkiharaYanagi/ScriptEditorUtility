@@ -235,6 +235,7 @@ namespace ScriptEditor
 			}
 			catch ( System.Exception exc )
 			{
+				STS_TXT.Trace ( exc.ToString () );
 			}
 		}
 	}

@@ -42,6 +42,11 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_balance_I = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_balance_E = new Cmpnt_Int();
 
+		private Cmpnt_Int cmpnt_rotate = new Cmpnt_Int ();
+
+		private Cmpnt_Int cmpnt_r_center_x = new Cmpnt_Int();
+		private Cmpnt_Int cmpnt_r_center_y = new Cmpnt_Int();
+
 		//編集対象を切り替えるラジオボタン
 		private RB_ScriptTarget rb_ScpTgt = new RB_ScriptTarget ();
 
@@ -73,6 +78,9 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_recoil_E );
 			ls_ctrl_scpPrm.Add ( cmpnt_balance_I );
 			ls_ctrl_scpPrm.Add ( cmpnt_balance_E );
+			ls_ctrl_scpPrm.Add ( cmpnt_rotate);
+			ls_ctrl_scpPrm.Add ( cmpnt_r_center_x );
+			ls_ctrl_scpPrm.Add ( cmpnt_r_center_y );
 
 			//コンポーネントの追加
 			foreach ( Control ctrl in ls_ctrl_scpPrm )
@@ -94,6 +102,9 @@ namespace ScriptEditor
 			cmpnt_recoil_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Recoil_E=i, s=>s.BtlPrm.Recoil_E ) );
 			cmpnt_balance_I.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_I=i, s=>s.BtlPrm.Blance_I ) );
 			cmpnt_balance_E.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.Blance_E=i, s=>s.BtlPrm.Blance_E ) );
+			cmpnt_rotate.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Rotate=i, s=>s.StgPrm.Rotate ) );
+			cmpnt_r_center_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetRotate_centerX(i), s=>s.StgPrm.Rotate_center.X ) );
+			cmpnt_r_center_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetRotate_centerY(i), s=>s.StgPrm.Rotate_center.Y ) );
 
 			//コンポーネントの位置
 			cmpnt_ClcSt.Location	 = new Point ( 220		, BY );
@@ -109,6 +120,9 @@ namespace ScriptEditor
 			cmpnt_recoil_E.Location	 = new Point ( BX + PX	, BY + PY * 5 );
 			cmpnt_balance_I.Location = new Point ( BX		, BY + PY * 6 );
 			cmpnt_balance_E.Location = new Point ( BX + PX	, BY + PY * 6 );
+			cmpnt_rotate.Location	 = new Point ( BX		, BY + PY * 7 );
+			cmpnt_r_center_x.Location = new Point ( BX		, BY + PY * 8 );
+			cmpnt_r_center_y.Location = new Point ( BX + PX	, BY + PY * 8 );
 
 			//初期化
 			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )

@@ -40,6 +40,8 @@
 			this.Lbl_Warp = new System.Windows.Forms.Label();
 			this.Lbl_Recoil = new System.Windows.Forms.Label();
 			this.Lbl_Balance = new System.Windows.Forms.Label();
+			this.Lbl_Rotate = new System.Windows.Forms.Label();
+			this.Lbl_Center = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// Lbl_Pos
@@ -82,7 +84,7 @@
 			// Lbl_Frame
 			// 
 			this.Lbl_Frame.AutoSize = true;
-			this.Lbl_Frame.Location = new System.Drawing.Point(2, 67);
+			this.Lbl_Frame.Location = new System.Drawing.Point(3, 67);
 			this.Lbl_Frame.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.Lbl_Frame.Name = "Lbl_Frame";
 			this.Lbl_Frame.Size = new System.Drawing.Size(37, 12);
@@ -111,7 +113,7 @@
 			// Lbl_Power
 			// 
 			this.Lbl_Power.AutoSize = true;
-			this.Lbl_Power.Location = new System.Drawing.Point(1, 192);
+			this.Lbl_Power.Location = new System.Drawing.Point(3, 190);
 			this.Lbl_Power.Name = "Lbl_Power";
 			this.Lbl_Power.Size = new System.Drawing.Size(36, 12);
 			this.Lbl_Power.TabIndex = 1;
@@ -120,7 +122,7 @@
 			// Lbl_Acc
 			// 
 			this.Lbl_Acc.AutoSize = true;
-			this.Lbl_Acc.Location = new System.Drawing.Point(2, 159);
+			this.Lbl_Acc.Location = new System.Drawing.Point(3, 160);
 			this.Lbl_Acc.Name = "Lbl_Acc";
 			this.Lbl_Acc.Size = new System.Drawing.Size(49, 12);
 			this.Lbl_Acc.TabIndex = 1;
@@ -138,7 +140,7 @@
 			// Lbl_Recoil
 			// 
 			this.Lbl_Recoil.AutoSize = true;
-			this.Lbl_Recoil.Location = new System.Drawing.Point(2, 247);
+			this.Lbl_Recoil.Location = new System.Drawing.Point(3, 250);
 			this.Lbl_Recoil.Name = "Lbl_Recoil";
 			this.Lbl_Recoil.Size = new System.Drawing.Size(61, 12);
 			this.Lbl_Recoil.TabIndex = 1;
@@ -147,16 +149,36 @@
 			// Lbl_Balance
 			// 
 			this.Lbl_Balance.AutoSize = true;
-			this.Lbl_Balance.Location = new System.Drawing.Point(1, 275);
+			this.Lbl_Balance.Location = new System.Drawing.Point(3, 280);
 			this.Lbl_Balance.Name = "Lbl_Balance";
 			this.Lbl_Balance.Size = new System.Drawing.Size(70, 12);
 			this.Lbl_Balance.TabIndex = 1;
 			this.Lbl_Balance.Text = "Balance(I/E)";
 			// 
+			// Lbl_Rotate
+			// 
+			this.Lbl_Rotate.AutoSize = true;
+			this.Lbl_Rotate.Location = new System.Drawing.Point(3, 310);
+			this.Lbl_Rotate.Name = "Lbl_Rotate";
+			this.Lbl_Rotate.Size = new System.Drawing.Size(39, 12);
+			this.Lbl_Rotate.TabIndex = 33;
+			this.Lbl_Rotate.Text = "Rotate";
+			// 
+			// Lbl_Center
+			// 
+			this.Lbl_Center.AutoSize = true;
+			this.Lbl_Center.Location = new System.Drawing.Point(3, 340);
+			this.Lbl_Center.Name = "Lbl_Center";
+			this.Lbl_Center.Size = new System.Drawing.Size(63, 12);
+			this.Lbl_Center.TabIndex = 33;
+			this.Lbl_Center.Text = "Center(X,Y)";
+			// 
 			// _Ctrl_Script
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.Lbl_Center);
+			this.Controls.Add(this.Lbl_Rotate);
 			this.Controls.Add(this.lbl_clc);
 			this.Controls.Add(this.Tb_Img);
 			this.Controls.Add(this.Lbl_Img);
@@ -189,5 +211,7 @@
 		private System.Windows.Forms.Label Lbl_Warp;
 		private System.Windows.Forms.Label Lbl_Recoil;
 		private System.Windows.Forms.Label Lbl_Balance;
+		private System.Windows.Forms.Label Lbl_Rotate;
+		private System.Windows.Forms.Label Lbl_Center;
 	}
 }

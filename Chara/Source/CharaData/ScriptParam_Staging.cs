@@ -19,8 +19,11 @@ namespace ScriptEditor
 
 		//------
 		//演出(個別)
-		public int Radian { get; set; } = 0;		//回転
-		/*回転中心位置*/
+		public int Rotate { get; set; } = 0;		//回転[rad]
+		public Point Rotate_center = new Point ();	//回転中心位置
+		public void SetRotate_center ( int x, int y ) { Rotate_center = new Point ( x, y ); }
+		public void SetRotate_centerX ( int x ) { Rotate_center = new Point ( x, Rotate_center.Y ); }
+		public void SetRotate_centerY ( int y ) { Rotate_center = new Point ( Rotate_center.X, y ); }
 		public int AfterImage_N { get; set; } = 0;		//残像[個]
 		public int AfterImage_time { get; set; } = 0;	//残像[F] 持続
 		public int AfterImage_pitch { get; set; } = 0;	//残像[F] pitch
@@ -42,7 +45,8 @@ namespace ScriptEditor
 			this.Vibration = src.Vibration;
 			this.Stop = src.Stop;
 
-			this.Radian = src.Radian;
+			this.Rotate = src.Rotate;
+			this.Rotate_center = src.Rotate_center;
 			this.AfterImage_pitch = src.AfterImage_pitch;
 			this.AfterImage_N = src.AfterImage_N;
 			this.AfterImage_time = src.AfterImage_time;
@@ -58,7 +62,8 @@ namespace ScriptEditor
 			Vibration = 0;
 			Stop = 0;
 
-			Radian = 0;
+			Rotate = 0;
+			Rotate_center = new Point ( 0, 0 );
 			AfterImage_pitch = 0;
 			AfterImage_N = 0;
 			AfterImage_time = 0;
@@ -74,7 +79,8 @@ namespace ScriptEditor
 			this.Vibration = src.Vibration;
 			this.Stop = src.Stop;
 
-			this.Radian = src.Radian;
+			this.Rotate = src.Rotate;
+			this.Rotate_center = src.Rotate_center;
 			this.AfterImage_pitch = src.AfterImage_pitch;
 			this.AfterImage_N = src.AfterImage_N;
 			this.AfterImage_time = src.AfterImage_time;

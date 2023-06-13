@@ -6,10 +6,10 @@ namespace ScriptEditor
 {
 	//==================================================================================
 	//
-	//	書出読込共通の要素を定義する
+	//	OLD_ 書出読込共通の要素を定義する
 	//
 	//==================================================================================
-	
+
 	//@info 自由個数設定の値はbyteではなく、uintにする
 
 	//Scriptに要素を追加するとき
@@ -20,14 +20,9 @@ namespace ScriptEditor
 	//・TestChara
 	//
 	//・旧データを変換
-
-	public static class IO_CONST
-	{
-		public const uint VER = 110;
-	}
-
+#if false
 	//配列添字取得用
-	public static class IOChara 
+	public static class IOChara
 	{
 		public static int AttrToInt ( Element e, int attr )
 		{
@@ -55,8 +50,9 @@ namespace ScriptEditor
 	{
 		NAME_0 = 0,	
 	}
+#endif
 
-	public enum ELEMENT_CHARA
+	public enum ELEMENT_CHARA_old
 	{
 		VER,
 		MAIN_IMAGE_LIST,
@@ -68,7 +64,7 @@ namespace ScriptEditor
 		ROUTE_LIST,
 	}
 
-	public enum ATTR_ACTION
+	public enum ATTR_ACTION_old
 	{
 		ELAC_NAME,
 		ELAC_NEXT_NAME,
@@ -80,7 +76,7 @@ namespace ScriptEditor
 		ELAC_BALANCE,
 	}
 
-	public enum ATTR_SCP
+	public enum ATTR_SCP_old
 	{
 		GROUP,
 		IMG_NAME,
@@ -97,7 +93,6 @@ namespace ScriptEditor
 		VIBRATION,
 		STOP,
 		ROTATE,
-		ROTATE_X, ROTATE_Y,
 		AFTERIMAGE_PITCH,
 		AFTERIMAGE_N,
 		AFTERIMAGE_TIME,
@@ -106,7 +101,7 @@ namespace ScriptEditor
 		COLOR_TIME,
 	}
 
-	public enum ELEMENT_SCRIPT
+	public enum ELEMENT_SCRIPT_old
 	{
 		ELSC_ROUTE,
 		ELSC_EFGNRT,
@@ -116,14 +111,14 @@ namespace ScriptEditor
 		ELSC_ORECT,
 	}
 
-	public enum ATTRIBUTE_COMMAND
+	public enum ATTRIBUTE_COMMAND_old
 	{
 		NAME,
 		LIMIT_TIME,
 		ID_LVR,
 	}
 
-	public enum ELEMENT_BRANCH
+	public enum ELEMENT_BRANCH_old
 	{
 		ELBR_COMMAND_NAME,
 		ELBR_COMMAND_ID,
@@ -132,7 +127,7 @@ namespace ScriptEditor
 		ELBR_FRAME,
 	}
 
-	public enum ATTR_BRANCH
+	public enum ATTR_BRANCH_old
 	{
 		NAME,
 		CONDITION,
@@ -143,13 +138,13 @@ namespace ScriptEditor
 		FRAME,
 	}
 
-	public enum ATTR_ROUTE
+	public enum ATTR_ROUTE_old
 	{
 		NAME,
 		SUMMARY,
 	}
 
-	public enum ELMT_EFGNRT
+	public enum ELMT_EFGNRT_old
 	{
 		ELEG_NAME,
 		ELEG_EFNAME,

@@ -77,9 +77,11 @@ namespace ScriptEditor
 		public BD_EfGn BD_EfGnrt { get; set; } = new BD_EfGn ();
 
 		//------------------------------------------------
-		//値
+		//　各パラメータ
 		//------------------------------------------------
+		//バトルパラメータ
 		public ScriptParam_Battle BtlPrm = new ScriptParam_Battle ();
+		//演出パラメータ
 		public ScriptParam_Staging StgPrm = new ScriptParam_Staging ();
 
 

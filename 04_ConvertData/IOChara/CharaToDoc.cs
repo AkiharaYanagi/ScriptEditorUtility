@@ -258,7 +258,7 @@ namespace ScriptEditor
 			sw.Write ( " AfterImage_N=\"" + stgPrm.AfterImage_N + "\"" );
 			sw.Write ( " AfterImage_time=\"" + stgPrm.AfterImage_time + "\"" );
 			sw.Write ( " Vibration_S=\"" + stgPrm.Vibration_S + "\"" );
-			sw.Write ( " Color=\"" + stgPrm.Color.ToString() + "\"" );
+			sw.Write ( " Color=\"" + stgPrm.Color + "\"" );
 			sw.Write ( " Color_time=\"" + stgPrm.Color_time + "\"" );
 		}
 
