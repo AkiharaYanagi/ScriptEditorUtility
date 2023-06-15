@@ -103,6 +103,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_ConvertData", "04_Conver
 		{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53} = {8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test09_CtrlCompend", "test09_CtrlCompend\test09_CtrlCompend.csproj", "{06A84C3D-B958-4A16-8075-9066150E109A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,14 @@ Global
 		{0410B7F7-F209-4B4B-B8B0-8D9B83418323}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0410B7F7-F209-4B4B-B8B0-8D9B83418323}.Release|x86.ActiveCfg = Release|Any CPU
 		{0410B7F7-F209-4B4B-B8B0-8D9B83418323}.Release|x86.Build.0 = Release|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Debug|x86.Build.0 = Debug|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Release|x86.ActiveCfg = Release|Any CPU
+		{06A84C3D-B958-4A16-8075-9066150E109A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

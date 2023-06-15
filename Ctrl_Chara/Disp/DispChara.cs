@@ -8,7 +8,7 @@ namespace ScriptEditor
 	//		キャラデータの単位で切り分け、各コントロールを登録する
 	//=========================================================
 
-	public class DispChara
+	public class _DispChara
 	{
 
 	}

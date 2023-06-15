@@ -97,6 +97,9 @@
     <Compile Include="Compend\Ctrl_Image.Designer.cs">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compend\PaintImage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Compend\RB_Tool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -115,6 +118,7 @@
     <Compile Include="Compend\SqcTree.Designer.cs">
       <DependentUpon>SqcTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compend\ToolImage.cs" />
     <Compile Include="Ctrl_Branch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -440,6 +444,23 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resource\tool_ARect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\tool_CRect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\tool_efhand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\tool_hand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\tool_HRect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\tool_ORect.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

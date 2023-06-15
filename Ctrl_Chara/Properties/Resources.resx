@@ -280,4 +280,22 @@
   <data name="_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="tool_ARect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_ARect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tool_CRect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_CRect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tool_efhand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_efhand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tool_hand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_hand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tool_HRect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_HRect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tool_ORect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\tool_ORect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

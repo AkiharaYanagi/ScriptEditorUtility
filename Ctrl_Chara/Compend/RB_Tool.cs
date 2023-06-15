@@ -1,25 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
+using System.Drawing;
 
-namespace Ctrl_Chara.Compend
+
+namespace ScriptEditor
 {
-	public partial class RB_Tool : Component
+
+	//ツール選択ラジオボタン共通クラス
+	public partial class _RB_Tool : RadioButton
 	{
-		public RB_Tool ()
+		//対象ツール
+		public ToolImage Tl_Img { get; set; } = null;
+
+		//表示ツールチップ
+		private ToolTip TLTP = new ToolTip ();
+
+
+		//コンストラクタ
+		public _RB_Tool ()
 		{
 			InitializeComponent ();
+			Appearance = Appearance.Button;
+			ImageAlign = ContentAlignment.MiddleCenter;
+			AutoSize = true;
+			Size = new Size ( 38, 38 );
 		}
 
-		public RB_Tool ( IContainer container )
+		//初期設定
+		public void SetEnviron ( Image img, string tooltip )
 		{
-			container.Add ( this );
-
-			InitializeComponent ();
+			Image = img;
+			TLTP.SetToolTip ( this, tooltip );
 		}
 	}
 }

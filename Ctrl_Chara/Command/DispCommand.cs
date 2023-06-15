@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace ScriptEditor
 {
-	using PR = global::Ctrl_Chara.Properties.Resources;
+	using PR = Properties.Resources;
 	using GK_ST = GameKeyData.GameKeyState;
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;

@@ -1,6 +1,6 @@
-﻿namespace Ctrl_Chara.Compend
+﻿namespace ScriptEditor
 {
-	partial class Ctrl_Image
+	partial class _Ctrl_Image
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。
@@ -35,7 +35,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Name = "Ctrl_Image";
-			this.Size = new System.Drawing.Size(696, 483);
+			this.Size = new System.Drawing.Size(734, 509);
 			this.ResumeLayout(false);
 
 		}
