@@ -10,7 +10,10 @@ namespace ScriptEditor
 	public class _PaintImage : PictureBox
 	{
 		//現在選択スクリプト
-		private Script Script = new Script ();
+//		private Script Script = new Script ();
+
+		EditCompend EditCompend = new EditCompend ();
+
 
 		//対象イメージデータ
 		private BD_IMGD Bd_Imgd = new BD_IMGD ();
@@ -32,7 +35,14 @@ namespace ScriptEditor
 		public _PaintImage ()
 		{
 			BackColor = Color.DarkGray;
+//			Size = new Size ( 100, 200 );
 			Dock = DockStyle.Fill;
+		}
+
+		//環境設定
+		public void SetEnviron ( EditCompend ec )
+		{
+			EditCompend = ec;
 		}
 
 		//キャラデータ設定
@@ -45,7 +55,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ( Script scp )
 		{
-			Script = scp;
+//			Script = scp;
 		}
 
 		//描画
@@ -61,6 +71,7 @@ namespace ScriptEditor
 			}	//using
 
 			//スクリプト指定イメージ
+			Script Script = EditCompend.SelectedScript;
 			ImageData id = Bd_Imgd.Get ( Script.ImgName );
 			Image img;
 			if( id == null )

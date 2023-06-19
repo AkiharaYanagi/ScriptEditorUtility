@@ -13,6 +13,18 @@ namespace ScriptEditor
 			FormUtility.InitPosition ( this );
 			InitializeComponent ();
 
+			//テストデータの作成
+			Chara chara = new Chara ();
+			TestCharaData testCh = new TestCharaData ();
+			testCh.Make ( chara );
+
+
+			EditCompend editCompend = new EditCompend ();
+			editCompend.SetCharaData ( chara.behavior );
+
+			ctrl_image.SetEnviron ( editCompend );
+			ctrl_image.SetCharaData ( chara, chara.behavior.BD_Image );
+
 			Controls.Add ( ctrl_image );
 		}
 	}
