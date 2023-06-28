@@ -17,7 +17,7 @@ namespace ScriptEditor
 		public string Name { get; set; } = "EfGnrt";    //エフェクトジェネレート名
 
 		public string EfName { get; set; } = "Ef";	//対象のエフェクト名
-		public Point Pt { get; set; } = new Point ( 0, 0 );	//位置
+		public Point Pt { get; set; } = new Point ( -200, -400 );	//位置
 		public void SetPtX ( int x ) { Pt = new Point ( x, Pt.Y ); }
 		public void SetPtY ( int y ) { Pt = new Point ( Pt.X, y ); }
 		public int Z_PER100F = 60;					//Z位置 実行時100分の１でfloat扱い

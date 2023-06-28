@@ -26,6 +26,13 @@ namespace ScriptEditor
 				//１つダミーを追加
 				EditBehavior eb = EditChara.Inst.EditBehavior;
 				eb.AddAction ();
+				eb.SelectSequence ( 0 );
+				eb.AddScript ();
+				eb.SelectFrame ( 0 );
+				eb.SelectedScript.ListCRect.Add ( new Rectangle ( -200, -400, 300, 300 ) );
+				eb.SelectedScript.ListHRect.Add ( new Rectangle ( -180, -380, 320, 400 ) );
+				eb.SelectedScript.ListARect.Add ( new Rectangle (  200, -300, 100, 200 ) );
+				eb.SelectedScript.ListORect.Add ( new Rectangle ( -220, -200, 150, 200 ) );
 			}
 		}
 

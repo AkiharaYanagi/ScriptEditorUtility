@@ -42,6 +42,7 @@ namespace ScriptEditor
 		private _RB_Tool RB_Ef = new _RB_Tool ();
 
 
+		
 		//コンストラクタ
 		public _Ctrl_Image ()
 		{
@@ -76,12 +77,10 @@ namespace ScriptEditor
 				this.Controls.Add ( rbt );
 				rbt.Location = new Point ( -2, -2 + 36 * i );
 				rbt.BringToFront ();
+				rbt.Tl_Img = L_Tool [ i ];
 
 				++i;
 			}
-
-			//選択
-			RB_Main.Select ();
 
 			//ラジオボタンにリソース画像を指定
 
@@ -90,12 +89,15 @@ namespace ScriptEditor
 			//global::Ctrl_Chara.Properties.Resources.～を
 			//ScriptEditorに修正
 
-			RB_Main.SetEnviron ( Properties.Resources.tool_hand, "メインイメージ移動" );
-			RB_CRect.SetEnviron ( Properties.Resources.tool_CRect, "接触枠" );
-			RB_HRect.SetEnviron ( Properties.Resources.tool_HRect, "当り枠" );
-			RB_ARect.SetEnviron ( Properties.Resources.tool_ARect, "攻撃枠" );
-			RB_ORect.SetEnviron ( Properties.Resources.tool_ORect, "相殺枠" );
-			RB_Ef.SetEnviron ( Properties.Resources.tool_efhand, "Efイメージ移動" );
+			RB_Main.SetEnviron ( this, Properties.Resources.tool_hand, "メインイメージ移動" );
+			RB_CRect.SetEnviron ( this, Properties.Resources.tool_CRect, "接触枠" );
+			RB_HRect.SetEnviron ( this, Properties.Resources.tool_HRect, "当り枠" );
+			RB_ARect.SetEnviron ( this, Properties.Resources.tool_ARect, "攻撃枠" );
+			RB_ORect.SetEnviron ( this, Properties.Resources.tool_ORect, "相殺枠" );
+			RB_Ef.SetEnviron ( this, Properties.Resources.tool_efhand, "Efイメージ移動" );
+
+			//選択
+			RB_Main.Select ();
 
 			//イベント
 //			this.MouseDoubleClick += new MouseEventHandler ( this );
@@ -115,6 +117,10 @@ namespace ScriptEditor
 			{
 				ti.SetCtrl ( EditCompend );
 			}
+			Tlimg_CRect.EditLRct = ec.EditScript.EditAllRect.L_CRect;
+			Tlimg_HRect.EditLRct = ec.EditScript.EditAllRect.L_HRect;
+			Tlimg_ARect.EditLRct = ec.EditScript.EditAllRect.L_ARect;
+			Tlimg_ORect.EditLRct = ec.EditScript.EditAllRect.L_ORect;
 
 			//ラジオボタンの初期化
 		}
@@ -134,8 +140,12 @@ namespace ScriptEditor
 		//マウス押下
 		void PI_MouseDown ( object sender, MouseEventArgs e )
 		{
+
 			if ( MouseButtons.Left == e.Button )
 			{
+				paintImage.UpdatePtClient ();
+				SelectingTool.PtPbImageBase = paintImage.PtPbImageBase;
+				SelectingTool.PtClient = paintImage.PtClient;
 				SelectingTool.MouseDown_L ();
 			}
 

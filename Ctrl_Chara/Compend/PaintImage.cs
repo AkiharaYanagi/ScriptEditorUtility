@@ -10,11 +10,8 @@ namespace ScriptEditor
 	public class _PaintImage : PictureBox
 	{
 		//現在選択スクリプト
-//		private Script Script = new Script ();
-
 		EditCompend EditCompend = new EditCompend ();
-
-
+		
 		//対象イメージデータ
 		private BD_IMGD Bd_Imgd = new BD_IMGD ();
 
@@ -23,6 +20,13 @@ namespace ScriptEditor
 		
 		//イメージ表示基準位置 ( X, Y )
 		public Point PtPbImageBase { get; set; } = new Point ( 250, 480 );
+
+		//クライアント位置
+		public Point PtClient { get; set; } = new Point ();
+
+
+		//枠描画
+		private readonly DispRects dispRects = new DispRects ();
 
 		//-----------------------------------------------------
 		//ドラッグ＆ドロップ
@@ -71,25 +75,40 @@ namespace ScriptEditor
 			}	//using
 
 			//スクリプト指定イメージ
-			Script Script = EditCompend.SelectedScript;
-			ImageData id = Bd_Imgd.Get ( Script.ImgName );
-			Image img;
-			if( id == null )
-			{
-				img = MakeDummy ( Script.ImgName );
-			}
-			else if( id.Img == null )
-			{
-				img = MakeDummy ( Script.ImgName );
-			}
-			else { img = id.Img; }
+			Script scp = EditCompend.SelectedScript;
+			ImageData imgd = Bd_Imgd.Get ( scp.ImgName );
+			DrawImageData ( g, imgd, scp.ImgName, scp.Pos );
 
-			int x = PtPbImageBase.X + Script.Pos.X;
-			int y = PtPbImageBase.Y + Script.Pos.Y;
-			g.DrawImage ( img, x, y, img.Width, img.Height );
+			//エフェクト
+			foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
+			{
+				ImageData idEf = Bd_Ef_Imgd.Get ( efGnrt.EfName );
+				DrawImageData ( g, idEf, efGnrt.EfName, efGnrt.Pt );
+			}
 
+			//枠リスト
+			dispRects.Disp ( g, scp, PtPbImageBase );
 
 			base.OnPaint ( pe );
+		}
+
+		//イメージデータ描画（データが無いときダミーで文字を描画）
+		private void DrawImageData ( Graphics g, ImageData imgd, string imgname, Point pos )
+		{
+			Image img;
+			if( imgd == null )
+			{
+				img = MakeDummy ( imgname );
+			}
+			else if( imgd.Img == null )
+			{
+				img = MakeDummy ( imgname );
+			}
+			else { img = imgd.Img; }
+
+			int x = PtPbImageBase.X + pos.X;
+			int y = PtPbImageBase.Y + pos.Y;
+			g.DrawImage ( img, x, y, img.Width, img.Height );
 		}
 
 		private Image MakeDummy ( string imgname )
@@ -130,6 +149,12 @@ namespace ScriptEditor
 			}
 
 			base.OnMouseMove ( e );
+		}
+
+		//クライアント位置更新
+		public void UpdatePtClient ()
+		{
+			PtClient = PointToClient ( Cursor.Position );
 		}
 	}
 }

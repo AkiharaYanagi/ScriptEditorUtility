@@ -26,11 +26,11 @@ namespace ScriptEditor
 		//スクリプト挿入
 		public void InsertScript ()
 		{
-			SelectedSequence.ListScript.Insert ( SelectedScriptIndex, new Script () );
+			SelectedSequence.ListScript.Insert ( SelectedScript.Frame, new Script () );
 		}
 		public void InsertScript ( Script script )
 		{
-			SelectedSequence.ListScript.Insert ( SelectedScriptIndex, script );
+			SelectedSequence.ListScript.Insert ( SelectedScript.Frame, script );
 		}
 
 		//複数挿入

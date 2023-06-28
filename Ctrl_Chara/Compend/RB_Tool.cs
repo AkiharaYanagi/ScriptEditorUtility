@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-
+using System;
 
 namespace ScriptEditor
 {
@@ -14,6 +14,9 @@ namespace ScriptEditor
 		//表示ツールチップ
 		private ToolTip TLTP = new ToolTip ();
 
+		//親
+		public _Ctrl_Image Ctrl_Img = null;
+
 
 		//コンストラクタ
 		public _RB_Tool ()
@@ -26,10 +29,23 @@ namespace ScriptEditor
 		}
 
 		//初期設定
-		public void SetEnviron ( Image img, string tooltip )
+		public void SetEnviron ( _Ctrl_Image ctrlimg, Image img, string tooltip )
 		{
+			Ctrl_Img = ctrlimg;
 			Image = img;
 			TLTP.SetToolTip ( this, tooltip );
+		}
+
+		//チェック変更時
+		protected override void OnCheckedChanged ( EventArgs e )
+		{
+			//自身が選択されたとき
+			if ( this.Checked )
+			{
+				Ctrl_Img.SelectingTool = Tl_Img;
+			}
+
+			base.OnCheckedChanged ( e );
 		}
 	}
 }

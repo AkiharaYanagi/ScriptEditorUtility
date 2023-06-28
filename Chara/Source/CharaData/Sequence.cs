@@ -45,7 +45,7 @@ namespace ScriptEditor
 		public void AddScript ()
 		{
 			Script script = new Script ();
-			script.Frame = ListScript.Count - 1;
+			script.Frame = ListScript.Count;
 			ListScript.Add ( script );
 		}
 		public void AddScript ( Script script )

@@ -393,15 +393,18 @@ namespace ScriptEditor
 //			chara.garnish.BD_Sequence.GetBindingList()[ 1 ].ListScript[ 0 ].ImgIndex = 1;
 //			chara.garnish.ListSequence[ 1 ].ListScript[ 0 ].RefPt.Set ( -140, -240 );
 
-			//スクリプトでエフェクト生成を指定する
-//			Script sc_ef = chara.behavior.BD_Sequence.GetBindingList()[ 0 ].ListScript[ 0 ];
-			eg.SelectScript ( 0, 0 );
+
+			//ビヘイビア側スクリプトでエフェクト生成を指定する
+			EditBehavior eb = EditChara.Inst.EditBehavior;
+			eb.SelectScript ( 0, 0 );
 			EffectGenerate efGnrt = new EffectGenerate
 			{
 				Name = "EffectGnrt_0",
 				EfName = chara.garnish.BD_Sequence.Get ( 0 ).Name,
-				Pt = new Point ( -20, -50 )
+				Pt = new Point ( -200, -500 )
 			};
+
+			eb.EditScript.EditEfGnrt.Add ( efGnrt );
 
 #if false
 

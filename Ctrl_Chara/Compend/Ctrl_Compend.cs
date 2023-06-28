@@ -1,20 +1,28 @@
-﻿using System;
+﻿using System.Drawing;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ctrl_Chara.Compend
+
+namespace ScriptEditor
 {
-	public partial class Ctrl_Compend : UserControl
+	public partial class _Ctrl_Compend : UserControl
 	{
-		public Ctrl_Compend ()
+		private _Ctrl_Image ctrl_image = new _Ctrl_Image ();
+
+		public _Ctrl_Compend ()
 		{
 			InitializeComponent ();
+
+
+			Controls.Add ( ctrl_image );
+			ctrl_image.Location = new Point ( 200, 300 );
+		}
+
+		public void SetEnviron ( EditCompend ec )
+		{
+			this.BackColor = Color.AliceBlue;
+			this.Size = new Size ( 1000, 800 );
+			ctrl_image.SetEnviron ( ec );
 		}
 	}
 }

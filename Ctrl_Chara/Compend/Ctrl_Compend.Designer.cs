@@ -1,6 +1,6 @@
-﻿namespace Ctrl_Chara.Compend
+﻿namespace ScriptEditor
 {
-	partial class Ctrl_Compend
+	partial class _Ctrl_Compend
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。
@@ -30,11 +30,12 @@
 		{
 			this.SuspendLayout();
 			// 
-			// Ctrl_Compend
+			// _Ctrl_Compend
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "Ctrl_Compend";
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.Name = "_Ctrl_Compend";
 			this.Size = new System.Drawing.Size(774, 527);
 			this.ResumeLayout(false);
 

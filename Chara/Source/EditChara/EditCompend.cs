@@ -30,10 +30,23 @@ namespace ScriptEditor
 		public Sequence SelectedSequence { get; set; } = null;
 		public Script SelectedScript { get; set; } = null;
 
-		public int SelectedScriptIndex { get; set; } = 0;
+//		public int SelectedScriptIndex { get; set; } = 0;
 		public int SelectedSpanStart { get; set; } = 0;
 		public int SelectedSpanEnd { get; set; } = 0;
 		//---------------------------------------------------------------------
+
+		//コンストラクタ
+		public EditCompend ()
+		{
+			SetEnviron ();
+		}
+
+		//---------------------------------------------------------------------
+		//環境設定
+		public void SetEnviron ()
+		{
+			EditScript.EditEfGnrt.SetEnviron ( this );
+		}
 
 		//---------------------------------------------------------------------
 		//対象設定
@@ -52,6 +65,8 @@ namespace ScriptEditor
 			if ( 0 == l_scp.Count ) { l_scp.Add ( new Script () ); }
 			//選択指定
 			SelectedScript = l_scp [ 0 ];
+
+			Assosiate ();
 		}
 
 		//---------------------------------------------------------------------
@@ -60,74 +75,86 @@ namespace ScriptEditor
 		public bool SpanScript { get; set; } = false;   //	スクリプト範囲の変更トグル
 
 		//---------------------------------------------------------------------
-		//数値指定(範囲チェック付)
+		//スクリプトを数値で指定(範囲チェック付)
 		public void SelectScript ( int sequence, int frame )
 		{
-			BL_Sqc ls = Compend.BD_Sequence.GetBindingList ();
-			if ( sequence < 0 || ls.Count <= sequence ) { return; }
-			SelectedSequence = ls [ sequence ];
-
-			L_Scp lscp = SelectedSequence.ListScript;
-			if ( frame < 0 || SelectedSequence.ListScript.Count <= 0 ) { return; }
-			SelectedScript = lscp [ frame ];
-
+			_AssignScript ( sequence, frame );
 			Assosiate ();
 		}
 
 		//フレームのみ選択
 		public void SelectFrame ( int frame )
 		{
-			L_Scp lscp = SelectedSequence.ListScript;
-			if ( frame < 0 || lscp.Count <= frame ) { return; }
-			SelectedScriptIndex = frame;
-			SelectedScript = lscp [ frame ];
-
+			_AssignFrame ( frame );
 			Assosiate ();
 		}
 
 		//シークエンスのみ選択
 		public void SelectSequence ( int sequence )
 		{
-			BL_Sqc ls = Compend.BD_Sequence.GetBindingList ();
-			if ( sequence < 0 || ls.Count <= sequence ) { return; }
-			SelectedSequence = ls [ sequence ];
-
-			//スクリプトは０を選択
-			L_Scp lscp = SelectedSequence.ListScript;
-			if ( lscp.Count <= 0 ) { return; }
-			SelectFrame ( 0 );
-
+			_AssignSequence ( sequence );
+			_AssignFrame ( 0 );			//スクリプトは(存在すれば)０番目を選択
 			Assosiate ();
 		}
 
 		//名前からシークエンス選択
 		public void SelectSequence ( string name )
 		{
-			//アクション名以外のとき何もしない
-			Sequence sq = Compend.BD_Sequence.Get ( name );
-			if ( null == sq ) { return; }
-
-			SelectedSequence = sq;
-
-			//スクリプトは０を選択
-			L_Scp lscp = SelectedSequence.ListScript;
-			if ( lscp.Count <= 0 ) { return; }
-			SelectFrame ( 0 );
-
+			_AssignSequence ( name );
+			_AssignFrame ( 0 );			//スクリプトは０を選択
 			Assosiate ();
 		}
 
+		//---------------------------------------------------------------------
+		//内部用：直接指定
+		private void _AssignScript ( int sqc, int frame )
+		{
+			_AssignSequence ( sqc );
+			_AssignFrame ( frame );
+		}
+
+		//内部用：フレーム直接指定
+		private void _AssignFrame ( int frame )
+		{
+			L_Scp lscp = SelectedSequence.ListScript;
+			if ( frame < 0 || lscp.Count <= frame ) { return; }
+//			SelectedScriptIndex = frame;
+			SelectedScript = lscp [ frame ];
+		}
+
+		//内部用：シークエンス直接指定
+		private void _AssignSequence ( int sqc )
+		{
+			BL_Sqc ls = Compend.BD_Sequence.GetBindingList ();
+			if ( sqc < 0 || ls.Count <= sqc ) { return; }
+			SelectedSequence = ls [ sqc ];
+		}
+
+		//内部用：シークエンス名前指定
+		private void _AssignSequence ( string name )
+		{
+			//アクション名以外のとき何もしない
+			Sequence sq = Compend.BD_Sequence.Get ( name );
+			if ( null == sq ) { return; }
+			SelectedSequence = sq;
+		}
+
+		//---------------------------------------------------------------------
 		//関連付け(選択時に同期するオブジェクト)
 		public void Assosiate ()
 		{
 			EditSequence.Assosiate ( SelectedSequence );
 
 			L_Scp lscp = SelectedSequence.ListScript;
-			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
+//			if ( SelectedScriptIndex >= lscp.Count ) { SelectedScriptIndex = lscp.Count; }
 
 			//スクリプト編集(グループ)
-			EditScript.Restruct ( lscp, SelectedScriptIndex );
+			EditScript.Restruct ( lscp, SelectedScript.Frame );
+
+			//スクリプトの関連付け
+			EditScript.Assosiate ( SelectedScript );
 		}
+		//---------------------------------------------------------------------
 
 		//---------------------------------------------------------------------
 		//	シークエンスリストに対しての編集
