@@ -1,4 +1,4 @@
-﻿namespace Ctrl_Chara.Compend
+﻿namespace ScriptEditor
 {
 	partial class SqcBoard
 	{
