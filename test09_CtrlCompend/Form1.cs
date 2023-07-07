@@ -33,7 +33,8 @@ namespace ScriptEditor
 			Controls.Add ( ctrl_image );
 #endif
 			ctrl_Compend.SetEnviron ( editCompend );
-			Controls.Add ( ctrl_Compend );
+			panel1.Controls.Add ( ctrl_Compend );
+			ctrl_Compend.SetCharaData ( chara );
 
 		}
 	}

@@ -34,7 +34,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.BackColor = System.Drawing.Color.LightGray;
 			this.Name = "_Ctrl_Compend";
 			this.Size = new System.Drawing.Size(774, 527);
 			this.ResumeLayout(false);

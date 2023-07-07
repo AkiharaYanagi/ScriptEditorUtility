@@ -101,11 +101,26 @@
     <Compile Include="Compend\PaintImage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Compend\PB_SqcBrd.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Compend\RB_Tool.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Compend\RB_Tool.Designer.cs">
       <DependentUpon>RB_Tool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compend\SqcBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compend\SqcBoard.Designer.cs">
+      <DependentUpon>SqcBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compend\SqcTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compend\SqcTree.Designer.cs">
+      <DependentUpon>SqcTree.cs</DependentUpon>
     </Compile>
     <Compile Include="Compend\ToolImage.cs" />
     <Compile Include="Ctrl_Branch.cs">
@@ -221,6 +236,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compend\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compend\SqcBoard.resx">
+      <DependentUpon>SqcBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compend\SqcTree.resx">
+      <DependentUpon>SqcTree.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ctrl_Branch.resx">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
