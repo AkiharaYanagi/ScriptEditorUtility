@@ -9,7 +9,7 @@ namespace ScriptEditor
 	//	シークエンス内のスクリプトを表示し、編集対象を選択する
 	//	ツールボタンにより編集する
 	//------------------------------------------------------------------
-	public partial class SqcBoard : UserControl
+	public partial class _SqcBoard : UserControl
 	{
 		//対象シークエンス
 		public Sequence Sqc { get; set; } = new Sequence ();
@@ -22,7 +22,7 @@ namespace ScriptEditor
 
 		
 		//コンストラクタ
-		public SqcBoard ()
+		public _SqcBoard ()
 		{
 			InitializeComponent ();
 
@@ -40,6 +40,12 @@ namespace ScriptEditor
 		public void Assosiate ()
 		{
 			PB_SqcBrd.Assosiate ();
+		}
+
+		protected override void OnPaint ( PaintEventArgs e )
+		{
+			PB_SqcBrd.Invalidate ();
+			base.OnPaint ( e );
 		}
 	}
 }

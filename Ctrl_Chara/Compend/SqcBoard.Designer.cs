@@ -1,6 +1,6 @@
 ﻿namespace ScriptEditor
 {
-	partial class SqcBoard
+	partial class _SqcBoard
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。

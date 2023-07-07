@@ -137,7 +137,7 @@ namespace ScriptEditor
 			}
 
 			treeView1.ExpandAll ();
-
+			SelectTop ();
 		}
 
 
@@ -212,6 +212,27 @@ namespace ScriptEditor
 
 			CtrlCompend.Assosiate ();
 		}
+
+
+		//先頭を選択
+		public void SelectTop ()
+		{
+			if ( BD_Sqc is null ) { return; }
+
+			//アクションのときのみアクションカテゴリで分類
+			if ( BD_Sqc[0] is Action ) 
+			{
+				treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
+			}
+			//アクションではない(エフェクト)のとき
+			else
+			{
+				treeView1.SelectedNode = treeView1.Nodes[0];
+			}
+
+			treeView1.Focus ();
+		}
+
 
 		//==============================================================
 		//コンテキストメニュ

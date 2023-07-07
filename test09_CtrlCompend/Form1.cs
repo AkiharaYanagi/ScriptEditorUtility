@@ -37,5 +37,10 @@ namespace ScriptEditor
 			ctrl_Compend.SetCharaData ( chara );
 
 		}
+
+		private void Form1_Shown ( object sender, EventArgs e )
+		{
+			ctrl_Compend.Test();
+		}
 	}
 }

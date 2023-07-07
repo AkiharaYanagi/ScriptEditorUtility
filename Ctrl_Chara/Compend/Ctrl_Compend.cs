@@ -9,7 +9,7 @@ namespace ScriptEditor
 	{
 		private _Ctrl_Image ctrl_image = new _Ctrl_Image ();
 		private SqcTree sqc_tree = new SqcTree ();
-		private SqcBoard sqc_board = new SqcBoard ();
+		private _SqcBoard sqc_board = new _SqcBoard ();
 
 
 		//コンストラクタ
@@ -27,6 +27,7 @@ namespace ScriptEditor
 			Controls.Add ( sqc_tree );
 			sqc_tree.Location = new Point ( 3, 3 );
 //			sqc_tree.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+			sqc_tree.SelectTop ();
 
 
 			Controls.Add ( sqc_board );
@@ -46,21 +47,28 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			sqc_tree.SetCharaData ( ch.behavior.BD_Sequence );
-			sqc_tree.Invalidate ();
+			AllDisp ();
 		}
 
+		public void Test ()
+		{
+			sqc_tree.Focus ();
+		}
 
 		//関連付け
 		public void Assosiate ()
 		{
 			sqc_board.Assosiate ();
+			AllDisp ();
 		}
 
 
 		//すべて表示
 		public void AllDisp ()
 		{
-
+			ctrl_image.Invalidate ();
+			sqc_board.Invalidate ();
+			sqc_tree.Invalidate ();
 		}
 	}
 }
