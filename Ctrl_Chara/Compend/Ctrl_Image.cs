@@ -50,6 +50,7 @@ namespace ScriptEditor
 
 			//イメージ描画
 			this.Controls.Add ( paintImage );
+			paintImage.Dock = DockStyle.Fill;
 			paintImage.MouseDown += new MouseEventHandler ( this.PI_MouseDown );
 			paintImage.MouseMove += new MouseEventHandler ( this.PI_MouseMove );
 			paintImage.MouseUp += new MouseEventHandler ( this.PI_MouseUp);
@@ -129,6 +130,13 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch, BD_IMGD bd_imgd )
 		{
 			paintImage.SetCharaData ( ch, bd_imgd );
+		}
+
+
+		protected override void OnPaint ( PaintEventArgs e )
+		{
+			paintImage.Invalidate ();
+			base.OnPaint ( e );
 		}
 
 		//-----------------------------------------------------------

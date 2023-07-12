@@ -44,10 +44,10 @@ namespace ScriptEditor
 
 			_MakeList ( ch );
 
+#if false
 			MakeAction_Stand ( bd_act );
 			MakeAction_FrontMove ( bd_act );
 			MakeAction_BackMove ( bd_act );
-#if false
 			MakeAction_Jump ( eb, ENM_ACT.VerticalJump, "AirFrontDash_00.png", 0 );
 			MakeAction_Jump ( eb, ENM_ACT.FrontJump, "AirFrontDash_00.png", 20 );
 			MakeAction_Jump ( eb, ENM_ACT.BackJump, "AirFrontDash_00.png", -20 );
@@ -59,8 +59,9 @@ namespace ScriptEditor
 		//アクションリストの作成
 		private void _MakeList ( Chara ch )
 		{
+			string filename = "PreData\\ActionList.txt";
 			//アクションデータ(.txtファイル)から作成
-			FileStream fstrm = new FileStream ( "ActionList.txt", FileMode.Open, FileAccess.Read );
+			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );
 			StreamReader sr = new StreamReader ( fstrm, Encoding.UTF8 );
 
 			EditBehavior eb = EditChara.Inst.EditBehavior;
@@ -79,16 +80,14 @@ namespace ScriptEditor
 
 				//----
 				//カテゴリ
-				int category = 0;
 				ActionCategory ac = ActionCategory.NEUTRAL;
 				try
 				{
-					category = int.Parse ( actionData[(int)ActionData.Category] );
-					ac = (ActionCategory)category;
+					string ctg = actionData[(int)ActionData.Category];
+					ac = (ActionCategory)Enum.Parse ( typeof ( ActionCategory ), ctg );
 				}
 				catch
 				{
-					category = 0;
 					ac = ActionCategory.NEUTRAL;
 				}
 				act.Category = ac;

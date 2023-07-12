@@ -39,8 +39,6 @@ namespace ScriptEditor
 		public _PaintImage ()
 		{
 			BackColor = Color.DarkGray;
-//			Size = new Size ( 100, 200 );
-			Dock = DockStyle.Fill;
 		}
 
 		//環境設定

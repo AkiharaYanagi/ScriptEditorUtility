@@ -31,49 +31,56 @@ namespace ScriptEditor
 		//コンストラクタ
 		public PB_SqcBrd ()
 		{
+//			BackColor = Color.Red;
 		}
 
+		//環境設定
 		public void SetEnviron ( EditCompend ec )
 		{
 			EditCompend = ec;
 		}
 
+		//関連付け
 		public void Assosiate ()
 		{
 			Sqc = EditCompend.SelectedSequence;
 		}
 
+
+		//親サイズ
+		public Size Ctrl_Size { get; set; } = new Size ();
+
+		//描画
 		protected override void OnPaint ( PaintEventArgs pe )
 		{
+
 			Graphics g = pe.Graphics;
 			List<Script> ls = Sqc.ListScript;
+			int N = ls.Count;		//スクリプト個数
+			const int SURPLUS = 2;	//背景の余白個数
 
 			//大きさ
-			int minWidth = 1000;
-			int sqcWidth = 100 + BX + ( ls.Count + 2 ) * W;
-
+			int minWidth = 400;
+			int sqcWidth = BX + ( N + SURPLUS ) * W;
 			this.Width = ( minWidth < sqcWidth ) ? sqcWidth: minWidth;
-//			this.Width = scWidth + 100;
-			this.Height = 130 + BY + ( 2 * H );
-//			this.Height = H * 7;
+//			this.Width = 1000;
+//			this.Height = 130 + BY + ( 2 * H );
+			this.Height = 100;
 
 			//大きさの一時保存
-			int TW = this.Width;
-			int TH = this.Height;
+			int TW = Ctrl_Size.Width;
+			int TH = Ctrl_Size.Height;
 			int PW = this.Width;
 
-			//個数
-			int N = Sqc.ListScript.Count;
-			//余剰個数
-			const int SURPLUS = 5;
-
+			
 			//---------------------------------------------------------
-			//フレーム表示部分の背景(存在しない部分を一括描画)
+			//背景(存在しない部分を一括で描画)
 			g.FillRectangle ( Brushes.LightGray, BX, 0, PW - BX, TH );
 
 			//---------------------------------------------------------
 			//キャラデータの表示
-			g.FillRectangle ( Brushes.AliceBlue, BX, H, W * ls.Count, H );
+			g.FillRectangle ( Brushes.AliceBlue, BX, H, W * N, H );
+
 
 			//---------------------------------------------------------
 			//内部使用リソース
@@ -116,14 +123,16 @@ namespace ScriptEditor
 			DrawStr_0 ( g, "■ HRect", 3, STR_FMT );
 			DrawStr_0 ( g, "■ ARect", 4, STR_FMT );
 			DrawStr_0 ( g, "■ ORect", 5, STR_FMT );
-			DrawStr_0 ( g, "EfGnrt", 6, STR_FMT );
+			DrawStr_0 ( g, "■ EfGnrt", 6, STR_FMT );
 
 			//---------------------------------------------------------
 			//基準線
 			const int PH = H + H * 6;
 
 			//縦線	
+#if false
 			g.DrawLine ( PEN_BASE_BAR, 0, 0, 0, PH );
+#endif
 			for ( int i = 0; i < N + SURPLUS + 1; ++ i )
 			{
 				int bx0 = BX + W * i;
@@ -131,7 +140,7 @@ namespace ScriptEditor
 			}
 
 			//横線
-			g.DrawLine ( PEN_BASE_BAR, 0, 20, PW, 20 );
+//			g.DrawLine ( PEN_BASE_BAR, 0, 0, PW, 0 );
 
 
 			}	//using
@@ -168,6 +177,7 @@ namespace ScriptEditor
 		private void DrawScp ( Graphics g, int frame, int i, Color clr )
 		{
 			Rectangle r = new Rectangle ( BX + (W * frame), H * i, W, H );
+			g.FillRectangle ( new SolidBrush ( clr ), r );
 		}
 
 		//スクリプト内の表示色

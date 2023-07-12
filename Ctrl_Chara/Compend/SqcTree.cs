@@ -47,6 +47,7 @@ namespace ScriptEditor
 			// 
 			// treeView1
 			// 
+			this.treeView1.ContextMenuStrip = this.contextMenuStrip1;
 			this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeView1.Location = new System.Drawing.Point(0, 0);
 			this.treeView1.Name = "treeView1";
@@ -65,14 +66,14 @@ namespace ScriptEditor
 			// すべて展開ToolStripMenuItem
 			// 
 			this.すべて展開ToolStripMenuItem.Name = "すべて展開ToolStripMenuItem";
-			this.すべて展開ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.すべて展開ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
 			this.すべて展開ToolStripMenuItem.Text = "すべて展開";
 			this.すべて展開ToolStripMenuItem.Click += new System.EventHandler(this.すべて展開ToolStripMenuItem_Click);
 			// 
 			// すべて閉鎖ToolStripMenuItem
 			// 
 			this.すべて閉鎖ToolStripMenuItem.Name = "すべて閉鎖ToolStripMenuItem";
-			this.すべて閉鎖ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.すべて閉鎖ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
 			this.すべて閉鎖ToolStripMenuItem.Text = "すべて閉鎖";
 			this.すべて閉鎖ToolStripMenuItem.Click += new System.EventHandler(this.すべて閉鎖ToolStripMenuItem_Click);
 			// 

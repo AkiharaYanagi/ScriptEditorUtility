@@ -34,6 +34,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoSize = true;
 			this.Name = "_Ctrl_Image";
 			this.Size = new System.Drawing.Size(734, 509);
 			this.ResumeLayout(false);

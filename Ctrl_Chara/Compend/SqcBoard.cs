@@ -19,15 +19,22 @@ namespace ScriptEditor
 
 		//表示部
 		private PB_SqcBrd PB_SqcBrd = new PB_SqcBrd ();
-
+		private Panel panel1 = new Panel ();
 		
 		//コンストラクタ
 		public _SqcBoard ()
 		{
 			InitializeComponent ();
 
+			this.Controls.Add ( panel1 );
+			panel1.BackColor = Color.White;
+			panel1.Location = new Point ( 3, 100 );
+			panel1.Size = new Size( this.Width, 120 );
+			panel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			panel1.AutoScroll = true;
+
 			panel1.Controls.Add ( PB_SqcBrd );
-			panel1.Size = new Size( this.Width, panel1.Height );
+//			PB_SqcBrd.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 		}
 
 		public void SetEnviron ( EditCompend ec )
@@ -44,6 +51,7 @@ namespace ScriptEditor
 
 		protected override void OnPaint ( PaintEventArgs e )
 		{
+			PB_SqcBrd.Ctrl_Size = this.Size;
 			PB_SqcBrd.Invalidate ();
 			base.OnPaint ( e );
 		}

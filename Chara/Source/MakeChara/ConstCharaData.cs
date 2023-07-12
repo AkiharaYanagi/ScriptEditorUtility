@@ -9,8 +9,9 @@ namespace ScriptEditor
 	public enum ActionData
 	{
 		Name,
-		Category,
 		ScriptNum,
+		Category,
+		NextAction,
 	}
 
 	//-------------------------------------------------------
