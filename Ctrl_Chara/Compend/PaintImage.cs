@@ -38,7 +38,7 @@ namespace ScriptEditor
 		//コンストラクタ
 		public _PaintImage ()
 		{
-			BackColor = Color.DarkGray;
+			BackColor = Color.DimGray;
 		}
 
 		//環境設定

@@ -50,7 +50,7 @@ namespace ScriptEditor
 		{
 			ctrl_image.SetEnviron ( ec );
 			sqc_tree.SetEnviron ( ec, this );
-			sqc_board.SetEnviron ( ec );
+			sqc_board.SetEnviron ( ec, this );
 		}
 
 		//キャラデータ設定

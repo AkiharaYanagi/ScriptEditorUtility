@@ -16,6 +16,7 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			this.Size = new Size ( 1200, 900 );
+			STS_TXT.Tssl = toolStripStatusLabel1;
 
 			//テストデータの作成
 			Chara chara = new Chara ();

@@ -98,6 +98,12 @@
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </Compile>
     <Compile Include="Compend\DispRects.cs" />
+    <Compile Include="Compend\Menu_Board.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compend\Menu_Board.Designer.cs">
+      <DependentUpon>Menu_Board.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compend\PaintImage.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compend\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compend\Menu_Board.resx">
+      <DependentUpon>Menu_Board.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compend\SqcBoard.resx">
       <DependentUpon>SqcBoard.cs</DependentUpon>

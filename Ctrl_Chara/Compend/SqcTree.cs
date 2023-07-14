@@ -18,14 +18,10 @@ namespace ScriptEditor
 		//編集
 		public EditCompend EditCompend { get; set; } = null;
 
-		//親コントロール
-		public _Ctrl_Compend CtrlCompend = null;
 
-		//親コントロールからの表示
-		public System.Action ActDisp = ()=>{};
-		
-		//親コントロールからの関連付け
-		public System.Action ActAssosiate = ()=>{};
+		//親コントロール
+		private System.Action ActDisp = ()=>{};		//からの表示
+		private System.Action ActAssosiate = ()=>{};	//関連付け
 
 
 		//コンストラクタ
@@ -92,12 +88,11 @@ namespace ScriptEditor
 
 
 		//環境設定
-		public void SetEnviron ( EditCompend ec, _Ctrl_Compend ctrl_cmp )
+		public void SetEnviron ( EditCompend ec, _Ctrl_Compend ctrl_cmpd )
 		{
 			EditCompend = ec;
-			CtrlCompend = ctrl_cmp;
-			ActDisp = CtrlCompend.AllDisp;
-			ActAssosiate = CtrlCompend.Assosiate;
+			ActDisp = ctrl_cmpd.AllDisp;
+			ActAssosiate = ctrl_cmpd.Assosiate;
 		}
 		
 
@@ -211,7 +206,7 @@ namespace ScriptEditor
 			string name = treeView1.SelectedNode.Text;
 			EditCompend.SelectSequence ( name );
 
-			CtrlCompend.Assosiate ();
+			ActAssosiate ();
 		}
 
 

@@ -13,30 +13,46 @@ namespace ScriptEditor
 	//---------------------------------------------------------------------
 	public partial class EditCompend
 	{
+		//Script.Frameの振り直し
+		//スクリプト数の変更時には必ず行う
+		public void ResetFrameNumber ()
+		{
+			int index = 0;
+			foreach ( Script scp in SelectedSequence.ListScript )
+			{
+				scp.Frame = index ++;
+			}
+		}
+
 		//スクリプト追加
 		public void AddScript ()
 		{
 			SelectedSequence.AddScript ();
+			ResetFrameNumber ();
 		}
 		public void AddScript ( Script script )
 		{
 			SelectedSequence.AddScript ( script );
+			ResetFrameNumber ();
 		}
 
 		//スクリプト挿入
 		public void InsertScript ()
 		{
 			SelectedSequence.ListScript.Insert ( SelectedScript.Frame, new Script () );
+			ResetFrameNumber ();
 		}
 		public void InsertScript ( Script script )
 		{
 			SelectedSequence.ListScript.Insert ( SelectedScript.Frame, script );
+			ResetFrameNumber ();
 		}
 
 		//複数挿入
 		public void MultiInsert ()
 		{
 			MultiInsert ( new Script () );
+			ResetFrameNumber ();
 		}
 		public void MultiInsert ( Script scp )
 		{
@@ -55,12 +71,14 @@ namespace ScriptEditor
 
 			//挿入
 			SelectedSequence.ListScript.InsertRange ( s, scripts );
+			ResetFrameNumber ();
 		}
 
 		//複数追加
 		public void MultiAdd ()
 		{
 			MultiAdd ( new Script () );
+			ResetFrameNumber ();
 		}
 		
 		public void MultiAdd ( Script scp )
@@ -80,6 +98,7 @@ namespace ScriptEditor
 
 			//追加
 			SelectedSequence.ListScript.AddRange ( scripts );
+			ResetFrameNumber ();
 		}
 
 		//選択中のスクリプトを削除
@@ -88,9 +107,12 @@ namespace ScriptEditor
 			L_Scp ls = SelectedSequence.ListScript;
 			if ( ls.Count < 1 ) { return; }
 	
-			int i = ls.IndexOf ( SelectedScript );
-			if ( i < 1 ) { return; }
+//			int i = ls.IndexOf ( SelectedScript );
+//			if ( i < 1 ) { return; }
+			int i = SelectedScript.Frame;
+			if ( ls.Count <= i ) { return; }
 			ls.RemoveAt ( i );
+			ResetFrameNumber ();
 		}
 
 		//複数削除
@@ -99,6 +121,7 @@ namespace ScriptEditor
 			int s = SelectedSpanStart;
 			int e = 1 + SelectedSpanEnd;
 			SelectedSequence.ListScript.RemoveRange ( s, e - s );
+			ResetFrameNumber ();
 		}
 
 
@@ -139,6 +162,7 @@ namespace ScriptEditor
 				Script script = SelectedSequence.ListScript [ i ];
 				script.Copy ( new Script ( GetCopiedScript () ) );
 			}
+			ResetFrameNumber ();
 		}
 		//追加してペースト
 		public void AddAndPasteScript ()

@@ -170,6 +170,20 @@ namespace ScriptEditor
 			}
 		}
 
+
+		//対象グループを解除
+		public void DismantleGroup ( LScp lsScp, int group_id )
+		{
+			foreach ( Script s in lsScp )
+			{
+				if ( group_id == s.Group )
+				{
+					s.Group = 0;
+				}
+			}
+		}
+
+
 		//---------------------------------------------------------------------
 		// スクリプト グループに対し編集をする
 		//---------------------------------------------------------------------
