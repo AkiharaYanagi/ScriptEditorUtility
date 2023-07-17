@@ -60,9 +60,16 @@ namespace ScriptEditor
 			AllDisp ();
 		}
 
-		public void Test ()
+		public void SelectTop ()
 		{
-			sqc_tree.Focus ();
+			sqc_tree.SelectTop ();
+		}
+
+		//更新
+		public void UpdateData ()
+		{
+			sqc_tree.UpdateData ();
+			Assosiate ();
 		}
 
 		//関連付け
@@ -71,7 +78,6 @@ namespace ScriptEditor
 			sqc_board.Assosiate ();
 			AllDisp ();
 		}
-
 
 		//すべて表示
 		public void AllDisp ()

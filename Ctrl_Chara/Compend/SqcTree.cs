@@ -12,7 +12,7 @@ namespace ScriptEditor
 	//------------------------------------------------------------------
 	public class SqcTree : UserControl
 	{
-		//対象シークエンス
+		//対象シークエンスリスト
 		public BD_Sqc BD_Sqc { get; set; } = null;
 
 		//編集
@@ -113,7 +113,7 @@ namespace ScriptEditor
 			if ( bd_sqc [ 0 ] is Action ) 
 			{
 				//カテゴリでツリー構築
-				ClassficatinByCategory ( bd_sqc );
+				ClassficatinByCategory ();
 
 				//先頭を選択
 				treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
@@ -124,7 +124,7 @@ namespace ScriptEditor
 			else
 			{
 				//名前でツリー構築
-				ClassficatinByName ( bd_sqc );
+				ClassficatinByName ();
 
 				//先頭を選択
 				treeView1.SelectedNode = treeView1.Nodes[0];
@@ -139,17 +139,17 @@ namespace ScriptEditor
 
 		//-----------------------------------------------------------------------------
 		//名前でツリーを再構築
-		private void ClassficatinByName ( BD_Sqc bd_sqc )
+		private void ClassficatinByName ()
 		{
 			//既存をクリア
 			treeView1.Nodes.Clear ();
 
 			//ノードの数を先に確保
-			TreeNode [] root = new TreeNode [ bd_sqc.Count () ];
+			TreeNode [] root = new TreeNode [ BD_Sqc.Count () ];
 			
 			//名前で直接追加する
 			int index = 0;
-			foreach ( Sequence s in bd_sqc.GetEnumerable () )
+			foreach ( Sequence s in BD_Sqc.GetEnumerable () )
 			{
 				root [ index ] = new TreeNode ( s.Name );
 				++ index;
@@ -160,7 +160,7 @@ namespace ScriptEditor
 		}
 
 		//カテゴリでツリーを再構築
-		private void ClassficatinByCategory ( BD_Sqc bd_sqc )
+		private void ClassficatinByCategory ()
 		{
 			//既存をクリア
 			treeView1.Nodes.Clear ();
@@ -182,7 +182,7 @@ namespace ScriptEditor
 
 			//----------------------------------------------
 			//各アクションを分類
-			foreach ( Action a in bd_sqc.GetEnumerable () )
+			foreach ( Action a in BD_Sqc.GetEnumerable () )
 			{
 				//カテゴリ名を取得
 				string ctg_name = Enum.GetName ( typeof ( ActionCategory ), a.Category );
@@ -229,6 +229,21 @@ namespace ScriptEditor
 			treeView1.Focus ();
 		}
 
+		//更新
+		public void UpdateData ()
+		{
+			if ( BD_Sqc.Count () > 0 ) { return; }
+
+			//再構築
+			if ( BD_Sqc[0] is Action )
+			{
+				ClassficatinByCategory ();
+			}
+			else
+			{
+				ClassficatinByName ();
+			}
+		}
 
 		//==============================================================
 		//コンテキストメニュ

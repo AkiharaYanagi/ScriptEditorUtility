@@ -41,7 +41,7 @@ namespace ScriptEditor
 
 		private void Form1_Shown ( object sender, EventArgs e )
 		{
-			ctrl_Compend.Test();
+			ctrl_Compend.SelectTop ();
 		}
 	}
 }
