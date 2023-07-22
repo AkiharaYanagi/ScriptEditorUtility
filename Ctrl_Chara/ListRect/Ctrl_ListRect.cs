@@ -18,9 +18,9 @@ namespace ScriptEditor
 		//選択位置
 		public int SelectedIndex { get; set; } = -1;
 
-		//親更新
-		public System.Action UpdateAll { get; set; } = null;
-
+		//すべての表示更新
+		public System.Action DispAll { get; set; } = ()=>{};
+	
 
 		//コンストラクタ
 		public Ctrl_ListRect ()
@@ -67,7 +67,7 @@ namespace ScriptEditor
 
 			Pb_Num.Invalidate ();
 			this.Invalidate ();
-			UpdateAll?.Invoke ();	//全体更新
+			DispAll?.Invoke ();	//全体更新
 		}
 
 		public Rectangle GetRect ( int index )

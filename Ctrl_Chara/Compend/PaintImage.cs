@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace ScriptEditor
 {
+	using BD_SQC = BindingDictionary < Sequence >;
 	using BD_IMGD = BindingDictionary < ImageData >;
 
 	public class _PaintImage : PictureBox
@@ -16,6 +17,7 @@ namespace ScriptEditor
 		private BD_IMGD Bd_Imgd = new BD_IMGD ();
 
 		//エフェクトデータはアクションでもエフェクトでも持つ
+		private BD_SQC Bd_Ef = new BD_SQC ();
 		private BD_IMGD Bd_Ef_Imgd = new BD_IMGD ();
 		
 		//イメージ表示基準位置 ( X, Y )
@@ -50,8 +52,10 @@ namespace ScriptEditor
 		//キャラデータ設定
 		public void SetCharaData ( Chara ch, BD_IMGD bd_imgd )
 		{
-			Bd_Imgd = bd_imgd;
-			Bd_Ef_Imgd = ch.garnish.BD_Image;
+			Bd_Imgd = bd_imgd;	//ビヘイビア、またはガーニッシュのイメージリスト
+
+			Bd_Ef = ch.garnish.BD_Sequence;		//共通エフェクト
+			Bd_Ef_Imgd = ch.garnish.BD_Image;	//共通エフェクトイメージ
 		}
 
 		//関連付け
@@ -77,11 +81,22 @@ namespace ScriptEditor
 			ImageData imgd = Bd_Imgd.Get ( scp.ImgName );
 			DrawImageData ( g, imgd, scp.ImgName, scp.Pos );
 
-			//エフェクト
+			//エフェクト生成
 			foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
 			{
-				ImageData idEf = Bd_Ef_Imgd.Get ( efGnrt.EfName );
-				DrawImageData ( g, idEf, efGnrt.EfName, efGnrt.Pt );
+				//エフェクトの取得
+				Effect ef = (Effect)Bd_Ef.Get ( efGnrt.EfName );
+				if ( ef is null ) { continue; }
+				Script efSc = ef.ListScript[ 0 ];
+				
+				//イメージの取得
+				ImageData idEf = Bd_Ef_Imgd.Get ( efSc.ImgName );
+
+				//エフェクトのスクリプトから位置を取得
+				Point efPt = PointUt.PtAdd ( efSc.Pos, efGnrt.Pt );	
+
+				//描画
+				DrawImageData ( g, idEf, efGnrt.EfName, efPt );
 			}
 
 			//枠リスト

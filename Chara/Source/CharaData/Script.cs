@@ -136,6 +136,26 @@ namespace ScriptEditor
 		public void Copy ( Script s )
 		{
 			this.Frame = s.Frame;
+
+			this.Group = s.Group;
+			this.ImgName = s.ImgName;
+			this.Pos = s.Pos;
+			this.BD_RutName.DeepCopy ( s.BD_RutName );
+			this.ListCRect = new List < Rectangle > ( s.ListCRect );
+			this.ListHRect = new List < Rectangle > ( s.ListHRect );
+			this.ListARect = new List < Rectangle > ( s.ListARect );
+			this.ListORect = new List < Rectangle > ( s.ListORect );
+			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
+
+			this.BtlPrm.Copy ( s.BtlPrm );
+			this.StgPrm.Copy ( s.StgPrm );
+		}
+
+		//コピー(フレーム数以外)
+		public void Copy_Other_than_frame ( Script s )
+		{
+			//this.Frame = s.Frame;
+
 			this.Group = s.Group;
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;

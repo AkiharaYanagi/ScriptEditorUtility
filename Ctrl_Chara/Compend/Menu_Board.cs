@@ -60,6 +60,7 @@ namespace ScriptEditor
 			ActDisp ();
 		}
 
+		//--------------------------------------------------------------------
 		//複数スクリプト 挿入
 		private void Btn_MltIns_Click ( object sender, EventArgs e )
 		{
@@ -86,7 +87,7 @@ namespace ScriptEditor
 			ActDisp ();
 		}
 
-
+		//--------------------------------------------------------------------
 		//グループ 作成
 		private void Btn_GrpMake_Click ( object sender, EventArgs e )
 		{
@@ -122,7 +123,9 @@ namespace ScriptEditor
 		}
 
 
+		//--------------------------------------------------------------------
 		//内部関数
+		//--------------------------------------------------------------------
 		//仮枠つきスクリプト
 		Script Make_Script_with_Rect ()
 		{

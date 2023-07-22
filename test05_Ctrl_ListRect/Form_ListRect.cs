@@ -26,7 +26,7 @@ namespace ScriptEditor
 			mtcd.Make ( ch );
 			EditChara.Inst.SetCharaDara ( ch );
 
-			ctrl_AllRect.SetEnvironment ( EditChara.Inst.EditBehavior, ()=>{} );
+			ctrl_AllRect.SetEditCompend ( EditChara.Inst.EditBehavior );
 
 		}
 	}

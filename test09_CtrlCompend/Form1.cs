@@ -33,8 +33,8 @@ namespace ScriptEditor
 			ctrl_image.SetCharaData ( chara, chara.behavior.BD_Image );
 			Controls.Add ( ctrl_image );
 #endif
-			ctrl_Compend.SetEnviron ( editCompend );
 			panel1.Controls.Add ( ctrl_Compend );
+			ctrl_Compend.SetEnviron ( editCompend );
 			ctrl_Compend.SetCharaData ( chara );
 
 		}

@@ -19,8 +19,8 @@ namespace ScriptEditor
 
 
 		//親コントロール
-		private System.Action ActDisp = ()=>{};		//からの表示
-		private System.Action ActAssosiate = ()=>{};	//関連付け
+		private System.Action ActDisp = ()=>{};		//全体からの表示
+		private System.Action ActAssosiate = ()=>{};	//全体からの関連付け
 
 
 		//-----------------------------------------------------------------------------
@@ -289,9 +289,13 @@ namespace ScriptEditor
 		{
 			EditCompend ec = EditCompend;
 			Point pos = GetCell ();
+
+			//範囲チェック
+			int n_scp = ec.SelectedSequence.ListScript.Count;
+			if ( pos.X < 0 || n_scp <= pos.X ) { return; }
+
+
 			ec.SelectFrame ( pos.X );
-			ec.SelectedSpanStart = pos.X;
-			ec.SelectedSpanEnd = pos.X;
 			bDrag = true;
 
 			//グループ

@@ -11,13 +11,15 @@ namespace ScriptEditor
 		private SqcTree sqc_tree = new SqcTree ();
 		private _SqcBoard sqc_board = new _SqcBoard ();
 
+		//アクションのときtrue, エフェクトのときfalse
+		public bool BoolAction { get; set; } = false;
+
 
 		//コンストラクタ
 		public _Ctrl_Compend ()
 		{
 			InitializeComponent ();
 
-			//this.Dock = DockStyle.Fill;
 			this.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top;
 			this.Size = new Size ( 1000, 800 );
 
@@ -48,6 +50,8 @@ namespace ScriptEditor
 		//環境設定
 		public void SetEnviron ( EditCompend ec )
 		{
+			BoolAction = ec is EditBehavior;
+
 			ctrl_image.SetEnviron ( ec );
 			sqc_tree.SetEnviron ( ec, this );
 			sqc_board.SetEnviron ( ec, this );
@@ -56,7 +60,16 @@ namespace ScriptEditor
 		//キャラデータ設定
 		public void SetCharaData ( Chara ch )
 		{
-			sqc_tree.SetCharaData ( ch.behavior.BD_Sequence );
+			if ( BoolAction )
+			{
+				ctrl_image.SetCharaData ( ch, ch.behavior.BD_Image );
+				sqc_tree.SetCharaData ( ch.behavior.BD_Sequence );
+			}
+			else
+			{
+				ctrl_image.SetCharaData ( ch, ch.garnish.BD_Image );
+				sqc_tree.SetCharaData ( ch.garnish.BD_Sequence );
+			}
 			AllDisp ();
 		}
 

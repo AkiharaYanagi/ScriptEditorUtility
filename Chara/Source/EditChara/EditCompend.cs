@@ -30,7 +30,6 @@ namespace ScriptEditor
 		public Sequence SelectedSequence { get; set; } = null;
 		public Script SelectedScript { get; set; } = null;
 
-//		public int SelectedScriptIndex { get; set; } = 0;
 		public int SelectedSpanStart { get; set; } = 0;
 		public int SelectedSpanEnd { get; set; } = 0;
 		//---------------------------------------------------------------------
@@ -118,8 +117,10 @@ namespace ScriptEditor
 		{
 			L_Scp lscp = SelectedSequence.ListScript;
 			if ( frame < 0 || lscp.Count <= frame ) { return; }
-//			SelectedScriptIndex = frame;
+
 			SelectedScript = lscp [ frame ];
+			SelectedSpanStart = frame;
+			SelectedSpanEnd = frame;
 		}
 
 		//内部用：シークエンス直接指定

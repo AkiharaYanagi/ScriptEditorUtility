@@ -139,7 +139,8 @@ namespace ScriptEditor
 		}
 
 
-		//グループに選択スクリプトの内容を複製
+		//グループに選択スクリプトの内容のみを複製
+		// 自分のフレーム数は残す
 		public void PasteGroup ( Script scp )
 		{
 			//グループ０のときは何もしない
@@ -165,7 +166,9 @@ namespace ScriptEditor
 				//自分以外
 				if ( s != scp )
 				{
-					s.Copy ( scp );
+					//s.Copy ( scp );
+					//フレーム数以外
+					s.Copy_Other_than_frame ( scp );
 				}
 			}
 		}
