@@ -87,6 +87,7 @@ namespace ScriptEditor
 				//エフェクトの取得
 				Effect ef = (Effect)Bd_Ef.Get ( efGnrt.EfName );
 				if ( ef is null ) { continue; }
+				if ( ef.ListScript.Count <= 0 ) { continue; }
 				Script efSc = ef.ListScript[ 0 ];
 				
 				//イメージの取得
