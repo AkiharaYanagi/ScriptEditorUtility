@@ -12,7 +12,7 @@ namespace ScriptEditor
 		private _SqcBoard sqc_board = new _SqcBoard ();
 
 		//アクションのときtrue, エフェクトのときfalse
-		public bool BoolAction { get; set; } = false;
+		public bool BoolAction { get; set; } = true;
 
 
 		//コンストラクタ

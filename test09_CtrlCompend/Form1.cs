@@ -24,16 +24,17 @@ namespace ScriptEditor
 			testCh.Make ( chara );
 
 			//編集
-			EditCompend editCompend = new EditCompend ();
+#if true
+			EditBehavior editCompend = new EditBehavior ();
 			editCompend.SetCharaData ( chara.behavior );
+#else		
+			EditGarnish editCompend = new EditGarnish ();
+			editCompend.SetCharaData ( chara.garnish );
+#endif
 
 			//環境設定
-#if false
-			ctrl_image.SetEnviron ( editCompend );
-			ctrl_image.SetCharaData ( chara, chara.behavior.BD_Image );
-			Controls.Add ( ctrl_image );
-#endif
 			panel1.Controls.Add ( ctrl_Compend );
+			ctrl_Compend.BoolAction = true;
 			ctrl_Compend.SetEnviron ( editCompend );
 			ctrl_Compend.SetCharaData ( chara );
 
