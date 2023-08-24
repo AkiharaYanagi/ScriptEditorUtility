@@ -64,6 +64,7 @@ namespace ScriptEditor
 			pB_Sqc1.UpdateData ();
 		}
 
+		//選択位置にスクロールを移動する
 		public void ScrollPos ()
 		{
 			pB_Sqc1.ScrollPos ( panel1 );
@@ -117,10 +118,14 @@ namespace ScriptEditor
 
 					fs.Close ();
 				}
+				
+				//選択
+				EditData.SelectedSqc = index;
+				ELB_Sqc.GetListBox ().SelectedIndex = index;
+				//panel1.AutoScrollPosition = new Point(0, index * ConstSqcListPaint.CH );
+				ScrollPos ();
 
 				//更新
-				panel1.AutoScrollPosition = new Point(0, index * ConstSqcListPaint.CH );
-
 				EditData.UpdateAll ();
 			}
 		}

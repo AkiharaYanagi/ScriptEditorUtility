@@ -146,9 +146,12 @@ namespace ScriptEditor
 			int py = - 1 * pnl.AutoScrollPosition.Y;
 
 			//範囲外なら
-			if ( py < y - 400 || y  < py )
+//			if ( py < y - 400 || y  < py )
 			{
+				//@info AutoScrollは設定時に正の値を指定する
+				//		(取得時は負の値)
 				pnl.AutoScrollPosition = new Point ( 0, y );
+//				pnl.AutoScrollPosition = new Point ( 0, -y );
 			}
 		}
 
@@ -242,7 +245,7 @@ namespace ScriptEditor
 		}
 
 
-		//マウス押下
+		//マウスクリック
 		protected override void OnMouseClick ( MouseEventArgs e )
 		{
 			//左
@@ -284,7 +287,7 @@ namespace ScriptEditor
 			base.OnMouseClick ( e );
 		}
 
-		//マウス押込イベント
+		//マウス押下イベント
 		//@info コンテキストメニューより先に発生
 		protected override void OnMouseDown ( MouseEventArgs e )
 		{
