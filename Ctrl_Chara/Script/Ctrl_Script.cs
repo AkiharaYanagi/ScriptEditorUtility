@@ -136,6 +136,7 @@ namespace ScriptEditor
 
 
 		//環境設置
+		//引数：コンペンド編集, 表示
 		public void SetEnvironment ( EditCompend ec, System.Action disp )
 		{
 			EditCompend = ec;
