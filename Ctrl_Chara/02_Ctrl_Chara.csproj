@@ -64,6 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="All_Ctrl.cs" />
+    <Compile Include="CB_ActionList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CB_SequenceList.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Command\Ctrl_CmdList.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -12,6 +12,8 @@ namespace ScriptEditor
 	//IO
 	using Func_Save = System.Action < object, StreamWriter > ;
 	using Func_Load = System.Action < StreamReader > ;
+	//Event
+	using Event = System.Action;
 
 	//==========================================================
 	//	BindingDictionary < T >を受けて表示と編集をするコントロール
@@ -233,18 +235,18 @@ namespace ScriptEditor
 
 		//============================================================
 		//外部指定イベント
-		public delegate void Event ();
+//		public delegate void Event ();
 
 		//更新
-		public Event UpdateData { get; set; } = null;
+		public Event UpdateData { get; set; } = ()=>{};
 
 
 		//リストボックスの変更すべて
-		public Event Listbox_Changed { get; set; } = null;
+		public Event Listbox_Changed { get; set; } = ()=>{};
 
 
 		//イベント：リストボックス選択変更時
-		public Event SelectedIndexChanged { get; set; } = null;
+		public Event SelectedIndexChanged { get; set; } = ()=>{};
 		private void listBox1_SelectedIndexChanged ( object sender, EventArgs e )
 		{
 			if  ( listBox1.SelectedItem is null ) { return; }
@@ -253,7 +255,7 @@ namespace ScriptEditor
 		}
 
 		//イベント：追加時
-		public Event Listbox_Add { get; set; } = null;
+		public Event Listbox_Add { get; set; } = ()=>{};
 		private void listBox1_Add ( object sender, System.EventArgs e )
 		{
 			Listbox_Add?.Invoke();
@@ -261,7 +263,7 @@ namespace ScriptEditor
 		}
 
 		//イベント：削除時
-		public Event Listbox_Del { get; set; } = null;
+		public Event Listbox_Del { get; set; } = ()=>{};
 		private void listBox1_Del ( object sender, System.EventArgs e )
 		{
 			Listbox_Del?.Invoke ();
@@ -269,7 +271,7 @@ namespace ScriptEditor
 		}
 
 		//イベント：名前の変更
-		public Event _TextChanged { get; set; } = null;
+		public Event _TextChanged { get; set; } = ()=>{};
 		public string GetName ()
 		{
 			return Tb_Name.Text;
@@ -283,7 +285,7 @@ namespace ScriptEditor
 		}
 
 		//イベント：キー押下時
-		public Event Tb_KeyPress { get; set; } = null;
+		public Event Tb_KeyPress { get; set; } = ()=>{};
 		private void Tb_Name_KeyPress ( object sender, KeyPressEventArgs e )
 		{
 			//SEを鳴らさない

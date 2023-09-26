@@ -33,6 +33,9 @@ namespace ScriptEditor
 			//コンポーネント初期化
 			InitializeComponent ();
 			this.Dock = DockStyle.Fill;
+
+			//手動でコントロールの追加
+			LoadCtrl ();
 		}
 
 		//環境設定
@@ -64,12 +67,14 @@ namespace ScriptEditor
 			ctrl_ImageTable1.SetEnviroment ( cs, EditData, stgs );
 		}
 
-		//データ設置
+		//対象データ設置
 		public void SetCharaData ( Compend cmpd )
 		{
 			Cmpd = cmpd;
 			Data.SetData ( cmpd );
 			EditData.Compend = Cmpd;
+
+			LoadData ();
 		}
 
 		//データ読込
@@ -95,7 +100,7 @@ namespace ScriptEditor
 			EditData.ResetImageName ();
 
 			//更新
-			this.Refresh ();
+			UpdateData ();
 		}
 
 		//描画
@@ -111,11 +116,7 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			ctrl_ImageTable1.UpdateData ();
-
-			
 			ELB_Sqc._UpdateData ();
-
-
 			ELB_Sqc.Refresh ();
 		}
 

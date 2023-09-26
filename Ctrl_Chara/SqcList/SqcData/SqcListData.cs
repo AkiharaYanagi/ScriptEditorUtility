@@ -88,6 +88,8 @@ namespace ScriptEditor
 		//データ適用
 		public void ApplyData ()
 		{
+			if ( Compend is null ) { return; }
+
 			//L_SqcからCompendに戻す
 			// ※Compendの状態を優先する
 			//	L_Sqcにおける追加、削除などの変更点のみを反映する
