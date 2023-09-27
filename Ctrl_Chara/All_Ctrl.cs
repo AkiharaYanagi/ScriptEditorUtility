@@ -41,9 +41,9 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			SqcList_Act.SetCharaData ( ch.behavior );
-			Compend_Bhv.SetCharaData ( ch );
-			SqcList_Efc.SetCharaData ( ch.garnish );
-			Compend_Gns.SetCharaData ( ch );
+//			Compend_Bhv.SetCharaData ( ch );
+//			SqcList_Efc.SetCharaData ( ch.garnish );
+//			Compend_Gns.SetCharaData ( ch );
 
 			Cmd.SetCharaData ( ch );
 			Brc.SetCharaData ( ch );

@@ -50,7 +50,7 @@ namespace ScriptEditor
 		//環境設定
 		public void SetEnviron ( EditCompend ec )
 		{
-			BoolAction = ec is EditBehavior;
+			BoolAction = ( ec is EditBehavior );
 
 			ctrl_image.SetEnviron ( ec );
 			sqc_tree.SetEnviron ( ec, this );
