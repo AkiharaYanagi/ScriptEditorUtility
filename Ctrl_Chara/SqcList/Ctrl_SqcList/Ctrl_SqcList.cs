@@ -103,11 +103,23 @@ namespace ScriptEditor
 			UpdateData ();
 		}
 
+		//関連付け
+		public void Assosiate ()
+		{
+			//スクリプトの選択による関連付けは存在しない
+		}
+
+		//描画の要求
+		public void Disp ()
+		{
+			ctrl_ImageTable1.Disp ();
+			ELB_Sqc.Invalidate ();
+			this.Invalidate ();
+		}
+
 		//描画
 		protected override void OnPaint ( PaintEventArgs e )
 		{
-			ctrl_ImageTable1.Invalidate ();
-			ELB_Sqc.Invalidate ();
 			base.OnPaint ( e ); 
 		}
 

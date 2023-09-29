@@ -64,6 +64,11 @@ namespace ScriptEditor
 			pB_Sqc1.UpdateData ();
 		}
 
+		public void Disp ()
+		{
+			pB_Sqc1.Invalidate ();
+		}
+
 		//選択位置にスクロールを移動する
 		public void ScrollPos ()
 		{

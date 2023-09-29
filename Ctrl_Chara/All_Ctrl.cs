@@ -3,6 +3,25 @@
 
 namespace ScriptEditor
 {
+	//=====================================================
+	//						[ScripEditorUtility]
+	//
+	// CtrlCompend   
+	//	↓			
+	// Ctrl_All(シングルトン)
+	//	↓	
+	//	↓			 // EditChara(シングルトン)
+	//	↓				↓
+	//	↓→ → UpdateData(), Assosiate() など
+	//	↓				↓
+	//----------------------------------
+	//	↓				↓	[ScripEditor]	
+	//	↓				↓
+	//	↓				↓
+	//	[------ Chara ------](編集対象キャラデータ)
+	//
+	//=====================================================
+
 	public sealed class All_Ctrl
 	{
 		//---------------------------------------------------------------------
@@ -41,7 +60,7 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			SqcList_Act.SetCharaData ( ch.behavior );
-//			Compend_Bhv.SetCharaData ( ch );
+			Compend_Bhv.SetCharaData ( ch );
 //			SqcList_Efc.SetCharaData ( ch.garnish );
 //			Compend_Gns.SetCharaData ( ch );
 
@@ -55,6 +74,11 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ()
 		{
+			SqcList_Act.Assosiate ();
+			Compend_Bhv.Assosiate ();
+//			SqcList_Efc.Assosiate ();
+//			Compend_Gns.Assosiate ();
+
 			UpdateData ();
 		}
 
@@ -63,8 +87,8 @@ namespace ScriptEditor
 		{
 			SqcList_Act.UpdateData ();
 			Compend_Bhv.UpdateData ();
-			SqcList_Efc.UpdateData ();
-			Compend_Gns.UpdateData ();
+//			SqcList_Efc.UpdateData ();
+//			Compend_Gns.UpdateData ();
 
 			Disp ();
 		}
@@ -72,7 +96,10 @@ namespace ScriptEditor
 		//表示
 		public void Disp ()
 		{
-			//Invalidate
+			SqcList_Act.Disp ();
+			Compend_Bhv.Disp ();
+//			SqcList_Efc.Disp ();
+//			Compend_Gns.Disp ();
 		}
 
 	}
