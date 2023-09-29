@@ -70,7 +70,7 @@ namespace ScriptEditor
 				ctrl_image.SetCharaData ( ch, ch.garnish.BD_Image );
 				sqc_tree.SetCharaData ( ch.garnish.BD_Sequence );
 			}
-			AllDisp ();
+			Disp ();
 		}
 
 		public void SelectTop ()
@@ -89,11 +89,11 @@ namespace ScriptEditor
 		public void Assosiate ()
 		{
 			sqc_board.Assosiate ();
-			AllDisp ();
+			Disp ();
 		}
 
 		//すべて表示
-		public void AllDisp ()
+		public void Disp ()
 		{
 			ctrl_image.Invalidate ();
 			sqc_board.Invalidate ();

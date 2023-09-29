@@ -43,7 +43,7 @@ namespace ScriptEditor
 		public void SetEnviron ( EditCompend ec, _Ctrl_Compend ctrl_cmpd )
 		{
 			EditCompend = ec;
-			ActDisp = ctrl_cmpd.AllDisp;
+			ActDisp = ctrl_cmpd.Disp;
 			ActAssosiate = ctrl_cmpd.Assosiate;
 		}
 
