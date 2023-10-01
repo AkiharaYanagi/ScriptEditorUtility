@@ -58,7 +58,7 @@ namespace ScriptEditor
 			//コントロールに渡してテスト
 			ctrl_Branch1.SetEnvironment ( ctrl_stg );
 			ctrl_Branch1.SetCharaData  ( ch_test );
-//			ctrl_Branch1.LoadData ();
+			ctrl_Branch1.LoadPreData ();
 		}
 	}
 }

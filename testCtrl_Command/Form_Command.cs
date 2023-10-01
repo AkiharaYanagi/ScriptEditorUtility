@@ -31,7 +31,7 @@ namespace ScriptEditor
 			//------------------------------------
 
 			ctrl_cmdlst.SetEnvironment ( ctrl_stg );
-			ctrl_cmdlst.LoadData ();
+			ctrl_cmdlst.LoadPreData ();
 		}
 	}
 }

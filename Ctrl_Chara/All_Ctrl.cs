@@ -103,5 +103,16 @@ namespace ScriptEditor
 			Compend_Gns.Disp ();
 		}
 
+
+		//プレデータ読込
+		public void LoadPreData ()
+		{
+			SqcList_Act.LoadPreData ();
+			SqcList_Efc.LoadPreData ();
+			Cmd.LoadPreData ();
+			Brc.LoadPreData ();
+			Rut.LoadPreData ();
+		}
+
 	}
 }

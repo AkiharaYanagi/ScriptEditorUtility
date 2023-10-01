@@ -73,12 +73,10 @@ namespace ScriptEditor
 			Cmpd = cmpd;
 			Data.SetData ( cmpd );
 			EditData.Compend = Cmpd;
-
-			LoadData ();
 		}
 
-		//データ読込
-		public void LoadData ()
+		//プレデータ読込
+		public void LoadPreData ()
 		{
 			switch ( flag_sqc_derived )
 			{

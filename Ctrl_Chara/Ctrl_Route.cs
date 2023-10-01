@@ -105,7 +105,8 @@ namespace ScriptEditor
 			Ctrl_Stgs = stgs;
 		}
 
-		public void LoadData ()
+		//プレデータ読込
+		public void LoadPreData ()
 		{
 			EL_Route.LoadData ( Ctrl_Stgs.File_RouteList );
 		}

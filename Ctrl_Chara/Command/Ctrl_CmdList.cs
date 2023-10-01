@@ -65,8 +65,8 @@ namespace ScriptEditor
 			}
 		}
 
-		//データ読込
-		public void LoadData ()
+		//プレデータ読込
+		public void LoadPreData ()
 		{
 			EL_Cmd.LoadData ( Ctrl_Stgs.File_CommandList );
 		}

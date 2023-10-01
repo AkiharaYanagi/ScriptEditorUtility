@@ -66,8 +66,7 @@ namespace ScriptEditor
 			//コントロールに渡してテスト
 			ctrl_Route1.SetEnvironment ( ctrl_stg );
 			ctrl_Route1.SetCharaData  ( ch_test );
-
-			ctrl_Route1.LoadData ();
+			ctrl_Route1.LoadPreData ();
 		}
 	}
 }

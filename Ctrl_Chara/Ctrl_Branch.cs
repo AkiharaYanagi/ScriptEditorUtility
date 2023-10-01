@@ -12,9 +12,11 @@ namespace ScriptEditor
 	public partial class Ctrl_Branch :UserControl
 	{
 		//対象
-		private Chara Chara = null;
+//		private Chara Chara = null;
 		public BD_Brc BD_Branch { get; set; } = new BD_Brc ();
-		public BD_Seq BD_Sequence { get; set; } = new BD_Seq ();
+//		public BD_Seq BD_Sequence { get; set; } = new BD_Seq ();
+		public BD_Seq BD_Behavior { get; set; } = new BD_Seq ();
+		public BD_Seq BD_Garnish { get; set; } = new BD_Seq ();
 		public BD_Cmd BD_Command { get; set; } = new BD_Cmd ();
 
 		//コントロール
@@ -53,7 +55,7 @@ namespace ScriptEditor
 
 			EL_Branch.Func_color_check = (ob) =>
 			{
-				return ! Chara.behavior.BD_Sequence.ContainsKey ( ((Branch)ob).NameSequence );
+				return ! BD_Behavior.ContainsKey ( ((Branch)ob).NameSequence );
 			};
 
 			//IO
@@ -88,8 +90,10 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			//データ参照の保存
-			Chara = ch;
+			//Chara = ch;
 			BD_Branch = ch.BD_Branch;
+			BD_Behavior = ch.behavior.BD_Sequence;
+			BD_Garnish = ch.garnish.BD_Sequence;
 
 #if false
 			if ( 0 == ch.behavior.BD_Sequence.Count() ) { ch.behavior.BD_Sequence.New (); }
@@ -102,8 +106,8 @@ namespace ScriptEditor
 
 			//コンボボックスの更新
 			Cb_Command.DataSource = ch.BD_Command.GetBindingList ();
-			Cb_Action.DataSource = ch.behavior.BD_Sequence.GetBindingList ();
-			Cb_Effect.DataSource = ch.garnish.BD_Sequence.GetBindingList ();
+			Cb_Action.DataSource = BD_Behavior.GetBindingList ();
+			Cb_Effect.DataSource = BD_Garnish.GetBindingList ();
 
 			//１つ以上存在したら選択
 			if ( EL_Branch.Count () > 0 )
@@ -116,14 +120,16 @@ namespace ScriptEditor
 			}
 		}
 
-		public void LoadData ()
+		//プレデータ読込
+		public void LoadPreData ()
 		{
 			EL_Branch.LoadData ( Ctrl_Stgs.File_BranchList );
 		}
 
 		public void SelectSequence ( string name )
 		{
-			Sequence sqc = Chara.garnish.BD_Sequence.Get ( name );
+			//アクション・エフェクト分岐
+			Sequence sqc = BD_Garnish.Get ( name );
 			if ( sqc is null )
 			{
 				OnAction ();
