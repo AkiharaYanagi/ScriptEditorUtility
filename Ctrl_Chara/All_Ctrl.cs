@@ -4,7 +4,7 @@
 namespace ScriptEditor
 {
 	//=====================================================
-	//						[ScripEditorUtility]
+	//	◆[ScripEditorUtility]
 	//
 	// CtrlCompend   
 	//	↓			
@@ -15,7 +15,8 @@ namespace ScriptEditor
 	//	↓→ → UpdateData(), Assosiate() など
 	//	↓				↓
 	//----------------------------------
-	//	↓				↓	[ScripEditor]	
+	//◆[ScripEditor]	
+	//		
 	//	↓				↓
 	//	↓				↓
 	//	[------ Chara ------](編集対象キャラデータ)
@@ -61,8 +62,8 @@ namespace ScriptEditor
 		{
 			SqcList_Act.SetCharaData ( ch.behavior );
 			Compend_Bhv.SetCharaData ( ch );
-//			SqcList_Efc.SetCharaData ( ch.garnish );
-//			Compend_Gns.SetCharaData ( ch );
+			SqcList_Efc.SetCharaData ( ch.garnish );
+			Compend_Gns.SetCharaData ( ch );
 
 			Cmd.SetCharaData ( ch );
 			Brc.SetCharaData ( ch );
@@ -76,8 +77,8 @@ namespace ScriptEditor
 		{
 			SqcList_Act.Assosiate ();
 			Compend_Bhv.Assosiate ();
-//			SqcList_Efc.Assosiate ();
-//			Compend_Gns.Assosiate ();
+			SqcList_Efc.Assosiate ();
+			Compend_Gns.Assosiate ();
 
 			UpdateData ();
 		}
@@ -87,8 +88,8 @@ namespace ScriptEditor
 		{
 			SqcList_Act.UpdateData ();
 			Compend_Bhv.UpdateData ();
-//			SqcList_Efc.UpdateData ();
-//			Compend_Gns.UpdateData ();
+			SqcList_Efc.UpdateData ();
+			Compend_Gns.UpdateData ();
 
 			Disp ();
 		}
@@ -98,8 +99,8 @@ namespace ScriptEditor
 		{
 			SqcList_Act.Disp ();
 			Compend_Bhv.Disp ();
-//			SqcList_Efc.Disp ();
-//			Compend_Gns.Disp ();
+			SqcList_Efc.Disp ();
+			Compend_Gns.Disp ();
 		}
 
 	}
