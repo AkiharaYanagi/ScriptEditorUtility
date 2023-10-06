@@ -232,7 +232,7 @@ namespace ScriptEditor
 		//更新
 		public void UpdateData ()
 		{
-			if ( BD_Sqc.Count () > 0 ) { return; }
+			if ( BD_Sqc.Count () <= 0 ) { return; }
 
 			//再構築
 			if ( BD_Sqc[0] is Action )
@@ -243,6 +243,7 @@ namespace ScriptEditor
 			{
 				ClassficatinByName ();
 			}
+			treeView1.ExpandAll ();
 		}
 
 		//==============================================================
