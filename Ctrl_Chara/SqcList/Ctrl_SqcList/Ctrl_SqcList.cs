@@ -73,6 +73,9 @@ namespace ScriptEditor
 			Cmpd = cmpd;
 			Data.SetData ( cmpd );
 			EditData.Compend = Cmpd;
+
+			//@info キャラ内のイメージにはシークエンス番号が無いのでフォルダから指定する
+			ctrl_ImageTable1.LoadImage ();
 		}
 
 		//プレデータ読込
@@ -104,7 +107,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ()
 		{
-			//スクリプトの選択による関連付けは存在しない
+			//シークエンスリストにはスクリプトの選択による関連付けは存在しない
 		}
 
 		//描画の要求

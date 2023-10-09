@@ -15,11 +15,11 @@ namespace ScriptEditor
 		public Sequence Sqc { get; set; } = new Sequence ();
 
 		//編集
-		public EditCompend EditCompend = null;
+		public EditCompend EditCompend = new EditCompend ();
 
 
 		//親コントロール
-		private System.Action ActDisp = ()=>{};		//全体からの表示
+//		private System.Action ActDisp = ()=>{};		//全体からの表示
 //		private System.Action ActAssosiate = ()=>{};	//全体からの関連付け
 
 
@@ -43,7 +43,7 @@ namespace ScriptEditor
 		public void SetEnviron ( EditCompend ec, _Ctrl_Compend ctrl_cmpd )
 		{
 			EditCompend = ec;
-			ActDisp = ctrl_cmpd.Disp;
+			//ActDisp = ctrl_cmpd.Disp;
 			//ActAssosiate = ctrl_cmpd.Assosiate;
 		}
 
@@ -309,7 +309,8 @@ namespace ScriptEditor
 			//更新
 			//ActAssosiate ();
 			//ActDisp ();
-			All_Ctrl.Inst.Assosiate ();
+			//All_Ctrl.Inst.Assosiate ();
+			All_Ctrl.Inst.Assosiate_scp ();
 		}
 
 	}

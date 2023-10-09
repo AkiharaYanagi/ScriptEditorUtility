@@ -27,8 +27,8 @@ namespace ScriptEditor
 
 		//---------------------------------------------------------------------
 		//選択位置
-		public Sequence SelectedSequence { get; set; } = null;
-		public Script SelectedScript { get; set; } = null;
+		public Sequence SelectedSequence { get; set; } = new Sequence ();
+		public Script SelectedScript { get; set; } = new Script ();
 
 		public int SelectedSpanStart { get; set; } = 0;
 		public int SelectedSpanEnd { get; set; } = 0;

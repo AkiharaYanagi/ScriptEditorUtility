@@ -35,6 +35,11 @@ namespace ScriptEditor
 		}
 		//---------------------------------------------------------------------
 
+
+		//@todo シークエンスツリーが毎回更新していると遅いので、更新範囲を指定する
+
+
+
 		//コントロール参照
 
 		//ビヘイビア（アクション）
@@ -45,15 +50,12 @@ namespace ScriptEditor
 		public Ctrl_SqcList SqcList_Efc { get; set; } = new Ctrl_SqcList ();
 		public _Ctrl_Compend Compend_Gns { get; set; } = new _Ctrl_Compend ();
 
-		//コマンド
-		public Ctrl_CmdList Cmd { get; set; } = new Ctrl_CmdList ();
+		public Ctrl_CmdList Cmd { get; set; } = new Ctrl_CmdList ();		//コマンド
+		public Ctrl_Branch Brc { get; set; } = new Ctrl_Branch ();		//ブランチ
+		public Ctrl_Route Rut { get; set; } = new Ctrl_Route ();		//ルート
 
-		//ブランチ
-		public Ctrl_Branch Brc { get; set; } = new Ctrl_Branch ();
-
-		//ルート
-		public Ctrl_Route Rut { get; set; } = new Ctrl_Route ();
-
+		//各サブフォームのコントロール
+		public _Ctrl_Script Scp { get; set; } = new _Ctrl_Script ();	//スクリプト
 
 		//-------------------------
 
@@ -80,7 +82,17 @@ namespace ScriptEditor
 			SqcList_Efc.Assosiate ();
 			Compend_Gns.Assosiate ();
 
+			Scp.Assosiate ();
+
 			UpdateData ();
+		}
+
+		//スクリプトのみ関連付け
+		public void Assosiate_scp ()
+		{ 
+			Compend_Bhv.Assosiate_scp ();
+			Compend_Gns.Assosiate_scp ();
+			Scp.Assosiate ();
 		}
 
 		//データ更新

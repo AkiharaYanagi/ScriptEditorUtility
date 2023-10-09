@@ -78,17 +78,24 @@ namespace ScriptEditor
 			sqc_tree.SelectTop ();
 		}
 
-		//更新
-		public void UpdateData ()
-		{
-			sqc_tree.UpdateData ();
-			Assosiate ();
-		}
-
 		//関連付け
 		public void Assosiate ()
 		{
 			sqc_board.Assosiate ();
+			UpdateData ();
+		}
+
+		//スクリプトのみ関連付け
+		public void Assosiate_scp ()
+		{
+			sqc_board.Assosiate ();
+			sqc_board.Invalidate ();
+		}
+
+		//更新
+		public void UpdateData ()
+		{
+			sqc_tree.UpdateData ();
 			Disp ();
 		}
 

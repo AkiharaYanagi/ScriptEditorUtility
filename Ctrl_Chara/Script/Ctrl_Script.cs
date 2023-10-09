@@ -11,10 +11,10 @@ namespace ScriptEditor
 	public partial class _Ctrl_Script : UserControl
 	{
 		//現在スクリプト
-		private Script script = null;
+		private Script script = new Script ();
 
 		//編集
-		EditCompend EditCompend = null;
+		EditCompend EditCompend = new EditCompend ();
 
 		//コントロール集合
 		private List < IScriptParam > ls_ctrl_scpPrm = new List<IScriptParam> ();
@@ -145,21 +145,21 @@ namespace ScriptEditor
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetEnvironment ( ec, disp ); }
 		}
 
-		//更新
-		public void UpdateData ()
-		{
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.UpdateData (); }
-		}
-
 		//関連付け
-		public void Assosiate ( Script s )
+		public void Assosiate ()
 		{
-			script = s;
+			script = EditCompend.SelectedScript;
 
 			Tb_Frame.Text = script.Frame.ToString ();
 			Tb_Img.Text = script.ImgName;
 
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.Assosiate ( s ); }
+			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.Assosiate ( script ); }
+		}
+
+		//更新
+		public void UpdateData ()
+		{
+			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.UpdateData (); }
 		}
 
 

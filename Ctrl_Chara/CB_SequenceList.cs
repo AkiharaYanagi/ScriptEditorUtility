@@ -22,7 +22,7 @@ namespace ScriptEditor
 		public System.Action AllDisp = ()=>{};
 
 		//設定用デリゲート
-		public SetFunc Set { get; set; } = null;
+		public SetFunc SetFunc { get; set; } = sqc=>{};
 
 #if false
 		//初期化
@@ -51,7 +51,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Associate ( SetFunc sf )
 		{
-			Set = sf;
+			SetFunc = sf;
 		}
 
 		//名前から選択
@@ -63,10 +63,8 @@ namespace ScriptEditor
 		//閉じたときのイベント
 		protected override void OnSelectionChangeCommitted ( EventArgs e )
 		{
-			if ( null == Set ) { return; }
-
 			//キャラに選択された値を反映
-			Set ( (Sequence)this.SelectedItem );
+			SetFunc ( (Sequence)this.SelectedItem );
 
 			//表示更新
 			//DispCompend.Disp ();

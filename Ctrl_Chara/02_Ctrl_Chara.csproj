@@ -136,6 +136,9 @@
       <DependentUpon>SqcTree.cs</DependentUpon>
     </Compile>
     <Compile Include="Compend\ToolImage.cs" />
+    <Compile Include="Ctrl_Action.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Ctrl_Branch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -258,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compend\SqcTree.resx">
       <DependentUpon>SqcTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ctrl_Action.resx">
+      <DependentUpon>Ctrl_Action.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ctrl_Branch.resx">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>

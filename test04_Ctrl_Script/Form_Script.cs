@@ -21,8 +21,7 @@ namespace ScriptEditor
 			EditChara.Inst.SetCharaDara ( ch );
 
 			eb.Assosiate ();
-			Script s = eb.SelectedScript;
-			ctrl_Script1.Assosiate ( s );
+			ctrl_Script1.Assosiate ();
 		}
 	}
 }

@@ -5,6 +5,9 @@ using System.IO;
 
 namespace ScriptEditor
 {
+	using BD_Image = BindingDictionary < ImageData >;
+
+
 	public class EditSqcListData
 	{
 		//対象データ

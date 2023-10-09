@@ -7,8 +7,7 @@ namespace ScriptEditor
 {
 	public partial class Form1 : Form
 	{
-		private _Ctrl_Compend ctrl_Compend = new _Ctrl_Compend();
-//		private _Ctrl_Image ctrl_image = new _Ctrl_Image ();
+		private _Ctrl_Compend ctrl_behavior = new _Ctrl_Compend();
 
 		public Form1 ()
 		{
@@ -24,25 +23,23 @@ namespace ScriptEditor
 			testCh.Make ( chara );
 
 			//編集
-#if true
-			EditBehavior editCompend = new EditBehavior ();
-			editCompend.SetCharaData ( chara.behavior );
-#else		
-			EditGarnish editCompend = new EditGarnish ();
-			editCompend.SetCharaData ( chara.garnish );
-#endif
+			EditBehavior editBehavior = new EditBehavior ();
+			editBehavior.SetCharaData ( chara.behavior );
+			EditGarnish editGarnish = new EditGarnish ();
+			editGarnish.SetCharaData ( chara.garnish );
 
 			//環境設定
-			panel1.Controls.Add ( ctrl_Compend );
-			ctrl_Compend.BoolAction = true;
-			ctrl_Compend.SetEnviron ( editCompend );
-			ctrl_Compend.SetCharaData ( chara );
+			All_Ctrl.Inst.Compend_Bhv = ctrl_behavior;
 
+			panel1.Controls.Add ( ctrl_behavior );
+			ctrl_behavior.BoolAction = true;
+			ctrl_behavior.SetEnviron ( editBehavior );
+			ctrl_behavior.SetCharaData ( chara );
 		}
 
 		private void Form1_Shown ( object sender, EventArgs e )
 		{
-			ctrl_Compend.SelectTop ();
+			ctrl_behavior.SelectTop ();
 		}
 	}
 }
