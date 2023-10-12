@@ -13,10 +13,10 @@ namespace ScriptEditor
 	public class SqcTree : UserControl
 	{
 		//対象シークエンスリスト
-		public BD_Sqc BD_Sqc { get; set; } = null;
+		public BD_Sqc BD_Sqc { get; set; } = new BD_Sqc ();
 
 		//編集
-		public EditCompend EditCompend { get; set; } = null;
+		public EditCompend EditCompend { get; set; } = new EditCompend ();
 
 
 		//親コントロール
@@ -31,6 +31,7 @@ namespace ScriptEditor
 		}
 
 
+		//[自動] コンポーネント初期化
 		private void InitializeComponent ()
 		{
 			this.components = new System.ComponentModel.Container();
@@ -84,6 +85,8 @@ namespace ScriptEditor
 
 		}
 
+
+		//メイン木構造
 		private TreeView treeView1;
 
 
@@ -94,7 +97,6 @@ namespace ScriptEditor
 			ActDisp = ctrl_cmpd.Disp;
 			ActAssosiate = ctrl_cmpd.Assosiate;
 		}
-		
 
 		//キャラデータ設定
 		public void SetCharaData ( BD_Sqc bd_sqc )
@@ -118,7 +120,7 @@ namespace ScriptEditor
 				//先頭を選択
 				treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
 				string seq_name = treeView1.SelectedNode.Text;
-//				EditCompend.SelectSequence ( seq_name );
+				EditCompend.SelectSequence ( seq_name );
 			}
 			//アクションではない(エフェクト)のとき
 			else
@@ -129,7 +131,7 @@ namespace ScriptEditor
 				//先頭を選択
 				treeView1.SelectedNode = treeView1.Nodes[0];
 				string seq_name = treeView1.SelectedNode.Text;
-//				EditCompend.SelectSequence ( seq_name );
+				EditCompend.SelectSequence ( seq_name );
 			}
 
 			treeView1.ExpandAll ();
@@ -206,14 +208,15 @@ namespace ScriptEditor
 			string name = treeView1.SelectedNode.Text;
 			EditCompend.SelectSequence ( name );
 
-			ActAssosiate ();
+//			ActAssosiate ();
+			All_Ctrl.Inst.Assosiate ();
 		}
 
 
 		//先頭を選択
 		public void SelectTop ()
 		{
-			if ( BD_Sqc is null ) { return; }
+			if ( BD_Sqc.Count () <= 0 ) { return; }
 
 			//アクションのときのみアクションカテゴリで分類
 			if ( BD_Sqc[0] is Action ) 

@@ -95,7 +95,7 @@ namespace ScriptEditor
 		//更新
 		public void UpdateData ()
 		{
-			sqc_tree.UpdateData ();
+//			sqc_tree.UpdateData ();
 			Disp ();
 		}
 

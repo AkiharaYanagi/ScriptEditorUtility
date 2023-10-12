@@ -11,9 +11,8 @@ namespace ScriptEditor
 	public class EditSqcListData
 	{
 		//対象データ
-		public SqcListData Dt { get; set; } = null;
-
-		public Compend Compend { get; set; } = null;
+		public SqcListData Dt { get; set; } = new SqcListData ();
+		public Compend Compend { get; set; } = new Compend ();
 
 		//選択シークエンス
 		public int SelectedSqc { get; set; } = 0;
@@ -22,7 +21,7 @@ namespace ScriptEditor
 		public int SelectedImage { get; set; } = 0;
 
 		//全体更新
-		public System.Action UpdateAll { get; set; } = null;
+		public System.Action UpdateAll { get; set; } = ()=>{};
 
 		//名前の更新
 		public void UpdateName () { Dt.UpdateName (); }

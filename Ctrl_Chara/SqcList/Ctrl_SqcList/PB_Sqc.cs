@@ -2,34 +2,41 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Timers;
+using System.ComponentModel;
+
 
 namespace ScriptEditor
 {
+	//--------------------------------------------------------------
 	//System.TimerとSystem.Windows.Forms.Timerで曖昧なので明示的宣言
 	using STimer = System.Timers.Timer;
+	//--------------------------------------------------------------
+
+	using EL_SqcDt = EditListbox < SequenceData >;
+
 
 	//シークエンスデータの画像表示コントロール
 	public class PB_Sqc : PictureBox
 	{
 		//対象データ
-		public EditListbox < SequenceData > ELB_Sqc { get; set; } = null;
+		public EL_SqcDt ELB_Sqc { get; set; } = new EL_SqcDt ();
 		
 		//データ編集
-		public EditSqcListData EditData { get; set; } = null;
+		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
 
 		//入力フォーム
 		public bool FlagAction { get; set; } = false;
 		private Form_Action form_act = new Form_Action();
 
 		private ContextMenuStrip contextMenuStrip1;
-		private System.ComponentModel.IContainer components;
+		private IContainer components;
 		private ToolStripMenuItem toolStripMenuItem1;
 		private ToolStripMenuItem toolStripMenuItem2;
 		private ToolStripMenuItem toolStripMenuItem3;
 
 		//IDE表示
 		public class Run {};
-		private Run run { get; set; } = null;
+		private Run run { get; set; } = new Run ();
 
 		//カーソル判定用別スレッド
 		STimer tmr = new STimer( 16 );

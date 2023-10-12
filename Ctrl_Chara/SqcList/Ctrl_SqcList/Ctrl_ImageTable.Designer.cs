@@ -58,8 +58,6 @@
 			// pB_Sqc1
 			// 
 			this.pB_Sqc1.BackColor = System.Drawing.SystemColors.Control;
-			this.pB_Sqc1.EditData = null;
-			this.pB_Sqc1.ELB_Sqc = null;
 			this.pB_Sqc1.FlagAction = false;
 			this.pB_Sqc1.Location = new System.Drawing.Point(3, 3);
 			this.pB_Sqc1.Name = "pB_Sqc1";
