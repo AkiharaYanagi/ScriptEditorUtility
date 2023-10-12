@@ -325,7 +325,7 @@ namespace ScriptEditor
 		{
 			if ( ! DCT_t.ContainsKey ( name ) )
 			{
-				throw new Exception ();
+				throw new Exception ( "NameErrar : " + name );
 			}
 		}
 	}

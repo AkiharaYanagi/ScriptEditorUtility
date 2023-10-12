@@ -90,6 +90,8 @@ namespace ScriptEditor
 		{
 			sqc_board.Assosiate ();
 			sqc_board.Invalidate ();
+			//ctrl_image.Assosiate ();
+			ctrl_image.Invalidate ();
 		}
 
 		//更新

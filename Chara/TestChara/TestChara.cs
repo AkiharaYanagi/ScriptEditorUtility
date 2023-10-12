@@ -5,6 +5,9 @@ using System.IO;
 
 namespace ScriptEditor
 {
+	using BD_ImgDt = BindingDictionary < ImageData >;
+
+
 	//==================================================================================
 	//	キャラデータのテスト (IO, Edit)
 	//		対象データは変更されるため、テスト用データを外部から設定する
@@ -100,15 +103,21 @@ namespace ScriptEditor
 		string noname = "";
 		public void _TestNameAssign ( Chara ch )
 		{
+			BD_ImgDt bd_img = ch.behavior.BD_Image;
+
 			//スクリプト -> イメージ, ルート
 			foreach ( Sequence sqc in ch.behavior.BD_Sequence.GetBindingList () )
 			{
+				int i = 0;
 				foreach ( Script scp in sqc.ListScript )
 				{
 					noname = scp.ImgName;
 
 					//イメージ
-					ch.behavior.BD_Image.Try_Exist ( scp.ImgName );
+					if ( ! bd_img.ContainsKey ( scp.ImgName ) )
+					{
+						throw new Exception ( sqc.Name + "[" + i + "]-> " + scp.ImgName );
+					}
 
 					//ルート
 					foreach ( TName tn in scp.BD_RutName.GetBindingList () )
@@ -116,6 +125,8 @@ namespace ScriptEditor
 						noname = tn.Name;
 						ch.BD_Route.Try_Exist ( tn.Name );
 					}
+
+					++ i;
 				}
 			}
 
