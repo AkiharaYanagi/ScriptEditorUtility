@@ -162,6 +162,11 @@ namespace ScriptEditor
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.UpdateData (); }
 		}
 
+		//表示
+		public void Disp ()
+		{
+			this.Invalidate ();
+		}
 
 
 	}

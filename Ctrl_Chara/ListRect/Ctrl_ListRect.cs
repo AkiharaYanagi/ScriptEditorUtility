@@ -19,27 +19,19 @@ namespace ScriptEditor
 		public int SelectedIndex { get; set; } = -1;
 
 		//すべての表示更新
-		public System.Action DispAll { get; set; } = ()=>{};
+//		public System.Action DispAll { get; set; } = ()=>{};
 	
 
 		//コンストラクタ
 		public Ctrl_ListRect ()
 		{
 			InitializeComponent ();
-
 			this.Paint += Ctrl_ListRect_Paint;
-			
-			Assosiate ( LsRect );
 		}
 
 		private void Ctrl_ListRect_Paint ( object sender, PaintEventArgs e )
 		{
 			Pb_Num.Invalidate ();
-		}
-
-		public void SetCharaData ( )
-		{
-
 		}
 
 		public void Assosiate ( LsRect lsr )
@@ -65,9 +57,15 @@ namespace ScriptEditor
 				SelectedIndex = -1;
 			}
 
+			Disp ();
+		}
+
+		public void Disp ()
+		{
 			Pb_Num.Invalidate ();
 			this.Invalidate ();
-			DispAll?.Invoke ();	//全体更新
+//			DispAll?.Invoke ();	//全体更新
+			All_Ctrl.Inst.Disp ();
 		}
 
 		public Rectangle GetRect ( int index )

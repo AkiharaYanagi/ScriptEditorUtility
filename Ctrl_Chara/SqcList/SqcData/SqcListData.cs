@@ -14,6 +14,13 @@ namespace ScriptEditor
 		public Sequence Sqc { get; set; } = new Sequence ();
 		public BD_IMGDT BD_ImgDt { get; set; } = new BD_IMGDT ();
 
+		//コンストラクタ
+		//引数でNew Action() か New Effect() を指定する
+		public SequenceData ( System.Func < Sequence > New_Ob )
+		{
+			Sqc = New_Ob ();
+		}
+
 		public void SetName ( string name )
 		{
 			base.Name = name;
@@ -27,7 +34,7 @@ namespace ScriptEditor
 	public class SqcListData
 	{
 		public BD_SqcDt L_Sqc = new BD_SqcDt();
-		private Compend Compend = null;
+		private Compend Compend = new Compend ();
 
 		public void Clear ()
 		{
@@ -88,16 +95,18 @@ namespace ScriptEditor
 		//データ適用
 		public void ApplyData ()
 		{
-			if ( Compend is null ) { return; }
-
 			//L_SqcからCompendに戻す
 			// ※Compendの状態を優先する
 			//	L_Sqcにおける追加、削除などの変更点のみを反映する
+
+			//シークエンス
+#if false
 			Compend.BD_Sequence.Clear ();
 			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
 			{
 				Compend.BD_Sequence.Add ( sqcDt.Sqc );
 			}
+#endif
 
 			//イメージ
 			Compend.BD_Image.Clear ();

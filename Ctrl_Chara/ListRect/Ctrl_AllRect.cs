@@ -17,10 +17,10 @@ namespace ScriptEditor
 
 		enum KindRect
 		{
-			CRect = 0,
-			HRect = 1,
-			ARect = 2,
-			ORect = 3,
+			CRect = 0,	//接触枠
+			HRect = 1,	//当り枠
+			ARect = 2,	//攻撃枠
+			ORect = 3,	//相殺枠
 		};
 
 		//仕切線
@@ -36,7 +36,7 @@ namespace ScriptEditor
 		private KindRect SelectedIndexRect = KindRect.CRect;
 
 		//編集
-		public EditCompend EditCompend { get; set; } = null;
+		public EditCompend EditCompend { get; set; } = new EditCompend ();
 
 		//-----------------------------------------------------------------------
 		//コンストラクタ
@@ -82,13 +82,16 @@ namespace ScriptEditor
 			InitializeComponent ();
 		}
 
+		//コンペンド選択 ( ビヘイビア / ガーニッシュ )
 		public void SetEditCompend ( EditCompend ec )
 		{
 			EditCompend = ec;
 		}
 
-		public void Assosiate ( Script scp )
+		//関連付け
+		public void Assosiate ()
 		{
+			Script scp = EditCompend.SelectedScript;
 			Ls_LsRect [0].Assosiate ( scp.ListCRect );
 			Ls_LsRect [1].Assosiate ( scp.ListHRect );
 			Ls_LsRect [2].Assosiate ( scp.ListARect );
@@ -97,9 +100,14 @@ namespace ScriptEditor
 
 		public void UpdateData ()
 		{
-
 		}
 
+		public void Disp ()
+		{
+			this.Invalidate ();
+		}
+
+#if false
 		public void SetFnDispAll ( System.Action FnDispAll )
 		{
 			Ls_LsRect [0].DispAll = FnDispAll;
@@ -107,6 +115,7 @@ namespace ScriptEditor
 			Ls_LsRect [2].DispAll = FnDispAll;
 			Ls_LsRect [3].DispAll = FnDispAll;
 		}
+#endif
 
 		//各コントロール取得
 		public Ctrl_ListRect GetCtrlListCRect () { return Ls_LsRect [0]; }

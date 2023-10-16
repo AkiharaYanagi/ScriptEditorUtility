@@ -71,16 +71,6 @@ namespace ScriptEditor
 			base.RemoveSequence ();
 		}
 
-
-#if false
-
-		//スクリプトの選択
-		public override void SetSelectedScript ( SELECTED_SCRIPT ss )
-		{
-			EditAction.Assosiate ( GetAction () );
-			base.SetSelectedScript ( ss );
-		}
-#endif
 	}
 
 }

@@ -33,10 +33,10 @@ namespace ScriptEditor
 			//アクション・エフェクト切替テスト
 #if true
 			Ctrl_SqcList.CTRL_SQC ac = Ctrl_SqcList.CTRL_SQC.ACTION;
-			ctrl_SqcList1.SetEnviroment ( ac, ()=>new Action(), ctrl_stg );
+			ctrl_SqcList1.SetEnviroment ( ac, ctrl_stg );
 #else
 			Ctrl_SqcList.CTRL_SQC ef = Ctrl_SqcList.CTRL_SQC.EFFECT;
-			ctrl_SqcList1.SetEnviroment ( ef, ()=>new Effect (), ctrl_stg );
+			ctrl_SqcList1.SetEnviroment ( ef, ctrl_stg );
 #endif
 
 			//読込

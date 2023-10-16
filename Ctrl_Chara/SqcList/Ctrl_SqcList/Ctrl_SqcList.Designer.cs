@@ -56,6 +56,7 @@
 			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.panel1.AutoScroll = true;
 			this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.panel1.Location = new System.Drawing.Point(215, 35);
 			this.panel1.Name = "panel1";

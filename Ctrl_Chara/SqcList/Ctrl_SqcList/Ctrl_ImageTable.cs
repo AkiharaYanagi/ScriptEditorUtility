@@ -6,7 +6,7 @@ using System.IO;
 
 namespace ScriptEditor
 {
-	using SQC_DRV = Ctrl_SqcList.CTRL_SQC;
+	using SQC_DRVD = Ctrl_SqcList.CTRL_SQC;
 
 	public partial class Ctrl_ImageTable : UserControl
 	{
@@ -17,9 +17,9 @@ namespace ScriptEditor
 		public EditSqcListData EditData { get; set; } = null;
 
 		//アクション指定
-		private SQC_DRV flag_sqc_derived = SQC_DRV.ACTION;
-		public void SetAction () { flag_sqc_derived = SQC_DRV.ACTION; pB_Sqc1.FlagAction = true; }
-		public void SetEffect () { flag_sqc_derived = SQC_DRV.EFFECT; pB_Sqc1.FlagAction = false; }
+		private SQC_DRVD flag_sqc_derived = SQC_DRVD.ACTION;
+		public void SetAction () { flag_sqc_derived = SQC_DRVD.ACTION; pB_Sqc1.FlagAction = true; }
+		public void SetEffect () { flag_sqc_derived = SQC_DRVD.EFFECT; pB_Sqc1.FlagAction = false; }
 
 		//設定ファイル
 		public Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
@@ -32,15 +32,15 @@ namespace ScriptEditor
 		}
 
 		//環境設定
-		public void SetEnviroment ( SQC_DRV sqcDrv, EditSqcListData editData, Ctrl_Settings stgs )
+		public void SetEnviroment ( SQC_DRVD sqcDrvd, EditSqcListData editData, Ctrl_Settings stgs )
 		{
-			flag_sqc_derived = sqcDrv;
+			flag_sqc_derived = sqcDrvd;
 			switch ( flag_sqc_derived )
 			{
-			case SQC_DRV.ACTION: 
+			case SQC_DRVD.ACTION: 
 				Tb_ImgDir.Text = stgs.Dir_ImageListAct;
 				break;
-			case SQC_DRV.EFFECT: 
+			case SQC_DRVD.EFFECT: 
 				Tb_ImgDir.Text = stgs.Dir_ImageListEf;
 				break;
 			default: break;
@@ -219,10 +219,10 @@ namespace ScriptEditor
 				Tb_ImgDir.Text = opF.GetPath ();
 				switch ( flag_sqc_derived )
 				{
-				case SQC_DRV.ACTION: 
+				case SQC_DRVD.ACTION: 
 					Ctrl_Stgs.Dir_ImageListAct = Tb_ImgDir.Text;
 					break;
-				case SQC_DRV.EFFECT: 
+				case SQC_DRVD.EFFECT: 
 					Ctrl_Stgs.Dir_ImageListEf = Tb_ImgDir.Text;
 					break;
 				default: break;

@@ -46,9 +46,6 @@ namespace ScriptEditor
 		{
 			InitializeComponent ();
 
-			//入力フォーム
-			form_act.StartPosition = FormStartPosition.Manual;
-
 			//カーソル判定用別スレッド
 			tmr.Elapsed += DDMouseMove;
 		}
@@ -143,7 +140,8 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ( SequenceData sqcDt )
 		{
-			form_act.tB_Setter1.SetFunc = (s)=>{sqcDt.Name = s;};
+//			form_act.tB_Setter1.SetFunc = (s)=>{sqcDt.Name = s;};
+			form_act.Assosiate ( sqcDt );
 		}
 
 		//スクロール移動
@@ -278,6 +276,7 @@ namespace ScriptEditor
 							form_act.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
 							form_act.Assosiate ( sqcDt );
 							form_act.Show();
+							form_act.Focus ();
 						}
 					}
 					else

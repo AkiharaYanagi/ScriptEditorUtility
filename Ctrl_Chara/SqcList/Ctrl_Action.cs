@@ -4,26 +4,29 @@ using System.Windows.Forms;
 
 namespace ScriptEditor
 {
+	//アクション設定用だが、エフェクトも流用する
+
 	public class Ctrl_Action : UserControl
 	{
-		private Label label1;
-		private TB_Number Tbn_Balance;
-		private TB_Number Tbn_HitPitch;
-		private TB_Number TBN_HitNum;
-		public CB_SequenceList CBSL_Next;
-		public ComboBox CB_Posture;
-		public ComboBox CB_Category;
-		public TextBox TB_Name;
-		private Label Lbl_Posture;
-		private Label Lbl_HitPitch;
-		private Label Lbl_HitNum;
-		private Label Lbl_Category;
-		private Label Lbl_Next;
 		private Label Lbl_Name;
+		public TextBox TB_Name;
+		private Label Lbl_Next;
+		public CB_SequenceList CBSL_Next;
+		private Label Lbl_Posture;
+		public ComboBox CB_Posture;
+		private Label Lbl_Category;
+		public ComboBox CB_Category;
+		private Label Lbl_HitNum;
+		private TB_Number TBN_HitNum;
+		private Label Lbl_HitPitch;
+		private TB_Number Tbn_HitPitch;
+		private Label lbl_Balance;
+		private TB_Number Tbn_Balance;
 
 		private void InitializeComponent ()
 		{
-			this.label1 = new System.Windows.Forms.Label();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ctrl_Action));
+			this.lbl_Balance = new System.Windows.Forms.Label();
 			this.Tbn_Balance = new ScriptEditor.TB_Number();
 			this.Tbn_HitPitch = new ScriptEditor.TB_Number();
 			this.TBN_HitNum = new ScriptEditor.TB_Number();
@@ -39,14 +42,14 @@ namespace ScriptEditor
 			this.Lbl_Name = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// label1
+			// lbl_Balance
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(18, 231);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(41, 12);
-			this.label1.TabIndex = 26;
-			this.label1.Text = "バランス";
+			this.lbl_Balance.AutoSize = true;
+			this.lbl_Balance.Location = new System.Drawing.Point(13, 231);
+			this.lbl_Balance.Name = "lbl_Balance";
+			this.lbl_Balance.Size = new System.Drawing.Size(41, 12);
+			this.lbl_Balance.TabIndex = 26;
+			this.lbl_Balance.Text = "バランス";
 			// 
 			// Tbn_Balance
 			// 
@@ -83,6 +86,7 @@ namespace ScriptEditor
 			this.CBSL_Next.FormattingEnabled = true;
 			this.CBSL_Next.Location = new System.Drawing.Point(70, 43);
 			this.CBSL_Next.Name = "CBSL_Next";
+			this.CBSL_Next.SetFunc = ((System.Action<ScriptEditor.Sequence>)(resources.GetObject("CBSL_Next.SetFunc")));
 			this.CBSL_Next.Size = new System.Drawing.Size(218, 20);
 			this.CBSL_Next.TabIndex = 22;
 			// 
@@ -165,7 +169,7 @@ namespace ScriptEditor
 			// 
 			// Ctrl_Action
 			// 
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.lbl_Balance);
 			this.Controls.Add(this.Tbn_Balance);
 			this.Controls.Add(this.Tbn_HitPitch);
 			this.Controls.Add(this.TBN_HitNum);
@@ -180,7 +184,7 @@ namespace ScriptEditor
 			this.Controls.Add(this.Lbl_Next);
 			this.Controls.Add(this.Lbl_Name);
 			this.Name = "Ctrl_Action";
-			this.Size = new System.Drawing.Size(303, 224);
+			this.Size = new System.Drawing.Size(307, 261);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -190,14 +194,17 @@ namespace ScriptEditor
 		//------------------------------------------------------
 
 		//編集機能参照
-		public EditBehavior EditBehavior { get; set; } = null;
+		public EditBehavior EditBehavior { get; set; } = new EditBehavior ();
 
 		//対象データ
-		public Action action { get; set; } = new Action ();
+		public Action Action { get; set; } = new Action ();
 
 		//コンストラクタ
 		public Ctrl_Action ()
 		{
+			//コンポーネント初期化
+			InitializeComponent ();
+
 			//定数：アクション属性コンボボックス
 			foreach ( ActionCategory ac in Enum.GetValues ( typeof ( ActionCategory ) ) )
 			{
@@ -220,7 +227,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ( Action act )
 		{
-			action = act;
+			Action = act;
 
 			//表示部
 			TB_Name.Text = act.Name;

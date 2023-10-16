@@ -52,6 +52,7 @@ namespace ScriptEditor
 
 		//各サブフォームのコントロール
 		public _Ctrl_Script Scp { get; set; } = new _Ctrl_Script ();	//スクリプト
+		public Ctrl_AllRect Rct { get; set; } = new Ctrl_AllRect ();	//枠
 
 		//-------------------------
 
@@ -70,34 +71,27 @@ namespace ScriptEditor
 			Assosiate ();
 		}
 
+		//----------------------------------------------
+		//コントロール全体
+
 		//関連付け
 		public void Assosiate ()
 		{
 			SqcList_Act.Assosiate ();
-			Compend_Bhv.Assosiate ();
 			SqcList_Efc.Assosiate ();
-			Compend_Gns.Assosiate ();
 
-			Scp.Assosiate ();
+			Assosiate_scp ();
 
 			UpdateData ();
-		}
-
-		//スクリプトのみ関連付け
-		public void Assosiate_scp ()
-		{ 
-			Compend_Bhv.Assosiate_scp ();
-			Compend_Gns.Assosiate_scp ();
-			Scp.Assosiate ();
 		}
 
 		//データ更新
 		public void UpdateData ()
 		{
 			SqcList_Act.UpdateData ();
-			Compend_Bhv.UpdateData ();
 			SqcList_Efc.UpdateData ();
-			Compend_Gns.UpdateData ();
+
+			UpdateData_scp ();
 
 			Disp ();
 		}
@@ -106,12 +100,45 @@ namespace ScriptEditor
 		public void Disp ()
 		{
 			SqcList_Act.Disp ();
-			Compend_Bhv.Disp ();
 			SqcList_Efc.Disp ();
-			Compend_Gns.Disp ();
+
+			Disp_scp ();
 		}
 
 
+		//----------------------------------------------
+		//スクリプトのみ
+		
+		//関連付け
+		public void Assosiate_scp ()
+		{ 
+			Compend_Bhv.Assosiate_scp ();
+			Compend_Gns.Assosiate_scp ();
+			Scp.Assosiate ();
+			Rct.Assosiate ();
+		}
+
+		//データ更新
+		public void UpdateData_scp ()
+		{
+			Compend_Bhv.UpdateData ();
+			Compend_Gns.UpdateData ();
+			Scp.UpdateData ();
+			Rct.UpdateData ();
+
+			Disp_scp ();
+		}
+
+		//表示
+		public void Disp_scp ()
+		{
+			Compend_Bhv.Disp ();
+			Compend_Gns.Disp ();
+			Scp.Disp ();
+			Rct.Disp ();
+		}
+
+		//----------------------------------------------
 		//プレデータ読込
 		public void LoadPreData ()
 		{
