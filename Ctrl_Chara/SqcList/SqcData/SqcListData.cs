@@ -15,6 +15,8 @@ namespace ScriptEditor
 		public BD_IMGDT BD_ImgDt { get; set; } = new BD_IMGDT ();
 
 		//コンストラクタ
+		public SequenceData () {}
+		
 		//引数でNew Action() か New Effect() を指定する
 		public SequenceData ( System.Func < Sequence > New_Ob )
 		{

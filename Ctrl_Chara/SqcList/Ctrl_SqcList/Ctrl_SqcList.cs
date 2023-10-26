@@ -19,7 +19,7 @@ namespace ScriptEditor
 		private Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
 
 		//新規オブジェクト作成
-//		public System.Func < Sequence > New_Object = ()=>new Sequence();
+		public System.Func < Sequence > New_Object = ()=>new Sequence();
 
 		//アクション/エフェクト 切替
 		public enum CTRL_SQC { ACTION, EFFECT };
