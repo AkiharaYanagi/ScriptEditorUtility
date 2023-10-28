@@ -220,8 +220,13 @@ namespace ScriptEditor
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
 		{
-			//次アクション指定
-			CBSL_Next.SetCharaData ( ch.behavior.BD_Sequence );
+		}
+
+		//コンペンド指定
+		public void SetCompend ( Compend cmpd )
+		{
+			//次シークエンス指定
+			CBSL_Next.SetCharaData ( cmpd.BD_Sequence );
 		}
 
 		//関連付け

@@ -35,7 +35,7 @@ namespace ScriptEditor
 			EditData.UpdateAll = UpdateAll;
 
 			//データの設定
-			ctrl_ImageTable1.SetData ( ELB_Sqc );
+			ctrl_ImageTable1.LoadCtrl ( ELB_Sqc );
 
 			//イベントの設定
 			ELB_Sqc.SelectedIndexChanged = () =>

@@ -63,17 +63,24 @@ namespace ScriptEditor
 			//ディレクトリ設定
 			Ctrl_Stgs = stgs;
 			ctrl_ImageTable1.SetEnviroment ( cs, EditData, stgs );
+
+			//@info キャラ内のイメージにはシークエンス番号が無いのでフォルダから指定する
+			ctrl_ImageTable1.LoadImage ();
 		}
 
 		//対象データ設置
-		public void SetCharaData ( Compend cmpd )
+		public void SetCharaData ( Chara ch )
+		{
+		}
+
+		//コンペンド指定
+		public void SetCompend ( Compend cmpd )
 		{
 			Cmpd = cmpd;
 			Data.SetData ( cmpd );
 			EditData.Compend = Cmpd;
 
-			//@info キャラ内のイメージにはシークエンス番号が無いのでフォルダから指定する
-			ctrl_ImageTable1.LoadImage ();
+			ctrl_ImageTable1.SetCompend ( cmpd );
 		}
 
 		//コンペンド ( ビヘイビア / ガーニッシュ ) 選択

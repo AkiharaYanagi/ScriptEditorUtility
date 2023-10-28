@@ -42,6 +42,18 @@ namespace ScriptEditor
 			EditData = editdata;
 		}
 
+		//キャラデータ設置
+		public void SetCharaData ( Chara ch )
+		{
+			Ctrl_Action.SetCharaData ( ch );
+		}
+
+		//コンペンド指定
+		public void SetCompend ( Compend cmpd )
+		{
+			Ctrl_Action.SetCompend ( cmpd );
+		}
+
 		//関連付け
 		public void Assosiate ( SequenceData sqcDt )
 		{

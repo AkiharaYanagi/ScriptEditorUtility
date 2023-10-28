@@ -116,6 +116,18 @@ namespace ScriptEditor
 			form_act.SetEnvironment ( editData );
 		}
 
+		//キャラデータ
+		public void SetCharaData ( Chara ch )
+		{
+			form_act.SetCharaData ( ch );
+		}
+
+		//コンペンド指定
+		public void SetCompend ( Compend cmpd )
+		{
+			form_act.SetCompend ( cmpd );
+		}
+
 		//更新
 		public void UpdateData ()
 		{

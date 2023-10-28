@@ -52,13 +52,26 @@ namespace ScriptEditor
 			Ctrl_Stgs = stgs;
 		}
 
-		//データ設置
-		public void SetData ( EditListbox < SequenceData > elb_sd )
+		//初期コントロール設置
+		public void LoadCtrl ( EditListbox < SequenceData > elb_sd )
 		{
 			ELB_Sqc = elb_sd;
 			pB_Sqc1.ELB_Sqc = elb_sd;
 		}
 
+		//キャラデータ設置
+		public void SetCharaData ( Chara ch )
+		{
+			pB_Sqc1.SetCharaData ( ch );
+		}
+
+		//コンペンド指定
+		public void SetCompend ( Compend cmpd )
+		{
+			pB_Sqc1.SetCompend ( cmpd );
+		}
+
+		//更新
 		public void UpdateData ()
 		{
 			pB_Sqc1.UpdateData ();

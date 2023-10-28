@@ -40,7 +40,7 @@ namespace ScriptEditor
 #endif
 
 			//読込
-			ctrl_SqcList1.SetCharaData ( chara.behavior );
+			ctrl_SqcList1.SetCharaData ( chara );
 		}
 	}
 }
