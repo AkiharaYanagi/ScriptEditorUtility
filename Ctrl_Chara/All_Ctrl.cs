@@ -53,8 +53,13 @@ namespace ScriptEditor
 		//各サブフォームのコントロール
 		public _Ctrl_Script Scp { get; set; } = new _Ctrl_Script ();	//スクリプト
 		public Ctrl_AllRect Rct { get; set; } = new Ctrl_AllRect ();	//枠
+		public Ctrl_Scp_Route ScpRut { get; set; } = new Ctrl_Scp_Route ();
 
 		//-------------------------
+
+		public void SetEnvironment ()
+		{
+		}
 
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
@@ -71,7 +76,9 @@ namespace ScriptEditor
 			Brc.SetCharaData ( ch );
 			Rut.SetCharaData ( ch );
 
-			Assosiate ();
+			ScpRut.SetCharaData ( ch );
+
+//			Assosiate ();
 		}
 
 		//----------------------------------------------
@@ -119,6 +126,7 @@ namespace ScriptEditor
 			Compend_Gns.Assosiate_scp ();
 			Scp.Assosiate ();
 			Rct.Assosiate ();
+			ScpRut.Assosiate ();
 		}
 
 		//データ更新
@@ -128,8 +136,7 @@ namespace ScriptEditor
 			Compend_Gns.UpdateData ();
 			Scp.UpdateData ();
 			Rct.UpdateData ();
-
-			Disp_scp ();
+			ScpRut.UpdateData ();
 		}
 
 		//表示
@@ -139,6 +146,7 @@ namespace ScriptEditor
 			Compend_Gns.Disp ();
 			Scp.Disp ();
 			Rct.Disp ();
+			ScpRut.Disp ();
 		}
 
 		//----------------------------------------------
@@ -150,6 +158,13 @@ namespace ScriptEditor
 			Cmd.LoadPreData ();
 			Brc.LoadPreData ();
 			Rut.LoadPreData ();
+		}
+
+		//フォルダからイメージ読込
+		public void LoadImage ()
+		{
+			SqcList_Act.LoadImage ();
+			SqcList_Efc.LoadImage ();
 		}
 
 	}

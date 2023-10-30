@@ -193,6 +193,9 @@
     <Compile Include="Script\Ctrl_Script.Designer.cs">
       <DependentUpon>Ctrl_Script.cs</DependentUpon>
     </Compile>
+    <Compile Include="Script\SubForm\Ctrl_Scp_Route.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SqcList\ConstPaint.cs" />
     <Compile Include="SqcList\Ctrl_Action.cs">
       <SubType>UserControl</SubType>
@@ -287,6 +290,9 @@
     <EmbeddedResource Include="Script\Ctrl_Script.resx">
       <DependentUpon>Ctrl_Script.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Script\SubForm\Ctrl_Scp_Route.resx">
+      <DependentUpon>Ctrl_Scp_Route.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SqcList\Ctrl_Action.resx">
       <DependentUpon>Ctrl_Action.cs</DependentUpon>

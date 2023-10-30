@@ -137,12 +137,12 @@ namespace ScriptEditor
 
 		//環境設置
 		//引数：コンペンド編集, 表示
-		public void SetEnvironment ( EditCompend ec, System.Action disp )
+		public void SetEnvironment ( EditCompend ec )
 		{
 			EditCompend = ec;
 
 			//環境設定
-			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetEnvironment ( ec, disp ); }
+			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetEnvironment ( ec, ()=>{} ); }
 		}
 
 		//関連付け

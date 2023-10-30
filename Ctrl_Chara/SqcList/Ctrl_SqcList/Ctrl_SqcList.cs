@@ -115,6 +115,12 @@ namespace ScriptEditor
 			UpdateData ();
 		}
 
+		//イメージのみフォルダから読込
+		public void LoadImage ()
+		{
+			ctrl_ImageTable1.LoadImage ();
+		}
+
 		//関連付け
 		public void Assosiate ()
 		{

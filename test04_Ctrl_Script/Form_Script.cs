@@ -11,7 +11,7 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			EditCompend eb = EditChara.Inst.EditBehavior;
-			ctrl_Script1.SetEnvironment ( eb, ()=>{ } );
+			ctrl_Script1.SetEnvironment ( eb );
 
 
 			Chara ch = new Chara ();
