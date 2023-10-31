@@ -53,7 +53,8 @@ namespace ScriptEditor
 		//各サブフォームのコントロール
 		public _Ctrl_Script Scp { get; set; } = new _Ctrl_Script ();	//スクリプト
 		public Ctrl_AllRect Rct { get; set; } = new Ctrl_AllRect ();	//枠
-		public Ctrl_Scp_Route ScpRut { get; set; } = new Ctrl_Scp_Route ();
+		public Ctrl_Scp_Route ScpRut { get; set; } = new Ctrl_Scp_Route ();	//シークエンス内ルートリスト
+		public _Ctrl_EfGnrt EfGnrt { get; set; } = new _Ctrl_EfGnrt ();	//エフェクト生成
 
 		//-------------------------
 
@@ -77,6 +78,7 @@ namespace ScriptEditor
 			Rut.SetCharaData ( ch );
 
 			ScpRut.SetCharaData ( ch );
+			EfGnrt.SetCharaData ( ch );
 
 //			Assosiate ();
 		}
@@ -127,6 +129,7 @@ namespace ScriptEditor
 			Scp.Assosiate ();
 			Rct.Assosiate ();
 			ScpRut.Assosiate ();
+			EfGnrt.Assosiate ();
 		}
 
 		//データ更新
@@ -137,6 +140,7 @@ namespace ScriptEditor
 			Scp.UpdateData ();
 			Rct.UpdateData ();
 			ScpRut.UpdateData ();
+			EfGnrt.UpdateData ();
 		}
 
 		//表示
@@ -147,6 +151,7 @@ namespace ScriptEditor
 			Scp.Disp ();
 			Rct.Disp ();
 			ScpRut.Disp ();
+			EfGnrt.Disp ();
 		}
 
 		//----------------------------------------------

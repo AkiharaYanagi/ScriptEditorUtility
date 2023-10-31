@@ -9,7 +9,8 @@ namespace ScriptEditor
 		private Chara chara = new Chara ();
 
 		//コントロール
-		private Ctrl_EfGnrt ctrl_efgnrt = new Ctrl_EfGnrt ();
+		private _Ctrl_EfGnrt ctrl_efgnrt = new _Ctrl_EfGnrt ();
+
 
 		//コンストラクタ
 		public Form1 ()
@@ -23,7 +24,15 @@ namespace ScriptEditor
 			Script scp = new Script ();
 			scp.BD_EfGnrt.Add ( new EffectGenerate () );
 
-			ctrl_efgnrt.Assosiate ( scp );
+			//編集
+			EditChara.Inst.SetCharaDara ( chara );
+			EditCompend eb = EditChara.Inst.EditBehavior;
+			ctrl_efgnrt.SetEditCompend ( eb );
+
+
+
+			ctrl_efgnrt.SetCharaData ( chara );
+			ctrl_efgnrt.Assosiate ();
 		}
 	}
 }
