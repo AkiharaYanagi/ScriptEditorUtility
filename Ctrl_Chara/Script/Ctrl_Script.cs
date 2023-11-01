@@ -47,6 +47,16 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_r_center_x = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_r_center_y = new Cmpnt_Int();
 
+
+		private Cmpnt_Int cmpnt_blackOut = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_vibration = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_Stop = new Cmpnt_Int ();
+
+		private Cmpnt_Int cmpnt_AftImg_N = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_AftImg_Time = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_AftImg_Pitch = new Cmpnt_Int ();
+
+
 		//編集対象を切り替えるラジオボタン
 		private RB_ScriptTarget rb_ScpTgt = new RB_ScriptTarget ();
 
@@ -55,6 +65,8 @@ namespace ScriptEditor
 		private const int PX = 50;
 		private const int BY = 100;
 		private const int PY = 30;
+
+		private const int BX1 = 280;
 		
 		//----------------------------------------------------
 		//コンストラクタ
@@ -82,6 +94,14 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_r_center_x );
 			ls_ctrl_scpPrm.Add ( cmpnt_r_center_y );
 
+			ls_ctrl_scpPrm.Add ( cmpnt_blackOut );
+			ls_ctrl_scpPrm.Add ( cmpnt_vibration );
+			ls_ctrl_scpPrm.Add ( cmpnt_Stop );
+
+			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_N );
+			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Time );
+			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Pitch );
+
 			//コンポーネントの追加
 			foreach ( Control ctrl in ls_ctrl_scpPrm )
 			{
@@ -106,8 +126,15 @@ namespace ScriptEditor
 			cmpnt_r_center_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetRotate_centerX(i), s=>s.StgPrm.Rotate_center.X ) );
 			cmpnt_r_center_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetRotate_centerY(i), s=>s.StgPrm.Rotate_center.Y ) );
 
+			cmpnt_blackOut.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.BlackOut=i, s=>s.StgPrm.BlackOut ) );
+			cmpnt_vibration.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Vibration=i, s=>s.StgPrm.Vibration ) );
+			cmpnt_Stop.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Stop=i, s=>s.StgPrm.Stop ) );
+
+			cmpnt_AftImg_N.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_N=i, s=>s.StgPrm.AfterImage_N ) );
+			cmpnt_AftImg_Time.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_time=i, s=>s.StgPrm.AfterImage_time ) );
+			cmpnt_AftImg_Pitch.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_pitch=i, s=>s.StgPrm.AfterImage_pitch ) );
+
 			//コンポーネントの位置
-			cmpnt_ClcSt.Location	 = new Point ( 220		, BY );
 			cmpnt_px.Location		 = new Point ( BX		, BY + PY * 0 );
 			cmpnt_py.Location		 = new Point ( BX + PX	, BY + PY * 0 );
 			cmpnt_vx.Location		 = new Point ( BX		, BY + PY * 1 );
@@ -123,6 +150,15 @@ namespace ScriptEditor
 			cmpnt_rotate.Location	 = new Point ( BX		, BY + PY * 7 );
 			cmpnt_r_center_x.Location = new Point ( BX		, BY + PY * 8 );
 			cmpnt_r_center_y.Location = new Point ( BX + PX	, BY + PY * 8 );
+
+			cmpnt_ClcSt.Location	 = new Point ( BX1		, BY + PY * 0 );
+			cmpnt_blackOut.Location	 = new Point ( BX1		, BY + PY * 1 );
+			cmpnt_vibration.Location = new Point ( BX1		, BY + PY * 2 );
+			cmpnt_Stop.Location		 = new Point ( BX1		, BY + PY * 3 );
+			cmpnt_AftImg_N.Location	 = new Point ( BX1		, BY + PY * 4 );
+			cmpnt_AftImg_Time.Location = new Point ( BX1		, BY + PY * 5 );
+			cmpnt_AftImg_Pitch.Location		 = new Point ( BX1		, BY + PY * 6 );
+
 
 			//初期化
 			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )
