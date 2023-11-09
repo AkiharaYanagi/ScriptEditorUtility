@@ -162,12 +162,19 @@ namespace ScriptEditor
 
 			//---------------------------------------------
 			//イメージは全部解放してから再作成する
-			//イメージ
+			
+			//イメージ　ファイル上ではIDをつけるが、Compendに返すときIDを外し
+			//名前検索で指定できるようにする（IDずれ防止）
+			SaveImage save_image = new SaveImage();
+
 			Compend.BD_Image.Clear ();
 			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
 			{
 				foreach ( ImageData imgdt in sqcDt.BD_ImgDt.GetEnumerable () )
-				Compend.BD_Image.Add ( imgdt );
+				{
+//					imgdt.Name = save_image.GetImageName_NoID ( imgdt.Name );
+					Compend.BD_Image.Add ( imgdt );
+				}
 			}
 		}
 

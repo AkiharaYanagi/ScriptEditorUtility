@@ -100,22 +100,28 @@ namespace ScriptEditor
 			return retStr;
 		}
 
-		//シークエンス名切出
+		//"シークエンス名"切出
 		private string GetSeqName ( string imgFileName )
 		{
 			int size = imgFileName.Length;
-			string retStr = imgFileName.Substring ( 4, size - 11 );
-			return retStr;
+			return imgFileName.Substring ( 4, size - 11 );
 		}
 
-		//シークエンス内番号
+		//"_[シークエンス内番号00].png"
 		private string GetID_inSeq ( string imgFileName )
 		{
 			int size = imgFileName.Length;
-			string retStr = imgFileName.Substring ( size - 7, 7 );
-			return retStr;
+			return imgFileName.Substring ( size - 7, 7 );
 		}
 
+
+		//"[シークエンス名]_[シークエンス内番号00].png"
+		//Compendに返すとき[通し番号000]_は外す
+		public string GetImageName_NoID ( string imgFileName )
+		{
+			int size = imgFileName.Length;
+			return imgFileName.Substring ( 4, size - 4 );
+		}
 
 	}
 }

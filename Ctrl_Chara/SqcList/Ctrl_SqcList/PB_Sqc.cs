@@ -165,8 +165,13 @@ namespace ScriptEditor
 			}
 			this.Width = max < 1 ? 200 : CW + (max * CW);
 
+			//イメージ名
+			//ファイル書出時のみ[通し番号000]_を用い、それ以外は
+			//"[シークエンス名]_[シークエンス内番号00].png" で扱う
+#if false
 			//名前の更新
 			EditData.UpdateName ();
+#endif
 		}
 
 		//関連付け

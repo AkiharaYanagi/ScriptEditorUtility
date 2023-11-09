@@ -211,6 +211,7 @@ namespace ScriptEditor
 			}
 		}
 
+		//ドラッグエンタ
 		private void textBox1_DragEnter ( object sender, DragEventArgs e )
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
