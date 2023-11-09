@@ -19,7 +19,8 @@ namespace ScriptEditor
 	public class PB_Sqc : PictureBox
 	{
 		//対象データ
-		public EL_SqcDt ELB_Sqc { get; set; } = new EL_SqcDt ();
+//		public EL_SqcDt ELB_Sqc { get; set; } = new EL_SqcDt ();
+		public EL_SqcDt ELB_Sqc { get; set; } = null;
 		
 		//データ編集
 		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
@@ -177,7 +178,6 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ( SequenceData sqcDt )
 		{
-//			form_act.tB_Setter1.SetFunc = (s)=>{sqcDt.Name = s;};
 			form_act.Assosiate ( sqcDt );
 		}
 

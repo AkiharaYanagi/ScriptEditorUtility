@@ -106,8 +106,7 @@ namespace ScriptEditor
 		//キャラデータ設定
 		public void SetCharaData ( BD_Sqc bd_sqc )
 		{
-			if ( bd_sqc is null ) { return; }
-
+			//対象データ参照を保存
 			BD_Sqc = bd_sqc;
 
 			//シークエンス個数が０のときダミー

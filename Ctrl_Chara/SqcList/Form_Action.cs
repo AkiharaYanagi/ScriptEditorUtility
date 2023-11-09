@@ -60,31 +60,7 @@ namespace ScriptEditor
 		public void Assosiate ( SequenceData sqcDt )
 		{
 			Action act = (Action)sqcDt.Sqc;
-
 			Ctrl_Action.Assosiate ( act );
-
-#if false
-			tB_Setter1.Assosiate ( s=>sqcDt.SetName(s), ()=>{return sqcDt.Sqc.Name;} );
-			tB_Number1.Assosiate ( i=>sqcDt.nScript = i, ()=>{ return sqcDt.nScript; } );
-
-			//コンボボックス
-			Cb_Next.Items.Clear ();
-			foreach ( SequenceData sd in EditData.Dt.L_Sqc.GetEnumerable () )
-			{
-				Cb_Next.Items.Add ( sd.Name );
-			}
-			Cb_Next.SelectedItem = act.NextActionName;
-			SetNext = ( s ) =>
-			{
-				act.NextActionName = s;
-			};
-
-			SetCategory = ( s ) =>
-			{
-				act.Category = (ActionCategory)Enum.Parse ( typeof (ActionCategory), s ); 
-			};
-			Cb_Category.SelectedItem = act.Category.ToString();
-#endif
 		}
 
 		private void Btn_OK_Click ( object sender, EventArgs e )

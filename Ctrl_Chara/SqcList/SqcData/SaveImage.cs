@@ -65,11 +65,11 @@ namespace ScriptEditor
 			}
 
 
-			//@info 保存するときに旧データを検索して名前を更新する
+			//@info 保存するときにCompend側のデータを検索して名前を更新する
 			//シークエンス名で検索して、シークエンス内番号は残し、通し番号を更新
 			// "[通し番号000]_[シークエンス名]_[シークエンス内番号00].png"
 
-			//旧データ シークエンスリスト検索
+			//Compend側 シークエンスリスト検索
 			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
 			{
 				foreach ( Script scp in sqc.ListScript )

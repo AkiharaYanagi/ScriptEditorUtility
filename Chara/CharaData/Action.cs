@@ -10,6 +10,7 @@
 	//		┣ヒット数
 	//		┣ヒット間隔
 	//		┣バランス値
+	//		//┣マナ値
 	//================================================================
 
 	//-------------------------------------------------------
@@ -37,6 +38,9 @@
 
 		//バランス値
 		public int Balance { get; set; } = 0;
+
+		//マナ値
+//		public int Mana { get; set; } = 0;
 
 
 		//----------------------------------------------------------------------------
@@ -74,6 +78,8 @@
 			this.Posture = action.Posture;
 			this.HitNum = action.HitNum;
 			this.HitPitch = action.HitPitch;
+			this.Balance = action.Balance;
+//			this.Mana = action.Mana;
 	}
 
 		//クリア
@@ -84,6 +90,8 @@
 			Posture = ActionPosture.STAND;
 			HitNum = 0;
 			HitPitch = 0;
+			Balance = 0;
+//			Mana = 0;
 
 			base.Clear ();
 		}
@@ -98,6 +106,8 @@
 			this.Posture = action.Posture;
 			this.HitNum = action.HitNum;
 			this.HitPitch = action.HitPitch;
+			this.Balance = action.Balance;
+//			this.Mana = action.Mana;
 		}
 	}
 

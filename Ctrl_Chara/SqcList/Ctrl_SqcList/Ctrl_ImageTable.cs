@@ -131,8 +131,11 @@ namespace ScriptEditor
 					Bitmap thumbBmp = new Bitmap ( img );
 					Image thumImg = new Bitmap ( thumbBmp, new Size ( 100, 100 ) );
 
-//					sqcDt.BD_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
-					sqcDt.BD_ImgDt.Add ( new ImageData ( sqcDt.Name, thumbBmp ) );
+					//個数で名前を指定
+					int n = sqcDt.BD_ImgDt.Count();
+					if ( 99 < n ) { n = 0; }
+					string name = sqcDt.Name + "_" + n.ToString ( "00" ) + ".png";
+					sqcDt.BD_ImgDt.Add ( new ImageData ( name, thumbBmp ) );
 
 					fs.Close ();
 				}
