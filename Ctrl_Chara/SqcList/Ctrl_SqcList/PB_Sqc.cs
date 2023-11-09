@@ -33,6 +33,8 @@ namespace ScriptEditor
 		private ToolStripMenuItem toolStripMenuItem1;
 		private ToolStripMenuItem toolStripMenuItem2;
 		private ToolStripMenuItem toolStripMenuItem3;
+		private ToolStripMenuItem toolStripMenuItem4;
+		private ToolStripMenuItem toolStripMenuItem5;
 
 		//IDE表示
 		public class Run {};
@@ -66,6 +68,8 @@ namespace ScriptEditor
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			this.SuspendLayout();
@@ -75,9 +79,11 @@ namespace ScriptEditor
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(99, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(99, 114);
 			// 
 			// toolStripMenuItem1
 			// 
@@ -99,6 +105,20 @@ namespace ScriptEditor
 			this.toolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
 			this.toolStripMenuItem3.Text = "次";
 			this.toolStripMenuItem3.Click += new System.EventHandler(this.次toolStripMenuItem3);
+			// 
+			// toolStripMenuItem4
+			// 
+			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem4.Text = "先頭";
+			this.toolStripMenuItem4.Click += new System.EventHandler(this.先頭toolStripMenuItem4);
+			// 
+			// toolStripMenuItem5
+			// 
+			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem5.Text = "末尾";
+			this.toolStripMenuItem5.Click += new System.EventHandler(this.末尾toolStripMenuItem5);
 			// 
 			// PB_Sqc
 			// 
@@ -358,6 +378,17 @@ namespace ScriptEditor
 			EditData.UpdateAll ();
 		}
 
+		private void 先頭toolStripMenuItem4 ( object sender, EventArgs e )
+		{
+			EditData.Head ();
+			EditData.UpdateAll ();
+		}
+
+		private void 末尾toolStripMenuItem5 ( object sender, EventArgs e )
+		{
+			EditData.Tail ();
+			EditData.UpdateAll ();
+		}
 	}
 
 }

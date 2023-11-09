@@ -14,6 +14,7 @@ namespace ScriptEditor
 	//	追加・削除は２つのデータを同期するため、専用のAddとDelを用いる
 	//	対象データT t の中身はバインディングリストまたはディクショナリのどちらで取得後も同一オブジェクトであり変更可能
 	//	BL_tとDCT_tの削除と追加は片方だけで行ってはならない
+	//	名前の変更もDCTの更新が必要
 	//	型制約：参照型(where T : class)を指定したので変更は可能
 	//=============================================================
 	public interface IName
@@ -118,6 +119,31 @@ namespace ScriptEditor
 			DCT_t.Add ( t.Name, t );
 		}
 
+		
+
+		//@todo 各種名前のリンク切れチェックは必要かどうか
+
+		//名前の変更
+		public void ChangeName ( string before_name, string after_name )
+		{
+			if ( ! ContainsKey ( before_name ) ) { return; }
+
+			//事前に取得しておく
+			T t = Get ( before_name );
+
+			//DCTから外す
+			DCT_t.Remove ( before_name );
+
+			//唯一名
+			string N = UniqueName ( after_name );
+
+			//名前の変更
+			t.Name = N;
+
+			//DCTに戻す
+			DCT_t.Add ( N, t );
+		}
+
 
 		//取得
 		public T Get ( object obj )
@@ -159,6 +185,7 @@ namespace ScriptEditor
 		public void RemoveAt ( int index )
 		{
 			if ( index < 0 || BL_t.Count <= index ) { return; }
+
 			string name = BL_t [ index ].Name;
 			DCT_t.Remove ( name );
 			BL_t.RemoveAt ( index );
@@ -169,8 +196,14 @@ namespace ScriptEditor
 
 		public void Remove ( string name )
 		{
-			BL_t.Remove ( DCT_t [ name ] );
+			if ( ! ContainsKey ( name ) ) { return; }
+
+			int index = this.IndexOf ( name );
+			//@info BindingListの前にDictionaryを削除しないと
+			//　バインドされたコントロールのイベントが途中で発生する
+			// -> Countなどの値がずれてAssertする
 			DCT_t.Remove ( name );
+			BL_t.RemoveAt ( index );
 		}
 
 		public void Remove ( T t )

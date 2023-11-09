@@ -10,9 +10,9 @@ namespace ScriptEditor
 		private SqcListData Data = new SqcListData ();
 
 		//対象データ
-		private Compend Cmpd = null;
+		private Compend Cmpd = new Compend ();
 
-		//データ編集
+		//SqcList データ編集
 		private EditSqcListData EditData = new EditSqcListData ();
 
 		//設定ファイル
@@ -96,14 +96,15 @@ namespace ScriptEditor
 			{
 			case CTRL_SQC.ACTION: 
 				ELB_Sqc.LoadData ( Ctrl_Stgs.File_ActionList );
+				ApplyData_Action ();
 				break;
 			case CTRL_SQC.EFFECT: 
 				ELB_Sqc.LoadData ( Ctrl_Stgs.File_EffectList );
+				ApplyData_Effect ();
 				break;
 			default: break;
 			}
 
-			ApplyData ();
 
 			//イメージ
 			ctrl_ImageTable1.LoadImage ();
@@ -147,7 +148,7 @@ namespace ScriptEditor
 		{
 			ctrl_ImageTable1.UpdateData ();
 			ELB_Sqc._UpdateData ();
-			ELB_Sqc.Refresh ();
+//			ELB_Sqc.Refresh ();
 		}
 
 		//イメージのみ再読み込み
@@ -156,13 +157,19 @@ namespace ScriptEditor
 			ctrl_ImageTable1.UpdateImage ();
 		}
 
+		//-------------------------------------------------
 		//データ適用
-		public void ApplyData ()
+		//SqcDtからCompendに戻す
+		public void ApplyData_Action ()
 		{
-			//SqcDtからCompendに戻す
 			//@info Sequenceで生成しているとき、Actionにアップキャストできない問題
 			//-> New_Action()をデリゲートで指定
-			EditData.ApplyData ();
+			EditData.ApplyData_Action ();
+		}
+
+		public void ApplyData_Effect ()
+		{
+			EditData.ApplyData_Effect ();
 		}
 
 	}

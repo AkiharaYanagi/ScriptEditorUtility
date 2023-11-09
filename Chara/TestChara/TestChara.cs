@@ -142,7 +142,7 @@ namespace ScriptEditor
 			{
 				foreach ( TName tn in rut.BD_BranchName.GetBindingList () )
 				{
-					ch.BD_Branch.Try_Exist ( tn.Name );
+					ch.BD_Branch.Try_Exist ( rut.Name + ":" + tn.Name );
 				}
 			}
 		}

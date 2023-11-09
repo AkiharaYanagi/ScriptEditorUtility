@@ -80,10 +80,9 @@ namespace ScriptEditor
 		public void Prev ()
 		{
 			if ( ! Exist () ) { return; }
-			if ( SelectedImage == 0 ) { return; }
-
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
 			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
+			if ( SelectedImage == 0 ) { return; }
 
 			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
 			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ SelectedImage - 1 ];
@@ -95,7 +94,6 @@ namespace ScriptEditor
 		public void Next ()
 		{
 			if ( ! Exist () ) { return; }
-
 			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
 			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
 			if ( SelectedImage == sqcDt.BD_ImgDt.Count () - 1 ) { return; }
@@ -107,10 +105,41 @@ namespace ScriptEditor
 //			STS_TXT.Trace ("Next.");
 		}
 
-		//データをCompend型に戻す
-		public void ApplyData ()
+		//先頭
+		public void Head ()
 		{
-			Dt.ApplyData ();
+			if ( ! Exist () ) { return; }
+			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
+			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
+			if ( SelectedImage == 0 ) { return; }
+
+			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
+			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ 0 ];
+			sqcDt.BD_ImgDt [ 0 ] = imgDt_temp;
+		}
+
+		//末尾
+		public void Tail ()
+		{
+			if ( ! Exist () ) { return; }
+			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
+			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
+			int tail = sqcDt.BD_ImgDt.Count () - 1;
+			if ( SelectedImage == tail ) { return; }
+
+			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
+			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ tail ];
+			sqcDt.BD_ImgDt [ tail ] = imgDt_temp;
+		}
+
+		//データをCompend型に戻す
+		public void ApplyData_Action ()
+		{
+			Dt.ApplyData_Action ();
+		}
+		public void ApplyData_Effect ()
+		{
+			Dt.ApplyData_Effect ();
 		}
 
 		//イメージ名をリセット

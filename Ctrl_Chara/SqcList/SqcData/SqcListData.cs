@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace ScriptEditor
 {
+	using BD_Sqc = BindingDictionary < Sequence >;
+	using BD_Act = BindingDictionary < Action >;
+	using BD_Efc = BindingDictionary < Effect >;
 	using BD_SqcDt = BindingDictionary < SequenceData >;
 	using BD_IMGDT = BindingDictionary < ImageData >;
 
@@ -94,22 +97,71 @@ namespace ScriptEditor
 			}
 		}
 
-		//データ適用
-		public void ApplyData ()
+
+		//-----------------------------------------------------------------
+		//データ適用(Action)
+		public void ApplyData_Action ()
 		{
-			//L_SqcからCompendに戻す
+			ApplyData ( ApplyData_NewAction );
+		}
+
+		//データ適用(Effect)
+		public void ApplyData_Effect ()
+		{
+			ApplyData ( ApplyData_NewEffect );
+		}
+
+
+		//データ適用(共通) Newの部分だけAction/Effect指定
+		// L_Sqc から Compendに戻す
+		public void ApplyData ( System.Func < Sequence, Sequence > NewSqc )
+		{
 			// ※Compendの状態を優先する
 			//	L_Sqcにおける追加、削除などの変更点のみを反映する
 
-			//シークエンス
-#if false
-			Compend.BD_Sequence.Clear ();
-			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
-			{
-				Compend.BD_Sequence.Add ( sqcDt.Sqc );
-			}
-#endif
+			//一時保存
+			BD_Sqc BD_Old = Compend.BD_Sequence;
 
+			//L_SqcにないCompendのシークエンスを削除
+			List < string > deleteList = new List<string> ();
+			foreach ( Sequence sqc in BD_Old.GetEnumerable() )
+			{
+				if ( ! L_Sqc.ContainsKey ( sqc.Name ) )
+				{
+					deleteList.Add ( sqc.Name );
+				}
+			}
+			foreach ( string deleteName in deleteList )
+			{
+				BD_Old.Remove ( deleteName );
+			}
+
+
+			//CompendにないL_SqcのシークエンスをNewして追加
+			//CompendにないL_Sqcのアクションを追加
+			BD_Sqc BD_New = new BD_Sqc();
+
+			List < string > addList = new List<string>();
+
+			//順番はL_Sqcに基づく
+			foreach ( SequenceData sqcd in L_Sqc.GetEnumerable () )
+			{
+				//既存はディープコピーする
+				if ( Compend.BD_Sequence.ContainsKey ( sqcd.Name ) )
+				{
+					BD_New.Add ( NewSqc ( BD_Old.Get( sqcd.Name ) ) );
+				}
+				else //無いときは新規
+				{
+					BD_New.Add ( NewSqc ( sqcd.Sqc ) );
+				}
+			}
+
+			//Compendに設置して終了
+			Compend.BD_Sequence = BD_New;
+
+			//---------------------------------------------
+			//イメージは全部解放してから再作成する
 			//イメージ
 			Compend.BD_Image.Clear ();
 			foreach ( SequenceData sqcDt in L_Sqc.GetEnumerable () )
@@ -118,5 +170,20 @@ namespace ScriptEditor
 				Compend.BD_Image.Add ( imgdt );
 			}
 		}
+
+		//データ適用(Action)
+		public Sequence ApplyData_NewAction ( Sequence sqc )
+		{
+			return new Action ( (Action)sqc );
+		}
+
+
+		//データ適用(Effect)
+		public Sequence ApplyData_NewEffect ( Sequence sqc )
+		{
+			return new Effect ( (Effect)sqc );
+		}
+
+
 	}
 }

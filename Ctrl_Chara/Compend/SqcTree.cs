@@ -28,6 +28,11 @@ namespace ScriptEditor
 		public SqcTree ()
 		{
 			InitializeComponent ();
+
+			//強調表示を消さない
+			treeView1.HideSelection = false;
+			//全体を強調表示
+			treeView1.FullRowSelect = true;
 		}
 
 
@@ -228,13 +233,13 @@ namespace ScriptEditor
 			{
 				treeView1.SelectedNode = treeView1.Nodes[0];
 			}
-
-			treeView1.Focus ();
 		}
 
 		//更新
 		public void UpdateData ()
 		{
+			BD_Sqc = EditCompend.Compend.BD_Sequence;
+
 			if ( BD_Sqc.Count () <= 0 ) { return; }
 
 			//再構築

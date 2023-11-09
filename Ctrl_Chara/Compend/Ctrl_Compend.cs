@@ -73,11 +73,6 @@ namespace ScriptEditor
 			Disp ();
 		}
 
-		public void SelectTop ()
-		{
-			sqc_tree.SelectTop ();
-		}
-
 		//関連付け
 		public void Assosiate ()
 		{
@@ -107,6 +102,18 @@ namespace ScriptEditor
 			ctrl_image.Invalidate ();
 			sqc_board.Invalidate ();
 			sqc_tree.Invalidate ();
+		}
+
+		public void SelectTop ()
+		{
+			sqc_tree.SelectTop ();
+		}
+
+		//ツリーのみ外側から更新
+		public void UpdateSqcTree ()
+		{
+			sqc_tree.UpdateData ();
+			sqc_tree.SelectTop ();
 		}
 	}
 }

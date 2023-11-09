@@ -24,12 +24,6 @@ namespace ScriptEditor
 			ctrl_ImageTable1.Location = new System.Drawing.Point ( 0, 0 );
 			ctrl_ImageTable1.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
 
-			//エディットリストボックス
-			ELB_Sqc.Location = new System.Drawing.Point(0, 27);
-			ELB_Sqc.SetData(Data.L_Sqc);
-			ELB_Sqc.GetListBox().DisplayMember = "Name";
-			this.Controls.Add(ELB_Sqc);
-
 			//データ編集
 			EditData.Dt = Data;
 			EditData.UpdateAll = UpdateAll;
@@ -37,6 +31,13 @@ namespace ScriptEditor
 			//データの設定
 			ctrl_ImageTable1.LoadCtrl ( ELB_Sqc );
 
+			//エディットリストボックス
+			ELB_Sqc.Location = new System.Drawing.Point(0, 27);
+			ELB_Sqc.GetListBox().DisplayMember = "Name";
+			ELB_Sqc.SetData(Data.L_Sqc);
+			this.Controls.Add(ELB_Sqc);
+
+			//エディットリストボックス
 			//イベントの設定
 			ELB_Sqc.SelectedIndexChanged = () =>
 			{
@@ -45,7 +46,19 @@ namespace ScriptEditor
 			};
 			ELB_Sqc.Listbox_Changed = () => UpdateCtrl();
 			ELB_Sqc.Listbox_Add = () => UpdateCtrl();
+			ELB_Sqc._TextChanged = ()=>
+			{
+				//シークエンスデータはBDから直接の名前だけでなく、保持しているSqcの更新も必要
+				SequenceData sqcd = ELB_Sqc.Get();
+				string oldName = sqcd.Sqc.Name;
+				sqcd.SetName ( ELB_Sqc.GetName () );
 
+				//@info 名前データの変更は元のCompend.BD_Seqcuenceも更新しないと反映できない
+				// ->名前で検索するため
+				Cmpd.BD_Sequence.ChangeName ( oldName, sqcd.Name );
+			};
+
+			//アクション・エフェクト分岐
 			switch ( flag_sqc_derived )
 			{
 			case CTRL_SQC.ACTION: 
@@ -54,6 +67,7 @@ namespace ScriptEditor
 					Ctrl_Stgs.File_ActionList = s;
 					XML_IO.Save ( Ctrl_Stgs );
 				};
+				New_Object = ()=>new Action();
 				break;
 			case CTRL_SQC.EFFECT: 
 				ELB_Sqc.Func_SavePath = s =>
@@ -61,6 +75,7 @@ namespace ScriptEditor
 					Ctrl_Stgs.File_EffectList = s;
 					XML_IO.Save ( Ctrl_Stgs );
 				};
+				New_Object = ()=>new Effect();
 				break;
 			default: break;
 			}

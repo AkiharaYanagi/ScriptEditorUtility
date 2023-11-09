@@ -270,7 +270,7 @@ namespace ScriptEditor
 			Listbox_Changed?.Invoke();
 		}
 
-		//イベント：名前の変更
+		//イベント：テキストボックス 名前の変更
 		public Event _TextChanged { get; set; } = ()=>{};
 		public string GetName ()
 		{
@@ -278,9 +278,18 @@ namespace ScriptEditor
 		}
 		private void Tb_Name_TextChanged ( object sender, EventArgs e )
 		{
-			_TextChanged?.Invoke ();
+			if ( BD_T.Count () == 0 ) { return; }
+
+			//バインディングディクショナリの名前変更
+			T t = Get();
+			if ( t is null ) { return; }
+			if ( t.Name == Tb_Name.Text ) { return; }
+
+			
+			BD_T.ChangeName ( t.Name, Tb_Name.Text );
 
 			//変更時イベント
+			_TextChanged?.Invoke ();
 			Listbox_Changed?.Invoke ();
 		}
 

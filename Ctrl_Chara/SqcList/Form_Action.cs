@@ -40,6 +40,8 @@ namespace ScriptEditor
 		public void SetEnvironment ( EditSqcListData editdata )
 		{
 			EditData = editdata;
+
+			Ctrl_Action.SetEnvironment ();
 		}
 
 		//キャラデータ設置

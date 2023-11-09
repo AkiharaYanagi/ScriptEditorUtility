@@ -29,6 +29,9 @@ namespace ScriptEditor
 
 			//データ
 			Chara chara = new Chara ();
+			EditChara.Inst.SetCharaDara ( chara );
+
+			ctrl_SqcList1.SetCompend ( chara.behavior );
 
 			//アクション・エフェクト切替テスト
 #if true

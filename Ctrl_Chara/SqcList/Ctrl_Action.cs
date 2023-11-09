@@ -205,16 +205,27 @@ namespace ScriptEditor
 			//コンポーネント初期化
 			InitializeComponent ();
 
+			//名前設定用
+			TB_Name.TextChanged += new EventHandler ( SetName );
+
 			//定数：アクション属性コンボボックス
 			foreach ( ActionCategory ac in Enum.GetValues ( typeof ( ActionCategory ) ) )
 			{
 				CB_Category.Items.Add ( ac );
 			}
+			CB_Category.SelectionChangeCommitted += new EventHandler ( SetCategory );
+
 			//定数：アクション態勢コンボボックス
 			foreach ( ActionPosture ac in Enum.GetValues ( typeof ( ActionPosture ) ) )
 			{
 				CB_Posture.Items.Add ( ac );
 			}
+			CB_Posture.SelectionChangeCommitted += new EventHandler ( SetPosture );
+		}
+
+		public void SetEnvironment ()
+		{
+			EditBehavior = EditChara.Inst.EditBehavior;
 		}
 
 		//キャラデータ設置
@@ -244,10 +255,42 @@ namespace ScriptEditor
 			Tbn_Balance.Text = act.Balance.ToString();
 
 			//各コントロールに設定用のデリゲートを渡す
+			// TB_Name 名前
 			CBSL_Next.SetFunc = a=>act.NextActionName = a.Name;
+			// CB_Category カテゴリ
+			// CB_Posture 体勢
 			TBN_HitNum.SetFunc = i=>act.HitNum = i;
 			Tbn_HitPitch.SetFunc = i=>act.HitPitch = i;
 			Tbn_Balance.SetFunc = i=>act.Balance = i;
+		}
+
+		//名前の設定用イベントハンドラ
+		public void SetName ( object sender, EventArgs e )
+		{
+			//@todo 各種BindingDictionaryにおいて、型Tの名前の変更時
+			//	Dictionary側の更新が必要になるかどうか
+
+			TextBox tb = (TextBox)sender;
+			//Action.Name = tb.Text;
+			//変更なし
+			if ( tb.Text == Action.Name ) { return; }
+
+			//BindingDictionary < T > において名前の変更は専用の関数を用いる
+			EditBehavior.Compend.BD_Sequence.ChangeName ( Action.Name, tb.Text );
+		}
+
+		//カテゴリコンボボックスの設定用イベントハンドラ
+		public void SetCategory ( object sender, EventArgs e )
+		{
+			ComboBox cb = (ComboBox)sender;
+			Action.Category = (ActionCategory)cb.SelectedIndex;
+		}
+
+		//体勢コンボボックスの設定用イベントハンドラ
+		public void SetPosture ( object sender, EventArgs e )
+		{
+			ComboBox cb = (ComboBox)sender;
+			Action.Posture = (ActionPosture)cb.SelectedIndex;
 		}
 
 	}

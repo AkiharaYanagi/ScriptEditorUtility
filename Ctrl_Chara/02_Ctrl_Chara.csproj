@@ -304,6 +304,9 @@
     <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SqcList\Ctrl_SqcList\PB_Sqc.resx">
+      <DependentUpon>PB_Sqc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SqcList\Form_Action.resx">
       <DependentUpon>Form_Action.cs</DependentUpon>
     </EmbeddedResource>
