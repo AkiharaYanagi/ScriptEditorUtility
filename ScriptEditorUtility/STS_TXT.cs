@@ -21,7 +21,7 @@ namespace ScriptEditor
 
 		public static void Trace_Err ( string str )
 		{
-			Tssl.BackColor = Color.Red;
+			Tssl.BackColor = Color.LightCoral;
 			Tssl.Text = str;
 		}
 	}

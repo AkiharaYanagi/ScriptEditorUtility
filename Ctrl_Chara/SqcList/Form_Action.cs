@@ -63,6 +63,11 @@ namespace ScriptEditor
 			Ctrl_Action.Assosiate ( act );
 		}
 
+		public void ResetItems ()
+		{
+			Ctrl_Action.ResetText ();
+		}
+
 		private void Btn_OK_Click ( object sender, EventArgs e )
 		{
 			EditData.UpdateAll ();

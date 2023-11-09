@@ -36,10 +36,10 @@
 		//ヒット間隔[F}
 		public int HitPitch { get; set; } = 10;
 
-		//バランス値
+		//増減バランス値
 		public int Balance { get; set; } = 0;
 
-		//マナ値
+		//増減マナ値
 //		public int Mana { get; set; } = 0;
 
 

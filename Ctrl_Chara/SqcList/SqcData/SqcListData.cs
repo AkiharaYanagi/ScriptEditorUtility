@@ -153,6 +153,11 @@ namespace ScriptEditor
 				}
 				else //無いときは新規
 				{
+					//スクリプト数が０なら１つ追加
+					if ( sqcd.Sqc.ListScript.Count == 0 )
+					{
+						sqcd.Sqc.ListScript.Add ( new Script () );
+					}
 					BD_New.Add ( NewSqc ( sqcd.Sqc ) );
 				}
 			}

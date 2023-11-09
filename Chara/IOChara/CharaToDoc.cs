@@ -137,7 +137,8 @@ namespace ScriptEditor
 			if ( -1 == nextID )
 			{
 				string error_name = "name error : "+ act.Name + "." + act.NextActionName ;
-				throw new Exception ( error_name );
+				//throw new Exception ( error_name );
+				STS_TXT.Trace_Err ( error_name );
 			}
 
 			sw.Write ( " Name=\"" + act.Name + "\"" );					//名前

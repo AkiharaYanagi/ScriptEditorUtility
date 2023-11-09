@@ -14,7 +14,7 @@ namespace ScriptEditor
 		public L_Rct L_Rct { get; set; } = new L_Rct ();
 
 		//選択
-		public int SelectedIndex { get; set; } = -1;
+		public int SelectedIndex { get; set; } = 0;
 		public Rectangle SelectedRect { get; set; } = new Rectangle ();
 
 		//関連付け
@@ -27,20 +27,20 @@ namespace ScriptEditor
 		//選択(範囲チェック)
 		public void Select ( int index )
 		{
-			if ( index < L_Rct.Count )
-			{
-				SelectedRect = L_Rct [ index ];
-				SelectedIndex = index;
-			}
+			if ( index < 0 ) { return; }
+			if ( L_Rct.Count <= index ) { return; }
+
+			SelectedRect = L_Rct [ index ];
+			SelectedIndex = index;
 		}
 
 		//値設定
 		public void SetRect ( Rectangle r )
 		{
-			if ( SelectedIndex < L_Rct.Count )
-			{
-				L_Rct [ SelectedIndex ] = r;
-			}
+			if ( SelectedIndex < 0 ) { return; }
+			if ( L_Rct.Count <= SelectedIndex ) { return; }
+
+			L_Rct [ SelectedIndex ] = r;
 		}
 	}
 

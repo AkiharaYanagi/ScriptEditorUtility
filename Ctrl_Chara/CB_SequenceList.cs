@@ -31,6 +31,12 @@ namespace ScriptEditor
 			this.DataSource = bd_sqc.GetBindingList ();
 		}
 
+		public void ResetItems ()
+		{
+			BD_Sqc.ResetItems ();
+		}
+
+
 		//名前から選択
 		public void SelectName ( string name )
 		{

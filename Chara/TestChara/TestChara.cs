@@ -116,14 +116,17 @@ namespace ScriptEditor
 					//イメージ
 					if ( ! bd_img.ContainsKey ( scp.ImgName ) )
 					{
-						throw new Exception ( sqc.Name + "[" + i + "]-> " + scp.ImgName );
+						throw new Exception ( "◆ImageName : " + sqc.Name + "[" + i + "]-> " + scp.ImgName );
 					}
 
 					//ルート
 					foreach ( TName tn in scp.BD_RutName.GetBindingList () )
 					{
 						noname = tn.Name;
-						ch.BD_Route.Try_Exist ( tn.Name );
+						if ( ! ch.BD_Route.ContainsKey ( tn.Name ) )
+						{
+							throw new Exception ( "◆RouteName : " + sqc.Name + "[" + i + "]-> " + tn.Name );
+						}
 					}
 
 					++ i;
@@ -131,19 +134,32 @@ namespace ScriptEditor
 			}
 
 			//ブランチ -> コマンド, アクション
+			int iBrc = 0;
 			foreach ( Branch brc in ch.BD_Branch.GetBindingList () )
 			{
-				ch.BD_Command.Try_Exist ( brc.NameCommand );
-				ch.behavior.BD_Sequence.Try_Exist ( brc.NameSequence );
+				if ( ! ch.BD_Command.ContainsKey ( brc.NameCommand ) )
+				{
+					throw new Exception( "◆NameCommand : " + brc.Name + "[" + iBrc + "]-> " + brc.NameCommand );
+				}
+				if ( ! ch.behavior.BD_Sequence.ContainsKey ( brc.NameSequence ) )
+				{
+					throw new Exception( "◆NameSequence : " + brc.Name + "[" + iBrc + "]-> " + brc.NameSequence );
+				}
+				++ iBrc;
 			}
 
 			//ルート -> ブランチ名
+			int iRut = 0;
 			foreach ( Route rut in ch.BD_Route.GetBindingList () )
 			{
 				foreach ( TName tn in rut.BD_BranchName.GetBindingList () )
 				{
-					ch.BD_Branch.Try_Exist ( rut.Name + ":" + tn.Name );
+					if ( ! ch.BD_Branch.ContainsKey ( tn.Name ) )
+					{
+						throw new Exception( "◆BranchName : " + rut.Name + "[" + iBrc + "]-> " + tn.Name );
+					}
 				}
+				++ iRut;
 			}
 		}
 

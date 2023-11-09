@@ -59,6 +59,12 @@ namespace ScriptEditor
 			pB_Sqc1.ELB_Sqc = elb_sd;
 		}
 
+		//シークエンスリスト更新
+		public void ResetItems ()
+		{ 
+			pB_Sqc1.ResetItems ();
+		}
+
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
 		{

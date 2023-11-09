@@ -277,6 +277,9 @@ namespace ScriptEditor
 
 			//BindingDictionary < T > において名前の変更は専用の関数を用いる
 			EditBehavior.Compend.BD_Sequence.ChangeName ( Action.Name, tb.Text );
+
+			//シークエンスコンボボックスの更新
+			CBSL_Next.ResetItems ();
 		}
 
 		//カテゴリコンボボックスの設定用イベントハンドラ

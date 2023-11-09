@@ -21,6 +21,9 @@ namespace ScriptEditor
 
 		//コピー用
 		private ListBox Lb_Copy = new ListBox ();
+		private Button Btn_Copy;
+		private Button Btn_PasteAll;
+		private Button Btn_PasteGroup;
 
 		//全体編集
 		private EditCompend EditCompend = new EditCompend ();
@@ -29,6 +32,10 @@ namespace ScriptEditor
 		//コンストラクタ
 		public Ctrl_Scp_Route ()
 		{
+			//コンポーネント初期化は手動で追加する
+			InitializeComponent ();
+
+
 			this.Size = new Size ( 400, 600 );
 
 			//==============================================================
@@ -91,10 +98,46 @@ namespace ScriptEditor
 
 		private void InitializeComponent ()
 		{
+			this.Btn_Copy = new System.Windows.Forms.Button();
+			this.Btn_PasteAll = new System.Windows.Forms.Button();
+			this.Btn_PasteGroup = new System.Windows.Forms.Button();
 			this.SuspendLayout();
+			// 
+			// Btn_Copy
+			// 
+			this.Btn_Copy.Location = new System.Drawing.Point(242, 57);
+			this.Btn_Copy.Name = "Btn_Copy";
+			this.Btn_Copy.Size = new System.Drawing.Size(111, 41);
+			this.Btn_Copy.TabIndex = 0;
+			this.Btn_Copy.Text = "コピー";
+			this.Btn_Copy.UseVisualStyleBackColor = true;
+			this.Btn_Copy.Click += new System.EventHandler(this.Btn_Copy_Click);
+			// 
+			// Btn_PasteAll
+			// 
+			this.Btn_PasteAll.Location = new System.Drawing.Point(253, 277);
+			this.Btn_PasteAll.Name = "Btn_PasteAll";
+			this.Btn_PasteAll.Size = new System.Drawing.Size(100, 41);
+			this.Btn_PasteAll.TabIndex = 1;
+			this.Btn_PasteAll.Text = "全体にペースト";
+			this.Btn_PasteAll.UseVisualStyleBackColor = true;
+			this.Btn_PasteAll.Click += new System.EventHandler(this.Btn_PastAll_Click);
+			// 
+			// Btn_PasteGroup
+			// 
+			this.Btn_PasteGroup.Location = new System.Drawing.Point(253, 337);
+			this.Btn_PasteGroup.Name = "Btn_PasteGroup";
+			this.Btn_PasteGroup.Size = new System.Drawing.Size(100, 41);
+			this.Btn_PasteGroup.TabIndex = 1;
+			this.Btn_PasteGroup.Text = "グループにペースト";
+			this.Btn_PasteGroup.UseVisualStyleBackColor = true;
+			this.Btn_PasteGroup.Click += new System.EventHandler(this.Btn_PasteGroup_Click);
 			// 
 			// Ctrl_Scp_Route
 			// 
+			this.Controls.Add(this.Btn_PasteGroup);
+			this.Controls.Add(this.Btn_PasteAll);
+			this.Controls.Add(this.Btn_Copy);
 			this.Name = "Ctrl_Scp_Route";
 			this.Size = new System.Drawing.Size(384, 444);
 			this.ResumeLayout(false);

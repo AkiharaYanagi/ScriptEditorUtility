@@ -59,6 +59,9 @@ namespace ScriptEditor
 				//@info 名前データの変更は元のCompend.BD_Seqcuenceも更新しないと反映できない
 				// ->名前で検索するため
 				Cmpd.BD_Sequence.ChangeName ( oldName, sqcd.Name );
+
+				//シークエンスコンボボックスも更新する
+//				ctrl_ImageTable1.ResetItems ();
 			};
 
 			//アクション・エフェクト分岐
@@ -86,7 +89,9 @@ namespace ScriptEditor
 			ELB_Sqc.SetIOFunc ( SaveSqcDt, LoadSqcDt );
 		}
 
-		//引き渡し用 書出関数
+
+		//--------------------------------------------------------
+		//エディットリストボックス 引き渡し用 書出関数
 		public void SaveSqcDt ( object ob, StreamWriter sw )
 		{
 			SequenceData sqcDt = (SequenceData)ob;
@@ -99,11 +104,13 @@ namespace ScriptEditor
 				Action act = (Action)sqcDt.Sqc;
 				sw.Write ( act.Category.ToString () + "," ); 
 				sw.Write ( act.NextActionName + "," ); 
+				sw.Write ( act.HitNum + "," ); 
+				sw.Write ( act.HitPitch + "," ); 
+				sw.Write ( act.Balance + "," ); 
 			}
 		}
 
-
-
+		//--------------------------------------------------------
 		//アクションリストのデータ構造定義
 		enum _LoadSqcData
 		{
@@ -111,9 +118,12 @@ namespace ScriptEditor
 			N_SCP,	//スクリプト個数
 			CTG,	//カテゴリ
 			NEXT,	//次アクション名
+			HIT_NUM,	//ヒット数
+			HIT_PTC,	//ヒット間隔
+			BALANCE,	//増減バランス値
 		};
 
-		//引き渡し用 読込関数
+		//エディットリストボックス 引き渡し用 読込関数
 		public void LoadSqcDt ( StreamReader sr )
 		{
 			SequenceData sqcDt = new SequenceData (){ Sqc = New_Object() };
@@ -122,7 +132,7 @@ namespace ScriptEditor
 			string[] str_spl = sr.ReadLine ().Split ( ',' );
 			sqcDt.Name = str_spl [ (int)_LoadSqcData.NAME ];
 			sqcDt.Sqc.Name = str_spl[ (int)_LoadSqcData.NAME ];
-			sqcDt.nScript = int.Parse ( str_spl[ (int)_LoadSqcData.N_SCP ] );
+			sqcDt.nScript = EnumToInt ( str_spl, _LoadSqcData.N_SCP );
 			for ( int i = 0; i < sqcDt.nScript; ++ i )
 			{
 				sqcDt.Sqc.ListScript.Add ( new Script () );
@@ -135,12 +145,28 @@ namespace ScriptEditor
 				
 				Type t = typeof ( ActionCategory );
 				string[] names = Enum.GetNames ( typeof ( ActionCategory ) );
-				int i2 = (int)_LoadSqcData.CTG;
-				act.Category = (ActionCategory)Enum.Parse ( t, str_spl [ i2 ] );
+				act.Category = (ActionCategory)Enum.Parse ( t, str_spl [ (int)_LoadSqcData.CTG ] );
 				act.NextActionName = str_spl[ (int)_LoadSqcData.NEXT ];
+				act.HitNum = EnumToInt ( str_spl, _LoadSqcData.HIT_NUM );
+				act.HitPitch = EnumToInt ( str_spl, _LoadSqcData.HIT_PTC );
+				act.Balance = EnumToInt ( str_spl, _LoadSqcData.BALANCE );
 			}
 
 			ELB_Sqc.Add ( sqcDt );
+		}
+
+		private int EnumToInt ( string[] str_spl, _LoadSqcData index )
+		{
+			int ret = 0;
+			try
+			{
+				ret = int.Parse ( str_spl[ (int)index ] );
+			}
+			catch
+			{
+				ret = 0;
+			}
+			return ret;
 		}
 	}
 }

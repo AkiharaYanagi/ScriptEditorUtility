@@ -45,6 +45,8 @@ namespace ScriptEditor
 				SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
 				sqcDt.BD_ImgDt.RemoveAt ( SelectedImage );
 			}
+			
+			ImageNameID_Reset ();
 		}
 
 		//存在するかどうか
@@ -87,8 +89,8 @@ namespace ScriptEditor
 			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
 			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ SelectedImage - 1 ];
 			sqcDt.BD_ImgDt [ SelectedImage - 1 ] = imgDt_temp;
-
-//			STS_TXT.Trace ("Prev.");
+			
+			ImageNameID_Reset ();
 		}
 		//次
 		public void Next ()
@@ -102,7 +104,7 @@ namespace ScriptEditor
 			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ SelectedImage + 1 ];
 			sqcDt.BD_ImgDt [ SelectedImage + 1 ] = imgDt_temp;
 
-//			STS_TXT.Trace ("Next.");
+			ImageNameID_Reset ();
 		}
 
 		//先頭
@@ -113,9 +115,17 @@ namespace ScriptEditor
 			if ( sqcDt.BD_ImgDt.Count () < 2 ) { return; }
 			if ( SelectedImage == 0 ) { return; }
 
+			//指定を保存
 			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
-			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ 0 ];
+
+			//指定から先頭まで戻りつつ入替
+			for ( int index = SelectedImage - 1; index >= 0; -- index )
+			{
+				sqcDt.BD_ImgDt [ index + 1 ] = sqcDt.BD_ImgDt [ index ];
+			}
 			sqcDt.BD_ImgDt [ 0 ] = imgDt_temp;
+			
+			ImageNameID_Reset ();
 		}
 
 		//末尾
@@ -127,9 +137,33 @@ namespace ScriptEditor
 			int tail = sqcDt.BD_ImgDt.Count () - 1;
 			if ( SelectedImage == tail ) { return; }
 
+			//指定を保存
 			ImageData imgDt_temp = sqcDt.BD_ImgDt [ SelectedImage ];
-			sqcDt.BD_ImgDt [ SelectedImage ] = sqcDt.BD_ImgDt [ tail ];
+
+			//指定から末尾１つ前まで入替
+			for ( int index = SelectedImage; index + 1 <= tail; ++ index )
+			{
+				sqcDt.BD_ImgDt [ index ] = sqcDt.BD_ImgDt [ index + 1 ];
+			}
 			sqcDt.BD_ImgDt [ tail ] = imgDt_temp;
+			
+			ImageNameID_Reset ();
+		}
+
+		//番号振り直し
+		public void ImageNameID_Reset ()
+		{
+			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
+			
+			int i = 0;
+			foreach ( ImageData imgd in sqcDt.BD_ImgDt.GetEnumerable () )
+			{
+				int len = imgd.Name.Length;
+				string front = imgd.Name.Substring ( 0, len - 7 );	//" *_00.png "
+				string newname = "_" + i.ToString ( "00" ) + ".png";
+				imgd.Name = front + newname;
+				++ i;
+			}
 		}
 
 		//データをCompend型に戻す

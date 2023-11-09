@@ -181,6 +181,13 @@ namespace ScriptEditor
 			form_act.Assosiate ( sqcDt );
 		}
 
+
+		//シークエンスコンボボックス更新
+		public void ResetItems ()
+		{
+			form_act.ResetItems ();
+		}
+
 		//スクロール移動
 		public void ScrollPos ( Panel pnl )
 		{
@@ -252,6 +259,7 @@ namespace ScriptEditor
 					{
 						Action act = (Action)sqcDt.Sqc;
 						DrawSequence(g, "(" + act.Category.ToString() + ")", FONT1, 40 + y);
+						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 60 + y);
 					}
 
 					//画像
