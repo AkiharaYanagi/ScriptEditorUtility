@@ -71,9 +71,22 @@ namespace ScriptEditor
 		{
 			List<GameKeyCommand> lk = Cmd.ListGameKeyCommand;
 			if ( lk.Count < 1 ) { return; }
+			if ( SlctKey.Frame < 0 ) { return; }
+			if ( lk.Count <= SlctKey.Frame ) { return; }
 
+#if false
+			//末尾を削除
 			lk.RemoveAt ( lk.Count - 1 );
+
+			//選択位置を修正
 			if ( lk.Count - 1 < SlctKey.Frame ) { SlctKey.Frame = 0; SlctKey.Selecting = false; }
+#endif
+			//選択位置を削除
+			lk.RemoveAt ( SlctKey.Frame );
+
+			//選択位置を修正
+			SlctKey.Frame = 0;
+			SlctKey.Selecting = false;
 
 			pb_Command1.Invalidate ();
 		}

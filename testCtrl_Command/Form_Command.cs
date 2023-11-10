@@ -27,7 +27,7 @@ namespace ScriptEditor
 			TestCharaData testCharaData = new TestCharaData ();
 			testCharaData.Make ( ch );
 			TestChara testChara = new TestChara ();
-			testChara.Test ( ch );
+//			testChara.Test ( ch );
 			//------------------------------------
 
 			ctrl_cmdlst.SetEnvironment ( ctrl_stg );

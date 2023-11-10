@@ -254,8 +254,10 @@ namespace ScriptEditor
 			Tbn_HitPitch.Text = act.HitPitch.ToString();
 			Tbn_Balance.Text = act.Balance.ToString();
 
+
 			//各コントロールに設定用のデリゲートを渡す
-			// TB_Name 名前
+
+			//次シークエンス指定
 			CBSL_Next.SetFunc = a=>act.NextActionName = a.Name;
 			// CB_Category カテゴリ
 			// CB_Posture 体勢

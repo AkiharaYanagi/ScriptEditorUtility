@@ -66,6 +66,7 @@ namespace ScriptEditor
 			//同一名があるとき
 			string name_base = name;
 
+#if false
 			//末尾が数値かどうか
 			string tail = "";
 			int nDigit = 0;
@@ -77,6 +78,9 @@ namespace ScriptEditor
 			while ( int.TryParse ( tail, out int i ) );
 
 			name_base = name.Substring ( 0, name.Length - nDigit + 1 ); 
+#endif
+			//末尾に数字以外を足す
+			name_base += "_";
 
 
 			//同一の値のとき例外が発生するので、重ならないよう前もって名前に追加命名("*"+"0")する
