@@ -46,13 +46,13 @@ namespace ScriptEditor
 			loadChara.Do ( filename, ch_load );
 			testChara.TestCopyChara ( ch_test, ch_load );
 
+#if false
 			//LoadBin
 			Chara charaBin = new Chara ();
 			LoadCharaBin loadCharaBin = new LoadCharaBin ();
 			loadCharaBin.Do ( filenamebin, charaBin );
 
 
-#if false
 #endif
 			ch_test.Clear ();
 
