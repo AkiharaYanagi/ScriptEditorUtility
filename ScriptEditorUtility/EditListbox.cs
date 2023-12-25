@@ -278,7 +278,10 @@ namespace ScriptEditor
 		}
 		private void Tb_Name_TextChanged ( object sender, EventArgs e )
 		{
-			if ( BD_T.Count () == 0 ) { return; }
+			//@info BD.Up時、スワップ中のInsert()とRemove()の間にTextChangedイベントが発生し、
+			//	Count()アサートが発生 
+			//-> コメントアウトで対応
+//			if ( BD_T.Count () == 0 ) { return; }
 
 			//バインディングディクショナリの名前変更
 			T t = Get();
