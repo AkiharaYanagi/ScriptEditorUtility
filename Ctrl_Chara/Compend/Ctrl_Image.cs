@@ -87,15 +87,15 @@ namespace ScriptEditor
 
 			//@info リソースはResources.resxの中、Resources.Desighner.csにおいて
 			//「作成時の名前」でnamespaceが定義されている
-			//global::Ctrl_Chara.Properties.Resources.～を
+			//global::Ctrl_Chara.global::Ctrl_Chara.Properties.Resources.～を
 			//ScriptEditorに修正
 
-			RB_Main.SetEnviron ( this, Properties.Resources.tool_hand, "メインイメージ移動" );
-			RB_CRect.SetEnviron ( this, Properties.Resources.tool_CRect, "接触枠" );
-			RB_HRect.SetEnviron ( this, Properties.Resources.tool_HRect, "当り枠" );
-			RB_ARect.SetEnviron ( this, Properties.Resources.tool_ARect, "攻撃枠" );
-			RB_ORect.SetEnviron ( this, Properties.Resources.tool_ORect, "相殺枠" );
-			RB_Ef.SetEnviron ( this, Properties.Resources.tool_efhand, "Efイメージ移動" );
+			RB_Main.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_hand, "メインイメージ移動" );
+			RB_CRect.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_CRect, "接触枠" );
+			RB_HRect.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_HRect, "当り枠" );
+			RB_ARect.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_ARect, "攻撃枠" );
+			RB_ORect.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_ORect, "相殺枠" );
+			RB_Ef.SetEnviron ( this, global::Ctrl_Chara.Properties.Resources.tool_efhand, "Efイメージ移動" );
 
 			//選択
 			RB_Main.Select ();

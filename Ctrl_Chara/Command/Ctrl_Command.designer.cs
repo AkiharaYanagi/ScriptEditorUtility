@@ -103,7 +103,7 @@
 			this.RB_ON.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_ON.AutoSize = true;
 			this.RB_ON.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_ON.Image = Properties.Resources.Cmd_Key_On;
+			this.RB_ON.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_On;
 			this.RB_ON.Location = new System.Drawing.Point(264, 19);
 			this.RB_ON.Name = "RB_ON";
 			this.RB_ON.Size = new System.Drawing.Size(80, 43);
@@ -118,7 +118,7 @@
 			this.RB_RELE.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_RELE.AutoSize = true;
 			this.RB_RELE.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_RELE.Image = Properties.Resources.Cmd_Key_Rele;
+			this.RB_RELE.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_Rele;
 			this.RB_RELE.Location = new System.Drawing.Point(178, 19);
 			this.RB_RELE.Name = "RB_RELE";
 			this.RB_RELE.Size = new System.Drawing.Size(80, 43);
@@ -133,7 +133,7 @@
 			this.RB_PUSH.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_PUSH.AutoSize = true;
 			this.RB_PUSH.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_PUSH.Image = Properties.Resources.Cmd_Key_PUSH;
+			this.RB_PUSH.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_PUSH;
 			this.RB_PUSH.Location = new System.Drawing.Point(92, 18);
 			this.RB_PUSH.Name = "RB_PUSH";
 			this.RB_PUSH.Size = new System.Drawing.Size(80, 43);
@@ -150,7 +150,7 @@
 			this.RB_OFF.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.RB_OFF.CheckAlign = System.Drawing.ContentAlignment.BottomLeft;
 			this.RB_OFF.Checked = true;
-			this.RB_OFF.Image = Properties.Resources.Cmd_Key_Off;
+			this.RB_OFF.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_Off;
 			this.RB_OFF.Location = new System.Drawing.Point(6, 18);
 			this.RB_OFF.Name = "RB_OFF";
 			this.RB_OFF.Size = new System.Drawing.Size(80, 43);
@@ -166,7 +166,7 @@
 			this.RB_WILD.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_WILD.AutoSize = true;
 			this.RB_WILD.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_WILD.Image = Properties.Resources.Cmd_Key_Wild;
+			this.RB_WILD.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_Wild;
 			this.RB_WILD.Location = new System.Drawing.Point(6, 68);
 			this.RB_WILD.Name = "RB_WILD";
 			this.RB_WILD.Size = new System.Drawing.Size(80, 43);
@@ -189,7 +189,7 @@
 			// 
 			// Btn_KeyDown
 			// 
-			this.Btn_KeyDown.Image = Properties.Resources.KeyTurnR;
+			this.Btn_KeyDown.Image = global::Ctrl_Chara.Properties.Resources.KeyTurnR;
 			this.Btn_KeyDown.Location = new System.Drawing.Point(16, 68);
 			this.Btn_KeyDown.Name = "Btn_KeyDown";
 			this.Btn_KeyDown.Size = new System.Drawing.Size(51, 43);
@@ -199,7 +199,7 @@
 			// 
 			// Btn_KeyUp
 			// 
-			this.Btn_KeyUp.Image = Properties.Resources.KeyTurnL;
+			this.Btn_KeyUp.Image = global::Ctrl_Chara.Properties.Resources.KeyTurnL;
 			this.Btn_KeyUp.Location = new System.Drawing.Point(16, 18);
 			this.Btn_KeyUp.Name = "Btn_KeyUp";
 			this.Btn_KeyUp.Size = new System.Drawing.Size(51, 42);
@@ -223,7 +223,7 @@
 			this.RB_IS.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_IS.AutoSize = true;
 			this.RB_IS.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_IS.Image = Properties.Resources.Cmd_Key_Is;
+			this.RB_IS.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_Is;
 			this.RB_IS.Location = new System.Drawing.Point(92, 68);
 			this.RB_IS.Name = "RB_IS";
 			this.RB_IS.Size = new System.Drawing.Size(80, 43);
@@ -238,7 +238,7 @@
 			this.RB_NIS.Appearance = System.Windows.Forms.Appearance.Button;
 			this.RB_NIS.AutoSize = true;
 			this.RB_NIS.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.RB_NIS.Image = Properties.Resources.Cmd_Key_Nis;
+			this.RB_NIS.Image = global::Ctrl_Chara.Properties.Resources.Cmd_Key_Nis;
 			this.RB_NIS.Location = new System.Drawing.Point(178, 68);
 			this.RB_NIS.Name = "RB_NIS";
 			this.RB_NIS.Size = new System.Drawing.Size(80, 43);

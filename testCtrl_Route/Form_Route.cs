@@ -11,7 +11,7 @@ namespace ScriptEditor
 		//設定ファイル
 		private Ctrl_Settings ctrl_stg = new Ctrl_Settings ();
 		private string filename = "testChara.dat";
-		private string filenamebin = "charaBin.dat";
+//		private string filenamebin = "charaBin.dat";
 
 		public Form1 ()
 		{

@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace ScriptEditor
 {
-	using PR = Properties.Resources;
+	using PR = Ctrl_Chara.Properties.Resources;
 	using GK_ST = GameKeyData.GameKeyState;
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
@@ -57,8 +57,15 @@ namespace ScriptEditor
 
 		public const int DISIT_REVISED_POS_X = 24;
 		public const int DISIT_REVISED_POS_Y = 14;
+		
 		//--------------------------------------------------------------------------
+		public DispCommand ()
+		{
+			Image img = PR.arrow;
+		}
 
+
+		//--------------------------------------------------------------------------
 		//描画
 		public void Disp ( PaintEventArgs e )
 		{
