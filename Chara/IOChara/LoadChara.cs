@@ -33,8 +33,12 @@ namespace ScriptEditor
 			catch ( ArgumentException e )
 			{
 				//仮データ
+#if false
 				TestChara testChara = new TestChara ();
 				testChara.Test ( chara );
+#endif
+				TestCharaData tcd = new TestCharaData ();
+				tcd.Make ( chara );
 
 				MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
 			}
