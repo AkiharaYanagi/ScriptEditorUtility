@@ -128,6 +128,12 @@ namespace ScriptEditor
 			//シークエンスリストにはスクリプトの選択による関連付けは存在しない
 		}
 
+		public void TestAssosiate ()
+		{
+			ctrl_ImageTable1.TestAssosiate ();
+		}
+
+
 		//描画の要求
 		public void Disp ()
 		{

@@ -181,6 +181,11 @@ namespace ScriptEditor
 			form_act.Assosiate ( sqcDt );
 		}
 
+		public void TestAssosiate ()
+		{
+
+		}
+
 
 		//シークエンスコンボボックス更新
 		public void ResetItems ()

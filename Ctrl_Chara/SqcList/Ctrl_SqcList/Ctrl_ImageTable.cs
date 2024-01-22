@@ -71,6 +71,13 @@ namespace ScriptEditor
 			pB_Sqc1.SetCharaData ( ch );
 		}
 
+
+		public void TestAssosiate ()
+		{
+			pB_Sqc1.TestAssosiate ();
+		}
+
+
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
 		{

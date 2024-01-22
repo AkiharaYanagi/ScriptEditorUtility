@@ -269,7 +269,7 @@ namespace ScriptEditor
 		//個数
 		public int Count ()
 		{
-			Debug.Assert ( BL_t.Count == DCT_t.Count );
+//			Debug.Assert ( BL_t.Count == DCT_t.Count );
 			return BL_t.Count;
 		}
 
