@@ -322,7 +322,11 @@ namespace ScriptEditor
 						if ( FlagAction )
 						{
 							//入力フォーム
-							SequenceData sqcDt = ELB_Sqc.Get ();
+
+							//選択中の編集データを指定する
+							//SequenceData sqcDt = ELB_Sqc.Get ();
+							SequenceData sqcDt = EditData.GetSequenceData ();
+								
 							form_act.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
 							form_act.Assosiate ( sqcDt );
 							form_act.Show();
