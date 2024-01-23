@@ -74,6 +74,12 @@ namespace ScriptEditor
 			ResetFrameNumber ();
 		}
 
+		//コピーの複数挿入
+		public void MultiCopyInsert ()
+		{
+			MultiInsert ( SelectedScript );
+		}
+
 		//複数追加
 		public void MultiAdd ()
 		{

@@ -41,6 +41,7 @@
 			this.BtnGrpDismantle = new System.Windows.Forms.Button();
 			this.Btn_GrpMake = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
+			this.Btn_MltCpy = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -56,7 +57,7 @@
 			this.groupBox1.Size = new System.Drawing.Size(186, 52);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "スクリプト";
+			this.groupBox1.Text = "スクリプト単体";
 			// 
 			// Btn_Del
 			// 
@@ -95,10 +96,11 @@
 			// 
 			this.groupBox2.Controls.Add(this.Btn_MltDel);
 			this.groupBox2.Controls.Add(this.Btn_MltAdd);
+			this.groupBox2.Controls.Add(this.Btn_MltCpy);
 			this.groupBox2.Controls.Add(this.Btn_MltIns);
 			this.groupBox2.Location = new System.Drawing.Point(195, 3);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(186, 52);
+			this.groupBox2.Size = new System.Drawing.Size(234, 52);
 			this.groupBox2.TabIndex = 0;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "複数スクリプト";
@@ -106,7 +108,7 @@
 			// Btn_MltDel
 			// 
 			this.Btn_MltDel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-			this.Btn_MltDel.Location = new System.Drawing.Point(122, 17);
+			this.Btn_MltDel.Location = new System.Drawing.Point(176, 17);
 			this.Btn_MltDel.Name = "Btn_MltDel";
 			this.Btn_MltDel.Size = new System.Drawing.Size(48, 29);
 			this.Btn_MltDel.TabIndex = 0;
@@ -117,7 +119,7 @@
 			// Btn_MltAdd
 			// 
 			this.Btn_MltAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.Btn_MltAdd.Location = new System.Drawing.Point(68, 17);
+			this.Btn_MltAdd.Location = new System.Drawing.Point(122, 17);
 			this.Btn_MltAdd.Name = "Btn_MltAdd";
 			this.Btn_MltAdd.Size = new System.Drawing.Size(48, 29);
 			this.Btn_MltAdd.TabIndex = 0;
@@ -141,7 +143,7 @@
 			this.groupBox3.Controls.Add(this.BtnUnify);
 			this.groupBox3.Controls.Add(this.BtnGrpDismantle);
 			this.groupBox3.Controls.Add(this.Btn_GrpMake);
-			this.groupBox3.Location = new System.Drawing.Point(413, 3);
+			this.groupBox3.Location = new System.Drawing.Point(443, 3);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(186, 52);
 			this.groupBox3.TabIndex = 0;
@@ -185,10 +187,21 @@
 			// 
 			this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.label1.Location = new System.Drawing.Point(390, 3);
+			this.label1.Location = new System.Drawing.Point(435, 3);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(1, 46);
+			this.label1.Size = new System.Drawing.Size(2, 52);
 			this.label1.TabIndex = 1;
+			// 
+			// Btn_MltCpy
+			// 
+			this.Btn_MltCpy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+			this.Btn_MltCpy.Location = new System.Drawing.Point(68, 17);
+			this.Btn_MltCpy.Name = "Btn_MltCpy";
+			this.Btn_MltCpy.Size = new System.Drawing.Size(48, 29);
+			this.Btn_MltCpy.TabIndex = 0;
+			this.Btn_MltCpy.Text = "複製";
+			this.Btn_MltCpy.UseVisualStyleBackColor = false;
+			this.Btn_MltCpy.Click += new System.EventHandler(this.Btn_MltCpy_Click);
 			// 
 			// Menu_Board
 			// 
@@ -200,7 +213,7 @@
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "Menu_Board";
-			this.Size = new System.Drawing.Size(602, 62);
+			this.Size = new System.Drawing.Size(642, 62);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
@@ -223,5 +236,6 @@
 		private System.Windows.Forms.Button BtnGrpDismantle;
 		private System.Windows.Forms.Button Btn_GrpMake;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button Btn_MltCpy;
 	}
 }

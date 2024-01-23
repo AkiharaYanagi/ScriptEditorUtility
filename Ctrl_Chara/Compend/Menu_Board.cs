@@ -70,6 +70,14 @@ namespace ScriptEditor
 			ActDisp ();
 		}
 
+		//複数スクリプト 複製
+		private void Btn_MltCpy_Click ( object sender, EventArgs e )
+		{
+			EditCompend.MultiCopyInsert ();
+			ReSelect ();
+			ActDisp ();
+		}
+
 		//複数スクリプト 追加
 		private void Btn_MltAdd_Click ( object sender, EventArgs e )
 		{
