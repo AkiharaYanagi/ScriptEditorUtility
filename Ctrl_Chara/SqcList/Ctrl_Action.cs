@@ -208,7 +208,7 @@ namespace ScriptEditor
 			//名前設定用
 			TB_Name.TextChanged += new EventHandler ( SetName );
 
-			//定数：アクション属性コンボボックス
+			//定数：アクション部門(カテゴリ) コンボボックス
 			foreach ( ActionCategory ac in Enum.GetValues ( typeof ( ActionCategory ) ) )
 			{
 				CB_Category.Items.Add ( ac );
@@ -259,7 +259,7 @@ namespace ScriptEditor
 
 			//次シークエンス指定
 			CBSL_Next.SetFunc = a=>act.NextActionName = a.Name;
-			// CB_Category カテゴリ
+			// CB_Category カテゴリ -> イベントハンドラで指定
 			// CB_Posture 体勢
 			TBN_HitNum.SetFunc = i=>act.HitNum = i;
 			Tbn_HitPitch.SetFunc = i=>act.HitPitch = i;

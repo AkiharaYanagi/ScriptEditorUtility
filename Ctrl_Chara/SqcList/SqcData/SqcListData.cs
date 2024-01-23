@@ -141,7 +141,7 @@ namespace ScriptEditor
 			//CompendにないL_Sqcのアクションを追加
 			BD_Sqc BD_New = new BD_Sqc();
 
-			List < string > addList = new List<string>();
+			//List < string > addList = new List<string>();
 
 			//順番はL_Sqcに基づく
 			foreach ( SequenceData sqcd in L_Sqc.GetEnumerable () )
@@ -149,7 +149,8 @@ namespace ScriptEditor
 				//既存はディープコピーする
 				if ( Compend.BD_Sequence.ContainsKey ( sqcd.Name ) )
 				{
-					BD_New.Add ( NewSqc ( BD_Old.Get( sqcd.Name ) ) );
+//					BD_New.Add ( NewSqc ( BD_Old.Get( sqcd.Name ) ) );
+					BD_New.Add ( NewSqc ( L_Sqc.Get( sqcd.Name ).Sqc ) );
 				}
 				else //無いときは新規
 				{
