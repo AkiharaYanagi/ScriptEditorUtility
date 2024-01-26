@@ -14,6 +14,9 @@ namespace ScriptEditor
 	//==================================================================================
 	public partial class LoadChara
 	{
+		//エラーメッセージ
+		public string ErrMsg { get; set; } = "ErrMsg";
+
 		//-------------------------------------------------------------
 		//	コンストラクタ
 		//-------------------------------------------------------------
@@ -40,7 +43,8 @@ namespace ScriptEditor
 				TestCharaData tcd = new TestCharaData ();
 				tcd.Make ( chara );
 
-				MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
 		}
 

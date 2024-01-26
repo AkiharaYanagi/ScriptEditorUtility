@@ -15,6 +15,12 @@ namespace ScriptEditor
 		public bool BoolAction { get; set; } = true;
 
 
+		public void Call ()
+		{
+			sqc_board.Call ();
+		}
+
+
 		//コンストラクタ
 		public _Ctrl_Compend ()
 		{

@@ -86,6 +86,10 @@ namespace ScriptEditor
 		public void SetEditCompend ( EditCompend ec )
 		{
 			EditCompend = ec;
+			Ls_LsRect [0].SetEnviron ( ec.EditScript.EditAllRect.L_CRect );
+			Ls_LsRect [1].SetEnviron ( ec.EditScript.EditAllRect.L_HRect );
+			Ls_LsRect [2].SetEnviron ( ec.EditScript.EditAllRect.L_ARect );
+			Ls_LsRect [3].SetEnviron ( ec.EditScript.EditAllRect.L_ORect );
 		}
 
 		//関連付け
@@ -212,6 +216,8 @@ namespace ScriptEditor
 		{
 			SelectedLsRect.LsRect = new List<Rectangle> ( CopyListRect );
 			SelectedLsRect.Invalidate ();
+
+			All_Ctrl.Inst.UpdateData ();	//表示の更新
 		}
 
 		//ペースト：グループ
@@ -225,7 +231,8 @@ namespace ScriptEditor
 			case KindRect.ARect: es?.DoGroup ( s=>s.ListARect = new LRect(CopyListRect) ); break;
 			case KindRect.ORect: es?.DoGroup ( s=>s.ListORect = new LRect(CopyListRect) ); break;
 			}
-			
+
+			All_Ctrl.Inst.UpdateData ();	//表示の更新
 		}
 
 		//ペースト：シークエンス
@@ -240,6 +247,8 @@ namespace ScriptEditor
 			case KindRect.ARect: F ( s=>{ s.ListARect = new LRect ( CopyListRect ); } ); break;
 			case KindRect.ORect: F ( s=>{ s.ListORect = new LRect ( CopyListRect ); } ); break;
 			}
+
+			All_Ctrl.Inst.UpdateData ();	//表示の更新
 		}
 
 		//内部関数：New List

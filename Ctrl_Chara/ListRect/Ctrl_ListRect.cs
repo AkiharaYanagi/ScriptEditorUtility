@@ -15,18 +15,23 @@ namespace ScriptEditor
 		//対象データ
 		public LsRect LsRect { get; set; } = new LsRect ();
 
+		//編集
+		public EditListRect EditListRect { get; set; } = new EditListRect ();
+
 		//選択位置
 		public int SelectedIndex { get; set; } = -1;
-
-		//すべての表示更新
-//		public System.Action DispAll { get; set; } = ()=>{};
-	
 
 		//コンストラクタ
 		public Ctrl_ListRect ()
 		{
 			InitializeComponent ();
 			this.Paint += Ctrl_ListRect_Paint;
+		}
+
+		//環境設定
+		public void SetEnviron ( EditListRect editListRect )
+		{
+			EditListRect = editListRect;
 		}
 
 		private void Ctrl_ListRect_Paint ( object sender, PaintEventArgs e )
@@ -154,6 +159,7 @@ namespace ScriptEditor
 			if( pt_x < LsRect.Count )
 			{
 				SelectedIndex = pt_x;
+				EditListRect.SelectedIndex = SelectedIndex;
 			}
 			UpdateData ();
 		}

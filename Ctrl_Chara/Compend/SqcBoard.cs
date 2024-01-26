@@ -29,6 +29,10 @@ namespace ScriptEditor
 		private System.Action ActDisp = ()=>{};		//からの表示
 		private System.Action ActAssosiate = ()=>{};	//関連付け
 
+		public void Call ()
+		{
+			MN_Brd.Call ();
+		}
 
 		//コンストラクタ
 		public _SqcBoard ()

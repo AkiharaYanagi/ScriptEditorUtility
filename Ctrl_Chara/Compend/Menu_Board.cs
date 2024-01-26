@@ -30,6 +30,11 @@ namespace ScriptEditor
 			ActAssosiate = ctrl_cmpd.Assosiate;
 		}
 
+		public void Call ()
+		{
+			
+		}
+
 
 		//---------------------------------------------------------------------
 		//ボタンイベント
@@ -81,8 +86,9 @@ namespace ScriptEditor
 		//複数スクリプト 追加
 		private void Btn_MltAdd_Click ( object sender, EventArgs e )
 		{
-			Script scp = Make_Script_with_Rect ();
-			EditCompend.MultiAdd ( scp );
+//			Script scp = Make_Script_with_Rect ();
+//			EditCompend.MultiAdd ( scp );
+			EditCompend.MultiAddSelectedScript ();
 			ReSelect ();
 			ActDisp ();
 		}

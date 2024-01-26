@@ -59,6 +59,10 @@ namespace ScriptEditor
 			//未使用グループを指定する
 			int group = EditScript.GetUnusedIndex ();
 
+			MultiInsert ( scp, group );
+		}
+		public void MultiInsert ( Script scp, int group )
+		{
 			//範囲
 			int s = SelectedSpanStart;
 			int e = 1 + SelectedSpanEnd;
@@ -77,13 +81,15 @@ namespace ScriptEditor
 		//コピーの複数挿入
 		public void MultiCopyInsert ()
 		{
-			MultiInsert ( SelectedScript );
+			MultiInsert ( SelectedScript, SelectedScript.Group );
+			ResetFrameNumber ();
 		}
 
 		//複数追加
 		public void MultiAdd ()
 		{
-			MultiAdd ( new Script () );
+//			MultiAdd ( new Script () );
+			MultiAdd ( SelectedScript );
 			ResetFrameNumber ();
 		}
 		
@@ -105,6 +111,11 @@ namespace ScriptEditor
 			//追加
 			SelectedSequence.ListScript.AddRange ( scripts );
 			ResetFrameNumber ();
+		}
+
+		public void MultiAddSelectedScript ()
+		{
+			MultiAdd ( SelectedScript );
 		}
 
 		//選択中のスクリプトを削除

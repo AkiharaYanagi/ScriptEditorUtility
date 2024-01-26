@@ -27,6 +27,8 @@ namespace ScriptEditor
 			//テスト
 			TestChara TestChara = new TestChara ();
 			TestChara.Test ( chara );
+
+			label1.Text = "Init.";
 		}
 
 		//Save
@@ -48,7 +50,8 @@ namespace ScriptEditor
 		{
 			LoadCharaBin loadCharaBin = new LoadCharaBin ();
 			loadCharaBin.Do ( Filename, chara );
-			label1.Text = "Load.";
+			//label1.Text = "Load.";
+			label1.Text = loadCharaBin.ErrMsg;
 		}
 	}
 }

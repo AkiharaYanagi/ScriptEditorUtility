@@ -12,9 +12,7 @@ namespace ScriptEditor
 	public partial class Ctrl_Branch :UserControl
 	{
 		//対象
-//		private Chara Chara = null;
 		public BD_Brc BD_Branch { get; set; } = new BD_Brc ();
-//		public BD_Seq BD_Sequence { get; set; } = new BD_Seq ();
 		public BD_Seq BD_Behavior { get; set; } = new BD_Seq ();
 		public BD_Seq BD_Garnish { get; set; } = new BD_Seq ();
 		public BD_Cmd BD_Command { get; set; } = new BD_Cmd ();
@@ -90,16 +88,9 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			//データ参照の保存
-			//Chara = ch;
 			BD_Branch = ch.BD_Branch;
 			BD_Behavior = ch.behavior.BD_Sequence;
 			BD_Garnish = ch.garnish.BD_Sequence;
-
-#if false
-			if ( 0 == ch.behavior.BD_Sequence.Count() ) { ch.behavior.BD_Sequence.New (); }
-			if ( 0 == ch.BD_Command.Count() ) { ch.BD_Command.New (); }
-			if ( 0 == ch.BD_Branch.Count() ) { ch.BD_Branch.New (); }
-#endif
 
 			//コントロールに設定
 			EL_Branch.SetData ( ch.BD_Branch );

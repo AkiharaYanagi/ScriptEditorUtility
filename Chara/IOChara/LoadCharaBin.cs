@@ -13,6 +13,9 @@ namespace ScriptEditor
 
 	public partial class LoadCharaBin
 	{
+		//エラーメッセージ
+		public string ErrMsg { get; set; } = "ErrMsg";
+
 		//-------------------------------------------------------------
 		//	コンストラクタ
 		//-------------------------------------------------------------
@@ -31,11 +34,16 @@ namespace ScriptEditor
 			}
 			catch ( ArgumentException e )
 			{
+#if false
 				//仮データ
 				TestChara testChara = new TestChara ();
 				testChara.Test ( chara );
+#endif
+				//空データ
+				chara = new Chara ();
 
-				MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
 		}
 
@@ -46,14 +54,14 @@ namespace ScriptEditor
 			//ファイルが存在しないとき何もしない
 			if ( ! File.Exists ( filepath ) )
 			{
-				MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				//MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "ファイルが存在しませんでした。" );
 			}
 
 			//拡張子確認
 			if ( Path.GetExtension ( filepath ).CompareTo ( ".dat" ) != 0 )
 			{
-				MessageBox.Show ( filepath + "は拡張子が.datと異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				//MessageBox.Show ( filepath + "は拡張子が.datと異なります。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				throw new ArgumentException ( "拡張子が.datと異なります。" );
 			}
 
