@@ -13,7 +13,7 @@ namespace ScriptEditor
 	//シークエンスとイメージリスト
 	public class SequenceData : TName
 	{
-		//"名前","スクリプト数" を持ち、スクリプト配列は扱わない
+		//"名前","スクリプト数","対象画像配列" を持ち、スクリプト配列は扱わない
 		public Sequence Sqc { get; set; } = new Sequence ();
 		public BD_IMGDT BD_ImgDt { get; set; } = new BD_IMGDT ();
 
@@ -38,8 +38,11 @@ namespace ScriptEditor
 	//データ集合
 	public class SqcListData
 	{
-		public BD_SqcDt L_Sqc = new BD_SqcDt();
+		//元データの参照
 		private Compend Compend = new Compend ();
+
+		//対象データ
+		public BD_SqcDt L_Sqc = new BD_SqcDt();
 
 		public void Clear ()
 		{
@@ -83,6 +86,7 @@ namespace ScriptEditor
 		{
 			Compend = cmpd;
 
+			//シークエンスリスト
 			L_Sqc.Clear ();
 			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
 			{
@@ -95,8 +99,28 @@ namespace ScriptEditor
 
 				L_Sqc.Add ( sqcDt );
 			}
+
+			//シークエンスリストを作ってからイメージの再配置
+			foreach ( ImageData imgd in cmpd.BD_Image.GetEnumerable () )
+			{
+				string sqc_name = ImageName.GetSequenceName ( imgd.Name );
+
+				foreach ( SequenceData sqcd in L_Sqc.GetEnumerable () )
+				{
+					if ( sqc_name.Equals ( sqcd.Name ) )
+					{
+						sqcd.BD_ImgDt.Add ( imgd );
+						break;
+					}
+				}
+			}
 		}
 
+		//既存Compendデータからアップデート
+		public void UpdateData ()
+		{
+			SetData ( Compend );
+		}
 
 		//-----------------------------------------------------------------
 		//データ適用(Action)

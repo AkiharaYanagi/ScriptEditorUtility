@@ -7,7 +7,7 @@ namespace ScriptEditor
 	{
 		//----------------------------------------------------------------------
 		//メインデータ
-		private SqcListData Data = new SqcListData ();
+		private SqcListData SqcListData = new SqcListData ();
 
 		//対象データ
 		private Compend Cmpd = new Compend ();
@@ -64,8 +64,13 @@ namespace ScriptEditor
 			Ctrl_Stgs = stgs;
 			ctrl_ImageTable1.SetEnviroment ( cs, EditData, stgs );
 
+
+
 			//@info キャラ内のイメージにはシークエンス番号が無いのでフォルダから指定する
 			ctrl_ImageTable1.LoadImage ();
+
+
+
 		}
 
 		//対象データ設置
@@ -77,16 +82,10 @@ namespace ScriptEditor
 		public void SetCompend ( Compend cmpd )
 		{
 			Cmpd = cmpd;
-			Data.SetData ( cmpd );
+			SqcListData.SetData ( cmpd );
 			EditData.Compend = Cmpd;
 
 			ctrl_ImageTable1.SetCompend ( cmpd );
-		}
-
-		//コンペンド ( ビヘイビア / ガーニッシュ ) 選択
-		public void ChangeCompend ( Compend cmpd )
-		{
-
 		}
 
 		//プレデータ読込
@@ -105,7 +104,6 @@ namespace ScriptEditor
 			default: break;
 			}
 
-
 			//イメージ
 			ctrl_ImageTable1.LoadImage ();
 
@@ -122,39 +120,21 @@ namespace ScriptEditor
 			ctrl_ImageTable1.LoadImage ();
 		}
 
-		//関連付け
-		public void Assosiate ()
-		{
-			//シークエンスリストにはスクリプトの選択による関連付けは存在しない
-		}
-
-		public void TestAssosiate ()
-		{
-			ctrl_ImageTable1.TestAssosiate ();
-		}
-
-
 		//描画の要求
 		public void Disp ()
 		{
 			ctrl_ImageTable1.Disp ();
-			ELB_Sqc.Invalidate ();
+			ELB_Sqc.Disp ();
 			this.Invalidate ();
 		}
-
-		//描画
-		protected override void OnPaint ( PaintEventArgs e )
-		{
-			base.OnPaint ( e ); 
-		}
-
 
 		//データ更新
 		public void UpdateData ()
 		{
+			SqcListData.UpdateData ();
+			ctrl_ImageTable1.UpdateImage ();
 			ctrl_ImageTable1.UpdateData ();
 			ELB_Sqc._UpdateData ();
-//			ELB_Sqc.Refresh ();
 		}
 
 		//イメージのみ再読み込み

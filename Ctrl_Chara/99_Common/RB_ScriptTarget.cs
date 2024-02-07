@@ -8,6 +8,9 @@ namespace ScriptEditor
 	//スクリプト編集コンポーネントリスト において対象を切り替える
 	public partial class RB_ScriptTarget : UserControl
 	{
+		//対象指定
+		public EditTargetScript EditTarget { get; set; } = EditTargetScript.GROUP;
+	
 		public List < IScriptParam > ls_ctrl_scpPrm { get; set; } = new List<IScriptParam> ();
 
 		public RB_ScriptTarget ()
@@ -28,6 +31,7 @@ namespace ScriptEditor
 			if ( RB_TRG_ALL.Checked )
 			{
 				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_All (); }
+				EditTarget = EditTargetScript.ALL;
 			}
 		}
 
@@ -36,6 +40,7 @@ namespace ScriptEditor
 			if ( RB_TRG_GRP.Checked )
 			{
 				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Group (); }
+				EditTarget = EditTargetScript.GROUP;
 			}
 		}
 
@@ -44,6 +49,7 @@ namespace ScriptEditor
 			if ( RB_TRG_SGL.Checked )
 			{
 				foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Single (); }
+				EditTarget = EditTargetScript.SINGLE;
 			}
 		}
 	}

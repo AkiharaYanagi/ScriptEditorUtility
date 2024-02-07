@@ -88,7 +88,8 @@ namespace ScriptEditor
 		{
 //			Script scp = Make_Script_with_Rect ();
 //			EditCompend.MultiAdd ( scp );
-			EditCompend.MultiAddSelectedScript ();
+//			EditCompend.MultiAddSelectedScript ();
+			EditCompend.SpanCopy_Add ();
 			ReSelect ();
 			ActDisp ();
 		}

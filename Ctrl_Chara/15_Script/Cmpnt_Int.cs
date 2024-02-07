@@ -10,7 +10,8 @@ namespace ScriptEditor
 		public Script Scp { get; set; } = new Script ();
 
 		//対象に値を設定するゲッタとセッタ
-		public ScriptParam < int > ScpPrm { get; set; } = null;
+		public ScriptParam < int > ScpPrm { get; set; }
+			= new ScriptParam < int > ( (s,i)=>{}, s=>s.Frame );
 
 		//表示
 		public System.Action Disp { get; set; } = () =>{};
@@ -19,7 +20,7 @@ namespace ScriptEditor
 		private EditTargetScript editTarget = EditTargetScript.GROUP;
 	
 		//編集用
-		private EditCompend EditCompend = null;
+		private EditCompend EditCompend = new EditCompend ();
 
 		//---------------------------------------------------------------
 		//コンストラクタ

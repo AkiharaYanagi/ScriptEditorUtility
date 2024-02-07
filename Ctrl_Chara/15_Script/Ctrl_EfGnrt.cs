@@ -36,7 +36,7 @@ namespace ScriptEditor
 			EL_EfGnrt.SelectedIndexChanged = ()=>
 			{
 				efgnrt = EL_EfGnrt.Get();
-				UpdateData ();
+				All_Ctrl.Inst.UpdateData ();
 			};
 
 			this.Controls.Add ( EL_EfGnrt );
@@ -60,17 +60,6 @@ namespace ScriptEditor
 
 
 		//関連付け
-#if false
-		public void Assosiate ( Script scp )
-		{
-			EL_EfGnrt.SetData ( scp.BD_EfGnrt );
-
-			Tbn_x.Assosiate ( i=>efgnrt.SetPtX(i), ()=>efgnrt.Pt.X );
-			Tbn_y.Assosiate ( i=>efgnrt.SetPtY(i), ()=>efgnrt.Pt.Y );
-			Tbn_z.Assosiate ( i=>efgnrt.Z_PER100F=i, ()=>efgnrt.Z_PER100F );
-		}
-#endif
-
 		public void Assosiate ()
 		{
 			Script scp = EditCompend.SelectedScript;

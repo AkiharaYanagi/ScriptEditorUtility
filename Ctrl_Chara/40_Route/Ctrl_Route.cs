@@ -170,6 +170,9 @@ namespace ScriptEditor
 		//コンボボックス選択時
 		private void CB_Branch_SelectionChangeCommitted ( object sender, System.EventArgs e )
 		{
+			//ブランチネーム側のエディットリストボックスが空のとき何もしない
+			if ( 0 == EL_Branch.Count () ) { return; }
+
 			TName tn = EL_Branch.Get ();
 			tn.Name = ((Branch)CB_Branch.SelectedItem).Name;
 			EL_Branch.ResetItems ();

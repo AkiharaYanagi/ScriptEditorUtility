@@ -3,10 +3,12 @@ using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using System.Drawing;
+using System.Collections.Generic;
 
 
 namespace ScriptEditor
 {
+	//==========================================================================
 	public class LoadImage
 	{
 		public void Run ( SqcListData data, string dirname )
@@ -52,9 +54,49 @@ namespace ScriptEditor
 				fs.Close ();
 
 				//データに追加
-//				sqcDt.BD_ImgDt.Add ( new ImageData ( filename, img ) );
 				sqcDt.BD_ImgDt.Add ( new ImageData ( imageName + ".png", img ) );
 			}
 		}
 	}
+	//==========================================================================
+
+
+	//コンペンドから画像読込
+	public class LoadImageFromCmpd
+	{
+		void Run ( SqcListData data, Compend cmpd )
+		{
+			//通し番号のため、画像を一時的に列挙
+			List < string > L_serial = new List<string> ();
+			
+			//シークエンス
+			int sqc_index = 0;
+			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
+			{
+				//イメージ
+				int img_index = 0;
+				foreach ( ImageData imgd in cmpd.BD_Image.GetEnumerable () )
+				{
+					//イメージリストはひとまとめなので、シークエンス名でカウントする
+					if ( imgd.Name == sqc.Name )
+					{
+//						string s0 = sqc_index.ToString ("000") + "_";
+						string s0 = "";
+						string s1 = sqc.Name + "_" ;
+						string s2 = img_index.ToString ("00") + ".png";
+						L_serial.Add ( s0 + s1 + s2 );
+						++ img_index;
+					}
+				}
+				++ sqc_index;
+			}
+
+			//イメージデータリストからシークエンスリストに再配置
+			foreach ( string name in L_serial )
+			{
+
+			}
+		}
+	}
+
 }

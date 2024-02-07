@@ -55,6 +55,7 @@ namespace ScriptEditor
 			if ( ! File.Exists ( filepath ) )
 			{
 				//MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				STS_TXT.Trace_Err ( filepath + "が見つかりません" );
 				throw new ArgumentException ( "ファイルが存在しませんでした。" );
 			}
 

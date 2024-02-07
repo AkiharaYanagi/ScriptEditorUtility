@@ -11,10 +11,10 @@ namespace ScriptEditor
 	public partial class Ctrl_ImageTable : UserControl
 	{
 		//データ(シークエンス リストボックス)
-		public EditListbox<SequenceData> ELB_Sqc { get; set; } = null;
+		public EditListbox<SequenceData> ELB_Sqc { get; set; } = new EditListbox<SequenceData>();
 
 		//データ編集
-		public EditSqcListData EditData { get; set; } = null;
+		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
 
 		//アクション指定
 		private SQC_DRVD flag_sqc_derived = SQC_DRVD.ACTION;
@@ -71,17 +71,12 @@ namespace ScriptEditor
 			pB_Sqc1.SetCharaData ( ch );
 		}
 
-
-		public void TestAssosiate ()
-		{
-			pB_Sqc1.TestAssosiate ();
-		}
-
-
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
 		{
 			pB_Sqc1.SetCompend ( cmpd );
+
+			//コンペンドからイメージリストを作成
 		}
 
 		//更新

@@ -55,6 +55,8 @@ namespace ScriptEditor
 		public Ctrl_AllRect Rct { get; set; } = new Ctrl_AllRect ();	//枠
 		public Ctrl_Scp_Route ScpRut { get; set; } = new Ctrl_Scp_Route ();	//シークエンス内ルートリスト
 		public _Ctrl_EfGnrt EfGnrt { get; set; } = new _Ctrl_EfGnrt ();	//エフェクト生成
+		public Ctrl_Image Img { get; set; } = new Ctrl_Image ();	//イメージ
+
 
 		//-------------------------
 
@@ -84,8 +86,6 @@ namespace ScriptEditor
 
 			ScpRut.SetCharaData ( ch );
 			EfGnrt.SetCharaData ( ch );
-
-//			Assosiate ();
 		}
 
 		//----------------------------------------------
@@ -94,11 +94,7 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ()
 		{
-			SqcList_Act.Assosiate ();
-			SqcList_Efc.Assosiate ();
-
 			Assosiate_scp ();
-
 			UpdateData ();
 		}
 

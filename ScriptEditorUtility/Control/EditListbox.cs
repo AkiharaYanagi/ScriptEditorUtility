@@ -143,6 +143,13 @@ namespace ScriptEditor
 			Tb_Name.Text = "";
 		}
 
+		//表示
+		public void Disp ()
+		{
+			listBox1.Invalidate ();
+			Btn_Add.Invalidate ();
+		}
+
 		public void ResetItems () { BD_T.ResetItems (); }		//更新
 		public void Add ( T t ) { BD_T.Add ( t ); }				//外部からの追加
 		public int Count () { return listBox1.Items.Count; }		//個数
@@ -209,6 +216,8 @@ namespace ScriptEditor
 
 			//変更時イベント
 			Listbox_Changed?.Invoke ();
+
+			listBox1.Invalidate ();
 		}
 
 		//下へ移動
@@ -217,8 +226,7 @@ namespace ScriptEditor
 			//--------------------------------------------------------------------
 			//動作条件　下記の条件時は何もしない
 			if ( listBox1.Items.Count <= 1 ) { return; }		//対象個数が１以下
-			int n = listBox1.SelectedItems.Count;
-			if ( n <= 0 ) { return; }	//選択されていない
+			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
 			if ( listBox1.SelectedIndex >= listBox1.Items.Count - 1) { return; }	//選択が末尾のとき
 			//--------------------------------------------------------------------
 
@@ -231,11 +239,41 @@ namespace ScriptEditor
 
 			//変更時イベント
 			Listbox_Changed?.Invoke ();
+
+			listBox1.Invalidate ();
+		}
+
+		//先頭へ移動
+		private void Btn_Top_Click ( object sender, EventArgs e )
+		{
+			//--------------------------------------------------------------------
+			//動作条件　下記の条件時は何もしない
+			if ( listBox1.Items.Count <= 1 ) { return; }		//対象個数が１以下
+			if ( listBox1.SelectedItems.Count <= 0 ) { return; }		//選択されていない
+			if ( listBox1.SelectedIndex <= 0 ) { return; }		//選択が先頭のとき
+			//--------------------------------------------------------------------
+
+			BD_T.Top ( listBox1.SelectedIndex );
+			listBox1.SelectedIndex = 0;
+		}
+
+		//末尾へ移動
+		private void Btn_Tail_Click ( object sender, EventArgs e )
+		{
+			//--------------------------------------------------------------------
+			//動作条件　下記の条件時は何もしない
+			if ( listBox1.Items.Count <= 1 ) { return; }		//対象個数が１以下
+			if ( listBox1.SelectedItems.Count <= 0 ) { return; }	//選択されていない
+			if ( listBox1.SelectedIndex >= listBox1.Items.Count - 1) { return; }	//選択が末尾のとき
+			//--------------------------------------------------------------------
+
+			BD_T.Tail ( listBox1.SelectedIndex );
+			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 		}
 
 		//============================================================
 		//外部指定イベント
-//		public delegate void Event ();
+		//		public delegate void Event ();
 
 		//更新
 		public Event UpdateData { get; set; } = ()=>{};

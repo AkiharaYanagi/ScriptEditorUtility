@@ -44,8 +44,6 @@ namespace ScriptEditor
 			int sqc_index = 0;	//シークエンス番号
 			foreach ( SequenceData sd in dt.L_Sqc.GetEnumerable () )
 			{
-				//Debug.WriteLine ( sd.Name );
-
 				int img_index = 0;
 				foreach ( ImageData id in sd.BD_ImgDt.GetEnumerable() )
 				{
@@ -58,8 +56,6 @@ namespace ScriptEditor
 					L_str.Add ( s0 + s1 + s2 );
 
 					++ img_index;
-
-					//Debug.WriteLine ( filepath );
 				}
 				++ sqc_index;
 			}
@@ -75,14 +71,14 @@ namespace ScriptEditor
 				foreach ( Script scp in sqc.ListScript )
 				{
 					//名前切出
-					string s = GetSeqName ( scp.ImgName );
+					string s = ImageName.GetSeqName ( scp.ImgName );
 
 					//新規イメージデータ検索
 					foreach ( string str in L_str )
 					{
-						if ( s == GetSeqName ( str ) )
+						if ( s == ImageName.GetSeqName ( str ) )
 						{
-							scp.ImgName = GetID ( str ) + s + GetID_inSeq ( scp.ImgName );
+							scp.ImgName = ImageName.GetID ( str ) + s + ImageName.GetID_inSeq ( scp.ImgName );
 							break;
 						}
 					}
@@ -90,7 +86,7 @@ namespace ScriptEditor
 			}
 		}
 
-		
+#if false
 		// "[通し番号000]_[シークエンス名]_[シークエンス内番号00].png"
 		//通し番号
 		private string GetID ( string imgFileName )
@@ -122,6 +118,7 @@ namespace ScriptEditor
 			int size = imgFileName.Length;
 			return imgFileName.Substring ( 4, size - 4 );
 		}
+#endif
 
 	}
 }

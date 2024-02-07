@@ -22,7 +22,7 @@
 
 		//次アクション名
 		//(空オブジェクト時にも指定しないと名前チェックエラーになる)
-		public string NextActionName { get; set; } = ActionName;
+		public string NextActionName { get; set; } = "Stand";
 
 		//アクション属性
 		public ActionCategory Category { get; set; } = ActionCategory.NEUTRAL;
@@ -49,7 +49,6 @@
 		{
 			//IName
 			this.Name = ActionName;
-			NextActionName = ActionName;
 		}
 
 		//引数付きコンストラクタ

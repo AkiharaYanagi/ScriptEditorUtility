@@ -65,255 +65,273 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="All_Ctrl.cs" />
-    <Compile Include="CB_ActionList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CB_SequenceList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Command\Ctrl_CmdList.cs">
+    <Compile Include="00_SqcList\SqcData\ImageName.cs" />
+    <Compile Include="15_Script\Ctrl_Image.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Command\Ctrl_CmdList.Designer.cs">
-      <DependentUpon>Ctrl_CmdList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Command\Ctrl_Command.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Command\Ctrl_Command.designer.cs">
-      <DependentUpon>Ctrl_Command.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Command\DispCommand.cs" />
-    <Compile Include="Command\EditCommand.cs" />
-    <Compile Include="Command\Pb_Command.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Command\Pb_Command.designer.cs">
-      <DependentUpon>Pb_Command.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Command\SelectKey.cs" />
-    <Compile Include="Compend\Ctrl_Compend.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Compend\Ctrl_Compend.Designer.cs">
-      <DependentUpon>Ctrl_Compend.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Compend\Ctrl_Image.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Compend\Ctrl_Image.Designer.cs">
+    <Compile Include="15_Script\Ctrl_Image.Designer.cs">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compend\DispRects.cs" />
-    <Compile Include="Compend\Menu_Board.cs">
+    <Compile Include="All_Ctrl.cs" />
+    <Compile Include="99_Common\CB_ActionList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="99_Common\CB_SequenceList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="20_Command\Ctrl_CmdList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Compend\Menu_Board.Designer.cs">
+    <Compile Include="20_Command\Ctrl_CmdList.Designer.cs">
+      <DependentUpon>Ctrl_CmdList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="20_Command\Ctrl_Command.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="20_Command\Ctrl_Command.designer.cs">
+      <DependentUpon>Ctrl_Command.cs</DependentUpon>
+    </Compile>
+    <Compile Include="20_Command\DispCommand.cs" />
+    <Compile Include="20_Command\EditCommand.cs" />
+    <Compile Include="20_Command\Pb_Command.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="20_Command\Pb_Command.designer.cs">
+      <DependentUpon>Pb_Command.cs</DependentUpon>
+    </Compile>
+    <Compile Include="20_Command\SelectKey.cs" />
+    <Compile Include="10_Compend\Ctrl_Compend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="10_Compend\Ctrl_Compend.Designer.cs">
+      <DependentUpon>Ctrl_Compend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="10_Compend\Ctrl_Image.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="10_Compend\Ctrl_Image.Designer.cs">
+      <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="10_Compend\DispRects.cs" />
+    <Compile Include="10_Compend\Menu_Board.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="10_Compend\Menu_Board.Designer.cs">
       <DependentUpon>Menu_Board.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compend\PaintImage.cs">
+    <Compile Include="10_Compend\PaintImage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Compend\PB_SqcBrd.cs">
+    <Compile Include="10_Compend\PB_SqcBrd.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Compend\RB_Tool.cs">
+    <Compile Include="10_Compend\RB_Tool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Compend\RB_Tool.Designer.cs">
+    <Compile Include="10_Compend\RB_Tool.Designer.cs">
       <DependentUpon>RB_Tool.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compend\SqcBoard.cs">
+    <Compile Include="10_Compend\SqcBoard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Compend\SqcBoard.Designer.cs">
+    <Compile Include="10_Compend\SqcBoard.Designer.cs">
       <DependentUpon>SqcBoard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compend\SqcTree.cs">
+    <Compile Include="10_Compend\SqcTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Compend\SqcTree.Designer.cs">
+    <Compile Include="10_Compend\SqcTree.Designer.cs">
       <DependentUpon>SqcTree.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compend\ToolImage.cs" />
-    <Compile Include="Ctrl_Branch.cs">
+    <Compile Include="10_Compend\ToolImage.cs" />
+    <Compile Include="30_Branch\Ctrl_Branch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl_Branch.Designer.cs">
+    <Compile Include="30_Branch\Ctrl_Branch.Designer.cs">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ctrl_EfGnrt.cs">
+    <Compile Include="15_Script\Ctrl_EfGnrt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl_EfGnrt.Designer.cs">
+    <Compile Include="15_Script\Ctrl_EfGnrt.Designer.cs">
       <DependentUpon>Ctrl_EfGnrt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Disp\DispChara.cs" />
-    <Compile Include="ListRect\Ctrl_AllRect.cs">
+    <Compile Include="15_Script\ListRect\Ctrl_AllRect.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ListRect\Ctrl_AllRect.Designer.cs">
+    <Compile Include="15_Script\ListRect\Ctrl_AllRect.Designer.cs">
       <DependentUpon>Ctrl_AllRect.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListRect\Ctrl_ListRect.cs">
+    <Compile Include="15_Script\ListRect\Ctrl_ListRect.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ListRect\Ctrl_ListRect.Designer.cs">
+    <Compile Include="15_Script\ListRect\Ctrl_ListRect.Designer.cs">
       <DependentUpon>Ctrl_ListRect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ctrl_Route.cs">
+    <Compile Include="40_Route\Ctrl_Route.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl_Route.Designer.cs">
+    <Compile Include="40_Route\Ctrl_Route.Designer.cs">
       <DependentUpon>Ctrl_Route.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ctrl_Settings.cs" />
-    <Compile Include="IScriptParam.cs" />
+    <Compile Include="99_Common\Ctrl_Settings.cs" />
+    <Compile Include="99_Common\IScriptParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RB_ScriptTarget.cs">
+    <Compile Include="99_Common\RB_ScriptTarget.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RB_ScriptTarget.Designer.cs">
+    <Compile Include="99_Common\RB_ScriptTarget.Designer.cs">
       <DependentUpon>RB_ScriptTarget.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Cmpnt_ClcSt.cs">
+    <Compile Include="15_Script\Cmpnt_ClcSt.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Script\Cmpnt_Int.cs">
+    <Compile Include="15_Script\Cmpnt_Int.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Script\Ctrl_Script.cs">
+    <Compile Include="15_Script\Ctrl_Script.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Script\Ctrl_Script.Designer.cs">
+    <Compile Include="15_Script\Ctrl_Script.Designer.cs">
       <DependentUpon>Ctrl_Script.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\SubForm\Ctrl_Scp_Route.cs">
+    <Compile Include="15_Script\Ctrl_ScriptList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\ConstPaint.cs" />
-    <Compile Include="SqcList\Ctrl_Action.cs">
+    <Compile Include="15_Script\Ctrl_ScriptList.Designer.cs">
+      <DependentUpon>Ctrl_ScriptList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="15_Script\Ctrl_Scp_Route.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.cs">
+    <Compile Include="00_SqcList\ConstPaint.cs" />
+    <Compile Include="00_SqcList\Ctrl_Action.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.Designer.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_ImageTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_ImageTable.Designer.cs">
       <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.Designer.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList.Designer.cs">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\Ctrl_SqcList_Init.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList_Init.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SqcList\Ctrl_SqcList\PB_Sqc.cs">
+    <Compile Include="00_SqcList\Ctrl_SqcList\PB_Sqc.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SqcList\Form_Action.cs">
+    <Compile Include="00_SqcList\Form_Action.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SqcList\Form_Action.designer.cs">
+    <Compile Include="00_SqcList\Form_Action.designer.cs">
       <DependentUpon>Form_Action.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqcList\SqcData\ConstSqcList.cs" />
-    <Compile Include="SqcList\SqcData\SqcListData.cs" />
-    <Compile Include="SqcList\SqcData\EditSqcListData.cs" />
-    <Compile Include="SqcList\SqcData\LoadSqcListData.cs" />
-    <Compile Include="SqcList\SqcData\LoadImage.cs" />
-    <Compile Include="SqcList\SqcData\SaveSqcListData.cs" />
-    <Compile Include="SqcList\SqcData\SaveImage.cs" />
-    <Compile Include="TB_ScpHex.cs" />
-    <Compile Include="TB_ScpNumber.cs">
+    <Compile Include="00_SqcList\SqcData\ConstSqcList.cs" />
+    <Compile Include="00_SqcList\SqcData\SqcListData.cs" />
+    <Compile Include="00_SqcList\SqcData\EditSqcListData.cs" />
+    <Compile Include="00_SqcList\SqcData\LoadSqcListData.cs" />
+    <Compile Include="00_SqcList\SqcData\LoadImage.cs" />
+    <Compile Include="00_SqcList\SqcData\SaveSqcListData.cs" />
+    <Compile Include="00_SqcList\SqcData\SaveImage.cs" />
+    <Compile Include="99_Common\TB_ScpHex.cs" />
+    <Compile Include="99_Common\TB_ScpNumber.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Command\Ctrl_CmdList.resx">
+    <EmbeddedResource Include="15_Script\Ctrl_Image.resx">
+      <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="20_Command\Ctrl_CmdList.resx">
       <DependentUpon>Ctrl_CmdList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Command\Ctrl_Command.resx">
+    <EmbeddedResource Include="20_Command\Ctrl_Command.resx">
       <DependentUpon>Ctrl_Command.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Command\Pb_Command.resx">
+    <EmbeddedResource Include="20_Command\Pb_Command.resx">
       <DependentUpon>Pb_Command.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compend\Ctrl_Compend.resx">
+    <EmbeddedResource Include="10_Compend\Ctrl_Compend.resx">
       <DependentUpon>Ctrl_Compend.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compend\Ctrl_Image.resx">
+    <EmbeddedResource Include="10_Compend\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compend\Menu_Board.resx">
+    <EmbeddedResource Include="10_Compend\Menu_Board.resx">
       <DependentUpon>Menu_Board.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compend\SqcBoard.resx">
+    <EmbeddedResource Include="10_Compend\SqcBoard.resx">
       <DependentUpon>SqcBoard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compend\SqcTree.resx">
+    <EmbeddedResource Include="10_Compend\SqcTree.resx">
       <DependentUpon>SqcTree.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl_Branch.resx">
+    <EmbeddedResource Include="30_Branch\Ctrl_Branch.resx">
       <DependentUpon>Ctrl_Branch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl_EfGnrt.resx">
+    <EmbeddedResource Include="15_Script\Ctrl_EfGnrt.resx">
       <DependentUpon>Ctrl_EfGnrt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListRect\Ctrl_AllRect.resx">
+    <EmbeddedResource Include="15_Script\ListRect\Ctrl_AllRect.resx">
       <DependentUpon>Ctrl_AllRect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListRect\Ctrl_ListRect.resx">
+    <EmbeddedResource Include="15_Script\ListRect\Ctrl_ListRect.resx">
       <DependentUpon>Ctrl_ListRect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl_Route.resx">
+    <EmbeddedResource Include="40_Route\Ctrl_Route.resx">
       <DependentUpon>Ctrl_Route.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RB_ScriptTarget.resx">
+    <EmbeddedResource Include="99_Common\RB_ScriptTarget.resx">
       <DependentUpon>RB_ScriptTarget.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Script\Ctrl_Script.resx">
+    <EmbeddedResource Include="15_Script\Ctrl_Script.resx">
       <DependentUpon>Ctrl_Script.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Script\SubForm\Ctrl_Scp_Route.resx">
+    <EmbeddedResource Include="15_Script\Ctrl_ScriptList.resx">
+      <DependentUpon>Ctrl_ScriptList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="15_Script\Ctrl_Scp_Route.resx">
       <DependentUpon>Ctrl_Scp_Route.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Ctrl_Action.resx">
+    <EmbeddedResource Include="00_SqcList\Ctrl_Action.resx">
       <DependentUpon>Ctrl_Action.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_ImageTable.resx">
+    <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_ImageTable.resx">
       <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
+    <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
       <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Ctrl_SqcList\PB_Sqc.resx">
+    <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\PB_Sqc.resx">
       <DependentUpon>PB_Sqc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqcList\Form_Action.resx">
+    <EmbeddedResource Include="00_SqcList\Form_Action.resx">
       <DependentUpon>Form_Action.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="99_Common\packages.config" />
     <None Include="Resource\ResourceCommand\CMD_Key\CmdAr_Is.png" />
   </ItemGroup>
   <ItemGroup>
@@ -499,5 +517,6 @@
   <ItemGroup>
     <None Include="Resource\tool_ORect.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

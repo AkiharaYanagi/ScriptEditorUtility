@@ -112,9 +112,9 @@
 			this.Lbl_Vel.AutoSize = true;
 			this.Lbl_Vel.Location = new System.Drawing.Point(3, 130);
 			this.Lbl_Vel.Name = "Lbl_Vel";
-			this.Lbl_Vel.Size = new System.Drawing.Size(46, 12);
+			this.Lbl_Vel.Size = new System.Drawing.Size(68, 12);
 			this.Lbl_Vel.TabIndex = 1;
-			this.Lbl_Vel.Text = "Vel(X,Y)";
+			this.Lbl_Vel.Text = "Vel(X,Y)_0.1f";
 			// 
 			// Lbl_Power
 			// 
@@ -130,9 +130,9 @@
 			this.Lbl_Acc.AutoSize = true;
 			this.Lbl_Acc.Location = new System.Drawing.Point(3, 160);
 			this.Lbl_Acc.Name = "Lbl_Acc";
-			this.Lbl_Acc.Size = new System.Drawing.Size(49, 12);
+			this.Lbl_Acc.Size = new System.Drawing.Size(71, 12);
 			this.Lbl_Acc.TabIndex = 1;
-			this.Lbl_Acc.Text = "Acc(X,Y)";
+			this.Lbl_Acc.Text = "Acc(X,Y)_0.1f";
 			// 
 			// Lbl_Warp
 			// 

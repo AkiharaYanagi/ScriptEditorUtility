@@ -13,7 +13,7 @@ namespace ScriptEditor
 	public partial class EditScript
 	{
 		//対象スクリプトリスト(シークエンス内)
-		public LScp L_Scp { get; set; } = null;
+		public LScp L_Scp { get; set; } = new LScp ();
 
 		//グループリスト
 		List < LScp > L_ScriptGroup = new List<LScp> ();

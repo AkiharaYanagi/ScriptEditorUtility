@@ -69,17 +69,19 @@ namespace ScriptEditor
 		{
 			Graphics g = pe.Graphics;
 
+			using ( Font FONT0 = new Font ( "Meiryo", 12.0f ) )
 			using ( Pen PenWhite = new Pen ( Color.White, 4 ) )
 			{
+
 			//基準線
 			g.DrawLine ( PenWhite, new Point ( PtPbImageBase.X, 0 ), new Point ( PtPbImageBase.X, this.Height ) );
 			g.DrawLine ( PenWhite, new Point ( 0, PtPbImageBase.Y ), new Point ( this.Width, PtPbImageBase.Y ) );
-			}	//using
 
 			//スクリプト指定イメージ
 			Script scp = EditCompend.SelectedScript;
 			ImageData imgd = Bd_Imgd.Get ( scp.ImgName );
 			DrawImageData ( g, imgd, scp.ImgName, scp.Pos );
+			g.DrawString ( scp.ImgName, FONT0, Brushes.Wheat, new Point ( 34, 2 ) );
 
 			//エフェクト生成
 			foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable () )
@@ -102,6 +104,8 @@ namespace ScriptEditor
 
 			//枠リスト
 			dispRects.Disp ( g, scp, PtPbImageBase );
+
+			}	//using
 
 			base.OnPaint ( pe );
 		}

@@ -34,6 +34,12 @@ namespace ScriptEditor
 			case 23: return Color.SpringGreen;
 			case 24: return Color.OldLace;
 			case 25: return Color.Purple;
+			case 26: return Color.LightSlateGray;
+			case 27: return Color.DarkMagenta;
+			case 28: return Color.Moccasin;
+			case 29: return Color.Lime;
+			case 30: return Color.Chocolate;
+			case 31: return Color.Honeydew;
 			}
 			return Color.Empty;
 		} 

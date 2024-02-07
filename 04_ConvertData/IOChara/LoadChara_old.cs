@@ -62,7 +62,7 @@ namespace ScriptEditor
 			FileStream fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read );
 			BinaryReader biReaderFile = new BinaryReader ( fstrm, Encoding.ASCII );
 
-			Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
+//			Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
 
 			//==========================================================================
 			//スクリプト部分のメモリストリームを作成

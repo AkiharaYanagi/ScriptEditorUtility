@@ -40,6 +40,8 @@
 			this.Btn_SaveAll = new System.Windows.Forms.Button();
 			this.Btn_LoadAll = new System.Windows.Forms.Button();
 			this.Btn_Folder = new System.Windows.Forms.Button();
+			this.Btn_Top = new System.Windows.Forms.Button();
+			this.Btn_Tail = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -81,9 +83,9 @@
 			// 
 			this.Btn_Up.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn_Up.Location = new System.Drawing.Point(167, 10);
+			this.Btn_Up.Location = new System.Drawing.Point(167, 26);
 			this.Btn_Up.Name = "Btn_Up";
-			this.Btn_Up.Size = new System.Drawing.Size(30, 169);
+			this.Btn_Up.Size = new System.Drawing.Size(30, 153);
 			this.Btn_Up.TabIndex = 3;
 			this.Btn_Up.Text = "↑";
 			this.Btn_Up.UseVisualStyleBackColor = true;
@@ -95,7 +97,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Btn_Down.Location = new System.Drawing.Point(167, 185);
 			this.Btn_Down.Name = "Btn_Down";
-			this.Btn_Down.Size = new System.Drawing.Size(30, 216);
+			this.Btn_Down.Size = new System.Drawing.Size(30, 195);
 			this.Btn_Down.TabIndex = 3;
 			this.Btn_Down.Text = "↓";
 			this.Btn_Down.UseVisualStyleBackColor = true;
@@ -116,6 +118,8 @@
 			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.panel1.Controls.Add(this.Btn_Tail);
+			this.panel1.Controls.Add(this.Btn_Top);
 			this.panel1.Controls.Add(this.listBox1);
 			this.panel1.Controls.Add(this.Btn_Up);
 			this.panel1.Controls.Add(this.Btn_Down);
@@ -178,6 +182,28 @@
 			this.Btn_Folder.UseVisualStyleBackColor = true;
 			this.Btn_Folder.Click += new System.EventHandler(this.Btn_Folder_Click);
 			// 
+			// Btn_Top
+			// 
+			this.Btn_Top.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Top.Location = new System.Drawing.Point(167, 10);
+			this.Btn_Top.Name = "Btn_Top";
+			this.Btn_Top.Size = new System.Drawing.Size(30, 15);
+			this.Btn_Top.TabIndex = 4;
+			this.Btn_Top.Text = "↑↑";
+			this.Btn_Top.UseVisualStyleBackColor = true;
+			this.Btn_Top.Click += new System.EventHandler(this.Btn_Top_Click);
+			// 
+			// Btn_Tail
+			// 
+			this.Btn_Tail.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Tail.Location = new System.Drawing.Point(167, 386);
+			this.Btn_Tail.Name = "Btn_Tail";
+			this.Btn_Tail.Size = new System.Drawing.Size(30, 15);
+			this.Btn_Tail.TabIndex = 4;
+			this.Btn_Tail.Text = "↓↓";
+			this.Btn_Tail.UseVisualStyleBackColor = true;
+			this.Btn_Tail.Click += new System.EventHandler(this.Btn_Tail_Click);
+			// 
 			// EditListbox
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -213,5 +239,7 @@
 		private System.Windows.Forms.Button Btn_SaveAll;
 		private System.Windows.Forms.Button Btn_LoadAll;
 		private System.Windows.Forms.Button Btn_Folder;
+		private System.Windows.Forms.Button Btn_Tail;
+		private System.Windows.Forms.Button Btn_Top;
 	}
 }

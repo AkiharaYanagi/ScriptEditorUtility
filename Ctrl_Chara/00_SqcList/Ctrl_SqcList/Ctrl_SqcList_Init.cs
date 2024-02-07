@@ -28,7 +28,7 @@ namespace ScriptEditor
 			ctrl_ImageTable1.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
 
 			//データ編集
-			EditData.Dt = Data;
+			EditData.Dt = SqcListData;
 			EditData.UpdateAll = UpdateAll;
 
 			//データの設定
@@ -37,7 +37,7 @@ namespace ScriptEditor
 			//エディットリストボックス
 			ELB_Sqc.Location = new System.Drawing.Point(0, 27);
 			ELB_Sqc.GetListBox().DisplayMember = "Name";
-			ELB_Sqc.SetData(Data.L_Sqc);
+			ELB_Sqc.SetData(SqcListData.L_Sqc);
 			this.Controls.Add(ELB_Sqc);
 
 			//エディットリストボックス

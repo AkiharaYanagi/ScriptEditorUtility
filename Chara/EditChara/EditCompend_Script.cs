@@ -24,6 +24,12 @@ namespace ScriptEditor
 			}
 		}
 
+		//グループ再編成
+		public void RestructGroup ()
+		{
+			EditScript.Restruct ( SelectedSequence.ListScript, SelectedScript.Frame );
+		}
+
 		//スクリプト追加
 		public void AddScript ()
 		{
@@ -85,11 +91,48 @@ namespace ScriptEditor
 			ResetFrameNumber ();
 		}
 
+		public void MultiInsert ( L_Scp l_scp )
+		{
+			L_Scp ls = SelectedSequence.ListScript;
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+
+			//選択範囲スクリプトを新規リストにディープコピー(グループのみ再設定)
+			int temp_group = 0;
+			int now_group = 0;
+			for ( int i = 0; i < l_scp.Count; ++ i )
+			{
+				//グループチェック
+				if ( temp_group != l_scp [ i ].Group )
+				{
+					temp_group = ls [i].Group;
+
+					//未使用グループを指定する
+					now_group = EditScript.GetUnusedIndex ();
+				}
+
+				//新規スクリプト
+				Script scp = new Script ( ls [ i ] )
+				{
+					Group = now_group
+				};
+
+				//既存に追加
+				ls.Add ( scp );
+			}
+
+			ResetFrameNumber ();
+			RestructGroup ();
+		}
+
 		//複数追加
 		public void MultiAdd ()
 		{
 //			MultiAdd ( new Script () );
-			MultiAdd ( SelectedScript );
+//			MultiAdd ( SelectedScript );
+
+			SpanCopy_Add ();
+			
 			ResetFrameNumber ();
 		}
 		
@@ -110,13 +153,62 @@ namespace ScriptEditor
 
 			//追加
 			SelectedSequence.ListScript.AddRange ( scripts );
-			ResetFrameNumber ();
+			ResetFrameNumber ();			//フレームIDの振り直し
+		}
+
+		public void MultiAdd ( L_Scp l_scp )
+		{
+			SelectedSequence.ListScript.AddRange ( l_scp );
+
+			ResetFrameNumber ();	//フレームIDの振り直し
+
 		}
 
 		public void MultiAddSelectedScript ()
 		{
 			MultiAdd ( SelectedScript );
 		}
+
+		//範囲コピーからの追加
+		public void SpanCopy_Add ()
+		{
+			L_Scp ls = SelectedSequence.ListScript;
+			int s = SelectedSpanStart;
+			int e = 1 + SelectedSpanEnd;
+
+			//範囲外は何もしない
+			if ( s < 0 ) { return; }
+			if ( ls.Count < e ) { return; }
+			
+			//選択範囲スクリプトを新規リストにディープコピー(グループのみ再設定)
+			int temp_group = 0;
+			int now_group = 0;
+			for ( int i = s; i < e; ++ i )
+			{
+				//グループチェック
+				if ( temp_group != ls [ i ].Group )
+				{
+					temp_group = ls [i].Group;
+
+					//未使用グループを指定する
+					now_group = EditScript.GetUnusedIndex ();
+				}
+
+				//新規スクリプト
+				Script scp = new Script ( ls [ i ] )
+				{
+					Group = now_group
+				};
+
+				//既存に追加
+				ls.Add ( scp );
+			}
+
+			//フレームIDの振り直し
+			ResetFrameNumber ();
+		}
+
+
 
 		//選択中のスクリプトを削除
 		public void RemScript ()
@@ -136,8 +228,18 @@ namespace ScriptEditor
 		public void MultiRem ()
 		{
 			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
-			SelectedSequence.ListScript.RemoveRange ( s, e - s );
+			int e = SelectedSpanEnd;
+			L_Scp ls = SelectedSequence.ListScript;
+
+			//範囲外は何もしない
+			if ( s < 0 ) { return; }
+			if ( ls.Count < e ) { e = ls.Count; }	//範囲内に丸め
+
+			int n = 1 + e - s;
+			if ( n > ls.Count ) { n = ls.Count - s; }
+
+			//個数なので e + 1 
+			SelectedSequence.ListScript.RemoveRange ( s, n );
 			ResetFrameNumber ();
 		}
 
