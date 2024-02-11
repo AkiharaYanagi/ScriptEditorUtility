@@ -60,8 +60,8 @@ namespace ScriptEditor
 				// ->名前で検索するため
 				Cmpd.BD_Sequence.ChangeName ( oldName, sqcd.Name );
 
-				//シークエンスコンボボックスも更新する
-//				ctrl_ImageTable1.ResetItems ();
+				//次シークエンスコンボボックスも更新する
+				ctrl_ImageTable1.ResetItems ();
 			};
 
 			//アクション・エフェクト分岐

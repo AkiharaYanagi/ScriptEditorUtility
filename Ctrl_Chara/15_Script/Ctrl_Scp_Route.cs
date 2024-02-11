@@ -179,6 +179,8 @@ namespace ScriptEditor
 		//コンボボックスで選択
 		private void Cb_Route_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
+			if ( EL_Route.Count() == 0 ) {  return; }
+
 			Route rut = (Route)Cb_Route.SelectedItem;
 			EL_Route.Get ().Name = rut.Name;
 			EL_Route.ResetItems ();

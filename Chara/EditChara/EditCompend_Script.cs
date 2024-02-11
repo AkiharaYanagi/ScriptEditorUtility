@@ -117,8 +117,8 @@ namespace ScriptEditor
 					Group = now_group
 				};
 
-				//既存に追加
-				ls.Add ( scp );
+				//既存に挿入
+				ls.Insert ( s + i, scp );
 			}
 
 			ResetFrameNumber ();
@@ -233,7 +233,7 @@ namespace ScriptEditor
 
 			//範囲外は何もしない
 			if ( s < 0 ) { return; }
-			if ( ls.Count < e ) { e = ls.Count; }	//範囲内に丸め
+			if ( ls.Count <= e ) { e = ls.Count - 1; }	//範囲内に丸め
 
 			int n = 1 + e - s;
 			if ( n > ls.Count ) { n = ls.Count - s; }

@@ -98,7 +98,7 @@ namespace ScriptEditor
 			int end = EditCompend.SelectedSpanEnd;
 			int n = end + 1;
 
-			if ( ls.Count < end ) { end = ls.Count; }	//範囲内に丸め
+			if ( ls.Count <= end ) { end = ls.Count - 1; }	//範囲内に丸め
 
 			for ( int i = start; i < n; ++ i )
 			{

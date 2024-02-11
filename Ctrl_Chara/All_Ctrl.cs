@@ -64,11 +64,6 @@ namespace ScriptEditor
 		{
 		}
 
-		public void Call_MenuBoard ()
-		{
-			Compend_Bhv.Call ();
-		}
-
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
 		{
