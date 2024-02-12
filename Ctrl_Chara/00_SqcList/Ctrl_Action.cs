@@ -237,7 +237,7 @@ namespace ScriptEditor
 		public void SetCompend ( Compend cmpd )
 		{
 			//次シークエンス指定
-			CBSL_Next.SetCharaData ( cmpd.BD_Sequence );
+			CBSL_Next.SetCompend ( cmpd );
 		}
 
 		//関連付け

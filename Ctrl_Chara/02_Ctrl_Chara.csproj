@@ -33,7 +33,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\Dll\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -71,6 +71,9 @@
     </Compile>
     <Compile Include="15_Script\Ctrl_Image.Designer.cs">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="99_Common\CKB_ScpBool.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="All_Ctrl.cs" />
     <Compile Include="99_Common\CB_ActionList.cs">

@@ -13,7 +13,7 @@ namespace ScriptEditor
 		//対象
 		public BD_EfGnrt BD_EfGnrt { get; set; } = new BD_EfGnrt();
 
-		private EffectGenerate efgnrt = new EffectGenerate ();
+		private EffectGenerate SelectedEfgnrt = new EffectGenerate ();
 
 		//コントロール
 		private EditListbox < EffectGenerate > EL_EfGnrt = new EditListbox<EffectGenerate> ();
@@ -35,13 +35,15 @@ namespace ScriptEditor
 			//選択イベント
 			EL_EfGnrt.SelectedIndexChanged = ()=>
 			{
-				efgnrt = EL_EfGnrt.Get();
+				SelectedEfgnrt = EL_EfGnrt.Get();
+				CB_L_Effect.SelectName ( SelectedEfgnrt.EfName );
 				All_Ctrl.Inst.UpdateData ();
 			};
 
 			this.Controls.Add ( EL_EfGnrt );
 			//==============================================================
 
+			//コンボボックス
 			CB_L_Effect.Location = new Point ( 300, 50 );
 			this.Controls.Add ( CB_L_Effect );
 		}
@@ -49,7 +51,8 @@ namespace ScriptEditor
 		//キャラデータ設定
 		public void SetCharaData ( Chara ch )
 		{
-			CB_L_Effect.DataSource = ch.garnish.BD_Sequence.GetBindingList();
+			//エフェクト固定
+			CB_L_Effect.SetCompend ( ch.garnish );
 		}
 
 		//編集設定
@@ -62,31 +65,54 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ()
 		{
+			//編集から選択しているスクリプトを取得
 			Script scp = EditCompend.SelectedScript;
-			EL_EfGnrt.SetData ( scp.BD_EfGnrt );
+			BD_EfGnrt = scp.BD_EfGnrt;
+
+			//エディットリストボックスに設定
+			EL_EfGnrt.SetData ( BD_EfGnrt );
+			if ( BD_EfGnrt.Count() < 1 ) { return; }
 			
-			Tbn_x.Assosiate ( i=>efgnrt.SetPtX(i), ()=>efgnrt.Pt.X );
-			Tbn_y.Assosiate ( i=>efgnrt.SetPtY(i), ()=>efgnrt.Pt.Y );
-			Tbn_z.Assosiate ( i=>efgnrt.Z_PER100F=i, ()=>efgnrt.Z_PER100F );
+			SelectedEfgnrt = BD_EfGnrt[0];
+
+			if ( SelectedEfgnrt is null ) { return; }
+			
+			//各コントロールに設定
+			CB_L_Effect.SelectName ( SelectedEfgnrt.EfName );
+			CB_L_Effect.SetFunc = ef=>SelectedEfgnrt.EfName = ef.Name;
+			Tbn_x.Assosiate ( i=>SelectedEfgnrt.SetPtX(i), ()=>SelectedEfgnrt.Pt.X );
+			Tbn_y.Assosiate ( i=>SelectedEfgnrt.SetPtY(i), ()=>SelectedEfgnrt.Pt.Y );
+			Tbn_z.Assosiate ( i=>SelectedEfgnrt.Z_PER100F=i, ()=>SelectedEfgnrt.Z_PER100F );
 		}
 
 		//更新
 		public void UpdateData ()
 		{
-			//efgnrt = EL_EfGnrt.Get();
+			EL_EfGnrt.UpdateData ();
 
 			Tbn_x.UpdateData ();
 			Tbn_y.UpdateData ();
 			Tbn_z.UpdateData ();
 			
-			Cbx_gnrt.Checked = efgnrt.Gnrt;
-			Cbx_loop.Checked = efgnrt.Loop;
-			Cbx_sync.Checked = efgnrt.Sync;
+			if ( EL_EfGnrt.Count () > 0 )
+			{
+				EffectGenerate efgnrt = EL_EfGnrt.Get();
+				Cbx_gnrt.Checked = SelectedEfgnrt.Gnrt;
+				Cbx_loop.Checked = SelectedEfgnrt.Loop;
+				Cbx_sync.Checked = SelectedEfgnrt.Sync;
+			}
 		}
 
 		public void Disp ()
 		{
-
+			EffectGenerate efgnrt = EL_EfGnrt.Get();
+			if ( efgnrt is null ) { return; }
+			
+			//各コントロールに設定
+			CB_L_Effect.SelectName ( efgnrt.EfName );
+			Tbn_x.UpdateData ();
+			Tbn_y.UpdateData ();
+			Tbn_z.UpdateData ();
 		}
 	}
 }

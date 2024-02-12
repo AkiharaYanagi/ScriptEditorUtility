@@ -3,7 +3,7 @@
 namespace ScriptEditor
 {
 	//----------------------------------------------------------------------
-	// 数値のみ入力できるテキストボックス
+	// スクリプトに基づいた整数値のみ、表示・編集できるテキストボックス
 	//----------------------------------------------------------------------
 	using Setter = System.Action < int >;
 	using Getter = System.Func < int >;
@@ -11,8 +11,8 @@ namespace ScriptEditor
 	public class TB_Number : TextBox
 	{
 		//設定用デリゲート
-		public Setter SetFunc { get; set; } = null;
-		public Getter GetFunc { get; set; } = null;
+		public Setter SetFunc { get; set; } = i=>{};
+		public Getter GetFunc { get; set; } = ()=>0;
 
 		//コンストラクタ
 		public TB_Number ()
@@ -24,11 +24,9 @@ namespace ScriptEditor
 		public void Assosiate ( Setter setfunc, Getter getfunc )
 		{
 			GetFunc = getfunc;
-			int value = GetFunc ();
-			this.Text = value.ToString ();
+			this.Text = GetFunc ().ToString ();
 			
 			SetFunc = setfunc;
-			SetFunc ( value );
 		}
 
 		//キー押下時(文字コード判定)

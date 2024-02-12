@@ -15,15 +15,14 @@ namespace ScriptEditor
 		//対象の保存
 		public BD_Sqc BD_Sqc = new BD_Sqc ();
 
-		//表示の更新用
-		public System.Action AllDisp = ()=>{};
-
 		//設定用デリゲート
 		public SetFunc SetFunc { get; set; } = sqc=>{};
 
 		//キャラデータ読込時
-		public void SetCharaData ( BD_Sqc bd_sqc )
+		public void SetCompend ( Compend cmpd )
 		{
+			BD_Sqc bd_sqc = cmpd.BD_Sequence;
+
 			//保存
 			BD_Sqc = bd_sqc;
 
@@ -40,7 +39,7 @@ namespace ScriptEditor
 		//名前から選択
 		public void SelectName ( string name )
 		{
-			SelectedItem = BD_Sqc.Get ( name );
+			this.SelectedItem = BD_Sqc.Get ( name );
 		}
 
 		//閉じたときのイベント
@@ -50,7 +49,7 @@ namespace ScriptEditor
 			SetFunc ( (Sequence)this.SelectedItem );
 
 			//表示更新
-			AllDisp ();
+			All_Ctrl.Inst.Disp ();
 
 			base.OnSelectionChangeCommitted ( e );
 		}

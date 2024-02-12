@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+
+//
+//@todo 項目追加	SE指定ID
+//
+
+
+
 namespace ScriptEditor
 {
 	using BD_Tn = BindingDictionary < TName >;
