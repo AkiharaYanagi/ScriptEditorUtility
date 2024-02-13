@@ -6,7 +6,7 @@ namespace ScriptEditor
 {
 	public partial class Form1 : Form
 	{
-		private _Ctrl_EfGnrt ctrl_EfGnrt = new _Ctrl_EfGnrt ();
+		private Ctrl_EfGnrt ctrl_EfGnrt = new Ctrl_EfGnrt ();
 
 		public Form1 ()
 		{

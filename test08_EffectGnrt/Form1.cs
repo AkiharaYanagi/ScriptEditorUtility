@@ -9,7 +9,7 @@ namespace ScriptEditor
 		private Chara chara = new Chara ();
 
 		//コントロール
-		private _Ctrl_EfGnrt ctrl_efgnrt = new _Ctrl_EfGnrt ();
+		private Ctrl_EfGnrt ctrl_efgnrt = new Ctrl_EfGnrt ();
 
 
 		//コンストラクタ

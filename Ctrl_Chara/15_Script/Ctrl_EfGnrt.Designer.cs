@@ -1,6 +1,6 @@
 ﻿namespace ScriptEditor
 {
-	partial class _Ctrl_EfGnrt
+	partial class Ctrl_EfGnrt
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。

@@ -112,7 +112,7 @@ namespace ScriptEditor
 				}
 
 				//新規スクリプト
-				Script scp = new Script ( ls [ i ] )
+				Script scp = new Script ( l_scp [ i ] )
 				{
 					Group = now_group
 				};

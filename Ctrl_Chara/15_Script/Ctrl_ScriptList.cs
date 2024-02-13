@@ -153,6 +153,7 @@ namespace ScriptEditor
 			All_Ctrl.Inst.UpdateData ();
 		}
 
+		//追加
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
 			EditCompend.MultiAdd ( L_Script );
@@ -161,6 +162,7 @@ namespace ScriptEditor
 			All_Ctrl.Inst.UpdateData ();
 		}
 
+		//挿入
 		private void Btn_Ins_Click ( object sender, EventArgs e )
 		{
 			EditCompend.MultiInsert ( L_Script );

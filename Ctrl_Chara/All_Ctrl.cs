@@ -54,7 +54,7 @@ namespace ScriptEditor
 		public _Ctrl_Script Scp { get; set; } = new _Ctrl_Script ();	//スクリプト
 		public Ctrl_AllRect Rct { get; set; } = new Ctrl_AllRect ();	//枠
 		public Ctrl_Scp_Route ScpRut { get; set; } = new Ctrl_Scp_Route ();	//シークエンス内ルートリスト
-		public _Ctrl_EfGnrt EfGnrt { get; set; } = new _Ctrl_EfGnrt ();	//エフェクト生成
+		public Ctrl_EfGnrt EfGnrt { get; set; } = new Ctrl_EfGnrt ();	//エフェクト生成
 		public Ctrl_Image Img { get; set; } = new Ctrl_Image ();	//イメージ
 
 
@@ -113,6 +113,10 @@ namespace ScriptEditor
 			Disp_scp ();
 		}
 
+		public void SetEditCompend ( EditCompend ec )
+		{
+			EfGnrt.SetEditCompend ( ec );
+		}
 
 		//----------------------------------------------
 		//スクリプトのみ

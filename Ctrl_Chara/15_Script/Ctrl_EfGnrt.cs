@@ -8,7 +8,7 @@ namespace ScriptEditor
 	using BD_EfGnrt = BindingDictionary < EffectGenerate >;
 
 
-	public partial class _Ctrl_EfGnrt : UserControl
+	public partial class Ctrl_EfGnrt : UserControl
 	{
 		//対象
 		public BD_EfGnrt BD_EfGnrt { get; set; } = new BD_EfGnrt();
@@ -24,7 +24,7 @@ namespace ScriptEditor
 
 
 		//コンストラクタ
-		public _Ctrl_EfGnrt ()
+		public Ctrl_EfGnrt ()
 		{
 			InitializeComponent ();
 

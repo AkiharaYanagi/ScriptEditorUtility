@@ -106,14 +106,15 @@ namespace ScriptEditor
 			this.ImgName = s.ImgName;
 			this.Pos = s.Pos;
 
-			this.BD_RutName = new BindingDictionary<TName> ();
+//			this.BD_RutName = new BindingDictionary<TName> ();
 			BD_RutName.DeepCopy ( s.BD_RutName );
 			
 			this.ListCRect = new List < Rectangle > ( s.ListCRect );
 			this.ListHRect = new List < Rectangle > ( s.ListHRect );
 			this.ListARect = new List < Rectangle > ( s.ListARect );
 			this.ListORect = new List < Rectangle > ( s.ListORect );
-			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
+//			this.BD_EfGnrt = new BD_EfGn ( s.BD_EfGnrt );
+			BD_EfGnrt.DeepCopy ( s.BD_EfGnrt );
 
 			this.BtlPrm = new ScriptParam_Battle ( s.BtlPrm );
 			this.StgPrm = new ScriptParam_Staging ( s.StgPrm );
