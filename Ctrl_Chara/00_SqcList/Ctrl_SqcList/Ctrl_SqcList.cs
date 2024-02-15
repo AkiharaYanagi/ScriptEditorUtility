@@ -132,7 +132,7 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			SqcListData.UpdateData ();
-			ctrl_ImageTable1.UpdateImage ();
+//			ctrl_ImageTable1.UpdateImage ();
 			ctrl_ImageTable1.UpdateData ();
 			ELB_Sqc._UpdateData ();
 		}

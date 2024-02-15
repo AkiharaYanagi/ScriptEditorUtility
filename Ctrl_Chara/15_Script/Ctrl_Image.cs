@@ -75,21 +75,26 @@ namespace ScriptEditor
 			//編集対象
 			switch ( Rb_ScpTgt.EditTarget )
 			{
-			//全体
-			case EditTargetScript.ALL: 
-				EditCompend.EditSequence.DoSetterInSqc_T ( (s,n)=>{ s.ImgName = n; }, name );
-				break;
-			
-			//グループにも変更を反映
-			case EditTargetScript.GROUP:
-				EditCompend.EditScript.DoSetterInGroup_T ( (s,n)=>{ s.ImgName = n; }, name );
-			break;
-			
 			//選択中スクリプトにイメージの設定
 			case EditTargetScript.SINGLE:
 				EditCompend.SelectedScript.ImgName = name;
 			break;
 
+			//グループにも変更を反映
+			case EditTargetScript.GROUP:
+				EditCompend.EditScript.DoSetterInGroup_T ( (s,n)=>{ s.ImgName = n; }, name );
+			break;
+			
+			//全体
+			case EditTargetScript.SELECT: 
+				EditCompend.DoSetterInSpan_T ( (s,n)=>{ s.ImgName = n; }, name );
+			break;
+			
+			//全体
+			case EditTargetScript.ALL: 
+				EditCompend.EditSequence.DoSetterInSqc_T ( (s,n)=>{ s.ImgName = n; }, name );
+			break;
+			
 			default: break;
 			}
 

@@ -62,9 +62,10 @@ namespace ScriptEditor
 			UpdateData ();
 		}
 		
-		public void SetTarget_All () { editTarget = EditTargetScript.ALL; }
-		public void SetTarget_Group () { editTarget = EditTargetScript.GROUP; }
 		public void SetTarget_Single () { editTarget = EditTargetScript.SINGLE; }
+		public void SetTarget_Group () { editTarget = EditTargetScript.GROUP; }
+		public void SetTarget_Select () { editTarget = EditTargetScript.SELECT; }
+		public void SetTarget_All () { editTarget = EditTargetScript.ALL; }
 		public void SetTarget ( EditTargetScript et ) { editTarget = et; }
 
 		//---------------------------------------------------------------
@@ -122,18 +123,22 @@ namespace ScriptEditor
 			//編集対象
 			switch ( editTarget )
 			{
-			case EditTargetScript.ALL: 
-				EditCompend.EditSequence.DoSetterInSqc_T ( ScpPrm.Setter, value );
-			break;
-			
-			case EditTargetScript.GROUP:
-				EditCompend.EditScript.DoSetterInGroup_T ( ScpPrm.Setter, value );
-			break;
-			
 			case EditTargetScript.SINGLE:
 				ScpPrm.Setter ( Scp, value );
 			break;
 
+			case EditTargetScript.GROUP:
+				EditCompend.EditScript.DoSetterInGroup_T ( ScpPrm.Setter, value );
+			break;
+			
+			case EditTargetScript.SELECT: 
+				EditCompend.DoSetterInSpan_T ( ScpPrm.Setter, value );
+			break;
+			
+			case EditTargetScript.ALL: 
+				EditCompend.EditSequence.DoSetterInSqc_T ( ScpPrm.Setter, value );
+			break;
+			
 			default: break;
 			}
 			

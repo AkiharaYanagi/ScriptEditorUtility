@@ -5,7 +5,7 @@ namespace ScriptEditor
 	//編集対象切替
 	public enum EditTargetScript
 	{ 
-		ALL, GROUP, SINGLE,
+		SINGLE, GROUP, SELECT, ALL,
 	};
 
 	//スクリプトグループ編集のためのパラメータ操作インターフェース
@@ -24,9 +24,10 @@ namespace ScriptEditor
 		void Assosiate ( Script s );
 
 		//編集対象
-		void SetTarget_All ();
-		void SetTarget_Group ();
 		void SetTarget_Single ();
+		void SetTarget_Group ();
+		void SetTarget_Select ();
+		void SetTarget_All ();
 
 		void SetTarget ( EditTargetScript editTarget );
 	}

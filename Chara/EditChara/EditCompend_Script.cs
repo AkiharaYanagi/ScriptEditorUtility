@@ -324,6 +324,19 @@ namespace ScriptEditor
 			}
 		}
 
+		//スクリプトスパンに対して処理
+		public void DoSetterInSpan_T < T > ( System.Action < Script, T > Setter, T t )
+		{
+			int s = SelectedSpanStart;
+			int e = SelectedSpanEnd + 1;
+			for ( int i = s; i < e; ++ i )
+			{
+				Script script = SelectedSequence.ListScript [ i ];
+				Setter ( script, t );
+			}
+		}
+
+
 #if false
 
 		//---------------------------------------------------------------------
