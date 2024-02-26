@@ -40,8 +40,13 @@
 			this.Btn_Folder = new System.Windows.Forms.Button();
 			this.Btn_cancel = new System.Windows.Forms.Button();
 			this.Btn_Save = new System.Windows.Forms.Button();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.TrackBar_Sound = new System.Windows.Forms.TrackBar();
+			this.TB_Sound = new System.Windows.Forms.TextBox();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.TrackBar_Sound)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox2
@@ -49,9 +54,9 @@
 			this.groupBox2.Controls.Add(this.Cb_DisplayN);
 			this.groupBox2.Controls.Add(this.Rb_Cursor);
 			this.groupBox2.Controls.Add(this.Rb_Display);
-			this.groupBox2.Location = new System.Drawing.Point(1, 102);
+			this.groupBox2.Location = new System.Drawing.Point(3, 90);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(308, 82);
+			this.groupBox2.Size = new System.Drawing.Size(317, 82);
 			this.groupBox2.TabIndex = 14;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "スタート位置";
@@ -98,7 +103,7 @@
 			this.groupBox1.Controls.Add(this.Cb_WndSz);
 			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(306, 81);
+			this.groupBox1.Size = new System.Drawing.Size(317, 81);
 			this.groupBox1.TabIndex = 13;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "画面表示";
@@ -148,7 +153,7 @@
 			// 
 			// Btn_Folder
 			// 
-			this.Btn_Folder.Location = new System.Drawing.Point(16, 257);
+			this.Btn_Folder.Location = new System.Drawing.Point(3, 267);
 			this.Btn_Folder.Name = "Btn_Folder";
 			this.Btn_Folder.Size = new System.Drawing.Size(54, 39);
 			this.Btn_Folder.TabIndex = 17;
@@ -160,7 +165,7 @@
 			// 
 			this.Btn_cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
 			this.Btn_cancel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Btn_cancel.Location = new System.Drawing.Point(106, 273);
+			this.Btn_cancel.Location = new System.Drawing.Point(106, 282);
 			this.Btn_cancel.Name = "Btn_cancel";
 			this.Btn_cancel.Size = new System.Drawing.Size(123, 24);
 			this.Btn_cancel.TabIndex = 16;
@@ -171,7 +176,7 @@
 			// Btn_Save
 			// 
 			this.Btn_Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.Btn_Save.Location = new System.Drawing.Point(235, 235);
+			this.Btn_Save.Location = new System.Drawing.Point(235, 243);
 			this.Btn_Save.Name = "Btn_Save";
 			this.Btn_Save.Size = new System.Drawing.Size(85, 63);
 			this.Btn_Save.TabIndex = 15;
@@ -179,10 +184,43 @@
 			this.Btn_Save.UseVisualStyleBackColor = false;
 			this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
 			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.TB_Sound);
+			this.groupBox3.Controls.Add(this.TrackBar_Sound);
+			this.groupBox3.Location = new System.Drawing.Point(3, 178);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(317, 69);
+			this.groupBox3.TabIndex = 18;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "音量";
+			// 
+			// TrackBar_Sound
+			// 
+			this.TrackBar_Sound.LargeChange = 10;
+			this.TrackBar_Sound.Location = new System.Drawing.Point(56, 18);
+			this.TrackBar_Sound.Maximum = 100;
+			this.TrackBar_Sound.Name = "TrackBar_Sound";
+			this.TrackBar_Sound.Size = new System.Drawing.Size(255, 45);
+			this.TrackBar_Sound.TabIndex = 0;
+			this.TrackBar_Sound.TickFrequency = 10;
+			this.TrackBar_Sound.Value = 50;
+			this.TrackBar_Sound.Scroll += new System.EventHandler(this.TrackBar_Sound_Scroll);
+			// 
+			// TB_Sound
+			// 
+			this.TB_Sound.Location = new System.Drawing.Point(8, 22);
+			this.TB_Sound.Name = "TB_Sound";
+			this.TB_Sound.Size = new System.Drawing.Size(42, 19);
+			this.TB_Sound.TabIndex = 1;
+			this.TB_Sound.Text = "50";
+			this.TB_Sound.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Sound_KeyPress);
+			// 
 			// AppSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.Btn_Folder);
@@ -194,6 +232,9 @@
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.TrackBar_Sound)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -212,5 +253,8 @@
 		private System.Windows.Forms.Button Btn_Folder;
 		private System.Windows.Forms.Button Btn_cancel;
 		private System.Windows.Forms.Button Btn_Save;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.TrackBar TrackBar_Sound;
+		private System.Windows.Forms.TextBox TB_Sound;
 	}
 }

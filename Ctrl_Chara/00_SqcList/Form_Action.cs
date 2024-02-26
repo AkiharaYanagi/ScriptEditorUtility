@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 
 namespace ScriptEditor
@@ -15,7 +16,7 @@ namespace ScriptEditor
 		private Ctrl_Action Ctrl_Action = new Ctrl_Action ();
 
 		//編集
-		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
+		public EditSqcListData EditSLData { get; set; } = new EditSqcListData ();
 
 		//コンストラクタ
 		public Form_Action()
@@ -37,9 +38,9 @@ namespace ScriptEditor
 		}
 
 		//環境設定
-		public void SetEnvironment ( EditSqcListData editdata )
+		public void SetEnvironment ( EditSqcListData editSLdata )
 		{
-			EditData = editdata;
+			EditSLData = editSLdata;
 
 			Ctrl_Action.SetEnvironment ();
 		}
@@ -56,10 +57,18 @@ namespace ScriptEditor
 			Ctrl_Action.SetCompend ( cmpd );
 		}
 
-		//関連付け
-		public void Assosiate ( SequenceData sqcDt )
+		public void ShowForm ( Point pt )
 		{
-			Action act = (Action)sqcDt.Sqc;
+			Location = pt;
+			Assosiate ();
+			Show();
+			Focus ();
+		}
+
+		//関連付け
+		public void Assosiate ()
+		{
+			Action act = (Action)EditSLData.GetSequenceData().Sqc;
 			Ctrl_Action.Assosiate ( act );
 		}
 
@@ -70,7 +79,7 @@ namespace ScriptEditor
 
 		private void Btn_OK_Click ( object sender, EventArgs e )
 		{
-			EditData.UpdateAll ();
+			EditSLData.UpdateAll ();
 			this.Close ();
 		}
 

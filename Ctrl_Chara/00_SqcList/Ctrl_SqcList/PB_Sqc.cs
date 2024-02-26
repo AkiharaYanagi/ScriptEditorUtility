@@ -25,9 +25,10 @@ namespace ScriptEditor
 		//データ編集
 		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
 
-		//入力フォーム
+		//アクション入力フォーム
 		public bool FlagAction { get; set; } = false;
-		private Form_Action form_act = new Form_Action();
+//		private Form_Action form_act = new Form_Action();	//参照
+		public System.Action < Point > Show_FormAction { get; set; } = pt=>{};
 
 		private ContextMenuStrip contextMenuStrip1;
 		private IContainer components;
@@ -131,22 +132,10 @@ namespace ScriptEditor
 		}
 
 		//環境
-		public void SetEnviroment ( EditSqcListData editData )
+		public void SetEnviroment ( EditSqcListData editData, System.Action < Point > Show_Form )
 		{
 			EditData = editData;
-			form_act.SetEnvironment ( editData );
-		}
-
-		//キャラデータ
-		public void SetCharaData ( Chara ch )
-		{
-			form_act.SetCharaData ( ch );
-		}
-
-		//コンペンド指定
-		public void SetCompend ( Compend cmpd )
-		{
-			form_act.SetCompend ( cmpd );
+			Show_FormAction = Show_Form;
 		}
 
 		//更新
@@ -173,18 +162,6 @@ namespace ScriptEditor
 			//名前の更新
 			EditData.UpdateName ();
 #endif
-		}
-
-		//関連付け
-		public void Assosiate ( SequenceData sqcDt )
-		{
-			form_act.Assosiate ( sqcDt );
-		}
-
-		//シークエンスコンボボックス更新
-		public void ResetItems ()
-		{
-			form_act.ResetItems ();
 		}
 
 		//スクロール移動
@@ -320,11 +297,14 @@ namespace ScriptEditor
 							//選択中の編集データを指定する
 							//SequenceData sqcDt = ELB_Sqc.Get ();
 							SequenceData sqcDt = EditData.GetSequenceData ();
-								
+#if false
 							form_act.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
-							form_act.Assosiate ( sqcDt );
+							form_act.Assosiate ();
 							form_act.Show();
 							form_act.Focus ();
+#endif
+							Point pt = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
+							Show_FormAction ( pt );
 						}
 					}
 					else

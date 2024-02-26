@@ -113,5 +113,28 @@ namespace ScriptEditor
 		{
 			AppSttg.Start_pos = AppSettingsData.START_POS.Display;
 		}
+
+		private void TrackBar_Sound_Scroll ( object sender, EventArgs e )
+		{
+
+		}
+
+		//キー押下時(文字列判定)
+		private void TB_Sound_KeyPress ( object sender, KeyPressEventArgs e )
+		{
+			char c = e.KeyChar;
+
+			//数字、BackSpaceだけ入力可能(他は弾く)
+			if ( c == '\b' )
+			{
+				e.Handled = false;
+			}
+			else if ( ! char.IsDigit ( c ) )
+			{
+				e.Handled = true; 
+			}
+
+ 			base.OnKeyPress(e);
+		}
 	}
 }

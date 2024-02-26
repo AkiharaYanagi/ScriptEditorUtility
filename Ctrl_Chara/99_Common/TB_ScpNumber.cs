@@ -74,7 +74,7 @@ namespace ScriptEditor
 			UpdateData ();
 		}
 
-		//キー押下時(文字コード判定)
+		//キー押下時(文字列判定)
 		protected override void  OnKeyPress ( KeyPressEventArgs e )
 		{
 			char c = e.KeyChar;

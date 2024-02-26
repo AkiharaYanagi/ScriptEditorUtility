@@ -4,6 +4,11 @@ using System.Linq;
 using System.IO;
 
 
+
+//@todo フォームアクション　監理をCtrl_SqcListに移項
+
+
+
 namespace ScriptEditor
 {
 	using SQC_DRVD = Ctrl_SqcList.CTRL_SQC;
@@ -21,6 +26,9 @@ namespace ScriptEditor
 		public void SetAction () { flag_sqc_derived = SQC_DRVD.ACTION; pB_Sqc1.FlagAction = true; }
 		public void SetEffect () { flag_sqc_derived = SQC_DRVD.EFFECT; pB_Sqc1.FlagAction = false; }
 
+		//アクション設定フォーム
+		private readonly Form_Action form_act = new Form_Action();
+
 		//設定ファイル
 		public Ctrl_Settings Ctrl_Stgs { get; set; } = new Ctrl_Settings ();
 
@@ -32,7 +40,7 @@ namespace ScriptEditor
 		}
 
 		//環境設定
-		public void SetEnviroment ( SQC_DRVD sqcDrvd, EditSqcListData editData, Ctrl_Settings stgs )
+		public void SetEnviroment ( SQC_DRVD sqcDrvd, EditSqcListData editSLData, Ctrl_Settings stgs )
 		{
 			flag_sqc_derived = sqcDrvd;
 			switch ( flag_sqc_derived )
@@ -46,10 +54,12 @@ namespace ScriptEditor
 			default: break;
 			}
 
-			EditData = editData;
-			pB_Sqc1.SetEnviroment ( editData );
+			EditData = editSLData;
+			pB_Sqc1.SetEnviroment ( editSLData, pt=>form_act.ShowForm(pt) );
 			pB_Sqc1.Start ( new PB_Sqc.Run () );
 			Ctrl_Stgs = stgs;
+
+			form_act.SetEnvironment ( editSLData );
 		}
 
 		//初期コントロール設置
@@ -62,21 +72,26 @@ namespace ScriptEditor
 		//シークエンスリスト更新
 		public void ResetItems ()
 		{ 
-			pB_Sqc1.ResetItems ();
+			form_act.ResetItems ();
 		}
 
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
 		{
-			pB_Sqc1.SetCharaData ( ch );
+			form_act.SetCharaData ( ch );
 		}
 
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
 		{
-			pB_Sqc1.SetCompend ( cmpd );
+			form_act.SetCompend ( cmpd );
 
 			//コンペンドからイメージリストを作成
+		}
+
+		public void Assosiate ()
+		{
+			form_act.Assosiate ();
 		}
 
 		//更新

@@ -3,6 +3,8 @@
 
 namespace ScriptEditor
 {
+	using ELB_Sqc = EditListbox < SequenceData >;
+
 	public partial class Ctrl_SqcList : UserControl
 	{
 		//----------------------------------------------------------------------
@@ -25,6 +27,12 @@ namespace ScriptEditor
 		public enum CTRL_SQC { ACTION, EFFECT };
 		private CTRL_SQC flag_sqc_derived = CTRL_SQC.ACTION;
 
+		//表示編集用コントロール
+		private Ctrl_ImageTable ctrl_ImageTable1 = new Ctrl_ImageTable ();
+
+		//コントロール実体
+		private ELB_Sqc ELB_Sqc = new ELB_Sqc ();
+		
 		//----------------------------------------------------------------------
 
 		//コンストラクタ
@@ -76,6 +84,7 @@ namespace ScriptEditor
 		//対象データ設置
 		public void SetCharaData ( Chara ch )
 		{
+			ctrl_ImageTable1.SetCharaData ( ch );
 		}
 
 		//コンペンド指定
@@ -132,7 +141,6 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			SqcListData.UpdateData ();
-//			ctrl_ImageTable1.UpdateImage ();
 			ctrl_ImageTable1.UpdateData ();
 			ELB_Sqc._UpdateData ();
 		}

@@ -26,6 +26,20 @@ namespace ScriptEditor
 		//名前の更新
 		public void UpdateName () { Dt.UpdateName (); }
 
+
+		//対象を取得
+		public SqcListData Get ()
+		{
+			return Dt;
+		}
+
+		//選択中のシークエンスを取得
+		public SequenceData GetSequenceData ()
+		{
+			if ( Dt.L_Sqc.Count () <= SelectedSqc ) { return null; }
+			return Dt.L_Sqc.Get ( SelectedSqc );
+		}
+
 		//位置指定
 		public void SetPt ( Point pt )
 		{
@@ -54,6 +68,7 @@ namespace ScriptEditor
 		{
 			return Exist ( SelectedSqc, SelectedImage );
 		}
+
 		public bool Exist ( int sqc, int image )
 		{
 			//シークエンス
@@ -68,13 +83,6 @@ namespace ScriptEditor
 				}
 			}
 			return false;
-		}
-
-		//選択中のシークエンスを取得
-		public SequenceData GetSequenceData ()
-		{
-			if ( Dt.L_Sqc.Count () <= SelectedSqc ) { return null; }
-			return Dt.L_Sqc.Get ( SelectedSqc );
 		}
 
 		//イメージ配列操作

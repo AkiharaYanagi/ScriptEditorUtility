@@ -85,7 +85,7 @@ namespace ScriptEditor
 				EditCompend.EditScript.DoSetterInGroup_T ( (s,n)=>{ s.ImgName = n; }, name );
 			break;
 			
-			//全体
+			//選択
 			case EditTargetScript.SELECT: 
 				EditCompend.DoSetterInSpan_T ( (s,n)=>{ s.ImgName = n; }, name );
 			break;

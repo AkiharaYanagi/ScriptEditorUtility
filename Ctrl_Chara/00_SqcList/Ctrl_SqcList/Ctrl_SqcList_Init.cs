@@ -5,16 +5,8 @@ using System.IO;
 
 namespace ScriptEditor
 {
-	using ELB_Sqc = EditListbox < SequenceData >;
-
 	public partial class Ctrl_SqcList : UserControl
 	{
-		//表示編集用コントロール
-		private Ctrl_ImageTable ctrl_ImageTable1 = new Ctrl_ImageTable ();
-
-		//コントロール実体
-		private ELB_Sqc ELB_Sqc = new ELB_Sqc ();
-		
 
 		//起動時１回のみの初期化 コンストラクタ内に移行
 		private void LoadCtrl ()

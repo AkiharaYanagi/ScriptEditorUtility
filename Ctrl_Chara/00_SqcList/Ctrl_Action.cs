@@ -231,6 +231,7 @@ namespace ScriptEditor
 		//キャラデータ設置
 		public void SetCharaData ( Chara ch )
 		{
+			CBSL_Next.ResetItems ();
 		}
 
 		//コンペンド指定
