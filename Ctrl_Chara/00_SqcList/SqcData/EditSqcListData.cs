@@ -158,6 +158,15 @@ namespace ScriptEditor
 			ImageNameID_Reset ();
 		}
 
+		//選択中シークエンスデータのイメージを全消去
+		public void EraseImage ()
+		{
+			if ( ! Exist () ) { return; }
+			SequenceData sqcDt = Dt.L_Sqc.Get ( SelectedSqc );
+
+			sqcDt.BD_ImgDt.Clear ();
+		}
+
 		//番号振り直し
 		public void ImageNameID_Reset ()
 		{

@@ -23,7 +23,7 @@ namespace ScriptEditor
 		public EL_SqcDt ELB_Sqc { get; set; } = null;
 		
 		//データ編集
-		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
+		public EditSqcListData EditSLData { get; set; } = new EditSqcListData ();
 
 		//アクション入力フォーム
 		public bool FlagAction { get; set; } = false;
@@ -37,6 +37,7 @@ namespace ScriptEditor
 		private ToolStripMenuItem toolStripMenuItem3;
 		private ToolStripMenuItem toolStripMenuItem4;
 		private ToolStripMenuItem toolStripMenuItem5;
+		private ToolStripMenuItem toolStripMenuItem6;
 
 		//IDE表示
 		public class Run {};
@@ -72,6 +73,7 @@ namespace ScriptEditor
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			this.SuspendLayout();
@@ -83,44 +85,52 @@ namespace ScriptEditor
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(99, 114);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(111, 136);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
 			this.toolStripMenuItem1.Text = "削除";
 			this.toolStripMenuItem1.Click += new System.EventHandler(this.削除toolStripMenuItem1);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(110, 22);
 			this.toolStripMenuItem2.Text = "前";
 			this.toolStripMenuItem2.Click += new System.EventHandler(this.前toolStripMenuItem2);
 			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(110, 22);
 			this.toolStripMenuItem3.Text = "次";
 			this.toolStripMenuItem3.Click += new System.EventHandler(this.次toolStripMenuItem3);
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(110, 22);
 			this.toolStripMenuItem4.Text = "先頭";
 			this.toolStripMenuItem4.Click += new System.EventHandler(this.先頭toolStripMenuItem4);
 			// 
 			// toolStripMenuItem5
 			// 
 			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-			this.toolStripMenuItem5.Size = new System.Drawing.Size(98, 22);
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(110, 22);
 			this.toolStripMenuItem5.Text = "末尾";
 			this.toolStripMenuItem5.Click += new System.EventHandler(this.末尾toolStripMenuItem5);
+			// 
+			// toolStripMenuItem6
+			// 
+			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+			this.toolStripMenuItem6.Size = new System.Drawing.Size(110, 22);
+			this.toolStripMenuItem6.Text = "全消去";
+			this.toolStripMenuItem6.Click += new System.EventHandler(this.全消去toolStripMenuItem6);
 			// 
 			// PB_Sqc
 			// 
@@ -134,7 +144,7 @@ namespace ScriptEditor
 		//環境
 		public void SetEnviroment ( EditSqcListData editData, System.Action < Point > Show_Form )
 		{
-			EditData = editData;
+			EditSLData = editData;
 			Show_FormAction = Show_Form;
 		}
 
@@ -167,7 +177,7 @@ namespace ScriptEditor
 		//スクロール移動
 		public void ScrollPos ( Panel pnl )
 		{
-			int y = EditData.SelectedSqc * ConstSqcListPaint.CH;
+			int y = EditSLData.SelectedSqc * ConstSqcListPaint.CH;
 			int py = - 1 * pnl.AutoScrollPosition.Y;
 
 			//範囲外なら
@@ -184,7 +194,7 @@ namespace ScriptEditor
 		protected override void OnPaint ( PaintEventArgs pe )
 		{
 			if ( ELB_Sqc is null ) { return; }
-			if ( EditData is null ) { return; }
+			if ( EditSLData is null ) { return; }
 
 			Graphics g = pe.Graphics;
 
@@ -194,8 +204,8 @@ namespace ScriptEditor
 			const int CW = ConstSqcListPaint.CW;
 			const int CH = ConstSqcListPaint.CH;
 			const int BX = 100;	//基準位置
-			int slctSqc = EditData.SelectedSqc;
-			int slctImg = EditData.SelectedImage;
+			int slctSqc = EditSLData.SelectedSqc;
+			int slctImg = EditSLData.SelectedImage;
 
 			using ( Font FONT0 = new Font ( "Meiryo", 12.0f ) )
 			using ( Font FONT1 = new Font ( "Meiryo", 10.0f ) )
@@ -251,7 +261,7 @@ namespace ScriptEditor
 				//イメージ選択位置
 				int Img_x = CW + CW * slctImg;
 				int Img_y = CH * slctSqc;
-				if ( Img_y < EditData.GetSequenceData()?.BD_ImgDt.Count () )
+				if ( Img_y < EditSLData.GetSequenceData()?.BD_ImgDt.Count () )
 				{
 					g.DrawRectangle ( Pens.Red, new Rectangle ( Img_x, Img_y, CW, CH ) );
 				}
@@ -281,7 +291,7 @@ namespace ScriptEditor
 				int pt_x = ( pos.X - ConstSqcListPaint.CW ) / ConstSqcListPaint.CW;
 				int pt_y = pos.Y / ConstSqcListPaint.CH;
 				int n = ELB_Sqc.Count();
-				int selectedSqcIndex = EditData.SelectedSqc;
+				int selectedSqcIndex = EditSLData.SelectedSqc;
 
 				//データ範囲内 かつ シークエンス列
 				if ( pt_y < n )
@@ -296,7 +306,7 @@ namespace ScriptEditor
 
 							//選択中の編集データを指定する
 							//SequenceData sqcDt = ELB_Sqc.Get ();
-							SequenceData sqcDt = EditData.GetSequenceData ();
+							SequenceData sqcDt = EditSLData.GetSequenceData ();
 #if false
 							form_act.Location = PointUt.PtAdd ( Cursor.Position, new Point(20, 20) );
 							form_act.Assosiate ();
@@ -310,8 +320,8 @@ namespace ScriptEditor
 					else
 					{
 						//選択
-						EditData.SelectedSqc = pt_y;
-						EditData.SelectedImage = pt_x;
+						EditSLData.SelectedSqc = pt_y;
+						EditSLData.SelectedImage = pt_x;
 						ELB_Sqc.GetListBox ().SelectedIndex = pt_y;
 					}
 				}
@@ -328,7 +338,7 @@ namespace ScriptEditor
 			//右
 			if ( e.Button == MouseButtons.Right )
 			{
-				EditData.SetPt ( PosToPt ( Cursor.Position ) );
+				EditSLData.SetPt ( PosToPt ( Cursor.Position ) );
 				contextMenuStrip1.Show ( Cursor.Position );
 			}
 			base.OnMouseDown ( e );
@@ -358,32 +368,38 @@ namespace ScriptEditor
 		//イベント
 		private void 削除toolStripMenuItem1 ( object sender, EventArgs e )
 		{
-			EditData.Remove ();
-			EditData.UpdateAll ();
+			EditSLData.Remove ();
+			EditSLData.UpdateAll ();
 		}
 
 		private void 前toolStripMenuItem2 ( object sender, EventArgs e )
 		{
-			EditData.Prev ();
-			EditData.UpdateAll ();
+			EditSLData.Prev ();
+			EditSLData.UpdateAll ();
 		}
 
 		private void 次toolStripMenuItem3 ( object sender, EventArgs e )
 		{
-			EditData.Next ();
-			EditData.UpdateAll ();
+			EditSLData.Next ();
+			EditSLData.UpdateAll ();
 		}
 
 		private void 先頭toolStripMenuItem4 ( object sender, EventArgs e )
 		{
-			EditData.Head ();
-			EditData.UpdateAll ();
+			EditSLData.Head ();
+			EditSLData.UpdateAll ();
 		}
 
 		private void 末尾toolStripMenuItem5 ( object sender, EventArgs e )
 		{
-			EditData.Tail ();
-			EditData.UpdateAll ();
+			EditSLData.Tail ();
+			EditSLData.UpdateAll ();
+		}
+
+		private void 全消去toolStripMenuItem6 ( object sender, EventArgs e )
+		{
+			EditSLData.EraseImage ();
+			EditSLData.UpdateAll ();
 		}
 	}
 
