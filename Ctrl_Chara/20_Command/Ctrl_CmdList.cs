@@ -12,6 +12,9 @@ namespace ScriptEditor
 
 	public partial class Ctrl_CmdList :UserControl
 	{
+		//コマンドエディット
+		private Ctrl_Command ctrl_Command1 = new Ctrl_Command ();
+
 		//エディットリストボックス
 		private EditListbox < Command > EL_Cmd = new EditListbox<Command> ();
 		
@@ -22,6 +25,11 @@ namespace ScriptEditor
 		public Ctrl_CmdList ()
 		{
 			InitializeComponent ();
+
+			//----------------------------------
+			//コマンドエディット
+			ctrl_Command1.Location = new Point ( 200, 0 );
+			this.Controls.Add ( ctrl_Command1 );
 
 			//----------------------------------
 			//エディットリストボックス
@@ -79,6 +87,8 @@ namespace ScriptEditor
 		public void SaveCommand ( object ob, StreamWriter sw )
 		{
 			Command cmd = (Command)ob;
+
+#if false
 			//名前
 			sw.Write ( cmd.Name + ",");
 			//受付時間
@@ -104,8 +114,11 @@ namespace ScriptEditor
 				}
 
 				//ゲームキー区切り
-				sw.Write ( ",");
+				sw.Write ( "," );
 			}
+#endif
+			CommandToText ctt = new CommandToText();
+			ctt.Do_Single ( sw, cmd );
 		}
 
 		//単体読込
@@ -113,6 +126,7 @@ namespace ScriptEditor
 		{
 			Command cmd = new Command ();
 
+#if false
 			string str = sr.ReadLine ();
 			string str_n = str.Substring ( 0, str.Length - 1 );
 			string[] str_split = str_n.Split(',');
@@ -145,12 +159,6 @@ namespace ScriptEditor
 				string str_btn = str_split [ index ++ ];
 				for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
 				{
-					//データ移行
-					if ( str_btn.Length < GameKeyData.BTN_NUM )
-					{
-						str_btn += "4444";
-					}
-
 					string chBtn = str_btn [ i ].ToString();
 					gameKey.DctBtnSt [ (GK_B)i ] = (GK_ST)int.Parse ( chBtn );
 				}
@@ -158,7 +166,9 @@ namespace ScriptEditor
 				//コマンドに加える
 				cmd.ListGameKeyCommand.Add ( gameKey );
 			}
-
+#endif
+			TextToCommand ttc = new TextToCommand ();
+			ttc.Do_Single ( sr, cmd );
 			EL_Cmd.Add ( cmd );
 		}
 

@@ -1,28 +1,41 @@
 ﻿using System.Drawing;
 using System.Diagnostics;
 
+using ScriptEditor;
 
-namespace ScriptEditor
+
+namespace ScriptEditor_old
 {
 	//==================================================================================
 	//
-	//	OLD_ 書出読込共通の要素を定義する
+	//	書出読込共通の要素を定義する
 	//
 	//==================================================================================
-
+	
 	//@info 自由個数設定の値はbyteではなく、uintにする
 
+
+	//*********************************
 	//Scriptに要素を追加するとき
 	//・Scriptクラス
 	//・IOChara
 	//		CharaToDoc, DocToChara,
-	//		SaveBin, LoadBin
+	//		CharaToText, TextToChara,
+	//		SaveChara, LoadChara
+	//		SaveCharaBin, LoadCharaBin
 	//・TestChara
 	//
 	//・旧データを変換
-#if false
+	//*********************************
+
+
+	public static class IO_CONST
+	{
+		public const uint VER = 110;
+	}
+
 	//配列添字取得用
-	public static class IOChara
+	public static class IOChara 
 	{
 		public static int AttrToInt ( Element e, int attr )
 		{
@@ -50,9 +63,8 @@ namespace ScriptEditor
 	{
 		NAME_0 = 0,	
 	}
-#endif
 
-	public enum ELEMENT_CHARA_old
+	public enum ELEMENT_CHARA
 	{
 		VER,
 		MAIN_IMAGE_LIST,
@@ -64,7 +76,7 @@ namespace ScriptEditor
 		ROUTE_LIST,
 	}
 
-	public enum ATTR_ACTION_old
+	public enum ATTR_ACTION
 	{
 		ELAC_NAME,
 		ELAC_NEXT_NAME,
@@ -76,7 +88,7 @@ namespace ScriptEditor
 		ELAC_BALANCE,
 	}
 
-	public enum ATTR_SCP_old
+	public enum ATTR_SCP
 	{
 		GROUP,
 		IMG_NAME,
@@ -93,6 +105,7 @@ namespace ScriptEditor
 		VIBRATION,
 		STOP,
 		ROTATE,
+		ROTATE_X, ROTATE_Y,
 		AFTERIMAGE_PITCH,
 		AFTERIMAGE_N,
 		AFTERIMAGE_TIME,
@@ -101,7 +114,46 @@ namespace ScriptEditor
 		COLOR_TIME,
 	}
 
-	public enum ELEMENT_SCRIPT_old
+#if false
+	public enum _ATTR_SCP
+	{
+		//Frameは構造的に取得
+		GROUP,
+		IMG_NAME,
+		IMG_ID,
+		X, Y, 
+	};
+
+	public enum _ATTR_SCP_BTL
+	{
+		CLC_ST, 
+		VX, VY,
+		AX, AY,
+		POWER,
+		WARP,
+		RECOIL_I, RECOIL_E,
+		BALANCE_I, BALANCE_E,
+	};
+
+	public enum _ATTR_SCP_STG
+	{
+		BLACKOUT,
+		VIBRATION,
+		STOP,
+		ROTATE,
+		ROTATE_X, ROTATE_Y,
+		AFTERIMAGE_N,
+		AFTERIMAGE_TIME,
+		AFTERIMAGE_PITCH,
+		VIBRATION_S,
+		COLOR,
+		COLOR_TIME,
+		SCALING,
+		SE,
+	}
+#endif
+
+	public enum ELEMENT_SCRIPT
 	{
 		ELSC_ROUTE,
 		ELSC_EFGNRT,
@@ -111,14 +163,14 @@ namespace ScriptEditor
 		ELSC_ORECT,
 	}
 
-	public enum ATTRIBUTE_COMMAND_old
+	public enum ATTRIBUTE_COMMAND
 	{
 		NAME,
 		LIMIT_TIME,
 		ID_LVR,
 	}
 
-	public enum ELEMENT_BRANCH_old
+	public enum ELEMENT_BRANCH
 	{
 		ELBR_COMMAND_NAME,
 		ELBR_COMMAND_ID,
@@ -127,7 +179,7 @@ namespace ScriptEditor
 		ELBR_FRAME,
 	}
 
-	public enum ATTR_BRANCH_old
+	public enum ATTR_BRANCH
 	{
 		NAME,
 		CONDITION,
@@ -136,15 +188,16 @@ namespace ScriptEditor
 		ACT_NAME,
 		ACT_ID,
 		FRAME,
+		OTHER,
 	}
 
-	public enum ATTR_ROUTE_old
+	public enum ATTR_ROUTE
 	{
 		NAME,
 		SUMMARY,
 	}
 
-	public enum ELMT_EFGNRT_old
+	public enum ELMT_EFGNRT
 	{
 		ELEG_NAME,
 		ELEG_EFNAME,

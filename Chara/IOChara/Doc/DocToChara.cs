@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
-using System.Diagnostics;
-
 
 namespace ScriptEditor
 {
@@ -10,11 +9,14 @@ namespace ScriptEditor
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
 
+	using S_B = ATTR_SCP_BTL;
+	using S_S = ATTR_SCP_STG;
+
 	//==================================================
 	//	ドキュメント型からキャラへ変換する
 	//		主にLoadChara, LoadTextCharaで用いる
 	//==================================================
-	public class DocToChara_old
+	public class DocToChara
 	{
 		public void Load ( Document document, Chara chara )
 		{
@@ -96,10 +98,11 @@ namespace ScriptEditor
 				//アクション "名前"
 				action.Name = elemAction.Attributes[ (int)ATTR_ACTION.ELAC_NAME ].Value;
 
-				Debug.WriteLine ( action.Name );
-
 				//"次アクション名" (終了時における次アクション)
 				action.NextActionName = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_NAME ].Value;
+
+				//"次アクションID" (終了時における次アクション)
+				//action.NextActionID = elemAction.Attributes [ (int)ATTR_ACTION.ELAC_NEXT_ID ].Value;
 
 				//アクション属性
 				int nCategory = IOChara.AttrToInt ( elemAction, (int)ATTR_ACTION.ELAC_CATEGORY );
@@ -162,13 +165,17 @@ namespace ScriptEditor
 				s.Frame = frame;
 
 				//グループ
-				s.Group = IOChara.AttrToInt ( e, (int)ATTR_SCP_old.GROUP );
+				s.Group = IOChara.AttrToInt ( e, (int)ATTR_SCP.GROUP );
 
 				//イメージ名
-				s.ImgName =  e.Attributes[ (int)ATTR_SCP_old.IMG_NAME ].Value;
+				s.ImgName =  e.Attributes[ (int)ATTR_SCP.IMG_NAME ].Value;
+
+				//イメージID 
+				//スクリプトエディタでは用いない(GameMain用)
+				//ATTR_SCP.IMG_ID
 
 				//イメージ表示位置
-				s.Pos = IOChara.AttrToPoint ( e, (int)ATTR_SCP_old.X, (int)ATTR_SCP_old.Y );
+				s.Pos = IOChara.AttrToPoint ( e, (int)ATTR_SCP.X, (int)ATTR_SCP.Y );
 
 				//---------------------------------------------------------------
 				//戦闘パラメータ
@@ -243,21 +250,24 @@ namespace ScriptEditor
 		{
 			Element e = elemBtlPrm;
 
+			//オフセット( 1 + 前項の末尾 )
+			int s = 1 + (int)ATTR_SCP.Y;
+
 			//計算状態
-			int clcst = AtoI ( e, (int)ATTR_SCP_old.CLC_ST );
+			int clcst = AtoI ( e, s + (int)S_B.CLC_ST );
 			btlPrm.CalcState = (CLC_ST)clcst;
 
 			//速度, 加速度
-			btlPrm.Vel = AtoPt ( e, (int)ATTR_SCP_old.VX, (int)ATTR_SCP_old.VY );
-			btlPrm.Acc = AtoPt ( e, (int)ATTR_SCP_old.AX, (int)ATTR_SCP_old.AY );
+			btlPrm.Vel = AtoPt ( e, s + (int)S_B.VX, s + (int)S_B.VY );
+			btlPrm.Acc = AtoPt ( e, s + (int)S_B.AX, s + (int)S_B.AY );
 
 			//各種値
-			btlPrm.Power = AtoI ( e, (int)ATTR_SCP_old.POWER );		//攻撃値
-			btlPrm.Warp = AtoI ( e, (int)ATTR_SCP_old.WARP );		//ヒット時のけぞり[F]
-			btlPrm.Recoil_I = AtoI ( e, (int)ATTR_SCP_old.RECOIL_I );	//反動(x,y)(自分)
-			btlPrm.Recoil_E = AtoI ( e, (int)ATTR_SCP_old.RECOIL_E );	//反動(x,y)(相手)
-			btlPrm.Blance_I = AtoI ( e, (int)ATTR_SCP_old.BALANCE_I );	//バランス増減(自分)
-			btlPrm.Blance_E = AtoI ( e, (int)ATTR_SCP_old.BALANCE_E );	//バランス増減(相手)
+			btlPrm.Power = AtoI ( e, s + (int)S_B.POWER );		//攻撃値
+			btlPrm.Warp = AtoI ( e, s + (int)S_B.WARP );		//ヒット時のけぞり[F]
+			btlPrm.Recoil_I = AtoI ( e, s + (int)S_B.RECOIL_I );	//反動(x,y)(自分)
+			btlPrm.Recoil_E = AtoI ( e, s + (int)S_B.RECOIL_E );	//反動(x,y)(相手)
+			btlPrm.Blance_I = AtoI ( e, s + (int)S_B.BALANCE_I );	//バランス増減(自分)
+			btlPrm.Blance_E = AtoI ( e, s + (int)S_B.BALANCE_E );	//バランス増減(相手)
 		}
 
 		//演出パラメータ
@@ -265,28 +275,29 @@ namespace ScriptEditor
 		{
 			Element e = elemStgPrm;
 
-			stgPrm.BlackOut		= AtoI ( e, (int)ATTR_SCP_old.BLACKOUT );		//暗転[F]
-			stgPrm.Vibration	= AtoI ( e, (int)ATTR_SCP_old.VIBRATION );		//振動[F]
-			stgPrm.Stop			= AtoI ( e, (int)ATTR_SCP_old.STOP );			//停止[F]
-			stgPrm.Rotate		= AtoI ( e, (int)ATTR_SCP_old.ROTATE );			//回転[rad]
-			stgPrm.AfterImage_pitch	= AtoI ( e, (int)ATTR_SCP_old.AFTERIMAGE_PITCH );	//残像[個]
-			stgPrm.AfterImage_N		= AtoI ( e, (int)ATTR_SCP_old.AFTERIMAGE_N );		//残像[F] 持続
-			stgPrm.AfterImage_time	= AtoI ( e, (int)ATTR_SCP_old.AFTERIMAGE_TIME );	//残像[F] pitch
-			stgPrm.Vibration_S		= AtoI ( e, (int)ATTR_SCP_old.VIBRATION_S );		//振動[F](個別)
+			//オフセット( 1 + 前項の末尾 )
+			int s = 1 + 1 + (int)ATTR_SCP.Y + (int)S_B.BALANCE_E;
 
-			int indexColorName = (int)ATTR_SCP_old.COLOR;
+			stgPrm.BlackOut		= AtoI ( e, s + (int)S_S.BLACKOUT );		//暗転[F]
+			stgPrm.Vibration	= AtoI ( e, s + (int)S_S.VIBRATION );		//振動[F]
+			stgPrm.Stop			= AtoI ( e, s + (int)S_S.STOP );			//停止[F]
+			stgPrm.Rotate		= AtoI ( e, s + (int)S_S.ROTATE );			//回転[rad]
+			stgPrm.Rotate_center = AtoPt ( e, s + (int)S_S.ROTATE_X, s + (int)S_S.ROTATE_Y );
+			stgPrm.AfterImage_pitch	= AtoI ( e, s + (int)S_S.AFTERIMAGE_PITCH );	//残像[個]
+			stgPrm.AfterImage_N		= AtoI ( e, s + (int)S_S.AFTERIMAGE_N );		//残像[F] 持続
+			stgPrm.AfterImage_time	= AtoI ( e, s + (int)S_S.AFTERIMAGE_TIME );	//残像[F] pitch
+			stgPrm.Vibration_S		= AtoI ( e, s + (int)S_S.VIBRATION_S );		//振動[F](個別)
+			int indexColorName = s + (int)S_S.COLOR;
 			string colorName = e.Attributes [ indexColorName ].Value;
 			stgPrm.Color		= Color.FromName ( colorName );	//色調変更			
-			
-			stgPrm.Color_time	= AtoI ( e, (int)ATTR_SCP_old.COLOR_TIME );				//色調変更[F]
+			stgPrm.Color_time	= AtoI ( e, s + (int)S_S.COLOR_TIME );				//色調変更[F]
+			stgPrm.Scaling = AtoPt ( e,	s + (int)S_S.SCALING_X, s + (int)S_S.SCALING_Y );		//拡大縮小
+			stgPrm.SE = AtoI ( e, s + (int)S_S.SE );
 		}
 
 		//枠の読込
 		private void ReadRect ( List<Rectangle> listRect, Element elemRectList )
 		{
-			//個数
-//			int numRect = int.Parse ( elemRectList.Attributes[ 0 ].Value );
-
 			//枠
 			foreach ( Element elemRect in elemRectList.Elements )
 			{
@@ -337,22 +348,13 @@ namespace ScriptEditor
 					//レバー
 					//@info foreach節で対象コンテナを書き換えるとエラーなのでforを用いる
 					for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
-					//foreach ( GK_L key in gameKey.DctLvrSt.Keys )
 					{
 						string strLvr = elemKey.Attributes [ ++ atrbIndex ].Value;
 						gameKey.DctLvrSt [ (GK_L)i ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
 					}
-#if false
-					int id = IOChara.Parse ( elemKey, ++ atrbIndex );
-					gameKey.IdLvr = (GameKeyCommand.LeverCommand)id;
-
-					string vLvr = elemKey.Attributes[ ++ atrbIndex ].Value;
-					gameKey.Lvr [ id ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), vLvr );
-#endif
 
 					//ボタン
 					for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
-					//foreach ( GK_B key in gameKey.DctBtnSt.Keys )
 					{
 						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
 						gameKey.DctBtnSt [ (GK_B)i ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
@@ -379,9 +381,12 @@ namespace ScriptEditor
 				{
 					Name = elemBrc.Attributes [ ( int ) ATTR_BRANCH.NAME ].Value,
 					Condition = (BranchCondition) IOChara.AttrToInt ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
+					//CMD_IDは飛ばす
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
-					NameSequence = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
-					Frame = 0
+					//SQC_IDは飛ばす
+					NameSequence = elemBrc.Attributes [ ( int ) ATTR_BRANCH.SQC_NAME ].Value,
+					Frame = AtoI ( elemBrc, (int)ATTR_BRANCH.SQC_NAME ),
+					Other = elemBrc.Attributes [ ( int ) ATTR_BRANCH.OTHER ].Value.CompareTo ( "True" ) == 0
 				};
 
 				//キャラに登録

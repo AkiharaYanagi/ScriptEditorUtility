@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace ScriptEditor
 {
-	using PR = Ctrl_Chara.Properties.Resources;
+	using R = Ctrl_Chara.Properties.Resources;
 	using GK_ST = GameKeyData.GameKeyState;
 	using GK_L = GameKeyData.Lever;
 	using GK_B = GameKeyData.Button;
@@ -31,16 +31,19 @@ namespace ScriptEditor
 		//画像指定(リソース) 
 		private readonly Image [] AryImgLvr_ = new Image []
 		{
-			PR.CmdAr_OFF, PR.CmdAr_On, PR.CmdAr_Push, PR.CmdAr_Rele, PR.CmdAr_Wild, PR.CmdAr_Is, PR.CmdAr_Nis,
+			R.CmdAr_OFF, R.CmdAr_On, R.CmdAr_Push, R.CmdAr_Rele, R.CmdAr_Wild, R.CmdAr_Is, R.CmdAr_Nis,
 		};
 
-		private readonly Image [,] AryImgBtn = new Image [,]
+		private readonly Image [] AryImgState = new Image []
 		{
-			{ PR.Off, PR.CmdOn_L , PR.CmdPush_L , PR.CmdRele_L , PR.wild, PR.CmdIs_L , PR.CmdNis_L  }, 
-			{ PR.Off, PR.CmdOn_Ma, PR.CmdPush_Ma, PR.CmdRele_Ma, PR.wild, PR.CmdIs_Ma, PR.CmdNis_Ma }, 
-			{ PR.Off, PR.CmdOn_Mb, PR.CmdPush_Mb, PR.CmdRele_Mb, PR.wild, PR.CmdIs_Mb, PR.CmdNis_Mb }, 
-			{ PR.Off, PR.CmdOn_H , PR.CmdPush_H , PR.CmdRele_H , PR.wild, PR.CmdIs_H , PR.CmdNis_H  }, 
+			R.Off, R.On, R.Push, R.Rele, R.wild, R.Is, R.Nis
 		};
+
+		private readonly Image [] AryImgBtnN = new Image []
+		{
+			R.Btn0, R.Btn1, R.Btn2, R.Btn3, R.Btn4, R.Btn5, R.Btn6, R.Btn7
+		};
+
 		//--------------------------------------------------------------------------
 
 		private const int W = 32;	//升幅
@@ -50,7 +53,7 @@ namespace ScriptEditor
 
 		//描画用定数
 		private const int CULUMN = 16;
-		private const int ROW = 6;
+		private const int ROW = 10;
 
 		public const int CULUMN_WIDTH = 48;
 		public const int ROW_HEIGHT = 48;
@@ -61,13 +64,13 @@ namespace ScriptEditor
 		//--------------------------------------------------------------------------
 		public DispCommand ()
 		{
-			Image img = PR.arrow;
+			Image img = R.arrow;
 		}
 
 
 		//--------------------------------------------------------------------------
 		//描画
-		public void Disp ( PaintEventArgs e )
+		public void Disp ( PaintEventArgs e, Size size )
 		{
 			Graphics g = e.Graphics;
 
@@ -78,15 +81,15 @@ namespace ScriptEditor
 			using ( Pen pen1 = new Pen ( Color.FromArgb ( 0xa0, 0xa0, 0xa0 ), 1 ) )
 			using ( Pen pen2 = new Pen ( Color.FromArgb ( 0x40, 0x40, 0x40 ), 1.5f ) )
 			using ( Brush brush_Rect = new SolidBrush ( Color.FromArgb ( 255, 255, 255, 255 ) ) )
-			using ( Brush brush_BG = new SolidBrush ( Color.FromArgb ( 255, 220, 220, 220 ) ) )
-			using ( Brush brush_BG_ALL = new SolidBrush ( Color.FromArgb ( 255, 180, 180, 180 ) ) )
+			using ( Brush brush_BG_NODATA = new SolidBrush ( Color.FromArgb ( 255, 220, 220, 220 ) ) )
+			using ( Brush brush_BG_OUT = new SolidBrush ( Color.FromArgb ( 255, 180, 180, 180 ) ) )
 			using ( Brush brush_Not = new SolidBrush ( Color.FromArgb ( 63, 255, 63, 63 ) ) )
 			{
 
 			//描画用一時変数
 			Bitmap bmp = new Bitmap ( CULUMN_WIDTH * CULUMN, ROW_HEIGHT * ROW + 1 );
-			int w = e.ClipRectangle.Width;
-			int h = e.ClipRectangle.Height;
+			int w = size.Width;
+			int h = size.Height;
 			const int CW = CULUMN_WIDTH;
 			const int RH = ROW_HEIGHT;
 
@@ -97,30 +100,30 @@ namespace ScriptEditor
 				g.DrawString ( i.ToString (), font0, Brushes.Gray, CW + DISIT_REVISED_POS_X + i * CW, DISIT_REVISED_POS_Y, sf );
 			}
 
-			//見出：レバー(十字),ボタン(L,Ma,Mb,H)
-			g.DrawImage ( PR.arrow		, 0, RH * 1, CW, RH );
-			g.DrawImage ( PR.command_L	, 0, RH * 2, CW, RH );
-			g.DrawImage ( PR.command_Ma	, 0, RH * 3, CW, RH );
-			g.DrawImage ( PR.command_Mb	, 0, RH * 4, CW, RH );
-			g.DrawImage ( PR.command_H	, 0, RH * 5, CW, RH );
+			//見出：レバー(十字),ボタン(0-7)
+			g.DrawImage ( R.arrow	, 0, RH * 1, CW, RH );
+			for ( uint i = 0; i < 8; ++ i )
+			{
+				g.DrawImage ( AryImgBtnN [ i ], 0, RH * ( 2 + i ), CW, RH );
+			}
 
-			//全体背景
+			//枠背景
 			//枠外
-			g.FillRectangle ( brush_BG_ALL, 0, RH * 6, w, h - RH * 6 );
-			//範囲外
+			g.FillRectangle ( brush_BG_OUT, 0, RH * 10, w, h - RH * 10 );
+			//データ無
 			int n = Cmd.ListGameKeyCommand.Count;
-			g.FillRectangle ( brush_BG, CW + (CW * n), RH, w - (CW * n), RH * 5 );
+			g.FillRectangle ( brush_BG_NODATA, CW + (CW * n), RH, w - (CW * n), RH * 9 );
 
 
 			//コマンドキーの表示
 			int iFrame = 0;
-			foreach ( GameKeyCommand gc in Cmd.ListGameKeyCommand )
+			foreach ( GameKeyCommand gkc in Cmd.ListGameKeyCommand )
 			{
 				//レバー
 				int iLvr = 0;
-				foreach ( GK_L key in gc.DctLvrSt.Keys )
+				foreach ( GK_L key in gkc.DctLvrSt.Keys )
 				{
-					int imgIndex = (int) gc.DctLvrSt [ key ];
+					int imgIndex = (int) gkc.DctLvrSt [ key ];
 						
 					int pos_i = ItoLvr [ iLvr ] - 1;
 					int x = CW + CW * iFrame + ( 16 * (pos_i % 3) );
@@ -128,7 +131,7 @@ namespace ScriptEditor
 
 					g.DrawImage ( AryImgLvr_ [ imgIndex ], x, y, 16, 16 );
 					
-					if ( GK_ST.KEY_WILD != gc.DctLvrSt [ key ] )
+					if ( GK_ST.KEY_WILD != gkc.DctLvrSt [ key ] )
 					{
 						g.DrawString ( ItoLvr[ iLvr ].ToString (), font1, Brushes.Black, x + 2, y );
 					}
@@ -138,16 +141,27 @@ namespace ScriptEditor
 
 				//ボタン
 				int iBtn = 0;
-				foreach ( GK_B key in gc.DctBtnSt.Keys )
+				foreach ( GK_B key in gkc.DctBtnSt.Keys )
 				{
-					GK_ST gkcstB = gc.DctBtnSt [ key ];
-					g.DrawImage ( AryImgBtn [ iBtn, (int)gkcstB ], CW + CW * iFrame, RH * 2 + RH * iBtn, CW, RH );
+					//入力種類の取得
+					GK_ST gkcstB = gkc.DctBtnSt [ key ];
+
+					//入力種類による色別背景
+					g.DrawImage ( AryImgState [ (int)gkcstB ], CW + CW * iFrame, RH * 2 + RH * iBtn, CW, RH );
+
+					//ボタンNの表示
+					if ( GK_ST.KEY_WILD != gkcstB && GK_ST.KEY_OFF != gkcstB )
+					{
+						Image imgBtnN = AryImgBtnN [ (int)key ];
+						g.DrawImage ( imgBtnN, CW + CW * iFrame, RH * 2 + RH * iBtn, CW, RH );
+					}
+
 					++ iBtn;
-					if ( iBtn >= SelectKey.DispKeyaNum ) { break; }
+					if ( iBtn >= SelectKey.DispKeyNum ) { break; }
 				}
 
 				//否定
-				if ( gc.Not )
+				if ( gkc.Not )
 				{
 					g.FillRectangle ( brush_Not, CW + (CW * iFrame), RH, CW, RH * 5 );
 				}
@@ -156,7 +170,7 @@ namespace ScriptEditor
 			}
 
 
-			//基準線
+			//罫線
 			g.DrawLine ( pen0, CULUMN_WIDTH, 0, CULUMN_WIDTH, h );
 			g.DrawLine ( pen0, 0, ROW_HEIGHT, w, ROW_HEIGHT );
 			for ( int i = 0; i < w / 20; ++i )
@@ -173,7 +187,7 @@ namespace ScriptEditor
 			{
 				int crs_x = CW + CW * SlctKey.Frame;
 				int crs_y = RH + RH * (int)SlctKey.Kind;
-				g.DrawImage ( PR.cursor, crs_x - 4, crs_y - 4, CW + 8, RH + 8 );
+				g.DrawImage ( R.cursor, crs_x - 4, crs_y - 4, CW + 8, RH + 8 );
 			}
 
 			//レバーカーソル
@@ -184,7 +198,7 @@ namespace ScriptEditor
 			int Lvr_h = 16;
 			int Lvr_x = CW + ( Lvr_w * si_x ) - 3 + CW * SlctKey.Frame;
 			int Lvr_y = CW + ( Lvr_h * si_y ) - 3;
-			g.DrawImage ( PR.LvrCur, Lvr_x, Lvr_y, Lvr_w + 6, Lvr_h + 6 );
+			g.DrawImage ( R.LvrCur, Lvr_x, Lvr_y, Lvr_w + 6, Lvr_h + 6 );
 
 			}	//リソース使用
 		}

@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System;
 
 
 namespace ScriptEditor
@@ -56,10 +57,14 @@ namespace ScriptEditor
 
 		private void _Make ( Chara ch )
 		{
+			string curDir = Environment.CurrentDirectory;
+			string filename = "PreData\\RouteList.txt";
+
 			//ルートデータ(.txtファイル)から作成
-			FileStream fstrm = new FileStream ( "RouteList.txt", FileMode.Open, FileAccess.Read );
+			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );
 			StreamReader sr = new StreamReader ( fstrm, Encoding.UTF8 );
 
+#if false
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 
 			//"名前","要約","ブランチ名"...[不定数],[改行]
@@ -92,7 +97,9 @@ namespace ScriptEditor
 			{
 				EditChara.Inst.AddRoute ( str );
 			}
-
+#endif
+			TextToRoute ttr = new TextToRoute ();
+			ttr.Do_BD ( sr, ch.BD_Route );
 		}
 
 		private void SetEnmBrc ( Route rut, ENM_BRC enm_brc )

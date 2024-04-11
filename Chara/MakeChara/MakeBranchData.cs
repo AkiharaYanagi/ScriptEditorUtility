@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 
 namespace ScriptEditor
@@ -27,10 +28,14 @@ namespace ScriptEditor
 
 		private void _Make ( Chara ch )
 		{
-			//コマンドデータ(.txtファイル)から作成
-			FileStream fstrm = new FileStream ( "BranchList.txt", FileMode.Open, FileAccess.Read );
+			string curDir = Environment.CurrentDirectory;
+			string filename = "PreData\\BranchList.txt";
+
+			//ブランチデータ(.txtファイル)から作成
+			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );
 			StreamReader sr = new StreamReader ( fstrm, Encoding.UTF8 );
 
+#if false
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 
 			//ファイル末尾まで
@@ -49,52 +54,26 @@ namespace ScriptEditor
 				//条件
 				int condition = 0;
 				BranchCondition bc = BranchCondition.CMD;
-				try
-				{
-					condition = int.Parse ( branchData[(int)BranchData.Condition] );
-					bc = (BranchCondition)condition;
-				}
-				catch
-				{
-					condition = 0;
-					bc = BranchCondition.CMD;
-				}
 				brc.Condition = bc;
 
 				//----
 				//コマンド名
 				string CmdName = branchData [ (int)BranchData.Command ];
-#if false
-				try
-				{
-					ch.BD_Command.Try_Exist ( CmdName );
-				}
-				catch
-				{
-					CmdName = "";
-				}
-#endif
 				brc.NameCommand = CmdName;
 
 				//----
 				//アクション名
 				string ActName = branchData [ (int)BranchData.Action ];
-#if false
-				try
-				{
-					ch.behavior.BD_Sequence.Try_Exist ( ActName );
-				}
-				catch
-				{
-					ActName = "";
-				}
-#endif
 				brc.NameSequence = ActName;
 
 				//----------------------------------------------------------
 				//キャラに設定
 				EditChara.Inst.AddBranch ( brc );
 			}
+#endif
+			//キャラに設定
+			TextToBranch ttb = new TextToBranch ();
+			ttb.Do_BD ( sr, ch.BD_Branch );
 		}
 	}
 }

@@ -32,6 +32,14 @@ namespace ScriptEditor
 		public Color Color { get; set; } = Color.White;	//色調変更
 		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
 
+		public Point Scaling { get; set; } = new Point ();	//拡大縮小 1/100
+		public void SetScaling ( int x, int y ) { Scaling = new Point ( x, y ); }
+		public void SetScalingX ( int x ) { Scaling = new Point ( x, Scaling.Y ); }
+		public void SetScalingY ( int y ) { Scaling = new Point ( Scaling.X, y ); }
+
+		public int SE { get; set; } = 0;	//SE指定
+
+
 		//================================================================
 
 		//コンストラクタ
@@ -54,6 +62,8 @@ namespace ScriptEditor
 			this.Vibration_S = src.Vibration_S;
 			this.Color = src.Color;
 			this.Color_time = src.Color_time;
+			this.Scaling = src.Scaling;
+			this.SE = src.SE;
 		}
 
 		//初期化
@@ -71,6 +81,8 @@ namespace ScriptEditor
 			Vibration_S = 0;
 			Color = new Color ();
 			Color_time = 0;
+			Scaling = new Point ( 0, 0 );
+			SE = 0;
 		}
 
 		//コピー
@@ -88,6 +100,8 @@ namespace ScriptEditor
 			this.Vibration_S = src.Vibration_S;
 			this.Color = src.Color;
 			this.Color_time = src.Color_time;
+			this.Scaling = src.Scaling;
+			this.SE = src.SE;
 		}
 	}
 }

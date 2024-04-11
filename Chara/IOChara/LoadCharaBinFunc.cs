@@ -151,6 +151,8 @@ namespace ScriptEditor
 					Vibration_S = br.ReadByte (),
 					Color = Color.FromArgb ( (int) br.ReadUInt32 () ),
 					Color_time = br.ReadByte (),
+					Scaling = new Point ( br.ReadInt32(), br.ReadInt32() ),
+					SE = (int)br.ReadUInt32 ()
 				};
 
 				lscp.Add ( scp );
@@ -231,6 +233,7 @@ namespace ScriptEditor
 					NameCommand = "Cmd_" + br.ReadUInt32 (),
 					NameSequence = "Seq_" + br.ReadUInt32 (),
 					Frame = (int)br.ReadUInt32 (),
+					Other = br.ReadBoolean (),
 				};
 				chara.BD_Branch.Add ( brc );
 			}

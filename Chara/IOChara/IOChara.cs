@@ -12,14 +12,20 @@ namespace ScriptEditor
 	
 	//@info 自由個数設定の値はbyteではなく、uintにする
 
+
+	//*********************************
 	//Scriptに要素を追加するとき
 	//・Scriptクラス
 	//・IOChara
 	//		CharaToDoc, DocToChara,
-	//		SaveBin, LoadBin
+	//		CharaToText, TextToChara,
+	//		SaveChara, LoadChara
+	//		SaveCharaBin, LoadCharaBin
 	//・TestChara
 	//
 	//・旧データを変換
+	//*********************************
+
 
 	public static class IO_CONST
 	{
@@ -80,6 +86,7 @@ namespace ScriptEditor
 		ELAC_BALANCE,
 	}
 
+#if false
 	public enum ATTR_SCP
 	{
 		GROUP,
@@ -104,6 +111,44 @@ namespace ScriptEditor
 		VIBRATION_S,
 		COLOR,
 		COLOR_TIME,
+	}
+#endif
+
+	public enum ATTR_SCP
+	{
+		//Frameは構造的に取得
+		GROUP,
+		IMG_NAME,
+		IMG_ID,		//[C++] GameMain側のLoadCharaにおいてIDから読み込む
+		X, Y, 
+	};
+
+	public enum ATTR_SCP_BTL
+	{
+		CLC_ST, 
+		VX, VY,
+		AX, AY,
+		POWER,
+		WARP,
+		RECOIL_I, RECOIL_E,
+		BALANCE_I, BALANCE_E,
+	};
+
+	public enum ATTR_SCP_STG
+	{
+		BLACKOUT,
+		VIBRATION,
+		STOP,
+		ROTATE,
+		ROTATE_X, ROTATE_Y,
+		AFTERIMAGE_N,
+		AFTERIMAGE_TIME,
+		AFTERIMAGE_PITCH,
+		VIBRATION_S,
+		COLOR,
+		COLOR_TIME,
+		SCALING_X, SCALING_Y,
+		SE,
 	}
 
 	public enum ELEMENT_SCRIPT
@@ -138,9 +183,10 @@ namespace ScriptEditor
 		CONDITION,
 		CMD_NAME,
 		CMD_ID,
-		ACT_NAME,
-		ACT_ID,
+		SQC_NAME,
+		SQC_ID,
 		FRAME,
+		OTHER,
 	}
 
 	public enum ATTR_ROUTE

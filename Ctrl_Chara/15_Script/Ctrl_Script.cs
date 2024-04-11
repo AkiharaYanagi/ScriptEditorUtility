@@ -25,40 +25,35 @@ namespace ScriptEditor
 		//数値
 		private Cmpnt_Int cmpnt_px = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_py = new Cmpnt_Int();
-
 		private Cmpnt_Int cmpnt_vx = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_vy = new Cmpnt_Int();
-
 		private Cmpnt_Int cmpnt_ax = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_ay = new Cmpnt_Int();
-
 		private Cmpnt_Int cmpnt_power = new Cmpnt_Int ();
-
 		private Cmpnt_Int cmpnt_warp = new Cmpnt_Int ();
-
 		private Cmpnt_Int cmpnt_recoil_I = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_recoil_E = new Cmpnt_Int();
-
 		private Cmpnt_Int cmpnt_balance_I = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_balance_E = new Cmpnt_Int();
-
 		private Cmpnt_Int cmpnt_rotate = new Cmpnt_Int ();
-
 		private Cmpnt_Int cmpnt_r_center_x = new Cmpnt_Int();
 		private Cmpnt_Int cmpnt_r_center_y = new Cmpnt_Int();
-
 
 		private Cmpnt_Int cmpnt_blackOut = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_vibration = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_Stop = new Cmpnt_Int ();
-
 		private Cmpnt_Int cmpnt_AftImg_N = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_AftImg_Time = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_AftImg_Pitch = new Cmpnt_Int ();
 
+		private Cmpnt_Int cmpnt_Scaling_x = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_Scaling_y = new Cmpnt_Int ();
+		private Cmpnt_Int cmpnt_SE = new Cmpnt_Int ();
+
 
 		//編集対象を切り替えるラジオボタン
 		private RB_ScriptTarget rb_ScpTgt = new RB_ScriptTarget ();
+
 
 		//位置定数
 		private const int BX = 60;
@@ -97,10 +92,12 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_blackOut );
 			ls_ctrl_scpPrm.Add ( cmpnt_vibration );
 			ls_ctrl_scpPrm.Add ( cmpnt_Stop );
-
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_N );
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Time );
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Pitch );
+			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_x );
+			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_y );
+			ls_ctrl_scpPrm.Add ( cmpnt_SE );
 
 			//コンポーネントの追加
 			foreach ( Control ctrl in ls_ctrl_scpPrm )
@@ -129,10 +126,14 @@ namespace ScriptEditor
 			cmpnt_blackOut.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.BlackOut=i, s=>s.StgPrm.BlackOut ) );
 			cmpnt_vibration.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Vibration=i, s=>s.StgPrm.Vibration ) );
 			cmpnt_Stop.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Stop=i, s=>s.StgPrm.Stop ) );
-
 			cmpnt_AftImg_N.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_N=i, s=>s.StgPrm.AfterImage_N ) );
 			cmpnt_AftImg_Time.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_time=i, s=>s.StgPrm.AfterImage_time ) );
 			cmpnt_AftImg_Pitch.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_pitch=i, s=>s.StgPrm.AfterImage_pitch ) );
+
+			cmpnt_Scaling_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingX(i), s=>s.StgPrm.Scaling.X ) );
+			cmpnt_Scaling_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingY(i), s=>s.StgPrm.Scaling.Y ) );
+			cmpnt_SE.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SE=i, s=>s.StgPrm.SE ) );
+
 
 			//コンポーネントの位置
 			cmpnt_px.Location		 = new Point ( BX		, BY + PY * 0 );
@@ -151,14 +152,17 @@ namespace ScriptEditor
 			cmpnt_r_center_x.Location = new Point ( BX		, BY + PY * 8 );
 			cmpnt_r_center_y.Location = new Point ( BX + PX	, BY + PY * 8 );
 
-			cmpnt_ClcSt.Location	 = new Point ( BX1		, BY + PY * 0 );
-			cmpnt_blackOut.Location	 = new Point ( BX1		, BY + PY * 1 );
-			cmpnt_vibration.Location = new Point ( BX1		, BY + PY * 2 );
-			cmpnt_Stop.Location		 = new Point ( BX1		, BY + PY * 3 );
-			cmpnt_AftImg_N.Location	 = new Point ( BX1		, BY + PY * 4 );
-			cmpnt_AftImg_Time.Location = new Point ( BX1		, BY + PY * 5 );
-			cmpnt_AftImg_Pitch.Location		 = new Point ( BX1		, BY + PY * 6 );
+			cmpnt_ClcSt.Location		= new Point ( BX1		, BY + PY * 0 );
+			cmpnt_blackOut.Location		= new Point ( BX1		, BY + PY * 1 );
+			cmpnt_vibration.Location	= new Point ( BX1		, BY + PY * 2 );
+			cmpnt_Stop.Location			= new Point ( BX1		, BY + PY * 3 );
+			cmpnt_AftImg_N.Location		= new Point ( BX1		, BY + PY * 4 );
+			cmpnt_AftImg_Time.Location	= new Point ( BX1		, BY + PY * 5 );
+			cmpnt_AftImg_Pitch.Location = new Point ( BX1		, BY + PY * 6 );
 
+			cmpnt_Scaling_x.Location	= new Point ( BX1		, BY + PY * 7 );
+			cmpnt_Scaling_y.Location	= new Point ( BX1 + PX	, BY + PY * 7 );
+			cmpnt_SE.Location			= new Point ( BX1		, BY + PY * 8 );
 
 			//初期化
 			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )

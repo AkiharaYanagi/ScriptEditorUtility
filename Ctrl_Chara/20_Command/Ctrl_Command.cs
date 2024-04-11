@@ -27,6 +27,26 @@ namespace ScriptEditor
 			pb_Command1.RB_WILD = RB_WILD;
 			pb_Command1.RB_IS = RB_IS;
 			pb_Command1.RB_NIS = RB_NIS;
+
+			panel1.Scroll += new ScrollEventHandler ( this.panel1_Scroll );
+		}
+
+		private void panel1_Scroll ( object sender, ScrollEventArgs e )
+		{
+			//縦
+			if ( e.ScrollOrientation == ScrollOrientation.VerticalScroll )
+			{
+				int x = panel1.AutoScrollPosition.X;
+				panel1.AutoScrollPosition = new Point ( -1 * x, e.NewValue );
+			}
+			//横
+			if ( e.ScrollOrientation == ScrollOrientation.HorizontalScroll )
+			{
+				int y = panel1.AutoScrollPosition.Y;
+				panel1.AutoScrollPosition = new Point ( e.NewValue, -1 * y );
+			}
+
+			pb_Command1.Invalidate ();
 		}
 
 		//データの設定
@@ -63,6 +83,10 @@ namespace ScriptEditor
 		private void Btn_Add_Click ( object sender, EventArgs e )
 		{
 			Cmd.ListGameKeyCommand.Add ( new GameKeyCommand () );
+
+			//キーの個数で描画サイズを変更する
+			int n = Cmd.ListGameKeyCommand.Count;
+			pb_Command1.Width = 48 * ( n + 3 );
 			pb_Command1.Invalidate ();
 		}
 		
@@ -74,13 +98,6 @@ namespace ScriptEditor
 			if ( SlctKey.Frame < 0 ) { return; }
 			if ( lk.Count <= SlctKey.Frame ) { return; }
 
-#if false
-			//末尾を削除
-			lk.RemoveAt ( lk.Count - 1 );
-
-			//選択位置を修正
-			if ( lk.Count - 1 < SlctKey.Frame ) { SlctKey.Frame = 0; SlctKey.Selecting = false; }
-#endif
 			//選択位置を削除
 			lk.RemoveAt ( SlctKey.Frame );
 

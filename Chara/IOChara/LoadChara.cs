@@ -46,6 +46,8 @@ namespace ScriptEditor
 				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
 				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
+
+			ErrMsg = "Load OK.";
 		}
 
 

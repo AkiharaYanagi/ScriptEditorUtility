@@ -137,7 +137,8 @@ namespace ScriptEditor
 			if ( -1 == nextID )
 			{
 				string error_name = "name error : "+ act.Name + "." + act.NextActionName ;
-				throw new Exception ( error_name );
+				//throw new Exception ( error_name );
+				STS_TXT.Trace_Err ( error_name );
 			}
 
 			sw.Write ( " Name=\"" + act.Name + "\"" );					//名前
@@ -258,8 +259,11 @@ namespace ScriptEditor
 			sw.Write ( " AfterImage_N=\"" + stgPrm.AfterImage_N + "\"" );
 			sw.Write ( " AfterImage_time=\"" + stgPrm.AfterImage_time + "\"" );
 			sw.Write ( " Vibration_S=\"" + stgPrm.Vibration_S + "\"" );
-			sw.Write ( " Color=\"" + stgPrm.Color + "\"" );
+			sw.Write ( " Color=\"" + stgPrm.Color.ToString() + "\"" );
 			sw.Write ( " Color_time=\"" + stgPrm.Color_time + "\"" );
+
+			sw.Write ( " ScalingX=\"" + stgPrm.Scaling.X + "\" ScalingY=\"" + stgPrm.Scaling.Y + "\"" );
+			sw.Write ( " SE=\"" + stgPrm.SE + "\"" );
 		}
 
 		//枠の書出	
@@ -346,6 +350,7 @@ namespace ScriptEditor
 				sw.Write ( " NameSequence=\"" + brc.NameSequence + "\"" );	//シークエンス名
 				sw.Write ( " SequenceID=\"" + sequenceID + "\"" );			//シークエンスID
 				sw.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
+				sw.Write ( " Other=\"" + brc.Other + "\"" );				//同一アクション以外
 				sw.Write ( ">\n" );
 				sw.Write ( "\t</Branch>\n" );
 			}

@@ -338,22 +338,13 @@ namespace ScriptEditor
 					//レバー
 					//@info foreach節で対象コンテナを書き換えるとエラーなのでforを用いる
 					for ( int i = 0; i < GameKeyData.LVR_NUM; ++ i )
-					//foreach ( GK_L key in gameKey.DctLvrSt.Keys )
 					{
 						string strLvr = elemKey.Attributes [ ++ atrbIndex ].Value;
 						gameKey.DctLvrSt [ (GK_L)i ] = ( GK_ST )Enum.Parse ( typeof ( GK_ST ), strLvr );
 					}
-#if false
-					int id = IOChara.Parse ( elemKey, ++ atrbIndex );
-					gameKey.IdLvr = (GameKeyCommand.LeverCommand)id;
-
-					string vLvr = elemKey.Attributes[ ++ atrbIndex ].Value;
-					gameKey.Lvr [ id ] = ( GKC_ST ) Enum.Parse ( typeof ( GKC_ST ), vLvr );
-#endif
 
 					//ボタン
 					for ( int i = 0; i < GameKeyData.BTN_NUM; ++ i )
-					//foreach ( GK_B key in gameKey.DctBtnSt.Keys )
 					{
 						string v = elemKey.Attributes[ ++ atrbIndex ].Value;
 						gameKey.DctBtnSt [ (GK_B)i ] = ( GK_ST ) Enum.Parse ( typeof ( GK_ST ), v );
@@ -382,7 +373,8 @@ namespace ScriptEditor
 					Condition = (BranchCondition) IOChara.AttrToInt ( elemBrc, (int)ATTR_BRANCH.CONDITION ),
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
 					NameSequence = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value,
-					Frame = 0
+					Frame = 0,
+					Other = elemBrc.Attributes [ ( int ) ATTR_BRANCH.ACT_NAME ].Value.CompareTo ( "True" ) == 0
 				};
 
 				//キャラに登録

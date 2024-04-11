@@ -23,13 +23,16 @@
 		public enum KeyKind
 		{
 			ARROW,
-			KEY_L,
-			KEY_Ma,
-			KEY_Mb,
-			KEY_H,
-			BUTTON,
+			BTN_0,
+			BTN_1,
+			BTN_2,
+			BTN_3,
+			BTN_4,
+			BTN_5,
+			BTN_6,
+			BTN_7,
 		}
-		public const int DispKeyaNum = 4;
+		public const int DispKeyNum = 8;
 
 		public KeyKind Kind { get; set; } = KeyKind.ARROW;
 
@@ -87,10 +90,14 @@
 			switch ( Kind )
 			{
 			case KeyKind.ARROW : ret = gkc.DctLvrSt [ SelectedLvr ]; break;
-			case KeyKind.KEY_L : ret = gkc.DctBtnSt [ GK_B.BTN_0 ]; break;
-			case KeyKind.KEY_Ma: ret = gkc.DctBtnSt [ GK_B.BTN_1 ]; break;
-			case KeyKind.KEY_Mb: ret = gkc.DctBtnSt [ GK_B.BTN_2 ]; break;
-			case KeyKind.KEY_H : ret = gkc.DctBtnSt [ GK_B.BTN_3 ]; break;
+			case KeyKind.BTN_0 : ret = gkc.DctBtnSt [ GK_B.BTN_0 ]; break;
+			case KeyKind.BTN_1 : ret = gkc.DctBtnSt [ GK_B.BTN_1 ]; break;
+			case KeyKind.BTN_2 : ret = gkc.DctBtnSt [ GK_B.BTN_2 ]; break;
+			case KeyKind.BTN_3 : ret = gkc.DctBtnSt [ GK_B.BTN_3 ]; break;
+			case KeyKind.BTN_4 : ret = gkc.DctBtnSt [ GK_B.BTN_4 ]; break;
+			case KeyKind.BTN_5 : ret = gkc.DctBtnSt [ GK_B.BTN_5 ]; break;
+			case KeyKind.BTN_6 : ret = gkc.DctBtnSt [ GK_B.BTN_6 ]; break;
+			case KeyKind.BTN_7 : ret = gkc.DctBtnSt [ GK_B.BTN_7 ]; break;
 			default:break;
 			}
 			
@@ -107,10 +114,14 @@
 			switch ( Kind )
 			{
 			case KeyKind.ARROW	: gkc.SetLvrSt ( gkcst, SelectedLvr ); break;
-			case KeyKind.KEY_L	: gkc.DctBtnSt [ GK_B.BTN_0 ] = gkcst; break;
-			case KeyKind.KEY_Ma	: gkc.DctBtnSt [ GK_B.BTN_1 ] = gkcst; break;
-			case KeyKind.KEY_Mb	: gkc.DctBtnSt [ GK_B.BTN_2 ] = gkcst; break;
-			case KeyKind.KEY_H	: gkc.DctBtnSt [ GK_B.BTN_3 ] = gkcst; break;
+			case KeyKind.BTN_0	: gkc.DctBtnSt [ GK_B.BTN_0 ] = gkcst; break;
+			case KeyKind.BTN_1	: gkc.DctBtnSt [ GK_B.BTN_1 ] = gkcst; break;
+			case KeyKind.BTN_2	: gkc.DctBtnSt [ GK_B.BTN_2 ] = gkcst; break;
+			case KeyKind.BTN_3	: gkc.DctBtnSt [ GK_B.BTN_3 ] = gkcst; break;
+			case KeyKind.BTN_4	: gkc.DctBtnSt [ GK_B.BTN_4 ] = gkcst; break;
+			case KeyKind.BTN_5	: gkc.DctBtnSt [ GK_B.BTN_5 ] = gkcst; break;
+			case KeyKind.BTN_6	: gkc.DctBtnSt [ GK_B.BTN_6 ] = gkcst; break;
+			case KeyKind.BTN_7	: gkc.DctBtnSt [ GK_B.BTN_7 ] = gkcst; break;
 			}
 		}
 

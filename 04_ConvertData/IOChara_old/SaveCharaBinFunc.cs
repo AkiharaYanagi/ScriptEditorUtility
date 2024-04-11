@@ -102,6 +102,7 @@ namespace ScriptEditor
 				bw.Write ( (uint)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> uint
 				bw.Write ( (uint)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> uint
 				bw.Write ( (uint)brc.Frame );	//int -> byte
+				bw.Write ( brc.Other );
 			}
 
 		}

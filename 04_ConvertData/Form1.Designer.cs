@@ -1,4 +1,4 @@
-﻿namespace ScriptEditor
+﻿namespace ConvertData
 {
 	partial class Form1
 	{
@@ -13,7 +13,7 @@
 		/// <param name="disposing">マネージド リソースを破棄する場合は true を指定し、その他の場合は false を指定します。</param>
 		protected override void Dispose ( bool disposing )
 		{
-			if ( disposing && (components != null) )
+			if (disposing && (components != null))
 			{
 				components.Dispose ();
 			}
@@ -28,7 +28,17 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
+			this.label1 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(94, 104);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(147, 12);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Drag and Drop in this Form.";
 			// 
 			// Form1
 			// 
@@ -36,15 +46,19 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(329, 239);
+			this.Controls.Add(this.label1);
 			this.Name = "Form1";
 			this.Text = "ConvertData";
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Label label1;
 	}
 }
 

@@ -54,7 +54,10 @@ namespace ScriptEditor
 		//描画
 		private void Pb_Command_Paint ( object sender, PaintEventArgs e )
 		{
-			DspCmd.Disp ( e );
+			int n = Cmd.ListGameKeyCommand.Count;
+			n = ( n < 3 ) ? 3 : n;
+			this.Size = new Size ( 1 + 48 * ( n + 3 ), 48 * 10 );
+			DspCmd.Disp ( e, this.Size );
 		}
 
 		//--------------------------------------------------------------------------
@@ -70,7 +73,7 @@ namespace ScriptEditor
 
 			//範囲外は何もしない
 			int nx = Cmd.ListGameKeyCommand.Count - 1;
-			int ny = (int)SelectKey.KeyKind.KEY_H;
+			int ny = (int)SelectKey.KeyKind.BTN_7;
 			if ( pt.X < 0 || pt.Y < 0 || nx < pt.X || ny < pt.Y ) 
 			{
 				return; 

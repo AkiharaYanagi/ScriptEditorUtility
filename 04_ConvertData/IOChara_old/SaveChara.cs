@@ -18,6 +18,9 @@ namespace ScriptEditor
 	//==================================================================================
 	public class SaveChara
 	{
+		//エラーメッセージ
+		public string ErrMsg { get; set; } = "Err Msg.";
+
 		//-------------------------------------------------------------
 		//	コンストラクタ
 		//-------------------------------------------------------------
@@ -50,6 +53,8 @@ namespace ScriptEditor
 			{
 				Debug.WriteLine ( e );
 			}
+
+			ErrMsg = "Save OK.";
 		}
 
 		private void _Save ( string filepath, Chara chara )

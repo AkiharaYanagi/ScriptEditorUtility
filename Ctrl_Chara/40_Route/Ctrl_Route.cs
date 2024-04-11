@@ -183,6 +183,7 @@ namespace ScriptEditor
 		public void SaveRoute ( object ob, StreamWriter sw )
 		{
 			Route rut = (Route)ob;
+#if false
 			sw.Write ( rut.Name + "," );
 			sw.Write ( rut.Summary + ";" );	//前半区切り";"セミコロン
 			int i = 0;
@@ -194,11 +195,16 @@ namespace ScriptEditor
 				sw.Write ( "," );
 			}
 			sw.Write ( ";" );
+#endif
+			RouteToText rtt = new RouteToText ();
+			rtt.Do_Single ( sw, rut );
 		}
 
 		public void LoadRoute ( StreamReader sr )
 		{
 			Route rut = new Route ();
+
+#if false
 			string str = sr.ReadLine ();
 			string[] str_spl_semi = str.Split ( ';' ); //	"前半";"後半";
 			
@@ -213,6 +219,9 @@ namespace ScriptEditor
 			{
 				rut.BD_BranchName.Add ( new TName ( strName ) );
 			}
+#endif
+			TextToRoute	ttr = new TextToRoute ();
+			ttr.Do_Single ( sr, rut );
 			
 			EL_Route.Add ( rut );
 		}

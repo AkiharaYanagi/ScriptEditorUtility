@@ -121,6 +121,36 @@
   <data name="arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Btn0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Btn9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Btn9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CmdAr_Is" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\CMD_Key\CmdAr_Is.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -262,6 +292,9 @@
   <data name="cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Is" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Is.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="KeyTurnL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\KeyTurnL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -271,8 +304,20 @@
   <data name="LvrCur" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\LvrCur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Nis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Nis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\Off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="On" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\On.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Push" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Push.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rele" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Rele.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tool_ARect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\tool_ARect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -294,6 +339,9 @@
   </data>
   <data name="wild" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\wild.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Wild1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resource\ResourceCommand\Btn8\Wild.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resource\ResourceCommand\_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

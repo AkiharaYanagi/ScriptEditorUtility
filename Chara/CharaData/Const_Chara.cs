@@ -41,9 +41,13 @@
 	public enum BranchCondition
 	{
 		CMD,	//コマンド成立
+		
 		GRD,	//着地
+		WALL,	//壁接触
 
-		DMG,	//自分が喰らい
+		COERACION,	//相手強制
+
+		DMG_I,	//自分が喰らい
 		HIT_I,	//相手にヒット(自身を変更)
 		HIT_E,	//相手にヒット(相手を変更)
 

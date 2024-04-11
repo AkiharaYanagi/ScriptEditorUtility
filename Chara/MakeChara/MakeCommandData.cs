@@ -57,10 +57,13 @@ namespace ScriptEditor
 
 		private void _Make ( Chara ch )
 		{
-			//コマンドデータ(.txtファイル)から作成
-			FileStream fstrm = new FileStream ( "CommandList.txt", FileMode.Open, FileAccess.Read );
-			StreamReader sr = new StreamReader ( fstrm, Encoding.UTF8 );
+			string curDir = Environment.CurrentDirectory;
+			string filename = "PreData\\CommandList.txt";
 
+			//コマンドデータ(.txtファイル)から作成
+			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );
+			StreamReader sr = new StreamReader ( fstrm, Encoding.UTF8 );
+#if false
 			EditBehavior eb = EditChara.Inst.EditBehavior;
 
 			//カンマ区切り、スペース改行は飛ばす
@@ -79,16 +82,20 @@ namespace ScriptEditor
 				}
 			}
 
-
 			//キャラに設定
 			foreach ( string str in lstr )
 			{
 				EditChara.Inst.AddCommand ( str );
 			}
+#endif
+			//テキストからコマンドに変換
+			TextToCommand ttc = new TextToCommand ();
+			ttc.Do_BD ( sr, ch.BD_Command );
 
-
+#if false
 			//各種詳細設定
 			MakeCommand ( ch.BD_Command );
+#endif
 		}
 
 

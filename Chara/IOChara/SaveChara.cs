@@ -18,6 +18,9 @@ namespace ScriptEditor
 	//==================================================================================
 	public class SaveChara
 	{
+		//エラーメッセージ
+		public string ErrMsg { get; set; } = "Err Msg.";
+
 		//-------------------------------------------------------------
 		//	コンストラクタ
 		//-------------------------------------------------------------
@@ -50,6 +53,8 @@ namespace ScriptEditor
 			{
 				Debug.WriteLine ( e );
 			}
+
+			ErrMsg = "Save OK.";
 		}
 
 		private void _Save ( string filepath, Chara chara )
@@ -70,10 +75,12 @@ namespace ScriptEditor
 			//確認用テキストファイル(.txt)書出
 
 			//ファイル名の拡張子を.datから.txtに変える
+			string path = Path.GetDirectoryName ( filepath );
 			string filenameTxt = Path.GetFileNameWithoutExtension ( filepath ) + ".txt";
+			string txt_path = path + '\\'+ filenameTxt;
 
 			//ファイルにテキスト書出用ストリームを設定する
-			StreamWriter strmWriter = new StreamWriter ( filenameTxt, false, Encoding.UTF8 );
+			StreamWriter strmWriter = new StreamWriter ( txt_path, false, Encoding.UTF8 );
 
 			//書出
 			mstrmChara.Seek ( 0, SeekOrigin.Begin );			//先頭から

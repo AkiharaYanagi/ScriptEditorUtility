@@ -36,7 +36,7 @@ namespace ScriptEditor
 			EL_Branch.SelectedIndexChanged = ()=>
 			{
 				Branch br = EL_Branch.Get ();
-
+#if false
 				//条件
 				Cb_Condition.SelectedItem = br.Condition;
 
@@ -49,6 +49,11 @@ namespace ScriptEditor
 
 				//フレーム
 				Tbn_Frame.Assosiate ( i=>br.Frame = i, ()=>br.Frame );
+
+				//他
+				CB_Other.Checked = br.Other;
+#endif
+				SetBranch ( br );
 			};
 
 			EL_Branch.Func_color_check = (ob) =>
@@ -70,8 +75,7 @@ namespace ScriptEditor
 			//ブランチコンディション コンボボックス
 			Array names = Enum.GetValues ( typeof ( BranchCondition ) );
 			Cb_Condition.DataSource = names;
-			Cb_Condition.SelectedItem = BranchCondition.DMG;
-
+			Cb_Condition.SelectedItem = BranchCondition.DMG_I;
 			Cb_Command.ValueMember = "Name";
 			Cb_Action.ValueMember = "Name";
 			Cb_Effect.ValueMember = "Name";
@@ -105,9 +109,12 @@ namespace ScriptEditor
 			{
 				EL_Branch.GetListBox ().SelectedIndex = 0;
 				Branch br = EL_Branch.Get ();
+#if false
 				Cb_Command.Enabled = true;
 				Cb_Command.SelectedValue = br.NameCommand;
 				SelectSequence ( br.NameSequence );
+#endif
+				SetBranch ( br );
 			}
 		}
 
@@ -141,10 +148,35 @@ namespace ScriptEditor
 			{
 				EL_Branch.GetListBox ().SelectedIndex = 0;
 				Branch br = EL_Branch.Get ();
+#if false
 				Cb_Command.Enabled = true;
 				Cb_Command.SelectedValue = br.NameCommand;
 				SelectSequence ( br.NameSequence );
+#endif
+				SetBranch ( br );
 			}
+		}
+
+		//ブランチからコントロールに反映
+		public void SetBranch ( Branch brc )
+		{
+			if ( brc is null ) { return; }
+
+			//条件
+			Cb_Condition.SelectedItem = brc.Condition;
+
+			//コマンド
+			Cb_Command.Enabled = true;
+			Cb_Command.SelectedValue = brc.NameCommand;
+
+			//アクション,エフェクト
+			SelectSequence ( brc.NameSequence );
+
+			//フレーム
+			Tbn_Frame.Assosiate ( i=>brc.Frame = i, ()=>brc.Frame );
+
+			//他
+			CB_Other.Checked = brc.Other;
 		}
 
 		//コンボボックスユーザ選択時
@@ -152,13 +184,16 @@ namespace ScriptEditor
 		//条件
 		private void Cb_Condition_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
-			EL_Branch.Get ().Condition = (BranchCondition)Cb_Condition.SelectedItem;
+			Branch br = EL_Branch.Get ();
+			if ( br  is null ) { return; }
+			br.Condition = (BranchCondition)Cb_Condition.SelectedItem;
 		}
 
 		//コマンド
 		private void Cb_Command_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
 			Branch br = EL_Branch.Get ();
+			if ( br  is null ) { return; }
 			br.NameCommand = (string)Cb_Command.SelectedValue;
 
 			BD_Branch.ResetItems ();
@@ -169,6 +204,7 @@ namespace ScriptEditor
 		private void Cb_Action_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
 			Branch br = EL_Branch.Get ();
+			if ( br  is null ) { return; }
 			br.NameSequence = (string)Cb_Action.SelectedValue;
 
 			BD_Branch.ResetItems ();
@@ -179,6 +215,7 @@ namespace ScriptEditor
 		private void Cb_Effect_SelectionChangeCommitted ( object sender, EventArgs e )
 		{
 			Branch br = EL_Branch.Get ();
+			if ( br  is null ) { return; }
 			br.NameSequence = (string)Cb_Effect.SelectedValue;
 		}
 
@@ -220,17 +257,31 @@ namespace ScriptEditor
 
 
 		//-------------------------------------------------------------------------
+		//"自分以外" チェックボックス
+		private void CB_Other_CheckedChanged ( object sender, EventArgs e )
+		{
+			Branch br = EL_Branch.Get ();
+			if ( br  is null ) { return; }
+			br.Other = CB_Other.Checked;
+		}
+
+		//-------------------------------------------------------------------------
 		//IO
 
 		//単体保存
 		public void SaveBranch ( object ob, StreamWriter sw )
 		{
 			Branch brc = (Branch)ob;
+#if false
 			sw.Write ( brc.Name + "," );
 			sw.Write ( brc.Condition + "," );
 			sw.Write ( brc.NameCommand + "," );
 			sw.Write ( brc.NameSequence + "," );
 			sw.Write ( brc.Frame );
+			sw.Write ( brc.Other );
+#endif
+			BranchToText btt = new BranchToText ();
+			btt.Do_Single ( sw, brc );
 		}
 
 		//単体読込
@@ -238,6 +289,7 @@ namespace ScriptEditor
 		{
 			Branch brc = new Branch ();
 
+#if false
 			string str = sr.ReadLine ();
 			string[] str_spl = str.Split(',');
 			brc.Name = str_spl[0];
@@ -245,9 +297,12 @@ namespace ScriptEditor
 			brc.NameCommand = str_spl[2];
 			brc.NameSequence = str_spl[3];
 			brc.Frame = int.Parse ( str_spl[4] );
+			brc.Other = bool.Parse ( str_spl [5] );
+#endif
+			TextToBranch ttb = new TextToBranch ();
+			ttb.Do_Single ( sr, brc );
 
 			EL_Branch.Add ( brc );
 		}
-
 	}
 }

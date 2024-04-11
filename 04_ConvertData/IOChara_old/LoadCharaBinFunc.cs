@@ -16,7 +16,7 @@ namespace ScriptEditor
 	//		キャラデータをbinaryで.datファイルから読込
 	//		Document形式を介さない
 	//==================================================================================
-	public partial class LoadCharaBin_old
+	public partial class LoadCharaBin
 	{
 		//ビヘイビア
 		private void LoadBinBehavior ( BinaryReader br, Chara chara )
@@ -144,6 +144,7 @@ namespace ScriptEditor
 					Vibration = br.ReadByte (),
 					Stop = br.ReadByte (),
 					Rotate = br.ReadInt32 (),
+					Rotate_center = new Point ( br.ReadInt32(), br.ReadInt32() ),
 					AfterImage_N = br.ReadByte (),
 					AfterImage_time = br.ReadByte (),
 					AfterImage_pitch = br.ReadByte (),
@@ -230,6 +231,7 @@ namespace ScriptEditor
 					NameCommand = "Cmd_" + br.ReadUInt32 (),
 					NameSequence = "Seq_" + br.ReadUInt32 (),
 					Frame = (int)br.ReadUInt32 (),
+					Other = br.ReadBoolean (),
 				};
 				chara.BD_Branch.Add ( brc );
 			}

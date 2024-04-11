@@ -51,14 +51,15 @@ namespace ScriptEditor
 			MakeAction_Jump ( eb, ENM_ACT.VerticalJump, "AirFrontDash_00.png", 0 );
 			MakeAction_Jump ( eb, ENM_ACT.FrontJump, "AirFrontDash_00.png", 20 );
 			MakeAction_Jump ( eb, ENM_ACT.BackJump, "AirFrontDash_00.png", -20 );
-#endif
 			MakeAction_FrontDash ( bd_act );
+#endif
 		}
 
 
 		//アクションリストの作成
 		private void _MakeList ( Chara ch )
 		{
+			string curDir = Environment.CurrentDirectory;
 			string filename = "PreData\\ActionList.txt";
 			//アクションデータ(.txtファイル)から作成
 			FileStream fstrm = new FileStream ( filename, FileMode.Open, FileAccess.Read );

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharp\BindingDictionary.cs" />
+    <Compile Include="CSharp\Document.cs" />
     <Compile Include="Form\Ctrl_SubFormBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>

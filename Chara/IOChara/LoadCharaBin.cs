@@ -14,7 +14,7 @@ namespace ScriptEditor
 	public partial class LoadCharaBin
 	{
 		//エラーメッセージ
-		public string ErrMsg { get; set; } = "ErrMsg";
+		public string ErrMsg { get; set; } = "Err Msg.";
 
 		//-------------------------------------------------------------
 		//	コンストラクタ
@@ -45,6 +45,8 @@ namespace ScriptEditor
 				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
 				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
+
+			ErrMsg = "Load OK.";
 		}
 
 
@@ -73,7 +75,7 @@ namespace ScriptEditor
 			using ( var fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
 			using ( var br = new BinaryReader ( fstrm, Encoding.UTF8 ) )
 			{
-				Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
+//				Debug.WriteLine ( "fstrm.Length = " + fstrm.Length );
 
 				//バージョン(uint)
 				uint ver = br.ReadUInt32 ();

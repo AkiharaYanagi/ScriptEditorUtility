@@ -524,6 +524,56 @@
   <ItemGroup>
     <None Include="Resource\tool_ORect.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Is.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Nis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\On.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Push.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Rele.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Wild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\ResourceCommand\Btn8\Btn8.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

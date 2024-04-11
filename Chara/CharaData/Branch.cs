@@ -22,6 +22,10 @@
 		//遷移先　フレーム指定
 		public int Frame { get; set; } = 0;
 
+		//条件 同一アクション以外
+		public bool Other { get; set; } = false;	
+
+
 		//------------------------------------------------
 		//コンストラクタ
 		public Branch ()

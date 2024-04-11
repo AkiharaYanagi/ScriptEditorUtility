@@ -28,29 +28,16 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			this.ctrl_Command1 = new ScriptEditor.Ctrl_Command();
-			this.SuspendLayout();
-			// 
-			// ctrl_Command1
-			// 
-			this.ctrl_Command1.Location = new System.Drawing.Point(229, 15);
-			this.ctrl_Command1.Name = "ctrl_Command1";
-			this.ctrl_Command1.Size = new System.Drawing.Size(688, 462);
-			this.ctrl_Command1.TabIndex = 0;
-			// 
-			// Ctrl_CmdList
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.ctrl_Command1);
-			this.Name = "Ctrl_CmdList";
-			this.Size = new System.Drawing.Size(899, 541);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "Ctrl_CmdList";
+            this.Size = new System.Drawing.Size(899, 551);
+            this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private Ctrl_Command ctrl_Command1;
 	}
 }

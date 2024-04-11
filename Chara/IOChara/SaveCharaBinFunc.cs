@@ -102,6 +102,7 @@ namespace ScriptEditor
 				bw.Write ( (uint)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> uint
 				bw.Write ( (uint)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> uint
 				bw.Write ( (uint)brc.Frame );	//int -> byte
+				bw.Write ( brc.Other );
 			}
 
 		}
@@ -232,6 +233,9 @@ namespace ScriptEditor
 			bw.Write ( (byte)prm.Vibration_S );
 			bw.Write ( (uint)prm.Color.ToArgb () );
 			bw.Write ( (byte)prm.Color_time );
+			bw.Write ( prm.Scaling.X );
+			bw.Write ( prm.Scaling.Y );
+			bw.Write ( (uint)prm.Color_time );
 		}
 		
 	}

@@ -347,6 +347,7 @@ namespace ScriptEditor
 				sw.Write ( " NameSequence=\"" + brc.NameSequence + "\"" );	//シークエンス名
 				sw.Write ( " SequenceID=\"" + sequenceID + "\"" );			//シークエンスID
 				sw.Write ( " Frame=\"" + brc.Frame + "\"" );				//遷移先フレーム
+				sw.Write ( " Other=\"" + brc.Other + "\"" );				//同一アクション以外
 				sw.Write ( ">\n" );
 				sw.Write ( "\t</Branch>\n" );
 			}

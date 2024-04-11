@@ -6,18 +6,24 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Collections;
 
-namespace ScriptEditor
+using ScriptEditor;
+
+
+namespace ScriptEditor_old
 {
 	//==================================================================================
 	//	LoadChara
 	//		.datファイルからCharaスクリプトとイメージを読み込む
 	//==================================================================================
-	public partial class LoadChara_old
+	public partial class LoadChara
 	{
+		//エラーメッセージ
+		public string ErrMsg { get; set; } = "ErrMsg";
+
 		//-------------------------------------------------------------
 		//	コンストラクタ
 		//-------------------------------------------------------------
-		public LoadChara_old ()
+		public LoadChara ()
 		{
 		}
 
@@ -32,8 +38,19 @@ namespace ScriptEditor
 			}
 			catch ( ArgumentException e )
 			{
-				MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				//仮データ
+#if false
+				TestChara testChara = new TestChara ();
+				testChara.Test ( chara );
+#endif
+				TestCharaData tcd = new TestCharaData ();
+				tcd.Make ( chara );
+
+				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
+				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
+
+			ErrMsg = "Load OK.";
 		}
 
 
@@ -44,7 +61,8 @@ namespace ScriptEditor
 			//ファイルが存在しないとき何もしない
 			if ( ! File.Exists ( filepath ) )
 			{
-				MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+//				MessageBox.Show ( filepath + "が見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				STS_TXT.Trace_Err ( filepath + "が見つかりません" );
 				throw new ArgumentException ( "ファイルが存在しませんでした。" );
 			}
 
@@ -92,9 +110,22 @@ namespace ScriptEditor
 //			strmWrtScript.Close ();
 //			mstrmScript.Close ();
 			
+
+
+			//--------------------------------------------
+			//*** ScriptEditor_old
+
+
+
 			//ドキュメント型からキャラへスクリプト部を変換
-			DocToChara_old dtoc = new DocToChara_old ();
+			ScriptEditor_old.DocToChara dtoc = new ScriptEditor_old.DocToChara ();
 			dtoc.Load ( document, chara );
+			
+			
+			
+			//--------------------------------------------
+
+
 
 
 			//==========================================================================

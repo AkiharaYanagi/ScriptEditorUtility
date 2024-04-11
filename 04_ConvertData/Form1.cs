@@ -1,9 +1,20 @@
 ﻿using System.Windows.Forms;
 using System.IO;
+using System.Drawing;
 
 
-namespace ScriptEditor
+using ScriptEditor;
+using ScriptEditor_old;
+
+
+namespace ConvertData
 {
+	//
+	//	スクリプトデータ変換
+	//
+	//	旧 読み込み関連を_oldとして本プロジェクトに残し、
+	//	新 書き出し機能で保存する
+
 	public partial class Form1 : Form
 	{
 		public Form1 ()
@@ -34,24 +45,27 @@ namespace ScriptEditor
 				string dirname = Path.GetDirectoryName ( path );
 				string new_path = dirname + "\\new_" + filename;
 
+				//開始
+				label1.Text = "Start.";
+
 				Chara ch = new Chara ();
 
-				LoadChara_old loadChara_old = new LoadChara_old ();
+				//@info
+				//読み込み時は、Charaデータの対応部分に値を指定するだけなので
+				//新しい構造で旧データを保持している状態になる
+				ScriptEditor_old.LoadChara loadChara_old = new ScriptEditor_old.LoadChara ();
 				loadChara_old.Do ( filepaths[0], ch );
 
+				//新規構造で保存
 				SaveChara saveChara = new SaveChara ();
 				saveChara.Do ( new_path, ch );
 
-#if false
-				LoadCharaBin_old loadCharaBin_old = new LoadCharaBin_old ();
-				loadCharaBin_old.Do ( filepaths[0], ch );
+				//テスト
+				TestChara testChara = new TestChara ();
+				testChara.Test ( ch );
 
-				SaveCharaBin saveCharaBin = new SaveCharaBin ();
-				saveCharaBin.Do ( new_path, ch );
-
-				LoadCharaBin loadCharaBin = new LoadCharaBin ();
-				loadCharaBin.Do ( new_path, ch );
-#endif
+				//終了
+				label1.Text = "OK.";
 			}
 		}
 

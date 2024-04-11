@@ -37,6 +37,10 @@ namespace ScriptEditor
 		//入力受付時間
 		public int LimitTime { get; set; } = 1;
 
+		
+		//@info ボタン先行受付はexe側で処理する
+
+
 		//コンストラクタ
 		public Command ()
 		{
