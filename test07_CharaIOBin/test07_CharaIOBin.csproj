@@ -55,10 +55,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chara">
-      <HintPath>..\Chara\bin\x86\Debug\Chara.dll</HintPath>
+      <HintPath>..\Dll\Chara.dll</HintPath>
+    </Reference>
+    <Reference Include="Ctrl_Chara">
+      <HintPath>..\Dll\Ctrl_Chara.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\Dll\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
