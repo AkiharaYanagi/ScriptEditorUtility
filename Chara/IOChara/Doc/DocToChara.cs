@@ -385,7 +385,7 @@ namespace ScriptEditor
 					NameCommand = elemBrc.Attributes [ ( int ) ATTR_BRANCH.CMD_NAME ].Value,
 					//SQC_IDは飛ばす
 					NameSequence = elemBrc.Attributes [ ( int ) ATTR_BRANCH.SQC_NAME ].Value,
-					Frame = AtoI ( elemBrc, (int)ATTR_BRANCH.SQC_NAME ),
+					Frame = AtoI ( elemBrc, (int)ATTR_BRANCH.FRAME ),
 					Other = elemBrc.Attributes [ ( int ) ATTR_BRANCH.OTHER ].Value.CompareTo ( "True" ) == 0
 				};
 

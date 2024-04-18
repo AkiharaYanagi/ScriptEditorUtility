@@ -83,6 +83,9 @@ namespace ScriptEditor
 			Tbn_x.Assosiate ( i=>SelectedEfgnrt.SetPtX(i), ()=>SelectedEfgnrt.Pt.X );
 			Tbn_y.Assosiate ( i=>SelectedEfgnrt.SetPtY(i), ()=>SelectedEfgnrt.Pt.Y );
 			Tbn_z.Assosiate ( i=>SelectedEfgnrt.Z_PER100F=i, ()=>SelectedEfgnrt.Z_PER100F );
+
+			//更新
+			UpdateData ();
 		}
 
 		//更新
@@ -90,16 +93,26 @@ namespace ScriptEditor
 		{
 			EL_EfGnrt.UpdateData ();
 
-			Tbn_x.UpdateData ();
-			Tbn_y.UpdateData ();
-			Tbn_z.UpdateData ();
 			
 			if ( EL_EfGnrt.Count () > 0 )
 			{
+				Tbn_x.UpdateData ();
+				Tbn_y.UpdateData ();
+				Tbn_z.UpdateData ();
+
 				EffectGenerate efgnrt = EL_EfGnrt.Get();
 				Cbx_gnrt.Checked = SelectedEfgnrt.Gnrt;
 				Cbx_loop.Checked = SelectedEfgnrt.Loop;
 				Cbx_sync.Checked = SelectedEfgnrt.Sync;
+			}
+			else
+			{
+				Tbn_x.Text = "";
+				Tbn_y.Text = "";
+				Tbn_z.Text = "";
+				Cbx_gnrt.Checked = false;
+				Cbx_loop.Checked = false;
+				Cbx_sync.Checked = false;
 			}
 		}
 
@@ -113,6 +126,27 @@ namespace ScriptEditor
 			Tbn_x.UpdateData ();
 			Tbn_y.UpdateData ();
 			Tbn_z.UpdateData ();
+		}
+
+		private void Cbx_sync_CheckedChanged ( object sender, System.EventArgs e )
+		{
+			EffectGenerate efgnrt = EL_EfGnrt.Get();
+			if ( efgnrt is null ) { return; }
+			efgnrt.Sync = Cbx_sync.Checked;
+		}
+
+		private void Cbx_gnrt_CheckedChanged ( object sender, System.EventArgs e )
+		{
+			EffectGenerate efgnrt = EL_EfGnrt.Get();
+			if ( efgnrt is null ) { return; }
+			efgnrt.Gnrt = Cbx_gnrt.Checked;
+		}
+
+		private void Cbx_loop_CheckedChanged ( object sender, System.EventArgs e )
+		{
+			EffectGenerate efgnrt = EL_EfGnrt.Get();
+			if ( efgnrt is null ) { return; }
+			efgnrt.Loop = Cbx_loop.Checked;
 		}
 	}
 }

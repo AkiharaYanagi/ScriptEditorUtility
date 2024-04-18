@@ -235,7 +235,7 @@ namespace ScriptEditor
 			bw.Write ( (byte)prm.Color_time );
 			bw.Write ( prm.Scaling.X );
 			bw.Write ( prm.Scaling.Y );
-			bw.Write ( (uint)prm.Color_time );
+			bw.Write ( (uint)prm.SE );
 		}
 		
 	}
