@@ -99,7 +99,9 @@ namespace ScriptEditor
 			{
 				bw.Write ( brc.Name );		//string (length , [UTF8])
 				bw.Write ( (byte)brc.Condition );	//enum -> byte
+				bw.Write ( brc.NameCommand );		//string (length , [UTF8])
 				bw.Write ( (uint)chara.GetIndexOfCommand ( brc.NameCommand ) );	//int -> uint
+				bw.Write ( brc.NameSequence );		//string (length , [UTF8])
 				bw.Write ( (uint)chara.GetIndexOfAction ( brc.NameSequence ) );	//int -> uint
 				bw.Write ( (uint)brc.Frame );	//int -> byte
 				bw.Write ( brc.Other );
