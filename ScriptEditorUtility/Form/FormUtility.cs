@@ -24,6 +24,7 @@ namespace ScriptEditor
 			f.Location = ptStart;
 		}
 
+
 		public static void InitPosition ( Form f )
 		{
 			InitPosition ( f, start_X, start_Y );
