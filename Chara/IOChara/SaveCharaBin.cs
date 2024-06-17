@@ -117,6 +117,9 @@ namespace ScriptEditor
 				{
 				id.Img.Save ( msImg, ImageFormat.Png );
 				
+				//名前
+				bw.Write ( id.Name );		//string (length , [UTF8])
+
 				//サイズ
 				bw.Write ( (uint)msImg.Length );
 
