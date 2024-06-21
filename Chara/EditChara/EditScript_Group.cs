@@ -59,6 +59,20 @@ namespace ScriptEditor
 			if ( frame >= L_Scp.Count ) {  return; }
 			SelectGroup ( L_Scp[frame].Group );
 		}
+		
+
+		//グループリストから対象スクリプトリストを再構築する
+		public void RestructListScript ()
+		{
+			L_Scp.Clear ();
+			foreach ( LScp lScp in L_ScriptGroup )
+			{
+				foreach ( Script s in lScp )
+				{ 
+					L_Scp.Add ( s );
+				}
+			}
+		}
 
 
 		//選択範囲のスクリプトをグループにする
@@ -167,7 +181,7 @@ namespace ScriptEditor
 				if ( s != scp )
 				{
 					//s.Copy ( scp );
-					//フレーム数以外
+					//フレーム数以外コピー
 					s.Copy_Other_than_frame ( scp );
 				}
 			}
@@ -184,6 +198,44 @@ namespace ScriptEditor
 					s.Group = 0;
 				}
 			}
+		}
+
+		//--------------------------------------------------------------------
+		//グループのスクリプト操作
+		//各グループに＋１
+		public void GroupAdd ()
+		{
+			//グループのリストでループする
+			foreach ( LScp lScp in L_ScriptGroup )
+			{
+				if ( lScp.Count <= 0 ) { continue; }
+				if ( lScp [0].Group == 0 ) { continue; }
+
+				//フレーム数以外コピー
+				Script script = new Script ();
+				script.Copy_Other_than_frame ( lScp [ 0 ] );
+				lScp.Add ( script );
+			}
+
+			//グループリストから対象リストを再構築
+			RestructListScript ();
+		}
+
+		//各グループにー１
+		public void GroupDel ()
+		{
+			//グループのリストでループする
+			foreach ( LScp lScp in L_ScriptGroup )
+			{
+				//1個の場合は飛ばす
+				if ( lScp.Count <= 1 ) { continue; }
+				if ( lScp [0].Group == 0 ) { continue; }
+
+				lScp.RemoveAt ( 0 );
+			}
+
+			//グループリストから対象リストを再構築
+			RestructListScript ();
 		}
 
 

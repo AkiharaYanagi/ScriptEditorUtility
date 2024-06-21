@@ -171,5 +171,19 @@ namespace ScriptEditor
 			All_Ctrl.Inst.UpdateData ();
 		}
 
+
+		//各グループに＋１
+		private void Btn_GrpAdd_Click ( object sender, EventArgs e )
+		{
+			EditCompend.GroupAdd ();
+			All_Ctrl.Inst.UpdateData ();
+		}
+
+		//各グループにー１
+		private void Btn_GrpDel_Click ( object sender, EventArgs e )
+		{
+			EditCompend.GroupDel ();
+			All_Ctrl.Inst.UpdateData ();
+		}
 	}
 }

@@ -102,5 +102,43 @@ namespace ScriptEditor
 			//全体更新
 			All_Ctrl.Inst.UpdateData ();
 		}
+
+
+		//流し込み
+		private void Btn_Stream_Click ( object sender, EventArgs e )
+		{
+			//選択中のスクリプトからグループごとにイメージを連続で設定
+
+			//対象シークエンス
+			Sequence sqc = EditCompend.SelectedSequence;
+			if ( sqc is null ) { return; }
+			if ( sqc.ListScript.Count <= 0 ) { return; }
+
+
+			int nameIndex = -1 + Lb_Image.SelectedIndex;	//一つ前からスタート
+			int group = -1;	//グループ対象外からスタート
+
+
+			foreach (Script scp in sqc.ListScript)
+			{
+				//イメージ数より多ければ終了
+				if ( nameIndex >= Lb_Image.Items.Count ) { return; } 
+
+				//グループごと
+				if ( scp.Group != group )
+				{
+					group = scp.Group;
+					++ nameIndex;
+				}
+
+				//イメージ名の設定
+				string name = ((ImageData)Lb_Image.Items [nameIndex] ).Name;
+				scp.ImgName = name;
+
+			}
+
+			//全体更新
+			All_Ctrl.Inst.UpdateData ();
+		}
 	}
 }

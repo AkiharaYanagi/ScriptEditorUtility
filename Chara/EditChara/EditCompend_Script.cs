@@ -243,6 +243,21 @@ namespace ScriptEditor
 			ResetFrameNumber ();
 		}
 
+		//--------------------------------------------------------------------
+		//グループのスクリプト操作
+		//各グループに＋１
+		public void GroupAdd ()
+		{
+			EditScript.GroupAdd ();
+			ResetFrameNumber ();
+		}
+
+		//各グループにー１
+		public void GroupDel ()
+		{
+			EditScript.GroupDel ();
+			ResetFrameNumber ();
+		}
 
 
 		//--------------------------------------------------------------------
