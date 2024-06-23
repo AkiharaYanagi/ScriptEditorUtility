@@ -46,6 +46,12 @@ namespace ScriptEditor
 		//カーソル判定用別スレッド
 		STimer tmr = new STimer( 16 );
 
+		//上位パネル参照
+		public Panel Pnl { get; set; } = null;
+
+
+
+		//=================================================================-
 		//コンストラクタ
 		public PB_Sqc ()
 		{
@@ -151,6 +157,7 @@ namespace ScriptEditor
 		//更新
 		public void UpdateData ()
 		{
+#if false
 			//描画サイズ・縦
 			const int CH = ConstSqcListPaint.CH;
 			int n = ELB_Sqc.Count();
@@ -165,20 +172,42 @@ namespace ScriptEditor
 			}
 			this.Width = max < 1 ? 200 : CW + (max * CW);
 
+#endif
+#if false
 			//イメージ名
 			//ファイル書出時のみ[通し番号000]_を用い、それ以外は
 			//"[シークエンス名]_[シークエンス内番号00].png" で扱う
-#if false
 			//名前の更新
 			EditData.UpdateName ();
 #endif
 		}
 
+		//サイズのみ更新
+		public void UpdateSize ()
+		{
+			//描画サイズ・縦
+			const int CH = ConstSqcListPaint.CH;
+			int n = ELB_Sqc.Count();
+			this.Height = n < 1 ? 200 : 201 + (n * CH);
+
+			//描画サイズ・横
+			const int CW = ConstSqcListPaint.CW;
+			int max = 0;
+			foreach ( SequenceData sd in ELB_Sqc.GetList ())
+			{
+				if ( max < sd.BD_ImgDt.Count() ) { max = sd.BD_ImgDt.Count(); }
+			}
+			this.Width = max < 1 ? 200 : CW + (max * CW);
+
+		}
+
 		//スクロール移動
+		private int scrollPos = 0;
 		public void ScrollPos ( Panel pnl )
 		{
 			int y = EditSLData.SelectedSqc * ConstSqcListPaint.CH;
-			int py = - 1 * pnl.AutoScrollPosition.Y;
+//			int py = - 1 * pnl.AutoScrollPosition.Y;
+			scrollPos = y;
 
 			//範囲外なら
 //			if ( py < y - 400 || y  < py )
@@ -188,6 +217,9 @@ namespace ScriptEditor
 				pnl.AutoScrollPosition = new Point ( 0, y );
 //				pnl.AutoScrollPosition = new Point ( 0, -y );
 			}
+#if false
+
+#endif
 		}
 
 		//描画
@@ -198,7 +230,7 @@ namespace ScriptEditor
 
 			Graphics g = pe.Graphics;
 
-			int n = ELB_Sqc.Count();
+			int N = ELB_Sqc.Count();
 			int W = this.Width;
 			int H = this.Height;
 			const int CW = ConstSqcListPaint.CW;
@@ -210,11 +242,19 @@ namespace ScriptEditor
 			using ( Font FONT0 = new Font ( "Meiryo", 12.0f ) )
 			using ( Font FONT1 = new Font ( "Meiryo", 10.0f ) )
 			{
+				//選択位置
+				int selected_y = EditSLData.SelectedSqc * ConstSqcListPaint.CH;
+				int yn = EditSLData.SelectedSqc;
+				int pnl_yn = -1 * Pnl.AutoScrollPosition.Y / ConstSqcListPaint.CH;
+				STS_TXT.Trace ( pnl_yn.ToString () );
+
+
 				//選択
 				g.FillRectangle ( Brushes.LightBlue, 0, slctSqc * CH, W, CH );
 
 				//罫線(縦)
-				g.DrawLine ( Pens.Black, new Point ( 0, 0 ), new Point ( 0, H ) );
+//				g.DrawLine ( Pens.Black, new Point ( 0, 0 ), new Point ( 0, H ) );
+				g.DrawLine ( Pens.Black, new Point ( 0, selected_y ), new Point ( 0, selected_y + 1000 ) );
 				g.DrawLine ( Pens.Black, new Point ( BX, 0 ), new Point ( BX, H ) );
 
 				//罫線(縦)(仕切)
@@ -222,7 +262,8 @@ namespace ScriptEditor
 				for ( int i = 0; i < nHorizon; ++ i )
 				{
 					int x = BX + CW + i * CW;
-					g.DrawLine ( Pens.Gainsboro, new Point ( x, 0 ), new Point ( x, H ) );
+//					g.DrawLine ( Pens.Gainsboro, new Point ( x, 0 ), new Point ( x, H ) );
+					g.DrawLine ( Pens.Gainsboro, new Point ( x, selected_y ), new Point ( x, selected_y + 1000 ) );
 				}
 
 				//罫線(横)
@@ -236,6 +277,11 @@ namespace ScriptEditor
 				int ns = 0;
 				foreach ( SequenceData sqcDt in ELB_Sqc.GetList () )
 				{
+					//描画のため個数制限
+					if ( ns < pnl_yn ) { ++ ns; continue; }
+					if ( pnl_yn + 3 < ns ) { break; }
+
+
 					int y = ns * CH;
 
 					//シークエンスデータ
@@ -255,8 +301,11 @@ namespace ScriptEditor
 						g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
 					}
 
+#if false
+#endif
 					++ ns;
 				}
+
 
 				//イメージ選択位置
 				int Img_x = CW + CW * slctImg;
@@ -269,6 +318,10 @@ namespace ScriptEditor
 				//動的カーソル位置
 				dpt = PointToClient(new Point(0, 0));
 				g.FillRectangle(Brushes.Red, CursorPt.X, CursorPt.Y, 10, 10);
+
+
+				//スクロール位置
+				g.DrawString ( scrollPos.ToString(), FONT1, Brushes.Black, 100, scrollPos );
 			}
 
 			base.OnPaint ( pe );

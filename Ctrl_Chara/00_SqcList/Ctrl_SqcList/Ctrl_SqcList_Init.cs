@@ -21,7 +21,7 @@ namespace ScriptEditor
 
 			//データ編集
 			EditData.Dt = SqcListData;
-			EditData.UpdateAll = UpdateAll;
+//			EditData.UpdateAll = UpdateAll;
 
 			//データの設定
 			ctrl_ImageTable1.LoadCtrl ( ELB_Sqc );
@@ -37,10 +37,10 @@ namespace ScriptEditor
 			ELB_Sqc.SelectedIndexChanged = () =>
 			{
 				EditData.SelectedSqc = ELB_Sqc.GetListBox().SelectedIndex;
-				ctrl_ImageTable1.ScrollPos ();
+//				ctrl_ImageTable1.ScrollPos ();
 			};
-			ELB_Sqc.Listbox_Changed = () => UpdateCtrl();
-			ELB_Sqc.Listbox_Add = () => UpdateCtrl();
+//			ELB_Sqc.Listbox_Changed = () => UpdateCtrl();
+//			ELB_Sqc.Listbox_Add = () => UpdateCtrl();
 			ELB_Sqc._TextChanged = ()=>
 			{
 				//シークエンスデータはBDから直接の名前だけでなく、保持しているSqcの更新も必要

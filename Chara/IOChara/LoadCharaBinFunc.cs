@@ -226,15 +226,17 @@ namespace ScriptEditor
 			uint N = br.ReadUInt32 ();
 			for ( uint i = 0; i < N; ++ i )
 			{
-				Branch brc = new Branch ()
-				{
-					Name = br.ReadString (),
-					Condition = (BranchCondition)br.ReadByte (),
-					NameCommand = "Cmd_" + br.ReadUInt32 (),
-					NameSequence = "Seq_" + br.ReadUInt32 (),
-					Frame = (int)br.ReadUInt32 (),
-					Other = br.ReadBoolean (),
-				};
+				Branch brc = new Branch ();
+				
+				brc.Name = br.ReadString ();
+				brc.Condition = (BranchCondition)br.ReadByte ();
+				brc.NameCommand = br.ReadString ();
+				uint id_cmd = br.ReadUInt32 ();
+				brc.NameSequence = br.ReadString ();
+				uint id_sqc = br.ReadUInt32 ();
+				brc.Frame = (int)br.ReadUInt32 ();
+				brc.Other = br.ReadBoolean ();
+				
 				chara.BD_Branch.Add ( brc );
 			}
 

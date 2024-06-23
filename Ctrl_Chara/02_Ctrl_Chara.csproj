@@ -262,6 +262,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.resx">
+      <DependentUpon>Ctrl_SqcList_Func.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="15_Script\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </EmbeddedResource>
@@ -328,9 +331,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_ImageTable.resx">
       <DependentUpon>Ctrl_ImageTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList.resx">
-      <DependentUpon>Ctrl_SqcList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\PB_Sqc.resx">
       <DependentUpon>PB_Sqc.cs</DependentUpon>

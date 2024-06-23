@@ -67,6 +67,7 @@ namespace ScriptEditor
 		{
 			ELB_Sqc = elb_sd;
 			pB_Sqc1.ELB_Sqc = elb_sd;
+			pB_Sqc1.Pnl = panel1;
 		}
 
 		//シークエンスリスト更新
@@ -100,9 +101,14 @@ namespace ScriptEditor
 			pB_Sqc1.UpdateData ();
 		}
 
+		public void UpdateSize ()
+		{
+			pB_Sqc1.UpdateSize ();
+		}
+
 		public void Disp ()
 		{
-			pB_Sqc1.Invalidate ();
+//			pB_Sqc1.Invalidate ();
 		}
 
 		//選択位置にスクロールを移動する

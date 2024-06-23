@@ -85,6 +85,7 @@ namespace ScriptEditor
 		public void SetCharaData ( Chara ch )
 		{
 			ctrl_ImageTable1.SetCharaData ( ch );
+			ctrl_ImageTable1.UpdateSize ();
 		}
 
 		//コンペンド指定
@@ -149,6 +150,11 @@ namespace ScriptEditor
 		public void UpdateImage ()
 		{
 			ctrl_ImageTable1.UpdateImage ();
+		}
+
+		public void UpdatePbSize ()
+		{
+			ctrl_ImageTable1.UpdateSize ();
 		}
 
 		//-------------------------------------------------

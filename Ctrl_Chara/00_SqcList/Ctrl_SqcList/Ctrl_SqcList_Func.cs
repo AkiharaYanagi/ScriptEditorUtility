@@ -19,7 +19,6 @@ namespace ScriptEditor
 		private void UpdateCtrl ()
 		{
 			ctrl_ImageTable1.UpdateData();
-			ctrl_ImageTable1.Invalidate();
 
 			//全体更新
 			ctrl_ImageTable1.SetCompend ( Cmpd );

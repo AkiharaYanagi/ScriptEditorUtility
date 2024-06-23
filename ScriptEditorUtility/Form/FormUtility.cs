@@ -9,7 +9,7 @@ namespace ScriptEditor
 	{
 		//==============================================================
 		//フォーム位置初期化
-		private const int start_X = -600;	//フォーム位置補正定数
+		private const int start_X = -500;	//フォーム位置補正定数
 		private const int start_Y = -10;	//フォーム位置補正定数
 		
 		public static void InitPosition ( Form f, int dx, int dy )
