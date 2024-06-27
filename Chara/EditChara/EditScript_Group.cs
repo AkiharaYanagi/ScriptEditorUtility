@@ -16,7 +16,7 @@ namespace ScriptEditor
 		public LScp L_Scp { get; set; } = new LScp ();
 
 		//グループリスト
-		List < LScp > L_ScriptGroup = new List<LScp> ();
+		public List < LScp > L_ScriptGroup { get; set; } = new List<LScp> ();
 
 		//選択中グループ
 		LScp SelectedGroup = new LScp ();
@@ -197,6 +197,15 @@ namespace ScriptEditor
 				{
 					s.Group = 0;
 				}
+			}
+		}
+
+		//全グループを解除
+		public void DismantleAllGroup ()
+		{
+			foreach ( Script s in L_Scp )
+			{
+				s.Group = 0;
 			}
 		}
 

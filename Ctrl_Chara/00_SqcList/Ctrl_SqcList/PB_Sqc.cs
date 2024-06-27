@@ -245,16 +245,18 @@ namespace ScriptEditor
 				//選択位置
 				int selected_y = EditSLData.SelectedSqc * ConstSqcListPaint.CH;
 				int yn = EditSLData.SelectedSqc;
+				int pnl_y = -1 * Pnl.AutoScrollPosition.Y;
 				int pnl_yn = -1 * Pnl.AutoScrollPosition.Y / ConstSqcListPaint.CH;
-				STS_TXT.Trace ( pnl_yn.ToString () );
+//				STS_TXT.Trace ( pnl_yn.ToString () );
 
 
 				//選択
 				g.FillRectangle ( Brushes.LightBlue, 0, slctSqc * CH, W, CH );
 
+
 				//罫線(縦)
-//				g.DrawLine ( Pens.Black, new Point ( 0, 0 ), new Point ( 0, H ) );
-				g.DrawLine ( Pens.Black, new Point ( 0, selected_y ), new Point ( 0, selected_y + 1000 ) );
+				g.DrawLine ( Pens.Black, new Point ( 0, 0 ), new Point ( 0, H ) );
+//				g.DrawLine ( Pens.Black, new Point ( 0, selected_y ), new Point ( 0, selected_y + 1000 ) );
 				g.DrawLine ( Pens.Black, new Point ( BX, 0 ), new Point ( BX, H ) );
 
 				//罫線(縦)(仕切)
@@ -262,9 +264,10 @@ namespace ScriptEditor
 				for ( int i = 0; i < nHorizon; ++ i )
 				{
 					int x = BX + CW + i * CW;
-//					g.DrawLine ( Pens.Gainsboro, new Point ( x, 0 ), new Point ( x, H ) );
-					g.DrawLine ( Pens.Gainsboro, new Point ( x, selected_y ), new Point ( x, selected_y + 1000 ) );
+					g.DrawLine ( Pens.Gainsboro, new Point ( x, 0 ), new Point ( x, H ) );
+//					g.DrawLine ( Pens.Gainsboro, new Point ( x, selected_y ), new Point ( x, selected_y + 1000 ) );
 				}
+
 
 				//罫線(横)
 				int NLine = 2 + ELB_Sqc.Count ();
@@ -278,8 +281,8 @@ namespace ScriptEditor
 				foreach ( SequenceData sqcDt in ELB_Sqc.GetList () )
 				{
 					//描画のため個数制限
-					if ( ns < pnl_yn ) { ++ ns; continue; }
-					if ( pnl_yn + 3 < ns ) { break; }
+//					if ( ns < pnl_yn ) { ++ ns; continue; }
+//					if ( pnl_yn + 3 < ns ) { break; }
 
 
 					int y = ns * CH;
@@ -294,6 +297,8 @@ namespace ScriptEditor
 						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 60 + y);
 					}
 
+#if false
+#endif
 					//画像
 					int nI = 0;
 					foreach ( ImageData imgDt in sqcDt.BD_ImgDt.GetEnumerable() )
@@ -301,8 +306,6 @@ namespace ScriptEditor
 						g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
 					}
 
-#if false
-#endif
 					++ ns;
 				}
 
@@ -321,7 +324,8 @@ namespace ScriptEditor
 
 
 				//スクロール位置
-				g.DrawString ( scrollPos.ToString(), FONT1, Brushes.Black, 100, scrollPos );
+				g.DrawString ( pnl_y.ToString(), FONT1, Brushes.Black, 100, pnl_y );
+//				g.DrawString ( "test", new Font ("MSゴシック", 12), new SolidBrush ( Color.Blue ), 100, 100 * scrollPos );
 			}
 
 			base.OnPaint ( pe );

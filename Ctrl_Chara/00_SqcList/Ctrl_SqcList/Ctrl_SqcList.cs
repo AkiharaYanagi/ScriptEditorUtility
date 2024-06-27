@@ -135,7 +135,7 @@ namespace ScriptEditor
 		{
 			ctrl_ImageTable1.Disp ();
 			ELB_Sqc.Disp ();
-			this.Invalidate ();
+//			this.Invalidate ();
 		}
 
 		//データ更新

@@ -137,6 +137,17 @@ namespace ScriptEditor
 			ActDisp ();
 		}
 
+		//グループ 全解除
+
+		private void Btn_AllGrpDis_Click ( object sender, EventArgs e )
+		{
+			EditCompend ec = EditCompend;
+			EditScript es = EditCompend.EditScript;
+
+			es.DismantleAllGroup ();
+
+			ActDisp ();
+		}
 
 		//--------------------------------------------------------------------
 		//内部関数
@@ -162,6 +173,5 @@ namespace ScriptEditor
 			ActAssosiate ();
 			ActDisp ();
 		}
-
 	}
 }

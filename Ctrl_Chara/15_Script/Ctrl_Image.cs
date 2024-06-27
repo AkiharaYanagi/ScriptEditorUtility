@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 
 namespace ScriptEditor
 {
 	using BD_ImgDt = BindingDictionary < ImageData >;
+	using LScp = List < Script >;
+
 
 	public partial class Ctrl_Image : UserControl
 	{
@@ -114,15 +117,19 @@ namespace ScriptEditor
 			if ( sqc is null ) { return; }
 			if ( sqc.ListScript.Count <= 0 ) { return; }
 
+			int start = EditCompend.SelectedScript.Frame;
 
 			int nameIndex = -1 + Lb_Image.SelectedIndex;	//一つ前からスタート
 			int group = -1;	//グループ対象外からスタート
 
-
-			foreach (Script scp in sqc.ListScript)
+			//対象スクリプト以下を変更
+			//foreach (Script scp in sqc.ListScript)
+			for ( int i = start; i < sqc.ListScript.Count; ++ i )
 			{
 				//イメージ数より多ければ終了
-				if ( nameIndex >= Lb_Image.Items.Count ) { return; } 
+				if ( nameIndex >= ( Lb_Image.Items.Count - 1 ) ) { break; } 
+
+				Script scp = sqc.ListScript [ i ];
 
 				//グループごと
 				if ( scp.Group != group )
@@ -134,8 +141,33 @@ namespace ScriptEditor
 				//イメージ名の設定
 				string name = ((ImageData)Lb_Image.Items [nameIndex] ).Name;
 				scp.ImgName = name;
-
 			}
+
+#if false
+			//イメージ数が２より少ないとき何もしない
+			if ( Lb_Image.Items.Count < 2 ) { return; } 
+
+			//選択イメージ
+			int nameIndex = Lb_Image.SelectedIndex;
+
+			//対象グループ
+			List < LScp > L_LScp = EditCompend.EditScript.L_ScriptGroup;
+
+			foreach ( LScp lscp in L_LScp )
+			{
+				//イメージ数より多ければ終了
+				if ( nameIndex >= Lb_Image.Items.Count ) { break; } 
+
+				foreach ( Script scp in lscp )
+				{
+					//イメージ名の設定
+					string name = ((ImageData)Lb_Image.Items [nameIndex] ).Name;
+					scp.ImgName = name;
+				}
+
+				++ nameIndex;
+			}
+#endif
 
 			//全体更新
 			All_Ctrl.Inst.UpdateData ();

@@ -168,6 +168,9 @@ namespace ScriptEditor
 
 					fs.Close ();
 				}
+
+				//ピクチャボックスのサイズ変更
+				pB_Sqc1.UpdateSize ();
 				
 				//選択
 				EditData.SelectedSqc = index;
