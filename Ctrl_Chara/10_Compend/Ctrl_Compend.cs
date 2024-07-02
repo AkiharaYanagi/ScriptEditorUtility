@@ -42,7 +42,9 @@ namespace ScriptEditor
 			sqc_board.Location = new Point ( pos_board_x, 3 );
 			sqc_board.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			int board_size_w = this.Width - sqc_tree.Width - 3 - 3 - 3;
-			sqc_board.Size = new Size ( board_size_w, sqc_board.Size.Height );
+//			sqc_board.Size = new Size ( board_size_w, sqc_board.Size.Height );
+//			sqc_board.Size = new Size ( 600, sqc_board.Size.Height );
+			sqc_board.SetSize ( new Size ( board_size_w, sqc_board.Size.Height ) );
 
 			//イメージ
 			Controls.Add ( ctrl_image );
@@ -61,6 +63,9 @@ namespace ScriptEditor
 			ctrl_image.SetEnviron ( ec );
 			sqc_tree.SetEnviron ( ec, this );
 			sqc_board.SetEnviron ( ec, this );
+
+			int board_size_w = this.Width - sqc_tree.Width - 3 - 3 - 3;
+			sqc_board.SetSize ( new Size ( board_size_w, sqc_board.Size.Height ) );
 		}
 
 		//キャラデータ設定

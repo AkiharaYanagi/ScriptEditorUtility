@@ -24,6 +24,7 @@ namespace ScriptEditor
 		private Button Btn_Copy;
 		private Button Btn_PasteAll;
 		private Button Btn_PasteGroup;
+		private Button Btn_PasteSelect;
 
 		//全体編集
 		private EditCompend EditCompend = new EditCompend ();
@@ -101,6 +102,7 @@ namespace ScriptEditor
 			this.Btn_Copy = new System.Windows.Forms.Button();
 			this.Btn_PasteAll = new System.Windows.Forms.Button();
 			this.Btn_PasteGroup = new System.Windows.Forms.Button();
+			this.Btn_PasteSelect = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// Btn_Copy
@@ -125,7 +127,7 @@ namespace ScriptEditor
 			// 
 			// Btn_PasteGroup
 			// 
-			this.Btn_PasteGroup.Location = new System.Drawing.Point(253, 337);
+			this.Btn_PasteGroup.Location = new System.Drawing.Point(253, 324);
 			this.Btn_PasteGroup.Name = "Btn_PasteGroup";
 			this.Btn_PasteGroup.Size = new System.Drawing.Size(100, 41);
 			this.Btn_PasteGroup.TabIndex = 1;
@@ -133,8 +135,19 @@ namespace ScriptEditor
 			this.Btn_PasteGroup.UseVisualStyleBackColor = true;
 			this.Btn_PasteGroup.Click += new System.EventHandler(this.Btn_PasteGroup_Click);
 			// 
+			// Btn_PasteSelect
+			// 
+			this.Btn_PasteSelect.Location = new System.Drawing.Point(253, 371);
+			this.Btn_PasteSelect.Name = "Btn_PasteSelect";
+			this.Btn_PasteSelect.Size = new System.Drawing.Size(100, 41);
+			this.Btn_PasteSelect.TabIndex = 1;
+			this.Btn_PasteSelect.Text = "選択にペースト";
+			this.Btn_PasteSelect.UseVisualStyleBackColor = true;
+			this.Btn_PasteSelect.Click += new System.EventHandler(this.Btn_PasteSelect_Click);
+			// 
 			// Ctrl_Scp_Route
 			// 
+			this.Controls.Add(this.Btn_PasteSelect);
 			this.Controls.Add(this.Btn_PasteGroup);
 			this.Controls.Add(this.Btn_PasteAll);
 			this.Controls.Add(this.Btn_Copy);
@@ -209,16 +222,22 @@ namespace ScriptEditor
 			}
 		}
 
+		//全体にペースト
+		private void Btn_PastAll_Click ( object sender, EventArgs e )
+		{
+			EditCompend.DoAllScript ( scp => SetBD_Route ( scp ) );
+		}
+
 		//グループにペースト
 		private void Btn_PasteGroup_Click ( object sender, EventArgs e )
 		{
 			EditCompend.EditScript.DoGroup ( scp => SetBD_Route ( scp ) );
 		}
 
-		//全体にペースト
-		private void Btn_PastAll_Click ( object sender, EventArgs e )
+		//選択にペースト
+		private void Btn_PasteSelect_Click ( object sender, EventArgs e )
 		{
-			EditCompend.DoAllScript ( scp => SetBD_Route ( scp ) );
+			EditCompend.DoSelectedSpanScript ( scp => SetBD_Route ( scp ) );
 		}
 	}
 }

@@ -44,13 +44,16 @@ namespace ScriptEditor
 			//メニュ
 			this.Controls.Add ( MN_Brd );
 			MN_Brd.Location = new Point ( 3, 3 );
+			//MN_Brd.Width = 400;
+			MN_Brd.AutoSizeMode = AutoSizeMode.GrowOnly;
+			MN_Brd.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
 			//パネル
 			this.Controls.Add ( panel1 );
 			panel1.BackColor = Color.White;
 			int panel_y = MN_Brd.Height + 3 + 3;
 			panel1.Location = new Point ( 3, panel_y );
-			panel1.Size = new Size( this.Width, 120 );
+			panel1.Size = new Size( this.Width - 6, 120 );
 			panel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 			panel1.AutoScroll = true;
 
@@ -62,6 +65,14 @@ namespace ScriptEditor
 			this.Height = 3 + MN_Brd.Height + 3 + panel1.Height + 3;
 
 			this.ResumeLayout ( false );
+
+		}
+
+		public void SetSize ( Size size )
+		{
+			this.Size = size;
+			panel1.Size = new Size( this.Width, 120 );
+			MN_Brd.Size = new Size ( size.Width, MN_Brd.Height );
 		}
 
 		public void SetEnviron ( EditCompend ec, _Ctrl_Compend ctrl_cmpd )

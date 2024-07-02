@@ -39,10 +39,10 @@
             this.Btn_MltIns = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnUnify = new System.Windows.Forms.Button();
+            this.Btn_AllGrpDis = new System.Windows.Forms.Button();
             this.BtnGrpDismantle = new System.Windows.Forms.Button();
             this.Btn_GrpMake = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Btn_AllGrpDis = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -174,6 +174,17 @@
             this.BtnUnify.UseVisualStyleBackColor = false;
             this.BtnUnify.Click += new System.EventHandler(this.BtnUnify_Click);
             // 
+            // Btn_AllGrpDis
+            // 
+            this.Btn_AllGrpDis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.Btn_AllGrpDis.Location = new System.Drawing.Point(186, 17);
+            this.Btn_AllGrpDis.Name = "Btn_AllGrpDis";
+            this.Btn_AllGrpDis.Size = new System.Drawing.Size(52, 29);
+            this.Btn_AllGrpDis.TabIndex = 0;
+            this.Btn_AllGrpDis.Text = "全解除";
+            this.Btn_AllGrpDis.UseVisualStyleBackColor = false;
+            this.Btn_AllGrpDis.Click += new System.EventHandler(this.Btn_AllGrpDis_Click);
+            // 
             // BtnGrpDismantle
             // 
             this.BtnGrpDismantle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -205,28 +216,18 @@
             this.label1.Size = new System.Drawing.Size(2, 52);
             this.label1.TabIndex = 1;
             // 
-            // Btn_AllGrpDis
-            // 
-            this.Btn_AllGrpDis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.Btn_AllGrpDis.Location = new System.Drawing.Point(186, 17);
-            this.Btn_AllGrpDis.Name = "Btn_AllGrpDis";
-            this.Btn_AllGrpDis.Size = new System.Drawing.Size(52, 29);
-            this.Btn_AllGrpDis.TabIndex = 0;
-            this.Btn_AllGrpDis.Text = "全解除";
-            this.Btn_AllGrpDis.UseVisualStyleBackColor = false;
-            this.Btn_AllGrpDis.Click += new System.EventHandler(this.Btn_AllGrpDis_Click);
-            // 
             // Menu_Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Menu_Board";
-            this.Size = new System.Drawing.Size(699, 62);
+            this.Size = new System.Drawing.Size(791, 62);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

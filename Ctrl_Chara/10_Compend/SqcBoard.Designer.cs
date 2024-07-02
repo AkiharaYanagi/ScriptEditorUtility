@@ -28,17 +28,17 @@
 		/// </summary>
 		private void InitializeComponent ()
 		{
-			this.SuspendLayout();
-			// 
-			// _SqcBoard
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.AutoSize = true;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-			this.Name = "_SqcBoard";
-			this.Size = new System.Drawing.Size(701, 205);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // _SqcBoard
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.Name = "_SqcBoard";
+            this.Size = new System.Drawing.Size(439, 172);
+            this.ResumeLayout(false);
 
 		}
 

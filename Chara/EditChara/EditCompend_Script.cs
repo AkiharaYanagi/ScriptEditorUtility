@@ -71,7 +71,7 @@ namespace ScriptEditor
 		{
 			//範囲
 			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
+			int e = 1 + SelectedSpanEnd;	//個数なので+1
 			Script[] scripts = new Script [ e - s ];
 			for ( int i = 0; i < e - s; ++ i )
 			{
@@ -95,7 +95,6 @@ namespace ScriptEditor
 		{
 			L_Scp ls = SelectedSequence.ListScript;
 			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
 
 			//選択範囲スクリプトを新規リストにディープコピー(グループのみ再設定)
 			int temp_group = 0;
@@ -143,7 +142,7 @@ namespace ScriptEditor
 
 			//範囲
 			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
+			int e = 1 + SelectedSpanEnd;	//個数なので＋１
 			Script[] scripts = new Script [ e - s ];
 			for ( int i = 0; i < e - s; ++ i )
 			{
@@ -174,17 +173,23 @@ namespace ScriptEditor
 		{
 			L_Scp ls = SelectedSequence.ListScript;
 			int s = SelectedSpanStart;
-			int e = 1 + SelectedSpanEnd;
+//			int e = 1 + SelectedSpanEnd;
+//			int e = SelectedSpanEnd;
+			int e = SelectedSpanEnd + 1;	//範囲としては＋１だが、リストの末尾参照は飛ばす
 
 			//範囲外は何もしない
 			if ( s < 0 ) { return; }
-			if ( ls.Count < e ) { return; }
+
+			//末尾オーバーはまるめて続行
+			if ( ls.Count < e ) { e = ls.Count; }
 			
 			//選択範囲スクリプトを新規リストにディープコピー(グループのみ再設定)
 			int temp_group = 0;
 			int now_group = 0;
 			for ( int i = s; i < e; ++ i )
 			{
+				if ( i >= ls.Count ) { break; }
+
 				//グループチェック
 				if ( temp_group != ls [ i ].Group )
 				{
@@ -290,9 +295,13 @@ namespace ScriptEditor
 		//ペースト
 		public void PasteScript ()
 		{
+			int s = SelectedSpanStart;
+			int e = SelectedSpanEnd + 1;	//範囲としては＋１だが、リストの末尾参照は飛ばす
+
 			//範囲にコピー
-			for ( int i = SelectedSpanStart; i < SelectedSpanEnd + 1; ++i )
+			for ( int i = s; i < e; ++i )
 			{
+				if ( i >= SelectedSequence.ListScript.Count ) { break; }
 				Script script = SelectedSequence.ListScript [ i ];
 				script.Copy ( new Script ( GetCopiedScript () ) );
 			}
@@ -319,7 +328,6 @@ namespace ScriptEditor
 				s.ListBranch.Copy ( scp.ListBranch );
 			}
 		}
-#endif
 		//ルートのコピー
 		public void CopyRoute ( Script scp )
 		{
@@ -328,6 +336,7 @@ namespace ScriptEditor
 				s.BD_RutName.DeepCopy ( s.BD_RutName );
 			}
 		}
+#endif
 
 
 		//選択中のシークエンス内スクリプトに対し処理
@@ -339,13 +348,27 @@ namespace ScriptEditor
 			}
 		}
 
-		//スクリプトスパンに対して処理
+		//選択中のスクリプトスパンに対し処理
+		public void DoSelectedSpanScript ( System.Action < Script > Func )
+		{
+			int s = SelectedSpanStart;
+			int e = SelectedSpanEnd + 1;	//範囲としては＋１だが、リストの末尾参照は飛ばす
+			for ( int i = s; i < e; ++ i )
+			{
+				if ( i >= SelectedSequence.ListScript.Count ) { break; }
+				Script script = SelectedSequence.ListScript [ i ];
+				Func ( script );
+			}
+		}
+
+		//スクリプトスパンに対してセッタ処理
 		public void DoSetterInSpan_T < T > ( System.Action < Script, T > Setter, T t )
 		{
 			int s = SelectedSpanStart;
-			int e = SelectedSpanEnd + 1;
+			int e = SelectedSpanEnd + 1;	//範囲としては＋１だが、リストの末尾参照は飛ばす
 			for ( int i = s; i < e; ++ i )
 			{
+				if ( i >= SelectedSequence.ListScript.Count ) { break; }
 				Script script = SelectedSequence.ListScript [ i ];
 				Setter ( script, t );
 			}
