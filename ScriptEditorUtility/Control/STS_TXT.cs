@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace ScriptEditor
 {
@@ -12,6 +13,7 @@ namespace ScriptEditor
 		{
 			Tssl.BackColor = ControlColor;
 			Tssl.Text = str;
+			Tssl.Invalidate ();
 		}
 
 		public static void SaveContorlColor ()

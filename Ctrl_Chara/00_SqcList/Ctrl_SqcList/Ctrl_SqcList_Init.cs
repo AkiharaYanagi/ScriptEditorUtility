@@ -37,7 +37,7 @@ namespace ScriptEditor
 			ELB_Sqc.SelectedIndexChanged = () =>
 			{
 				EditData.SelectedSqc = ELB_Sqc.GetListBox().SelectedIndex;
-//				ctrl_ImageTable1.ScrollPos ();
+				ctrl_ImageTable1.ScrollPos ();
 			};
 //			ELB_Sqc.Listbox_Changed = () => UpdateCtrl();
 //			ELB_Sqc.Listbox_Add = () => UpdateCtrl();
