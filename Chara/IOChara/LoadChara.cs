@@ -143,6 +143,9 @@ namespace ScriptEditor
 
 				//イメージ型の作成
 				imgdt.Img = Image.FromStream ( mstrmImage );
+				imgdt.MakeThumbnail ( imgdt.Img );
+
+				mstrmImage.Dispose ();
 			}
 		}
 	}

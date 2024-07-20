@@ -303,7 +303,18 @@ namespace ScriptEditor
 					int nI = 0;
 					foreach ( ImageData imgDt in sqcDt.BD_ImgDt.GetEnumerable() )
 					{
-						g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
+#if false
+						Bitmap bmp = new Bitmap ( 100, 100 );
+						Graphics gBmp = Graphics.FromImage ( bmp );
+						gBmp.FillRectangle ( Brushes.AliceBlue, gBmp.VisibleClipBounds );
+						gBmp.Dispose ();
+
+#endif
+
+						//g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
+						g.DrawImage ( imgDt.Thumbnail, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
+						//g.DrawImage ( bmp, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
+						//g.FillRectangle ( Brushes.AliceBlue, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
 					}
 
 					++ ns;
