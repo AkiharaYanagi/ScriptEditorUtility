@@ -245,9 +245,12 @@ namespace ScriptEditor
 				//選択位置
 				int selected_y = EditSLData.SelectedSqc * ConstSqcListPaint.CH;
 				int yn = EditSLData.SelectedSqc;
+				int pnl_x = -1 * Pnl.AutoScrollPosition.X;
+				int pnl_xn = -1 * Pnl.AutoScrollPosition.X / ConstSqcListPaint.CW;
 				int pnl_y = -1 * Pnl.AutoScrollPosition.Y;
 				int pnl_yn = -1 * Pnl.AutoScrollPosition.Y / ConstSqcListPaint.CH;
-//				STS_TXT.Trace ( pnl_yn.ToString () );
+
+				STS_TXT.Trace ( "pnl_xn = " + pnl_xn.ToString () + ", pnl_yn = " + pnl_yn.ToString () );
 
 
 				//選択
@@ -281,8 +284,8 @@ namespace ScriptEditor
 				foreach ( SequenceData sqcDt in ELB_Sqc.GetList () )
 				{
 					//描画のため個数制限
-//					if ( ns < pnl_yn ) { ++ ns; continue; }
-//					if ( pnl_yn + 3 < ns ) { break; }
+					if ( ns < pnl_yn ) { ++ ns; continue; }
+					if ( pnl_yn + 6 < ns ) { break; }
 
 
 					int y = ns * CH;
@@ -303,18 +306,16 @@ namespace ScriptEditor
 					int nI = 0;
 					foreach ( ImageData imgDt in sqcDt.BD_ImgDt.GetEnumerable() )
 					{
-#if false
-						Bitmap bmp = new Bitmap ( 100, 100 );
-						Graphics gBmp = Graphics.FromImage ( bmp );
-						gBmp.FillRectangle ( Brushes.AliceBlue, gBmp.VisibleClipBounds );
-						gBmp.Dispose ();
+						//描画のため個数制限
+						if ( nI < pnl_xn ) { ++ nI; continue; }
+						if ( pnl_xn + 6 < nI ) { break; }
 
-#endif
+						//g.DrawImage ( imgDt.Img, new Rectangle (CW + nI * CW, y, CW, CH ) );
+						g.DrawImage ( imgDt.Thumbnail, new Rectangle (CW + nI * CW, y, CW, CH ) );
+						//g.DrawImage ( bmp, new Rectangle (CW + nI * CW, y, CW, CH ) );
+						//g.FillRectangle ( Brushes.AliceBlue, new Rectangle (CW + nI * CW, y, CW, CH ) );
 
-						//g.DrawImage ( imgDt.Img, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
-						g.DrawImage ( imgDt.Thumbnail, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
-						//g.DrawImage ( bmp, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
-						//g.FillRectangle ( Brushes.AliceBlue, new Rectangle (CW + nI++ * CW, y, CW, CH ) );
+						++ nI;
 					}
 
 					++ ns;

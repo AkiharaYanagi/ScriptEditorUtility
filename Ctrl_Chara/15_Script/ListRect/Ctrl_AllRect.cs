@@ -194,27 +194,27 @@ namespace ScriptEditor
 		{
 			if ( SelectedLsRect is null ) { return; }
 
-			List<Rectangle> lr = SelectedLsRect.LsRect;
+			LRect lr = SelectedLsRect.LsRect;
 
 			//テキストに表示
 			TB_CopyName.Text = SelectedLsRect.GetName () + " [ " + lr.Count.ToString() + " ]";
 			
 			//リストの保存
-			CopyListRect = new List<Rectangle> ( lr );
+			CopyListRect = new LRect ( lr );
 		}
 
 		//クリア
 		private void Btn_Clear_Click ( object sender, EventArgs e )
 		{
 			TB_CopyName.Text = "";
-			CopyListRect = new List<Rectangle> ();
+			CopyListRect = new LRect ();
 		}
 
 
 		//ペースト：シングル
 		private void Btn_PasteSingle_Click ( object sender, EventArgs e )
 		{
-			SelectedLsRect.LsRect = new List<Rectangle> ( CopyListRect );
+			SelectedLsRect.LsRect = new LRect ( CopyListRect );
 			SelectedLsRect.Invalidate ();
 
 			All_Ctrl.Inst.UpdateData ();	//表示の更新
@@ -230,6 +230,22 @@ namespace ScriptEditor
 			case KindRect.HRect: es?.DoGroup ( s=>s.ListHRect = new LRect(CopyListRect) ); break;
 			case KindRect.ARect: es?.DoGroup ( s=>s.ListARect = new LRect(CopyListRect) ); break;
 			case KindRect.ORect: es?.DoGroup ( s=>s.ListORect = new LRect(CopyListRect) ); break;
+			}
+
+			All_Ctrl.Inst.UpdateData ();	//表示の更新
+		}
+
+		//ペースト：選択
+		private void Btn_Select_Click ( object sender, EventArgs e )
+		{
+			Action < Action < Script > > F = EditCompend.DoSelectedSpanScript;
+
+			switch ( SelectedIndexRect )
+			{
+			case KindRect.CRect: F ( s=>{ s.ListCRect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.HRect: F ( s=>{ s.ListHRect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.ARect: F ( s=>{ s.ListARect = new LRect ( CopyListRect ); } ); break;
+			case KindRect.ORect: F ( s=>{ s.ListORect = new LRect ( CopyListRect ); } ); break;
 			}
 
 			All_Ctrl.Inst.UpdateData ();	//表示の更新

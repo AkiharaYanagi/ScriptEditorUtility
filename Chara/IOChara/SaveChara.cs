@@ -189,7 +189,8 @@ namespace ScriptEditor
 				}
 				
 				//Debug.Write ( " : sumBytes = " + sumBytes + "\n" );
-				tempMstrm.Close ();
+				//tempMstrm.Close ();
+				tempMstrm.Dispose ();
 			}
 		}
 	}
