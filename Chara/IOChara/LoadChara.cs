@@ -141,6 +141,21 @@ namespace ScriptEditor
 				MemoryStream mstrmImage = new MemoryStream ();
 				mstrmImage.Write ( imageBuffer, 0, ( int ) imageSize );
 
+#if false
+				MemoryStream mstrmImage = new MemoryStream ();
+				int iRead = 0;
+				int size = (int)imageSize;
+				byte [] buf = new byte [ 1024 ];
+				while ( iRead < size )
+				{
+					iRead += br.Read ( buf, 0, 1024 );
+					mstrmImage.Write ( buf, 0, 1024 );
+				}
+				iRead = br.Read ( buf, 0, iRead - size );
+				mstrmImage.Write ( buf, 0, iRead );
+#endif
+
+
 				//イメージ型の作成
 				imgdt.Img = Image.FromStream ( mstrmImage );
 				imgdt.MakeThumbnail ( imgdt.Img );

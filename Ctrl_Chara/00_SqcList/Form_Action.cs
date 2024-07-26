@@ -51,6 +51,11 @@ namespace ScriptEditor
 			Ctrl_Action.SetCharaData ( ch );
 		}
 
+		public void UpdateData ()
+		{
+			Ctrl_Action.UpdateData ();
+		}
+
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
 		{

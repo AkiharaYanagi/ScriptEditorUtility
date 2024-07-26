@@ -234,6 +234,11 @@ namespace ScriptEditor
 			CBSL_Next.ResetItems ();
 		}
 
+		public void UpdateData ()
+		{
+			CBSL_Next.ResetItems ();
+		}
+
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
 		{

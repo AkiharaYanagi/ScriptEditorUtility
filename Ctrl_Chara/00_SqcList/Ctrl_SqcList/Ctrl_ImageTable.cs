@@ -99,6 +99,7 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			pB_Sqc1.UpdateData ();
+			form_act.UpdateData ();
 		}
 
 		public void UpdateSize ()
