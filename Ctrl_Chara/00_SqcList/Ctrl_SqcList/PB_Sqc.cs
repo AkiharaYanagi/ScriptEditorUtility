@@ -250,7 +250,8 @@ namespace ScriptEditor
 				int pnl_y = -1 * Pnl.AutoScrollPosition.Y;
 				int pnl_yn = -1 * Pnl.AutoScrollPosition.Y / ConstSqcListPaint.CH;
 
-				STS_TXT.Trace ( "pnl_xn = " + pnl_xn.ToString () + ", pnl_yn = " + pnl_yn.ToString () );
+				//test
+//				STS_TXT.Trace ( "pnl_xn = " + pnl_xn.ToString () + ", pnl_yn = " + pnl_yn.ToString () );
 
 
 				//選択
@@ -335,8 +336,8 @@ namespace ScriptEditor
 				g.FillRectangle(Brushes.Red, CursorPt.X, CursorPt.Y, 10, 10);
 
 
-				//スクロール位置
-				g.DrawString ( pnl_y.ToString(), FONT1, Brushes.Black, 100, pnl_y );
+				//test スクロール位置
+//				g.DrawString ( pnl_y.ToString(), FONT1, Brushes.Black, 100, pnl_y );
 //				g.DrawString ( "test", new Font ("MSゴシック", 12), new SolidBrush ( Color.Blue ), 100, 100 * scrollPos );
 			}
 

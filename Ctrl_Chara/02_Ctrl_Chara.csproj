@@ -265,6 +265,9 @@
     <EmbeddedResource Include="00_SqcList\Ctrl_SqcList\Ctrl_SqcList_Func.resx">
       <DependentUpon>Ctrl_SqcList_Func.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="10_Compend\RB_Tool.resx">
+      <DependentUpon>RB_Tool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="15_Script\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </EmbeddedResource>

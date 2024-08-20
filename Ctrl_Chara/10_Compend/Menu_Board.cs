@@ -69,7 +69,8 @@ namespace ScriptEditor
 		//複数スクリプト 挿入
 		private void Btn_MltIns_Click ( object sender, EventArgs e )
 		{
-			Script scp = Make_Script_with_Rect ();
+//			Script scp = Make_Script_with_Rect ();
+			Script scp = EditCompend.SelectedScript;
 			EditCompend.MultiInsert ( scp );
 			ReSelect ();
 			ActDisp ();

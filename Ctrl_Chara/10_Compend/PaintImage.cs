@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 
@@ -77,7 +78,19 @@ namespace ScriptEditor
 			g.DrawLine ( PenWhite, new Point ( PtPbImageBase.X, 0 ), new Point ( PtPbImageBase.X, this.Height ) );
 			g.DrawLine ( PenWhite, new Point ( 0, PtPbImageBase.Y ), new Point ( this.Width, PtPbImageBase.Y ) );
 
-			//スクリプト指定イメージ
+
+			//一つ前のメインイメージをゴースト表示
+			int index = EditCompend.SelectedScript.Frame;
+			//０のときは表示しない
+			if ( index > 0 )
+			{
+				Script preScp = EditCompend.SelectedSequence.ListScript [ index - 1 ];
+				ImageData preImgDt = Bd_Imgd.Get ( preScp.ImgName );
+				DrawImageData_alpha ( g, preImgDt, preScp.ImgName, preScp.Pos, 0.5F );
+			}
+
+
+			//スクリプト指定 メインイメージ
 			Script scp = EditCompend.SelectedScript;
 			ImageData imgd = Bd_Imgd.Get ( scp.ImgName );
 			DrawImageData ( g, imgd, scp.ImgName, scp.Pos );
@@ -140,6 +153,41 @@ namespace ScriptEditor
 			}	//using
 
 			return bmp;
+		}
+
+		//α値指定描画
+		private void DrawImageData_alpha ( Graphics g, ImageData imgd, string imgname, Point pos, float alpha )
+		{
+			Image img;
+			if( imgd == null )
+			{
+				img = MakeDummy ( imgname );
+			}
+			else if( imgd.Img == null )
+			{
+				img = MakeDummy ( imgname );
+			}
+			else { img = imgd.Img; }
+
+			int x = PtPbImageBase.X + pos.X;
+			int y = PtPbImageBase.Y + pos.Y;
+			int w = img.Width;
+			int h = img.Height;
+
+			//カラーマトリクスの指定
+			ColorMatrix clrMtx = new ColorMatrix ();
+			clrMtx.Matrix00 = 1;
+			clrMtx.Matrix11 = 1;
+			clrMtx.Matrix22 = 1;
+			clrMtx.Matrix33 = alpha;
+			clrMtx.Matrix44 = 1;
+
+			//イメージアトリビュートの指定
+			ImageAttributes imgAtrb = new ImageAttributes ();
+			imgAtrb.SetColorMatrix ( clrMtx );
+
+			Rectangle rect = new Rectangle ( x, y, w, h );
+			g.DrawImage ( img, rect, 0, 0, w, h, GraphicsUnit.Pixel, imgAtrb );
 		}
 
 

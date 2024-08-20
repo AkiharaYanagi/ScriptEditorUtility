@@ -112,18 +112,46 @@ namespace ScriptEditor
 		//０以外の未使用グループ値を検索
 		public int GetUnusedIndex ( LScp lsScp )
 		{
-			int unusedGroup = 1;
+			int unusedGroup = 0;
+
+			//リストのグループIDを記録
+			List < int > L_Grp = new List<int> ();
 			for ( int i = 0; i < lsScp.Count; ++ i )
 			{
-				Script s = lsScp [ i ];
-				if ( unusedGroup == s.Group ) 
+				L_Grp.Add ( lsScp [i].Group );
+			}
+
+			L_Grp.Sort();	//ソート
+
+			//＋１ずつ比較
+			for ( int i = 0; i < L_Grp.Count; ++ i )
+			{ 
+				int targetGroup = L_Grp [ i ];
+
+				//グループ０は飛ばす
+				if ( 0 == targetGroup ) { continue; }
+
+				//同じときは続行
+				if ( unusedGroup == targetGroup )
 				{
-					++ unusedGroup;
-					i = 0;
 					continue;
 				}
+				else
+				{
+					//異なるとき、対象が＋１ならチェック数値も＋１して続行
+					if (unusedGroup + 1 == targetGroup )
+					{
+						++ unusedGroup;
+						continue;
+					}
+
+					//ソート済みであるから、unusedGroup, +1 とも等しくないなら未使用
+					return unusedGroup;
+				}
 			}
-			return unusedGroup;
+
+			//対象がすべて連番だったとき、+1した値を返す
+			return 1 + unusedGroup;
 		}
 		public int GetUnusedIndex ()
 		{

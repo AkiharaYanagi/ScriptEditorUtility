@@ -39,6 +39,10 @@ namespace ScriptEditor
 				CB_L_Effect.SelectName ( SelectedEfgnrt.EfName );
 				All_Ctrl.Inst.UpdateData ();
 			};
+			EL_EfGnrt.Listbox_Changed = ()=>
+			{
+				All_Ctrl.Inst.UpdateData ();
+			};
 
 			this.Controls.Add ( EL_EfGnrt );
 			//==============================================================
