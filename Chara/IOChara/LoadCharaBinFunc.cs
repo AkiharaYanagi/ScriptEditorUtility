@@ -240,6 +240,7 @@ namespace ScriptEditor
 				chara.BD_Branch.Add ( brc );
 			}
 
+#if false
 			//コマンドとアクションの名前を再設定
 			foreach ( Branch brc in chara.BD_Branch.GetEnumerable () )
 			{
@@ -251,6 +252,7 @@ namespace ScriptEditor
 				int ActionID = GetIndex ( brc.NameSequence, "Seq_" );
 				brc.NameSequence = chara.behavior[ ActionID ].Name;
 			}
+#endif
 		}
 
 		//ルート
@@ -260,6 +262,7 @@ namespace ScriptEditor
 			uint N = br.ReadUInt32 ();
 			for ( uint i = 0; i < N; ++ i )
 			{
+				//ルート名
 				Route rut = new Route ()
 				{
 					Name = br.ReadString (),
@@ -268,14 +271,22 @@ namespace ScriptEditor
 				uint N_Brc = br.ReadUInt32 ();
 				for ( uint iBrc = 0; iBrc < N_Brc; ++ iBrc )
 				{
+					//仮ブランチ名 (Brc_ID)
+					uint brc_id = br.ReadUInt32 ();
+#if false
 					TName t = new TName ();
-					t.Name = "Brc_" + br.ReadUInt32 ();
+					t.Name = "Brc_" + ;
+					rut.BD_BranchName.Add ( t );
+#endif
+					Branch brc = chara.BD_Branch [ (int)brc_id ];
+					TName t = new TName ( brc.Name );
 					rut.BD_BranchName.Add ( t );
 				}
 
 				chara.BD_Route.Add ( rut );
 			}
 
+#if false
 			//ブランチの名前を再設定
 			foreach ( Route rut in chara.BD_Route.GetEnumerable () )
 			{
@@ -296,6 +307,7 @@ namespace ScriptEditor
 					BD_Brc.Add ( new TName ( brc_name ) );
 				}
 			}
+#endif
 
 			//スクリプトにおけるルート名の再設定
 			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )

@@ -113,16 +113,21 @@ namespace ScriptEditor
 		//Route
 		void SaveBinRoute ( BinaryWriter bw, Chara chara )
 		{
-			//個数 [uint]
+			//ルート個数 [uint]
 			uint nRut = (uint)chara.BD_Route.Count ();
 			bw.Write ( nRut );
 
 			//実データ [sizeof ( Route ) * n]
 			foreach ( Route rut in chara.BD_Route.GetEnumerable () )
 			{
+				//ルート名
 				bw.Write ( rut.Name );      //string (length , [UTF8])
+				
+				//ブランチ個数
 				uint nBrnName = (uint)rut.BD_BranchName.Count ();
 				bw.Write ( nBrnName );	//[uint]
+				
+				//IDのみ記録
 				foreach ( TName brcName in rut.BD_BranchName.GetEnumerable () )
 				{
 					bw.Write ( (uint)chara.GetIndexOfBranch ( brcName.Name ) );	//int -> uint

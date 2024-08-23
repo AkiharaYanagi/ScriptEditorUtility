@@ -42,11 +42,14 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chara">
+      <HintPath>..\Dll\Chara.dll</HintPath>
+    </Reference>
     <Reference Include="Ctrl_Chara">
-      <HintPath>..\Ctrl_Chara\bin\x86\Debug\Ctrl_Chara.dll</HintPath>
+      <HintPath>..\Dll\Ctrl_Chara.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\Dll\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

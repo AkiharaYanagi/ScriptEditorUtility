@@ -105,7 +105,10 @@ namespace ScriptEditor
 			for ( uint ui = 0; ui < n; ++ ui )
 			{
 				//サイズ( uint -> int ) ( br.ReadBytes(size) のためint )
-				int size = (int)br.ReadUInt32 ();
+				uint usize = br.ReadUInt32 ();
+				//int size = (int)br.ReadUInt32 ();
+				int size = (int)usize; 
+
 				//一時領域
 				byte[] buffer = new byte [ size ];
 

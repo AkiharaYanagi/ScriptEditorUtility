@@ -43,10 +43,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chara">
-      <HintPath>..\Chara\bin\x86\Debug\Chara.dll</HintPath>
+      <HintPath>..\Dll\Chara.dll</HintPath>
     </Reference>
     <Reference Include="Ctrl_Chara">
-      <HintPath>..\Ctrl_Chara\bin\x86\Debug\Ctrl_Chara.dll</HintPath>
+      <HintPath>..\Dll\Ctrl_Chara.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -55,7 +55,7 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="ScriptEditorUtility">
-      <HintPath>..\ScriptEditorUtility\bin\x86\Debug\ScriptEditorUtility.dll</HintPath>
+      <HintPath>..\Dll\ScriptEditorUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
