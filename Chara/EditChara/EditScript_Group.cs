@@ -138,15 +138,15 @@ namespace ScriptEditor
 				}
 				else
 				{
-					//異なるとき、対象が＋１ならチェック数値も＋１して続行
-					if (unusedGroup + 1 == targetGroup )
+					if (unusedGroup + 1 != targetGroup )
+					//ソート済みであるから、unusedGroupと、 その+1 とも等しくないなら
+					//　+1 の値は未使用
 					{
-						++ unusedGroup;
-						continue;
+						return 1 + unusedGroup;
 					}
 
-					//ソート済みであるから、unusedGroup, +1 とも等しくないなら未使用
-					return unusedGroup;
+					//対象が＋１と同一ならチェック数値も＋１して続行
+					++ unusedGroup;
 				}
 			}
 
