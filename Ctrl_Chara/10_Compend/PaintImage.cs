@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
@@ -81,10 +82,11 @@ namespace ScriptEditor
 
 			//一つ前のメインイメージをゴースト表示
 			int index = EditCompend.SelectedScript.Frame;
+			List < Script > L_Scp =	EditCompend.SelectedSequence.ListScript;
 			//０のときは表示しない
-			if ( index > 0 )
+			if ( index > 0 && index - 1 < L_Scp.Count )
 			{
-				Script preScp = EditCompend.SelectedSequence.ListScript [ index - 1 ];
+				Script preScp = L_Scp [ index - 1 ];
 				ImageData preImgDt = Bd_Imgd.Get ( preScp.ImgName );
 				DrawImageData_alpha ( g, preImgDt, preScp.ImgName, preScp.Pos, 0.5F );
 			}
