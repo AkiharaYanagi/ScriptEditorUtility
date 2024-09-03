@@ -22,7 +22,7 @@
 
 		//次アクション名
 		//(空オブジェクト時にも指定しないと名前チェックエラーになる)
-		public string NextActionName { get; set; } = "Stand";
+		public string NextActionName { get; set; } = "立ち";
 
 		//アクション属性
 		public ActionCategory Category { get; set; } = ActionCategory.NEUTRAL;

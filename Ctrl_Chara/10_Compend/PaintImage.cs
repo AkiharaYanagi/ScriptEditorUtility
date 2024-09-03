@@ -85,6 +85,7 @@ namespace ScriptEditor
 			List < Script > L_Scp =	EditCompend.SelectedSequence.ListScript;
 			//０のときは表示しない
 			if ( index > 0 && index - 1 < L_Scp.Count )
+
 			{
 				Script preScp = L_Scp [ index - 1 ];
 				ImageData preImgDt = Bd_Imgd.Get ( preScp.ImgName );
