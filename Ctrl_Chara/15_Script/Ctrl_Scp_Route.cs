@@ -231,6 +231,8 @@ namespace ScriptEditor
 		//グループにペースト
 		private void Btn_PasteGroup_Click ( object sender, EventArgs e )
 		{
+			//@todo EditCompendの選択を更新
+			//		状態を表示するウィンドウを新規設定する
 			EditCompend.EditScript.DoGroup ( scp => SetBD_Route ( scp ) );
 		}
 
