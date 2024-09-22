@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Chara">
+      <HintPath>..\Dll\Chara.dll</HintPath>
+    </Reference>
+    <Reference Include="Ctrl_Chara">
+      <HintPath>..\Dll\Ctrl_Chara.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptEditorUtility">
+      <HintPath>..\Dll\ScriptEditorUtility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

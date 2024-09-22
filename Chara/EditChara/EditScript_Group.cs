@@ -19,7 +19,8 @@ namespace ScriptEditor
 		public List < LScp > L_ScriptGroup { get; set; } = new List<LScp> ();
 
 		//選択中グループ
-		LScp SelectedGroup = new LScp ();
+		public LScp SelectedGroup { get; set; } = new LScp (); 
+
 		public int SelectedGroupIndex { get; set; } = 0;
 
 
