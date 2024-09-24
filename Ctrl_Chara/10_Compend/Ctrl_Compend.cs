@@ -15,6 +15,7 @@ namespace ScriptEditor
 		public bool BoolAction { get; set; } = true;
 
 
+		//test
 		public void Call ()
 		{
 			sqc_board.Call ();

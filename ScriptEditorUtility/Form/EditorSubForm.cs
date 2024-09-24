@@ -70,6 +70,7 @@ namespace ScriptEditor
 		//---------------------------------------------------------------------
 		//親フォーム参照
 		public Form FormMain { get; set; } = new Form ();
+		//初期位置
 		public Point InitPt { get; set; } = new Point ( 0, 0 );
 
 		//イベント・表示変更時

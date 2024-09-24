@@ -101,7 +101,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test10_SubForm", "test10_Su
 		{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53} = {8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test11_Ctrl_EditCompend", "test11_Ctrl_EditCompend\test11_Ctrl_EditCompend.csproj", "{BF04C6E2-8440-49DF-93B1-01A206DB7569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test11_Ctrl_EditCompend", "test11_Ctrl_EditCompend\test11_Ctrl_EditCompend.csproj", "{BF04C6E2-8440-49DF-93B1-01A206DB7569}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C} = {7FEA4C0B-36FC-4F72-8BBE-265ADD19A36C}
+		{8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8} = {8AC66ABB-4575-4D34-8780-1F6EA3BDB4B8}
+		{8E9BE4C1-7111-43A2-8F5E-8951DF25AF53} = {8E9BE4C1-7111-43A2-8F5E-8951DF25AF53}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

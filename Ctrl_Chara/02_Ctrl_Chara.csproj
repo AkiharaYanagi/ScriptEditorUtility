@@ -72,11 +72,57 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="00_SqcList\SqcData\ImageName.cs" />
+    <Compile Include="10_Compend\SubForms_Compend.cs" />
     <Compile Include="15_Script\Ctrl_Image.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="15_Script\Ctrl_Image.Designer.cs">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\Ctrl_SubFormBtn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\Ctrl_SubFormBtn.Designer.cs">
+      <DependentUpon>Ctrl_SubFormBtn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\FormEfGnrt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\FormRect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\FormRect.Designer.cs">
+      <DependentUpon>FormRect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\FormRoute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\FormRoute.Designer.cs">
+      <DependentUpon>FormRoute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\FormScript.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\FormScript.Designer.cs">
+      <DependentUpon>FormScript.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\Form_Image.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\Form_Image.designer.cs">
+      <DependentUpon>Form_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\Form_ScriptList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\SubForm_CmpdInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\SubForm_CmpdInfo.Designer.cs">
+      <DependentUpon>SubForm_CmpdInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="50_SubForm\SubForm_Compend.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="99_Common\CKB_ScpBool.cs">
       <SubType>Component</SubType>
@@ -185,10 +231,10 @@
     </Compile>
     <Compile Include="99_Common\Ctrl_Settings.cs" />
     <Compile Include="99_Common\IScriptParam.cs" />
-    <Compile Include="Ctrl_EditCompend.cs">
+    <Compile Include="50_SubForm\Ctrl_EditCompend.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl_EditCompend.Designer.cs">
+    <Compile Include="50_SubForm\Ctrl_EditCompend.Designer.cs">
       <DependentUpon>Ctrl_EditCompend.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -317,8 +363,32 @@
     <EmbeddedResource Include="40_Route\Ctrl_Route.resx">
       <DependentUpon>Ctrl_Route.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl_EditCompend.resx">
+    <EmbeddedResource Include="50_SubForm\Ctrl_EditCompend.resx">
       <DependentUpon>Ctrl_EditCompend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\Ctrl_SubFormBtn.resx">
+      <DependentUpon>Ctrl_SubFormBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\FormEfGnrt.resx">
+      <DependentUpon>FormEfGnrt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\FormRect.resx">
+      <DependentUpon>FormRect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\FormRoute.resx">
+      <DependentUpon>FormRoute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\FormScript.resx">
+      <DependentUpon>FormScript.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\Form_Image.resx">
+      <DependentUpon>Form_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\Form_ScriptList.resx">
+      <DependentUpon>Form_ScriptList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="50_SubForm\SubForm_CmpdInfo.resx">
+      <DependentUpon>SubForm_CmpdInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

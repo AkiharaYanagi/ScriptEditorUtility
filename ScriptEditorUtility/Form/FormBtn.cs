@@ -7,7 +7,7 @@ namespace ScriptEditorUtility
 {
 	public partial class FormBtn : UserControl
 	{
-		public EditorSubForm Form {  get; set; } = new EditorSubForm ();
+		public EditorSubForm Form { get; set; } = new EditorSubForm ();
 
 		public FormBtn ()
 		{

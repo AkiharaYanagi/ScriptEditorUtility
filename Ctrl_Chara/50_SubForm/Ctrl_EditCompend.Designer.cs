@@ -1,4 +1,4 @@
-﻿namespace Ctrl_Chara
+﻿namespace ScriptEditor
 {
 	partial class Ctrl_EditCompend
 	{

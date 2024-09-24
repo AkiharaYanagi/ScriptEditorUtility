@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using ScriptEditor;
 
-namespace Ctrl_Chara
+namespace ScriptEditor
 {
 	using LScp = List < Script >;
 
 
+	//EditCompendの情報を表示する
 	public partial class Ctrl_EditCompend : UserControl
 	{
 
 		//全体編集
 		private EditCompend EditCompend = new EditCompend ();
 
-		
+		//コンストラクタ
 		public Ctrl_EditCompend ()
 		{
 			InitializeComponent ();
 		}
 
-
+		//環境設定
 		public void SetEnvironment ( EditCompend ec )
 		{
 			EditCompend = ec;
 		}
 
-
+		//関連付け
 		public void Assosiate ()
 		{
 			EditCompend EC = EditCompend;

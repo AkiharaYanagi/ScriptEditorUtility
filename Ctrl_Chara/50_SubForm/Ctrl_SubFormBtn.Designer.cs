@@ -32,10 +32,11 @@
 			// 
 			// Ctrl_SubFormBtn
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.Name = "Ctrl_SubFormBtn";
-			this.Size = new System.Drawing.Size(264, 387);
+			this.Size = new System.Drawing.Size(204, 370);
 			this.ResumeLayout(false);
 
 		}

@@ -60,12 +60,6 @@
   <ItemGroup>
     <Compile Include="CSharp\BindingDictionary.cs" />
     <Compile Include="CSharp\Document.cs" />
-    <Compile Include="Form\Ctrl_SubFormBtn.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Form\Ctrl_SubFormBtn.Designer.cs">
-      <DependentUpon>Ctrl_SubFormBtn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\DefineColor.cs" />
     <Compile Include="Control\EditListbox.cs">
       <SubType>UserControl</SubType>
@@ -103,9 +97,6 @@
     <Compile Include="Windows\XML_IO.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\Ctrl_SubFormBtn.resx">
-      <DependentUpon>Ctrl_SubFormBtn.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Control\EditListbox.resx">
       <DependentUpon>EditListbox.cs</DependentUpon>
     </EmbeddedResource>
