@@ -6,6 +6,8 @@ namespace ScriptEditor
 	{
 		public static Color Get ( int i ) 
 		{
+			i = i % 32;
+
 			switch ( i )
 			{
 			case  0: return Color.FromArgb ( 0xff, 0xff, 0xff, 0xff );

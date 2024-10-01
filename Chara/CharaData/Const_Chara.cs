@@ -40,6 +40,8 @@
 	//Save :: CharToDoc ではintに変換している 
 	public enum BranchCondition
 	{
+		NONE,	//条件無し
+
 		CMD,	//コマンド成立
 		
 		GRD,	//着地
@@ -57,10 +59,11 @@
 
 		OFS,	//相殺時
 		END,	//シークエンス終了時
+		DASH,	//ダッシュ相殺
 
 		//他、特殊フラグをゲームメインで設定できる
-		//FLG_0, 
-		DASH,	//ダッシュ相殺
+		FLG_0, FLG_1, FLG_2, FLG_3, FLG_4, FLG_5, FLG_6, FLG_7, 
+		FLG_8, FLG_9, FLG_10, FLG_11, FLG_12, FLG_13, FLG_14, FLG_15, 
 	}
 
 	//キャラ関連 定数
