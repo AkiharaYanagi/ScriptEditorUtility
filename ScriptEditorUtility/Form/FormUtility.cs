@@ -1,6 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
+using System.Linq;
 
 
 namespace ScriptEditor
@@ -29,6 +31,22 @@ namespace ScriptEditor
 		{
 			InitPosition ( f, start_X, start_Y );
 		}
+
+		//==============================================================
+		//フォーム開始位置をマウスのあるディスプレイの左上にする
+		public static void InitStartDisplayOnMouse ( Form f )
+		{
+			f.StartPosition = FormStartPosition.Manual;
+
+			//マウス位置のスクリーンを取得
+			Screen scr = Screen.AllScreens.FirstOrDefault ( s=>s.Bounds.Contains ( Cursor.Position ) );
+
+			Point pt = new Point ( 50 + scr.Bounds.Left, 50 + scr.Bounds.Top );
+
+			f.Location = pt;
+		
+		}
+
 
 		//==============================================================
 		//現在ディレクトリをエクスプローラで開く
