@@ -41,6 +41,7 @@ namespace ScriptEditor
 		public int Recoil_E { get; set; } = 0;	//反動(x,y)(相手)
 		public int Blance_I { get; set; } = 0;	//バランス増減(自分)
 		public int Blance_E { get; set; } = 0;	//バランス増減(相手)
+		public int DirectDamage { get; set;　} = 0;	//直接ダメージ
 
 
 		//================================================================

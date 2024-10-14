@@ -2,6 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 
 namespace ScriptEditor
@@ -112,6 +114,7 @@ namespace ScriptEditor
 				{
 					EffectGenerate efgnrt = new EffectGenerate ()
 					{ 
+						//エフェクトイメージ名は後で指定し直す
 						EfName = "Ef_" + br.ReadUInt32 ().ToString(),
 						Pt = new Point ( br.ReadInt32 (), br.ReadInt32 () ),
 						Z_PER100F = br.ReadInt32 (),
@@ -339,7 +342,16 @@ namespace ScriptEditor
 		private int GetIndex ( string str_index, string head )
 		{
 			int n = head.Length;
-			int nextActionID = int.Parse ( str_index.Substring ( n, str_index.Length - n ) );
+			int nextActionID = 0;
+			try
+			{
+				nextActionID = int.Parse ( str_index.Substring ( n, str_index.Length - n ) );
+			}
+			catch ( Exception e )
+			{
+				Debug.WriteLine ( e.Message );
+				return 0;
+			}
 			return nextActionID;
 		}
 	}

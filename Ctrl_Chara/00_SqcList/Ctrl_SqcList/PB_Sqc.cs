@@ -292,8 +292,8 @@ namespace ScriptEditor
 					int y = ns * CH;
 
 					//シークエンスデータ
-					DrawSequence(g, sqcDt.Sqc.Name, FONT0, 0 + y);
-					DrawSequence(g, "[" + sqcDt.nScript.ToString() + "]", FONT0, 20 + y);
+					DrawSequence(g, sqcDt.Sqc.Name + "[" + sqcDt.nScript + "]", FONT0, 0 + y);
+					DrawSequence(g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 20 + y);
 					if ( FlagAction )
 					{
 						Action act = (Action)sqcDt.Sqc;

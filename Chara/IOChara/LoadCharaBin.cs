@@ -4,6 +4,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Text;
 using System.Drawing;
+using System.Collections.Generic;
 
 
 namespace ScriptEditor
@@ -93,7 +94,10 @@ namespace ScriptEditor
 				//ビヘイビア
 				LoadImage ( br, chara.behavior.BD_Image );		   
 				//ガーニッシュ
-				LoadImage ( br, chara.garnish.BD_Image );		   
+				LoadImage ( br, chara.garnish.BD_Image );
+				
+				//スクリプトにおけるイメージ名の再設定
+				Respecift_ImageName ( chara );
 			}
 		}
 
@@ -104,6 +108,9 @@ namespace ScriptEditor
 
 			for ( uint ui = 0; ui < n; ++ ui )
 			{
+				//名前 [utf-8] ( byte 名前のサイズ, 実データ )
+				string name = br.ReadString ();
+
 				//サイズ( uint -> int ) ( br.ReadBytes(size) のためint )
 				uint usize = br.ReadUInt32 ();
 				//int size = (int)br.ReadUInt32 ();
@@ -120,11 +127,56 @@ namespace ScriptEditor
 				ImageData imgdt = new ImageData ()
 				{
 					Img = img,
-					Name = img.ToString(),
+					Name = name,
 				};
 
 				bd_img.Add ( imgdt );
 			}
+		}
+
+		//イメージ名の再指定
+		public void Respecift_ImageName ( Chara chara )
+		{
+			BD_Img bdImgBhv = chara.behavior.BD_Image;
+			BD_Img bdImgGns = chara.garnish.BD_Image;
+
+
+			//スクリプトにおけるイメージ名の再指定
+			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in act.ListScript )
+				{
+					//メインイメージ名
+					int id = GetIndex ( scp.ImgName, "Img_" );
+					scp.ImgName = bdImgBhv [ id ].Name;
+
+					//エフェクトイメージ名
+					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
+					{
+						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
+						efGnrt.EfName = bdImgGns [ idEf ].Name;
+					}
+				}
+			}
+
+			//エフェクトにおけるイメージ名の再指定
+			foreach ( Effect efc in chara.garnish.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in efc.ListScript )
+				{
+					//エフェクトイメージ名
+					int id = GetIndex ( scp.ImgName, "Img_" );
+					scp.ImgName = bdImgGns [ id ].Name;
+
+					//エフェクトイメージ名
+					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
+					{
+						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
+						efGnrt.EfName = bdImgGns [ idEf ].Name;
+					}
+				}
+			}
+
 		}
 	}
 }

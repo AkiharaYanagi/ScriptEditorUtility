@@ -30,7 +30,7 @@ namespace ScriptEditor
 
 		public int Vibration_S { get; set; } = 0;		//振動[F](個別)
 		public Color Color { get; set; } = Color.White;	//色調変更
-		public int Color_time { get; set; } = 0;			//色調変更[F] 持続
+		public int Color_time { get; set; } = 0;		//色調変更[F] 持続
 
 		public Point Scaling { get; set; } = new Point ();	//拡大縮小 1/100
 		public void SetScaling ( int x, int y ) { Scaling = new Point ( x, y ); }
@@ -38,6 +38,12 @@ namespace ScriptEditor
 		public void SetScalingY ( int y ) { Scaling = new Point ( Scaling.X, y ); }
 
 		public int SE { get; set; } = 0;	//SE指定
+
+		public string SE_name = "SE_name";	//SE名指定
+		public string VC_name = "VC_nmae";	//音声指定
+
+
+		//@todo 投げ演出などで直接相手のライフを増減する値をどこに指定するか
 
 
 		//================================================================

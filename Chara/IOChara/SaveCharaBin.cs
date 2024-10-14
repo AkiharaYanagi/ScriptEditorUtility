@@ -115,7 +115,6 @@ namespace ScriptEditor
 				//イメージを一時領域に書出
 				using ( MemoryStream msImg = new MemoryStream () )
 				{
-				id.Img.Save ( msImg, ImageFormat.Png );
 				
 				//名前
 				bw.Write ( id.Name );		//string (length , [UTF8])
@@ -125,6 +124,7 @@ namespace ScriptEditor
 
 				//------------
 				//実データ
+				id.Img.Save ( msImg, ImageFormat.Png );
 				msImg.Seek ( 0, SeekOrigin.Begin );
 				while ( ( numBytes = msImg.Read ( buffer, 0, size ) ) > 0 )
 				{ 

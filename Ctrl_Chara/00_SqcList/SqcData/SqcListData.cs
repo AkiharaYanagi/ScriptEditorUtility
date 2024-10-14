@@ -114,6 +114,9 @@ namespace ScriptEditor
 					}
 				}
 			}
+
+			//名前の更新
+			UpdateName ();
 		}
 
 		//既存Compendデータからアップデート

@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-
-//
-//@todo 項目追加	SE指定ID
-//
-
-
-
 namespace ScriptEditor
 {
 	using BD_Tn = BindingDictionary < TName >;
@@ -90,6 +83,9 @@ namespace ScriptEditor
 		public ScriptParam_Battle BtlPrm = new ScriptParam_Battle ();
 		//演出パラメータ
 		public ScriptParam_Staging StgPrm = new ScriptParam_Staging ();
+
+		//汎用パラメータ
+		public Int32[] Versatile { get; set; } = new Int32 [ 16 ];
 
 
 		//================================================================
