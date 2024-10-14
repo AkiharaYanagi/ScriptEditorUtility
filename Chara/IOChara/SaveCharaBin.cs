@@ -114,8 +114,7 @@ namespace ScriptEditor
 			{
 				//イメージを一時領域に書出
 				using ( MemoryStream msImg = new MemoryStream () )
-				{
-				
+				{			
 				//名前
 				bw.Write ( id.Name );		//string (length , [UTF8])
 

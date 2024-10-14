@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\ImageName.cs" />
     <Compile Include="CSharp\BindingDictionary.cs" />
     <Compile Include="CSharp\Document.cs" />
     <Compile Include="Windows\DefineColor.cs" />

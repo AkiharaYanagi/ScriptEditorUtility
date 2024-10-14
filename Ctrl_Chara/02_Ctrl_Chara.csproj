@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="00_SqcList\SqcData\ImageName.cs" />
     <Compile Include="10_Compend\SubForms_Compend.cs" />
     <Compile Include="15_Script\Ctrl_Image.cs">
       <SubType>UserControl</SubType>

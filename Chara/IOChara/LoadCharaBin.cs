@@ -124,12 +124,16 @@ namespace ScriptEditor
 				MemoryStream ms = new MemoryStream ( buffer );
 				Image img = Image.FromStream ( ms );
 
+				//イメージデータ作成
+#if false
 				ImageData imgdt = new ImageData ()
 				{
 					Img = img,
 					Name = name,
 				};
-
+#endif
+				//コンストラクタで引数からサムネイルを作成
+				ImageData imgdt = new ImageData ( name, img );
 				bd_img.Add ( imgdt );
 			}
 		}
@@ -140,8 +144,7 @@ namespace ScriptEditor
 			BD_Img bdImgBhv = chara.behavior.BD_Image;
 			BD_Img bdImgGns = chara.garnish.BD_Image;
 
-
-			//スクリプトにおけるイメージ名の再指定
+			//アクションにおけるイメージ名の再指定
 			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )
 			{
 				foreach ( Script scp in act.ListScript )
@@ -149,13 +152,6 @@ namespace ScriptEditor
 					//メインイメージ名
 					int id = GetIndex ( scp.ImgName, "Img_" );
 					scp.ImgName = bdImgBhv [ id ].Name;
-
-					//エフェクトイメージ名
-					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
-					{
-						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
-						efGnrt.EfName = bdImgGns [ idEf ].Name;
-					}
 				}
 			}
 
@@ -167,13 +163,6 @@ namespace ScriptEditor
 					//エフェクトイメージ名
 					int id = GetIndex ( scp.ImgName, "Img_" );
 					scp.ImgName = bdImgGns [ id ].Name;
-
-					//エフェクトイメージ名
-					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
-					{
-						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
-						efGnrt.EfName = bdImgGns [ idEf ].Name;
-					}
 				}
 			}
 

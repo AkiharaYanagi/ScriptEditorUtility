@@ -144,6 +144,10 @@ namespace ScriptEditor
 			bw.Write ( nScp ); 
 			foreach ( Script scp in lsScp )
 			{ 
+				//グループ
+//				bw.Write ( scp.Group );
+
+
 				//イメージインデックス
 				uint imgIndex = (uint)cmp.BD_Image.IndexOf ( scp.ImgName );
 				bw.Write ( (uint)imgIndex );

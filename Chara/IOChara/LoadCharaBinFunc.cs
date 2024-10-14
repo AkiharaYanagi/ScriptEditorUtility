@@ -78,6 +78,38 @@ namespace ScriptEditor
 
 				gns.BD_Sequence.Add ( efc );
 			}
+
+
+			//エフェクト名の再指定
+			BindingDictionary < Sequence > bdGns = chara.garnish.BD_Sequence;
+
+			foreach ( Effect efc in chara.garnish.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in efc.ListScript )
+				{
+					//エフェクト名
+					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
+					{
+						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
+						efGnrt.EfName = bdGns [ idEf ].Name;
+					}
+				}
+			}
+
+			//アクションにおけるエフェクト名の再指定
+			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in act.ListScript )
+				{
+					//エフェクト名
+					foreach ( EffectGenerate efGnrt in scp.BD_EfGnrt.GetEnumerable() )
+					{
+						int idEf = GetIndex ( efGnrt.EfName, "Ef_" );
+						efGnrt.EfName = bdGns [ idEf ].Name;
+					}
+				}
+			}
+
 		}
 
 		//スクリプトリスト
@@ -88,11 +120,17 @@ namespace ScriptEditor
 			
 			for ( uint i = 0; i < N_Scp; ++ i )
 			{
-				Script scp = new Script ()
-				{
-					ImgName = "Img_" + br.ReadUInt32 ().ToString (),	//後にイメージ名に変換
-					Pos = new Point ( br.ReadInt32 (), br.ReadInt32 () ),
-				};
+				//スクリプト
+				Script scp = new Script ();
+
+				//グループ
+//				scp.Group = br.ReadInt32 ();
+
+				//イメージ名
+				scp.ImgName = "Img_" + br.ReadUInt32 ().ToString ();	//後にイメージ名に変換
+				
+				//表示位置
+				scp.Pos = new Point ( br.ReadInt32 (), br.ReadInt32 () );
 
 				//ルート名リスト
 				uint nRut = br.ReadUInt32 ();
@@ -114,7 +152,7 @@ namespace ScriptEditor
 				{
 					EffectGenerate efgnrt = new EffectGenerate ()
 					{ 
-						//エフェクトイメージ名は後で指定し直す
+						//エフェクト名は後で指定し直す
 						EfName = "Ef_" + br.ReadUInt32 ().ToString(),
 						Pt = new Point ( br.ReadInt32 (), br.ReadInt32 () ),
 						Z_PER100F = br.ReadInt32 (),
@@ -242,20 +280,6 @@ namespace ScriptEditor
 				
 				chara.BD_Branch.Add ( brc );
 			}
-
-#if false
-			//コマンドとアクションの名前を再設定
-			foreach ( Branch brc in chara.BD_Branch.GetEnumerable () )
-			{
-				int id = GetIndex ( brc.NameCommand, "Cmd_" );
-				brc.NameCommand = chara.BD_Command [ id ].Name;
-			}
-			foreach ( Branch brc in chara.BD_Branch.GetEnumerable () )
-			{
-				int ActionID = GetIndex ( brc.NameSequence, "Seq_" );
-				brc.NameSequence = chara.behavior[ ActionID ].Name;
-			}
-#endif
 		}
 
 		//ルート
@@ -274,13 +298,8 @@ namespace ScriptEditor
 				uint N_Brc = br.ReadUInt32 ();
 				for ( uint iBrc = 0; iBrc < N_Brc; ++ iBrc )
 				{
-					//仮ブランチ名 (Brc_ID)
+					//ブランチ
 					uint brc_id = br.ReadUInt32 ();
-#if false
-					TName t = new TName ();
-					t.Name = "Brc_" + ;
-					rut.BD_BranchName.Add ( t );
-#endif
 					Branch brc = chara.BD_Branch [ (int)brc_id ];
 					TName t = new TName ( brc.Name );
 					rut.BD_BranchName.Add ( t );
@@ -288,29 +307,6 @@ namespace ScriptEditor
 
 				chara.BD_Route.Add ( rut );
 			}
-
-#if false
-			//ブランチの名前を再設定
-			foreach ( Route rut in chara.BD_Route.GetEnumerable () )
-			{
-				BindingDictionary < TName > BD_Brc = rut.BD_BranchName;
-
-				//名前だけのリストを作成
-				List < string > L_Tn = new List < string > ();
-				foreach ( TName t in BD_Brc.GetEnumerable () )
-				{
-					int id = GetIndex ( t.Name, "Brc_" );
-					L_Tn.Add ( chara.BD_Branch [ id ].Name );
-				}
-
-				//クリアして再追加
-				BD_Brc.Clear ();
-				foreach ( string brc_name in L_Tn )
-				{
-					BD_Brc.Add ( new TName ( brc_name ) );
-				}
-			}
-#endif
 
 			//スクリプトにおけるルート名の再設定
 			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )
