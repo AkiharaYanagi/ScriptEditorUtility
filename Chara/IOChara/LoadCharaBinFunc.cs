@@ -115,19 +115,74 @@ namespace ScriptEditor
 		//スクリプトリスト
 		private void LoadBinListScript ( BinaryReader br, List<Script> lscp )
 		{
+			//test
+			//int start_group = 1;
+			//int present_group = 1;
+
+			//Debug.Write ( "\n");
+
+
 			//スクリプト個数
 			uint N_Scp = br.ReadUInt32 ();
 			
+
 			for ( uint i = 0; i < N_Scp; ++ i )
 			{
 				//スクリプト
 				Script scp = new Script ();
 
-				//グループ
-//				scp.Group = br.ReadInt32 ();
 
+				//フレーム数は数え上げながら設定する
+				scp.Frame = (int)i;
+
+
+				//----------------------------------------
+				//グループ
+#if false
+				//test
+				//アクションごとにグループのスタートナンバーを1から割り振る
+
+				//一時保存グループと更新グループが重なるため、判定をマイナスで行う
+				int temp_group = br.ReadInt32 ();
+				temp_group *= -1;
+
+
+				//最初の1回は無条件保存
+				if ( i == 0 ) { present_group = temp_group; }
+				else
+				{
+					//異なるとき更新
+					if (present_group != temp_group)
+					{
+						present_group = temp_group;
+						++ start_group;
+					}
+				}
+
+				scp.Group = start_group;
+
+				//出力
+				Debug.Write ( "" + temp_group + "->" + scp.Group + ",");
+#else
+				
+				scp.Group = br.ReadInt32 ();
+#endif
+
+				//----------------------------------------
+
+
+#if false
 				//イメージ名
 				scp.ImgName = "Img_" + br.ReadUInt32 ().ToString ();	//後にイメージ名に変換
+#else
+
+				//イメージインデックス
+				uint imgIndex = br.ReadUInt32 ();
+
+
+				//イメージ名
+				scp.ImgName = br.ReadString ();	//[utf-8]
+#endif
 				
 				//表示位置
 				scp.Pos = new Point ( br.ReadInt32 (), br.ReadInt32 () );
@@ -175,6 +230,7 @@ namespace ScriptEditor
 					Recoil_E = br.ReadInt32 (),
 					Blance_I = br.ReadInt32 (),
 					Blance_E = br.ReadInt32 (),
+					DirectDamage = br.ReadInt32 (),
 				};
 				scp.BtlPrm = btlPrm;
 
@@ -193,8 +249,23 @@ namespace ScriptEditor
 					Color = Color.FromArgb ( (int) br.ReadUInt32 () ),
 					Color_time = br.ReadByte (),
 					Scaling = new Point ( br.ReadInt32(), br.ReadInt32() ),
-					SE = (int)br.ReadUInt32 ()
+					SE = (int)br.ReadUInt32 (),
+					SE_name = br.ReadString (),
+					VC_name = br.ReadString (),
 				};
+
+//		stgPrm.SE_name = "";
+//		stgPrm.VC_name = "";
+
+				scp.StgPrm = stgPrm;
+
+
+				//汎用パラメータ
+				for ( uint indexVst = 0; indexVst < scp.Versatile.Length; ++ indexVst )
+				{ 
+					scp.Versatile [ indexVst ] = br.ReadInt32 ();
+				}
+
 
 				lscp.Add ( scp );
 			}

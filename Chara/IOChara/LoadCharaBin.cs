@@ -97,7 +97,7 @@ namespace ScriptEditor
 				LoadImage ( br, chara.garnish.BD_Image );
 				
 				//スクリプトにおけるイメージ名の再設定
-				Respecift_ImageName ( chara );
+				//Respecift_ImageName ( chara );
 			}
 		}
 

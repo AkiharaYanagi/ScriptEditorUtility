@@ -50,6 +50,9 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_Scaling_y = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_SE = new Cmpnt_Int ();
 
+		private CB_Names cb_SE = new CB_Names ();
+		private CB_Names cb_VC = new CB_Names ();
+
 
 		//編集対象を切り替えるラジオボタン
 		private RB_ScriptTarget rb_ScpTgt = new RB_ScriptTarget ();
@@ -99,11 +102,15 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_y );
 			ls_ctrl_scpPrm.Add ( cmpnt_SE );
 
+
 			//コンポーネントの追加
 			foreach ( Control ctrl in ls_ctrl_scpPrm )
 			{
 				this.Controls.Add ( ctrl );
 			}
+			this.Controls.Add ( cb_SE );
+			this.Controls.Add ( cb_VC );
+
 
 			//コンポーネントの各種設定
 			cmpnt_ClcSt.SetParam ( new SP_CLT_ST ( (s,c)=>s.BtlPrm.CalcState=c, s=>s.BtlPrm.CalcState ) );
@@ -133,6 +140,9 @@ namespace ScriptEditor
 			cmpnt_Scaling_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingX(i), s=>s.StgPrm.Scaling.X ) );
 			cmpnt_Scaling_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingY(i), s=>s.StgPrm.Scaling.Y ) );
 			cmpnt_SE.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SE=i, s=>s.StgPrm.SE ) );
+
+			cb_SE.ScpPrm = new ScriptParam < string > ( (s,str)=>s.StgPrm.SE_name=str, s=>s.StgPrm.SE_name );
+			cb_VC.ScpPrm = new ScriptParam < string > ( (s,str)=>s.StgPrm.VC_name=str, s=>s.StgPrm.VC_name );
 
 
 			//コンポーネントの位置
@@ -164,6 +174,10 @@ namespace ScriptEditor
 			cmpnt_Scaling_y.Location	= new Point ( BX1 + PX	, BY + PY * 7 );
 			cmpnt_SE.Location			= new Point ( BX1		, BY + PY * 8 );
 
+			cb_SE.Location = new Point ( BX1		, BY + PY * 9 );
+			cb_VC.Location = new Point ( BX1		, BY + PY * 10 );
+
+
 			//初期化
 			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )
 			{
@@ -172,6 +186,13 @@ namespace ScriptEditor
 
 			//デフォルトの初期化
 			InitializeComponent ();
+		}
+
+
+		public void LoadData ( string filedir )
+		{
+			cb_SE.LoadData ( filedir + "\\SE_Name.txt" );
+			cb_VC.LoadData ( filedir + "\\VC_Name.txt" );
 		}
 
 
@@ -194,12 +215,18 @@ namespace ScriptEditor
 			Tb_Img.Text = script.ImgName;
 
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.Assosiate ( script ); }
+
+			cb_SE.Assosiate ( script );
+			cb_VC.Assosiate ( script );
 		}
 
 		//更新
 		public void UpdateData ()
 		{
 			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.UpdateData (); }
+
+			cb_SE.UpdateData ();
+			cb_VC.UpdateData ();
 		}
 
 		//表示

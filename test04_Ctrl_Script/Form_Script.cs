@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ScriptEditor
@@ -11,6 +12,8 @@ namespace ScriptEditor
 			InitializeComponent ();
 
 			EditCompend eb = EditChara.Inst.EditBehavior;
+
+			ctrl_Script1.LoadData ( Directory.GetCurrentDirectory() );
 			ctrl_Script1.SetEnvironment ( eb );
 
 

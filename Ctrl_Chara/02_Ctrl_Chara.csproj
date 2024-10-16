@@ -123,6 +123,9 @@
     <Compile Include="50_SubForm\SubForm_Compend.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="99_Common\CB_Names.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="99_Common\CKB_ScpBool.cs">
       <SubType>Component</SubType>
     </Compile>

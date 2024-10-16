@@ -118,12 +118,14 @@ namespace ScriptEditor
 				//名前
 				bw.Write ( id.Name );		//string (length , [UTF8])
 
+				//------------
+				//@info 先にメモリに書き出してmsImg.Lengthにサイズを記録する
+				//実データ
+				id.Img.Save ( msImg, ImageFormat.Png );
+
 				//サイズ
 				bw.Write ( (uint)msImg.Length );
 
-				//------------
-				//実データ
-				id.Img.Save ( msImg, ImageFormat.Png );
 				msImg.Seek ( 0, SeekOrigin.Begin );
 				while ( ( numBytes = msImg.Read ( buffer, 0, size ) ) > 0 )
 				{ 

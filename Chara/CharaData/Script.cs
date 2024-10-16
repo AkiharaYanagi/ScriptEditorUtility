@@ -25,6 +25,8 @@ namespace ScriptEditor
 
 	//スクリプト項目に追加するとき以下を更新
 	// class Script
+	//		変数に追加
+	//		コピー類に値を追加
 	// IOChara (ScriptEditor)
 	// IOChara (GameMain)
 	// GameMain
@@ -85,7 +87,8 @@ namespace ScriptEditor
 		public ScriptParam_Staging StgPrm = new ScriptParam_Staging ();
 
 		//汎用パラメータ
-		public Int32[] Versatile { get; set; } = new Int32 [ 16 ];
+//		public Int32[] Versatile { get; set; } = new Int32 [ 16 ];
+		public Int32[] Versatile { get; set; } = Enumerable.Range ( 0, 16 ).ToArray ();
 
 
 		//================================================================
@@ -114,6 +117,8 @@ namespace ScriptEditor
 
 			this.BtlPrm = new ScriptParam_Battle ( s.BtlPrm );
 			this.StgPrm = new ScriptParam_Staging ( s.StgPrm );
+
+			this.Versatile = (Int32 []) s.Versatile.Clone ();	//値型なのでシャローコピー
 		}
 
 		//初期化
@@ -134,6 +139,8 @@ namespace ScriptEditor
 
 			BtlPrm.Clear ();
 			StgPrm.Clear ();
+
+			Versatile = Enumerable.Range ( 0, 16 ).ToArray ();
 		}
 
 		//コピー
@@ -154,6 +161,8 @@ namespace ScriptEditor
 
 			this.BtlPrm.Copy ( s.BtlPrm );
 			this.StgPrm.Copy ( s.StgPrm );
+
+			this.Versatile = (Int32 []) s.Versatile.Clone ();	//値型なのでシャローコピー
 		}
 
 		//コピー(フレーム数以外)
@@ -174,6 +183,8 @@ namespace ScriptEditor
 
 			this.BtlPrm.Copy ( s.BtlPrm );
 			this.StgPrm.Copy ( s.StgPrm );
+
+			this.Versatile = (Int32 []) s.Versatile.Clone ();	//値型なのでシャローコピー
 		}
 
 

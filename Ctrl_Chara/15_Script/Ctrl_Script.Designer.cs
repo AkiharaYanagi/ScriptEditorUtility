@@ -50,6 +50,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Lbl_Pos
@@ -253,12 +255,32 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(191, 340);
+            this.label5.Location = new System.Drawing.Point(223, 340);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(19, 12);
+            this.label5.Size = new System.Drawing.Size(34, 12);
             this.label5.TabIndex = 32;
-            this.label5.Text = "SE";
+            this.label5.Text = "SE_ID";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(209, 367);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 12);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "SE_Name";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(194, 393);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(67, 12);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "Voice_Name";
             // 
             // _Ctrl_Script
             // 
@@ -266,6 +288,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.Lbl_Center);
             this.Controls.Add(this.Lbl_Rotate);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -287,7 +311,7 @@
             this.Controls.Add(this.Lbl_Vel);
             this.Controls.Add(this.Lbl_Pos);
             this.Name = "_Ctrl_Script";
-            this.Size = new System.Drawing.Size(429, 424);
+            this.Size = new System.Drawing.Size(543, 428);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,5 +340,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label7;
 	}
 }

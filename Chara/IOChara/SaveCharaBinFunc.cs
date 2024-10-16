@@ -2,6 +2,8 @@
 using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
 
 
 namespace ScriptEditor
@@ -140,17 +142,30 @@ namespace ScriptEditor
 		//behaviorとgarnishでイメージインデックスの検索元が異なるので引数Compendで指定する
 		void SaveBinListScript ( BinaryWriter bw, Chara chara, List < Script > lsScp, Compend cmp )
 		{
+			//スクリプト個数
 			uint nScp = (uint)lsScp.Count;
 			bw.Write ( nScp ); 
+
+
+//			Debug.Write ( "\n");
+
+
+			//各スクリプト
 			foreach ( Script scp in lsScp )
 			{ 
 				//グループ
-//				bw.Write ( scp.Group );
+				bw.Write ( scp.Group );
+
+				//出力
+//				Debug.Write ( "" + scp.Group + ",");
 
 
 				//イメージインデックス
 				uint imgIndex = (uint)cmp.BD_Image.IndexOf ( scp.ImgName );
 				bw.Write ( (uint)imgIndex );
+
+				//イメージ名 [utf-8]
+				bw.Write ( scp.ImgName );
 
 
 				//位置
@@ -188,6 +203,12 @@ namespace ScriptEditor
 
 				//ステージング(演出)パラメータ
 				SaveBinScrPrmStg ( bw, scp );
+
+				//汎用パラメータ
+				foreach ( Int32 i in scp.Versatile )
+				{
+					bw.Write ( i );
+				}
 			}
 		}
 
@@ -225,6 +246,7 @@ namespace ScriptEditor
 			bw.Write ( prm.Recoil_E );
 			bw.Write ( prm.Blance_I );
 			bw.Write ( prm.Blance_E );
+			bw.Write ( prm.DirectDamage );
 		}
 
 		//---------------------------------------------------------------------
@@ -247,6 +269,8 @@ namespace ScriptEditor
 			bw.Write ( prm.Scaling.X );
 			bw.Write ( prm.Scaling.Y );
 			bw.Write ( (uint)prm.SE );
+			bw.Write ( prm.SE_name );
+			bw.Write ( prm.VC_name );
 		}
 		
 	}

@@ -39,11 +39,8 @@ namespace ScriptEditor
 
 		public int SE { get; set; } = 0;	//SE指定
 
-		public string SE_name = "SE_name";	//SE名指定
-		public string VC_name = "VC_nmae";	//音声指定
-
-
-		//@todo 投げ演出などで直接相手のライフを増減する値をどこに指定するか
+		public string SE_name = "";	//SE名指定
+		public string VC_name = "";	//音声指定
 
 
 		//================================================================
@@ -70,6 +67,9 @@ namespace ScriptEditor
 			this.Color_time = src.Color_time;
 			this.Scaling = src.Scaling;
 			this.SE = src.SE;
+
+			this.SE_name = string.Copy( src.SE_name );
+			this.VC_name = string.Copy( src.VC_name );
 		}
 
 		//初期化
@@ -89,6 +89,9 @@ namespace ScriptEditor
 			Color_time = 0;
 			Scaling = new Point ( 0, 0 );
 			SE = 0;
+
+			SE_name = "";	//SE名指定
+			VC_name = "";	//音声指定
 		}
 
 		//コピー
@@ -108,6 +111,15 @@ namespace ScriptEditor
 			this.Color_time = src.Color_time;
 			this.Scaling = src.Scaling;
 			this.SE = src.SE;
+
+			this.SE_name = string.Copy( src.SE_name );
+			this.VC_name = string.Copy( src.VC_name );
+		}
+
+		//クローン
+		public ScriptParam_Staging Clone ()
+		{
+			return new ScriptParam_Staging ( this );
 		}
 	}
 }

@@ -63,6 +63,8 @@ namespace ScriptEditor
 			this.Recoil_E = src.Recoil_E;
 			this.Blance_I = src.Blance_I;
 			this.Blance_E = src.Blance_E;
+
+			this.DirectDamage = src.DirectDamage;
 		}
 
 		//初期化
@@ -77,6 +79,8 @@ namespace ScriptEditor
 			this.Recoil_E = 0;
 			this.Blance_I = 0;
 			this.Blance_E = 0;
+
+			this.DirectDamage = 0;
 		}
 
 		//コピー
@@ -91,6 +95,8 @@ namespace ScriptEditor
 			this.Recoil_E = src.Recoil_E;
 			this.Blance_I = src.Blance_I;
 			this.Blance_E = src.Blance_E;
+
+			this.DirectDamage = src.DirectDamage;
 		}
 	}
 }
