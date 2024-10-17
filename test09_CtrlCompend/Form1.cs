@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 
@@ -35,6 +36,8 @@ namespace ScriptEditor
 			ctrl_behavior.BoolAction = true;
 			ctrl_behavior.SetEnviron ( editBehavior );
 			ctrl_behavior.SetCharaData ( chara );
+
+			All_Ctrl.Inst.Scp.LoadData ( Directory.GetCurrentDirectory() );
 		}
 
 		private void Form1_Shown ( object sender, EventArgs e )

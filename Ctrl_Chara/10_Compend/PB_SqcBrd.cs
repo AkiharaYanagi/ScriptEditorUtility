@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 
 
 namespace ScriptEditor
@@ -64,7 +65,7 @@ namespace ScriptEditor
 			List<Script> ls = Sqc.ListScript;
 			int N = ls.Count;		//スクリプト個数
 			const int SURPLUS = 2;	//背景の余白個数
-			const int PH = H + H * 6;			//基準線
+			const int PH = H + H * 7;			//基準線
 
 			//大きさ
 			int minWidth = 400;
@@ -72,7 +73,7 @@ namespace ScriptEditor
 			this.Width = ( minWidth < sqcWidth ) ? sqcWidth: minWidth;
 //			this.Width = 1000;
 //			this.Height = 130 + BY + ( 2 * H );
-			this.Height = 90;
+			this.Height = PH;
 
 			//大きさの一時保存
 			int TW = Ctrl_Size.Width;
@@ -125,6 +126,7 @@ namespace ScriptEditor
 				DrawScp ( g, frame, 4, GetScpCntClr ( s.ListARect, ScpCntColor [ 3 ] ) );	//攻撃枠
 				DrawScp ( g, frame, 5, GetScpCntClr ( s.ListORect, ScpCntColor [ 4 ] ) );	//相殺枠
 				DrawScp ( g, frame, 6, GetScpEfGnClr ( s.BD_EfGnrt, ScpCntColor [ 5 ] ) );	//Ef生成
+				DrawScp ( g, frame, 7, GetScpSoundClr ( s ) );	//SOUND
 				++ frame;
 			}
 
@@ -144,6 +146,7 @@ namespace ScriptEditor
 			DrawStr_0 ( g, "■ ARect", 4, STR_FMT );
 			DrawStr_0 ( g, "■ ORect", 5, STR_FMT );
 			DrawStr_0 ( g, "■ EfGnrt", 6, STR_FMT );
+			DrawStr_0 ( g, "■ Sound", 7, STR_FMT );
 
 			//---------------------------------------------------------
 			//縦線	
@@ -182,6 +185,7 @@ namespace ScriptEditor
 			Brushes.LightCoral, 
 			Brushes.Goldenrod, 
 			Brushes.Turquoise, 
+			Brushes.ForestGreen, 
 			Brushes.LimeGreen, 
 		};
 
@@ -219,6 +223,13 @@ namespace ScriptEditor
 		private Color GetScpEfGnClr ( BindingDictionary < EffectGenerate > BD_EfGn, Color clr )
 		{
 			Color ret_clr = ( 0 < BD_EfGn.Count () ) ? clr : Color.White;
+			return ret_clr;
+		}
+		private Color GetScpSoundClr ( Script scp )
+		{
+			bool b_SE = ( 0 != scp.StgPrm.SE_name.CompareTo ( "" ) );
+			bool b_VC = ( 0 != scp.StgPrm.VC_name.CompareTo ( "" ) );
+			Color ret_clr = (b_SE || b_VC) ? Color.ForestGreen : Color.White;
 			return ret_clr;
 		}
 

@@ -100,6 +100,7 @@ namespace ScriptEditor
 		{
 			ScpPrm.Setter ( Scp, (string)this.SelectedItem );
 			this.BackColor = SystemColors.Control;
+			All_Ctrl.Inst.UpdateData_scp ();
 
 			base.OnSelectionChangeCommitted ( e );
 		}

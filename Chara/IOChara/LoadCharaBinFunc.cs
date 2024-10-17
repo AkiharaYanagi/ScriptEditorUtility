@@ -371,7 +371,13 @@ namespace ScriptEditor
 				{
 					//ブランチ
 					uint brc_id = br.ReadUInt32 ();
+					if ( brc_id > chara.BD_Branch.Count() )
+					{
+						brc_id = 0;
+					}
+
 					Branch brc = chara.BD_Branch [ (int)brc_id ];
+
 					TName t = new TName ( brc.Name );
 					rut.BD_BranchName.Add ( t );
 				}
