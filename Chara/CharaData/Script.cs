@@ -87,8 +87,9 @@ namespace ScriptEditor
 		public ScriptParam_Staging StgPrm = new ScriptParam_Staging ();
 
 		//汎用パラメータ
-//		public Int32[] Versatile { get; set; } = new Int32 [ 16 ];
-		public Int32[] Versatile { get; set; } = Enumerable.Range ( 0, 16 ).ToArray ();
+		const int VRS_SIZE = 16;
+//		public Int32[] Versatile { get; set; } = new Int32 [ VRS_SIZE ];
+		public Int32[] Versatile { get; set; } = Enumerable.Range ( 0, VRS_SIZE ).ToArray ();
 
 
 		//================================================================

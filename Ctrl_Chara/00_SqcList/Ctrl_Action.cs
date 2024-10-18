@@ -21,11 +21,14 @@ namespace ScriptEditor
 		private Label Lbl_HitPitch;
 		private TB_Number Tbn_HitPitch;
 		private Label lbl_Balance;
+		private TB_Number Tbn_Mana;
+		private Label Lbl_Mana;
+		private TB_Number Tbn_Accel;
+		private Label Lbl_Accel;
 		private TB_Number Tbn_Balance;
 
 		private void InitializeComponent ()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ctrl_Action));
 			this.lbl_Balance = new System.Windows.Forms.Label();
 			this.Tbn_Balance = new ScriptEditor.TB_Number();
 			this.Tbn_HitPitch = new ScriptEditor.TB_Number();
@@ -40,6 +43,10 @@ namespace ScriptEditor
 			this.Lbl_Category = new System.Windows.Forms.Label();
 			this.Lbl_Next = new System.Windows.Forms.Label();
 			this.Lbl_Name = new System.Windows.Forms.Label();
+			this.Tbn_Mana = new ScriptEditor.TB_Number();
+			this.Lbl_Mana = new System.Windows.Forms.Label();
+			this.Tbn_Accel = new ScriptEditor.TB_Number();
+			this.Lbl_Accel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lbl_Balance
@@ -86,7 +93,7 @@ namespace ScriptEditor
 			this.CBSL_Next.FormattingEnabled = true;
 			this.CBSL_Next.Location = new System.Drawing.Point(70, 43);
 			this.CBSL_Next.Name = "CBSL_Next";
-			this.CBSL_Next.SetFunc = ((System.Action<ScriptEditor.Sequence>)(resources.GetObject("CBSL_Next.SetFunc")));
+			this.CBSL_Next.SetFunc = null;
 			this.CBSL_Next.Size = new System.Drawing.Size(218, 20);
 			this.CBSL_Next.TabIndex = 22;
 			// 
@@ -167,8 +174,50 @@ namespace ScriptEditor
 			this.Lbl_Name.TabIndex = 13;
 			this.Lbl_Name.Text = "名";
 			// 
+			// Tbn_Mana
+			// 
+			this.Tbn_Mana.GetFunc = null;
+			this.Tbn_Mana.Location = new System.Drawing.Point(70, 253);
+			this.Tbn_Mana.Name = "Tbn_Mana";
+			this.Tbn_Mana.SetFunc = null;
+			this.Tbn_Mana.Size = new System.Drawing.Size(100, 19);
+			this.Tbn_Mana.TabIndex = 23;
+			this.Tbn_Mana.Text = "0";
+			// 
+			// Lbl_Mana
+			// 
+			this.Lbl_Mana.AutoSize = true;
+			this.Lbl_Mana.Location = new System.Drawing.Point(13, 256);
+			this.Lbl_Mana.Name = "Lbl_Mana";
+			this.Lbl_Mana.Size = new System.Drawing.Size(24, 12);
+			this.Lbl_Mana.TabIndex = 26;
+			this.Lbl_Mana.Text = "マナ";
+			// 
+			// Tbn_Accel
+			// 
+			this.Tbn_Accel.GetFunc = null;
+			this.Tbn_Accel.Location = new System.Drawing.Point(70, 281);
+			this.Tbn_Accel.Name = "Tbn_Accel";
+			this.Tbn_Accel.SetFunc = null;
+			this.Tbn_Accel.Size = new System.Drawing.Size(100, 19);
+			this.Tbn_Accel.TabIndex = 23;
+			this.Tbn_Accel.Text = "0";
+			// 
+			// Lbl_Accel
+			// 
+			this.Lbl_Accel.AutoSize = true;
+			this.Lbl_Accel.Location = new System.Drawing.Point(13, 284);
+			this.Lbl_Accel.Name = "Lbl_Accel";
+			this.Lbl_Accel.Size = new System.Drawing.Size(42, 12);
+			this.Lbl_Accel.TabIndex = 26;
+			this.Lbl_Accel.Text = "アクセル";
+			// 
 			// Ctrl_Action
 			// 
+			this.Controls.Add(this.Lbl_Accel);
+			this.Controls.Add(this.Tbn_Accel);
+			this.Controls.Add(this.Lbl_Mana);
+			this.Controls.Add(this.Tbn_Mana);
 			this.Controls.Add(this.lbl_Balance);
 			this.Controls.Add(this.Tbn_Balance);
 			this.Controls.Add(this.Tbn_HitPitch);
@@ -184,7 +233,7 @@ namespace ScriptEditor
 			this.Controls.Add(this.Lbl_Next);
 			this.Controls.Add(this.Lbl_Name);
 			this.Name = "Ctrl_Action";
-			this.Size = new System.Drawing.Size(307, 261);
+			this.Size = new System.Drawing.Size(356, 324);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -259,6 +308,8 @@ namespace ScriptEditor
 			TBN_HitNum.Text = act.HitNum.ToString();
 			Tbn_HitPitch.Text = act.HitPitch.ToString();
 			Tbn_Balance.Text = act.Balance.ToString();
+			Tbn_Mana.Text = act.Mana.ToString();
+			Tbn_Accel.Text = act.Accel.ToString();
 
 
 			//各コントロールに設定用のデリゲートを渡す
@@ -270,6 +321,8 @@ namespace ScriptEditor
 			TBN_HitNum.SetFunc = i=>act.HitNum = i;
 			Tbn_HitPitch.SetFunc = i=>act.HitPitch = i;
 			Tbn_Balance.SetFunc = i=>act.Balance = i;
+			Tbn_Mana.SetFunc = i=>act.Mana = i;
+			Tbn_Accel.SetFunc = i=>act.Accel = i;
 		}
 
 		//名前の設定用イベントハンドラ

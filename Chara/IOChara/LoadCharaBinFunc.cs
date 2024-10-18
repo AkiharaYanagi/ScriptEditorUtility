@@ -40,7 +40,14 @@ namespace ScriptEditor
 					HitNum = br.ReadByte (),
 					HitPitch = br.ReadByte (),
 					Balance = br.ReadInt32 (),
+
+					Mana = br.ReadInt32 (),
+					Accel = br.ReadInt32 (),
 				};
+				for (int v = 0; v < Action.VRS_SIZE; ++ v )
+				{
+					act.Versatile [ v ] = br.ReadInt32 ();
+				}
 
 				//[]スクリプト
 				LoadBinListScript ( br, act.ListScript );

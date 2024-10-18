@@ -33,6 +33,14 @@ namespace ScriptEditor
 				bw.Write ( (byte)act.HitPitch );
 				bw.Write ( act.Balance );	//[int]
 
+				bw.Write ( act.Mana );
+				bw.Write ( act.Accel );
+				for (int i = 0; i < Action.VRS_SIZE; ++ i )
+				{
+					bw.Write ( act.Versatile [ i ] );
+				}
+				
+
 				SaveBinListScript ( bw, chara, act.ListScript, chara.behavior );
 			}
 		}

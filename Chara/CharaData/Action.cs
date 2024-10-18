@@ -1,4 +1,7 @@
-﻿namespace ScriptEditor
+﻿using System.ComponentModel;
+using System.Linq;
+
+namespace ScriptEditor
 {
 	//================================================================
 	//	◆アクション		各フレームのスクリプトリストを持つ
@@ -10,7 +13,9 @@
 	//		┣ヒット数
 	//		┣ヒット間隔
 	//		┣バランス値
-	//		//┣マナ値
+	//		┣マナ値
+	//		┣アクセル値
+	//		┣汎用パラメータ[16]
 	//================================================================
 
 	//-------------------------------------------------------
@@ -40,7 +45,15 @@
 		public int Balance { get; set; } = 0;
 
 		//増減マナ値
-//		public int Mana { get; set; } = 0;
+		public int Mana { get; set; } = 0;
+
+		//増減アクセル値
+		public int Accel { get; set; } = 0;
+
+		//汎用フラグ
+		public const int VRS_SIZE = 16;
+//		public int[] Versatile { get; set; } = new int [ VRS_SIZE ];
+		public int[] Versatile { get; set; } = Enumerable.Range ( 0, VRS_SIZE ).ToArray ();
 
 
 		//----------------------------------------------------------------------------
@@ -49,6 +62,7 @@
 		{
 			//IName
 			this.Name = ActionName;
+			for ( int i = 0; i < VRS_SIZE; ++ i ) { Versatile [ i ] = 0; }
 		}
 
 		//引数付きコンストラクタ
@@ -59,6 +73,7 @@
 			//IName
 			this.Name = str;
 			NextActionName = str;
+			for ( int i = 0; i < VRS_SIZE; ++ i ) { Versatile [ i ] = 0; }
 		}
 
 		//継承元から生成するコンストラクタ
@@ -78,7 +93,9 @@
 			this.HitNum = action.HitNum;
 			this.HitPitch = action.HitPitch;
 			this.Balance = action.Balance;
-//			this.Mana = action.Mana;
+			this.Mana = action.Mana;
+			this.Accel = action.Accel;
+			for ( int i = 0; i < VRS_SIZE; ++ i ) { Versatile [ i ] = action.Versatile [ i ]; }
 	}
 
 		//クリア
@@ -90,7 +107,9 @@
 			HitNum = 0;
 			HitPitch = 0;
 			Balance = 0;
-//			Mana = 0;
+			Mana = 0;
+			Accel = 0;
+			for ( int i = 0; i < VRS_SIZE; ++ i ) { Versatile [ i ] = 0; }
 
 			base.Clear ();
 		}
@@ -106,7 +125,9 @@
 			this.HitNum = action.HitNum;
 			this.HitPitch = action.HitPitch;
 			this.Balance = action.Balance;
-//			this.Mana = action.Mana;
+			this.Mana = action.Mana;
+			this.Accel = action.Accel;
+			for ( int i = 0; i < VRS_SIZE; ++ i ) { Versatile [ i ] = action.Versatile [ i ]; }
 		}
 	}
 
