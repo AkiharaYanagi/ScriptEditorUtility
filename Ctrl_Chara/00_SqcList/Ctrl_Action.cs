@@ -25,7 +25,10 @@ namespace ScriptEditor
 		private Label Lbl_Mana;
 		private TB_Number Tbn_Accel;
 		private Label Lbl_Accel;
+		private Button Btn_Cancel;
+		private Button Btn_OK;
 		private TB_Number Tbn_Balance;
+
 
 		private void InitializeComponent ()
 		{
@@ -47,6 +50,8 @@ namespace ScriptEditor
 			this.Lbl_Mana = new System.Windows.Forms.Label();
 			this.Tbn_Accel = new ScriptEditor.TB_Number();
 			this.Lbl_Accel = new System.Windows.Forms.Label();
+			this.Btn_Cancel = new System.Windows.Forms.Button();
+			this.Btn_OK = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// lbl_Balance
@@ -212,8 +217,32 @@ namespace ScriptEditor
 			this.Lbl_Accel.TabIndex = 26;
 			this.Lbl_Accel.Text = "アクセル";
 			// 
+			// Btn_Cancel
+			// 
+			this.Btn_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.Btn_Cancel.Location = new System.Drawing.Point(211, 319);
+			this.Btn_Cancel.Name = "Btn_Cancel";
+			this.Btn_Cancel.Size = new System.Drawing.Size(88, 25);
+			this.Btn_Cancel.TabIndex = 28;
+			this.Btn_Cancel.Text = "Cancel";
+			this.Btn_Cancel.UseVisualStyleBackColor = false;
+			this.Btn_Cancel.Click += new System.EventHandler(this.Btn_Cancel_Click);
+			// 
+			// Btn_OK
+			// 
+			this.Btn_OK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.Btn_OK.Location = new System.Drawing.Point(315, 294);
+			this.Btn_OK.Name = "Btn_OK";
+			this.Btn_OK.Size = new System.Drawing.Size(87, 50);
+			this.Btn_OK.TabIndex = 27;
+			this.Btn_OK.Text = "OK";
+			this.Btn_OK.UseVisualStyleBackColor = false;
+			this.Btn_OK.Click += new System.EventHandler(this.Btn_OK_Click);
+			// 
 			// Ctrl_Action
 			// 
+			this.Controls.Add(this.Btn_Cancel);
+			this.Controls.Add(this.Btn_OK);
 			this.Controls.Add(this.Lbl_Accel);
 			this.Controls.Add(this.Tbn_Accel);
 			this.Controls.Add(this.Lbl_Mana);
@@ -233,7 +262,7 @@ namespace ScriptEditor
 			this.Controls.Add(this.Lbl_Next);
 			this.Controls.Add(this.Lbl_Name);
 			this.Name = "Ctrl_Action";
-			this.Size = new System.Drawing.Size(356, 324);
+			this.Size = new System.Drawing.Size(405, 347);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -242,11 +271,19 @@ namespace ScriptEditor
 
 		//------------------------------------------------------
 
+		//対象データ
+		public Action Action { get; set; } = new Action ();
+
 		//編集機能参照
 		public EditBehavior EditBehavior { get; set; } = new EditBehavior ();
 
-		//対象データ
-		public Action Action { get; set; } = new Action ();
+		//編集
+		public EditSqcListData EditSLData { get; set; } = new EditSqcListData ();
+
+		//親フォーム
+		public Form_Action Form_Action { get; set; } = null;
+
+
 
 		//コンストラクタ
 		public Ctrl_Action ()
@@ -272,9 +309,12 @@ namespace ScriptEditor
 			CB_Posture.SelectionChangeCommitted += new EventHandler ( SetPosture );
 		}
 
-		public void SetEnvironment ()
+		//環境設定
+		public void SetEnvironment ( Form_Action form, EditSqcListData editSLdata )
 		{
+			Form_Action = form;
 			EditBehavior = EditChara.Inst.EditBehavior;
+			EditSLData = editSLdata;
 		}
 
 		//キャラデータ設置
@@ -286,7 +326,19 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			CBSL_Next.ResetItems ();
+
+			TBN_HitNum.UpdateData ();
+			Tbn_HitPitch.UpdateData ();
+			Tbn_Balance.UpdateData ();
+			Tbn_Mana.UpdateData ();
+			Tbn_Accel.UpdateData ();
 		}
+
+		public void ResetData ()
+		{
+			CBSL_Next.ResetItems ();
+		}
+
 
 		//コンペンド指定
 		public void SetCompend ( Compend cmpd )
@@ -296,33 +348,40 @@ namespace ScriptEditor
 		}
 
 		//関連付け
-		public void Assosiate ( Action act )
+		public void Assosiate ()
 		{
-			Action = act;
+			Action act = (Action)EditSLData.GetSequenceData().Sqc;
 
 			//表示部
 			TB_Name.Text = act.Name;
 			CBSL_Next.SelectName ( act.NextActionName );
 			CB_Category.SelectedItem = act.Category;
 			CB_Posture.SelectedItem = act.Posture;
-			TBN_HitNum.Text = act.HitNum.ToString();
-			Tbn_HitPitch.Text = act.HitPitch.ToString();
-			Tbn_Balance.Text = act.Balance.ToString();
-			Tbn_Mana.Text = act.Mana.ToString();
-			Tbn_Accel.Text = act.Accel.ToString();
 
 
 			//各コントロールに設定用のデリゲートを渡す
 
 			//次シークエンス指定
 			CBSL_Next.SetFunc = a=>act.NextActionName = a.Name;
+
 			// CB_Category カテゴリ -> イベントハンドラで指定
 			// CB_Posture 体勢
+
+			//int設定
 			TBN_HitNum.SetFunc = i=>act.HitNum = i;
 			Tbn_HitPitch.SetFunc = i=>act.HitPitch = i;
 			Tbn_Balance.SetFunc = i=>act.Balance = i;
 			Tbn_Mana.SetFunc = i=>act.Mana = i;
 			Tbn_Accel.SetFunc = i=>act.Accel = i;
+
+			TBN_HitNum.GetFunc = ()=>act.HitNum;
+			Tbn_HitPitch.GetFunc = ()=>act.HitPitch;
+			Tbn_Balance.GetFunc = ()=>act.Balance;
+			Tbn_Mana.GetFunc = ()=>act.Mana;
+			Tbn_Accel.GetFunc = ()=>act.Accel;
+
+			//更新
+			UpdateData ();
 		}
 
 		//名前の設定用イベントハンドラ
@@ -357,5 +416,17 @@ namespace ScriptEditor
 			Action.Posture = (ActionPosture)cb.SelectedIndex;
 		}
 
+		//OKボタン
+		private void Btn_OK_Click ( object sender, EventArgs e )
+		{
+			EditSLData.UpdateAll ();
+			Form_Action.Close ();
+		}
+
+		//Cancelボタン
+		private void Btn_Cancel_Click ( object sender, EventArgs e )
+		{
+			Form_Action.Close ();
+		}
 	}
 }

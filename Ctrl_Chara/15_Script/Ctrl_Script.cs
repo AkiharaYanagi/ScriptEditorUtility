@@ -189,10 +189,10 @@ namespace ScriptEditor
 		}
 
 
-		public void LoadData ( string filedir )
+		public void LoadData ( string fileDir )
 		{
-			cb_SE.LoadData ( filedir + "\\SE_Name.txt" );
-			cb_VC.LoadData ( filedir + "\\VC_Name.txt" );
+			cb_SE.LoadData ( fileDir + "\\SE_Name.txt" );
+			cb_VC.LoadData ( fileDir + "\\VC_Name.txt" );
 		}
 
 

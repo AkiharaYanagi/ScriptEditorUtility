@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Data.SqlTypes;
 
 
 namespace ScriptEditor
 {
+	using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+
 	using BD_ImgDt = BindingDictionary < ImageData >;
 
 
@@ -14,6 +19,12 @@ namespace ScriptEditor
 	//==================================================================================
 	public class TestChara
 	{
+		//SE, VCチェック用テキストファイルDir
+		public string SOUND_DIR { get; set; } = Directory.GetCurrentDirectory ();
+		private readonly string SE_DIR = "\\SE";
+		private readonly string VC_DIR = "\\VC";
+
+
 		//コンストラクタ
 		public TestChara ()
 		{
@@ -129,9 +140,12 @@ namespace ScriptEditor
 						}
 					}
 
-					++ i;
+					//SE, VC
+					Check_SOUND_Name ( SOUND_DIR + SE_DIR, scp.StgPrm.SE_name, sqc, scp );
+					Check_SOUND_Name ( SOUND_DIR + VC_DIR, scp.StgPrm.VC_name, sqc, scp );
 				}
 			}
+
 
 			//ブランチ -> コマンド, アクション
 			int iBrc = 0;
@@ -161,6 +175,36 @@ namespace ScriptEditor
 				}
 				++ iRut;
 			}
+
+		}
+
+		private void Check_SOUND_Name ( string dir, string sound_name, Sequence sqc, Script scp )
+		{
+			//空欄は何もしない
+			if ( sound_name == "" ) { return; }
+
+			//直接音声ファイルを調べる
+			string[] files = Directory.GetFiles ( dir );
+
+			//すべてのファイル名をチェック
+			foreach ( string file in files )
+			{
+				string filename = Path.GetFileName ( file );
+				//同じ名前があったら終了
+				if ( sound_name == filename )
+				{
+					return;
+				}
+			}
+
+			//すべてのファイル名と異なったらthrow 
+			throw new Exception ( "◆SOUND_Name : " + DispScp ( sqc, scp ) + sound_name ); 
+		}
+
+		//表示用
+		private string DispScp ( Sequence sqc, Script scp )
+		{
+			return sqc.Name + "[" + scp.Frame + "]->";
 		}
 
 		//-----------------------------------------------------------

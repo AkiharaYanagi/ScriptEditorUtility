@@ -75,7 +75,7 @@ namespace ScriptEditor
 			}
 			catch	//int.Parse(s)が失敗したとき
 			{
-				return;
+				return;		//何もしない
 			}
 
 			SetFunc?.Invoke ( value );			
