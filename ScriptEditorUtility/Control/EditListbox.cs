@@ -436,9 +436,13 @@ namespace ScriptEditor
 
 			using ( SaveFileDialog saveFileDialog = new SaveFileDialog () )
 			{
+				//対象オブジェクト
+				T t = (T)listBox1.SelectedItem;
+
 				saveFileDialog.DefaultExt = "txt";
 				saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory ();
-				saveFileDialog.FileName = SaveOneFileName;
+//				saveFileDialog.FileName = SaveOneFileName;
+				saveFileDialog.FileName = t.Name + ".txt";
 
 				if ( saveFileDialog.ShowDialog () == DialogResult.OK )
 				{

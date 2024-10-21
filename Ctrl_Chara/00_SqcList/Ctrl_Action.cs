@@ -272,7 +272,7 @@ namespace ScriptEditor
 		//------------------------------------------------------
 
 		//対象データ
-		public Action Action { get; set; } = new Action ();
+		public Action Act { get; set; } = new Action ();
 
 		//編集機能参照
 		public EditBehavior EditBehavior { get; set; } = new EditBehavior ();
@@ -325,7 +325,8 @@ namespace ScriptEditor
 
 		public void UpdateData ()
 		{
-			CBSL_Next.ResetItems ();
+			//behaviorからコンボボックスを再設定する
+			CBSL_Next.SetCompend ( EditBehavior.Compend );
 
 			TBN_HitNum.UpdateData ();
 			Tbn_HitPitch.UpdateData ();
@@ -350,35 +351,36 @@ namespace ScriptEditor
 		//関連付け
 		public void Assosiate ()
 		{
-			Action act = (Action)EditSLData.GetSequenceData().Sqc;
+			//対象データを更新
+			Act = (Action)EditSLData.GetSequenceData().Sqc;
 
 			//表示部
-			TB_Name.Text = act.Name;
-			CBSL_Next.SelectName ( act.NextActionName );
-			CB_Category.SelectedItem = act.Category;
-			CB_Posture.SelectedItem = act.Posture;
+			TB_Name.Text = Act.Name;
+			CBSL_Next.SelectName ( Act.NextActionName );
+			CB_Category.SelectedItem = Act.Category;
+			CB_Posture.SelectedItem = Act.Posture;
 
 
 			//各コントロールに設定用のデリゲートを渡す
 
 			//次シークエンス指定
-			CBSL_Next.SetFunc = a=>act.NextActionName = a.Name;
+			CBSL_Next.SetFunc = a=>Act.NextActionName = a.Name;
 
 			// CB_Category カテゴリ -> イベントハンドラで指定
 			// CB_Posture 体勢
 
 			//int設定
-			TBN_HitNum.SetFunc = i=>act.HitNum = i;
-			Tbn_HitPitch.SetFunc = i=>act.HitPitch = i;
-			Tbn_Balance.SetFunc = i=>act.Balance = i;
-			Tbn_Mana.SetFunc = i=>act.Mana = i;
-			Tbn_Accel.SetFunc = i=>act.Accel = i;
+			TBN_HitNum.SetFunc = i=>Act.HitNum = i;
+			Tbn_HitPitch.SetFunc = i=>Act.HitPitch = i;
+			Tbn_Balance.SetFunc = i=>Act.Balance = i;
+			Tbn_Mana.SetFunc = i=>Act.Mana = i;
+			Tbn_Accel.SetFunc = i=>Act.Accel = i;
 
-			TBN_HitNum.GetFunc = ()=>act.HitNum;
-			Tbn_HitPitch.GetFunc = ()=>act.HitPitch;
-			Tbn_Balance.GetFunc = ()=>act.Balance;
-			Tbn_Mana.GetFunc = ()=>act.Mana;
-			Tbn_Accel.GetFunc = ()=>act.Accel;
+			TBN_HitNum.GetFunc = ()=>Act.HitNum;
+			Tbn_HitPitch.GetFunc = ()=>Act.HitPitch;
+			Tbn_Balance.GetFunc = ()=>Act.Balance;
+			Tbn_Mana.GetFunc = ()=>Act.Mana;
+			Tbn_Accel.GetFunc = ()=>Act.Accel;
 
 			//更新
 			UpdateData ();
@@ -393,10 +395,10 @@ namespace ScriptEditor
 			TextBox tb = (TextBox)sender;
 			//Action.Name = tb.Text;
 			//変更なし
-			if ( tb.Text == Action.Name ) { return; }
+			if ( tb.Text == Act.Name ) { return; }
 
 			//BindingDictionary < T > において名前の変更は専用の関数を用いる
-			EditBehavior.Compend.BD_Sequence.ChangeName ( Action.Name, tb.Text );
+			EditBehavior.Compend.BD_Sequence.ChangeName ( Act.Name, tb.Text );
 
 			//シークエンスコンボボックスの更新
 			CBSL_Next.ResetItems ();
@@ -406,14 +408,14 @@ namespace ScriptEditor
 		public void SetCategory ( object sender, EventArgs e )
 		{
 			ComboBox cb = (ComboBox)sender;
-			Action.Category = (ActionCategory)cb.SelectedIndex;
+			Act.Category = (ActionCategory)cb.SelectedIndex;
 		}
 
 		//体勢コンボボックスの設定用イベントハンドラ
 		public void SetPosture ( object sender, EventArgs e )
 		{
 			ComboBox cb = (ComboBox)sender;
-			Action.Posture = (ActionPosture)cb.SelectedIndex;
+			Act.Posture = (ActionPosture)cb.SelectedIndex;
 		}
 
 		//OKボタン

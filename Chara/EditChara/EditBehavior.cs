@@ -20,8 +20,6 @@ namespace ScriptEditor
 		//キャラデータの設定
 		public override void SetCharaData ( Compend cmpd )
 		{
-			//@info New ()を用いるためSequenceではなくActionを指定し、Baseに渡さない
-
 			base.Compend = cmpd;
 			BD_Sqc bd_act = cmpd.BD_Sequence;	//BD型はSequenceだが、実体はAction
 

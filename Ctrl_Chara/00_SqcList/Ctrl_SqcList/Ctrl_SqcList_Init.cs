@@ -52,8 +52,13 @@ namespace ScriptEditor
 				// ->名前で検索するため
 				Cmpd.BD_Sequence.ChangeName ( oldName, sqcd.Name );
 
+				//Ctrl_SqcListは元のキャラデータとは異なるSqcListDataを編集しているため
+				//元データに反映させてからアップデートする
+				EditData.ApplyData_Action ();
+
 				//次シークエンスコンボボックスも更新する
-				ctrl_ImageTable1.ResetItems ();
+				ctrl_ImageTable1.UpdateData ();
+
 			};
 
 			//アクション・エフェクト分岐
