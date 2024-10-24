@@ -46,6 +46,10 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_AftImg_Time = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_AftImg_Pitch = new Cmpnt_Int ();
 
+		private Cmpnt_Int cmpnt_Vib_S = new Cmpnt_Int ();
+		//Color
+		//Color time
+
 		private Cmpnt_Int cmpnt_Scaling_x = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_Scaling_y = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_SE = new Cmpnt_Int ();
@@ -65,6 +69,7 @@ namespace ScriptEditor
 		private const int PY = 30;
 
 		private const int BX1 = 280;
+		private const int BX2 = 420;
 		
 		//----------------------------------------------------
 		//コンストラクタ
@@ -98,6 +103,9 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_N );
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Time );
 			ls_ctrl_scpPrm.Add ( cmpnt_AftImg_Pitch );
+			ls_ctrl_scpPrm.Add ( cmpnt_Vib_S );
+			//color
+			//color_time
 			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_x );
 			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_y );
 			ls_ctrl_scpPrm.Add ( cmpnt_SE );
@@ -137,6 +145,10 @@ namespace ScriptEditor
 			cmpnt_AftImg_Time.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_time=i, s=>s.StgPrm.AfterImage_time ) );
 			cmpnt_AftImg_Pitch.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.AfterImage_pitch=i, s=>s.StgPrm.AfterImage_pitch ) );
 
+			cmpnt_Vib_S.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Vibration_S=i, s=>s.StgPrm.Vibration_S ) );
+			//Color
+			//Color_time
+
 			cmpnt_Scaling_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingX(i), s=>s.StgPrm.Scaling.X ) );
 			cmpnt_Scaling_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingY(i), s=>s.StgPrm.Scaling.Y ) );
 			cmpnt_SE.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SE=i, s=>s.StgPrm.SE ) );
@@ -165,10 +177,13 @@ namespace ScriptEditor
 			cmpnt_ClcSt.Location		= new Point ( BX1		, BY + PY * 0 );
 			cmpnt_blackOut.Location		= new Point ( BX1		, BY + PY * 1 );
 			cmpnt_vibration.Location	= new Point ( BX1		, BY + PY * 2 );
+			cmpnt_Vib_S.Location		= new Point ( BX2		, BY + PY * 2 );
+
 			cmpnt_Stop.Location			= new Point ( BX1		, BY + PY * 3 );
 			cmpnt_AftImg_N.Location		= new Point ( BX1		, BY + PY * 4 );
 			cmpnt_AftImg_Time.Location	= new Point ( BX1		, BY + PY * 5 );
 			cmpnt_AftImg_Pitch.Location = new Point ( BX1		, BY + PY * 6 );
+		
 
 			cmpnt_Scaling_x.Location	= new Point ( BX1		, BY + PY * 7 );
 			cmpnt_Scaling_y.Location	= new Point ( BX1 + PX	, BY + PY * 7 );
@@ -234,7 +249,5 @@ namespace ScriptEditor
 		{
 			this.Invalidate ();
 		}
-
-
 	}
 }

@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Lbl_Pos
@@ -282,6 +283,16 @@
             this.label7.TabIndex = 32;
             this.label7.Text = "Voice_Name";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(377, 160);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(33, 12);
+            this.label8.TabIndex = 32;
+            this.label8.Text = "Vib_S";
+            // 
             // _Ctrl_Script
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -295,6 +306,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Lbl_Stop);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.Lbl_Vib);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Lbl_BlackOut);
@@ -342,5 +354,6 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label8;
 	}
 }

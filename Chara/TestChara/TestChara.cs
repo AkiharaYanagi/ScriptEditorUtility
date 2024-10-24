@@ -153,11 +153,11 @@ namespace ScriptEditor
 			{
 				if ( ! ch.BD_Command.ContainsKey ( brc.NameCommand ) )
 				{
-					throw new Exception( "◆NameCommand : " + brc.Name + "[" + iBrc + "]-> " + brc.NameCommand );
+					throw new Exception( "◆Branch : " + brc.Name + "[" + iBrc + "]-> " + brc.NameCommand );
 				}
 				if ( ! ch.behavior.BD_Sequence.ContainsKey ( brc.NameSequence ) )
 				{
-					throw new Exception( "◆NameSequence : " + brc.Name + "[" + iBrc + "]-> " + brc.NameSequence );
+					throw new Exception( "◆Branch : " + brc.Name + "[" + iBrc + "]-> " + brc.NameSequence );
 				}
 				++ iBrc;
 			}
@@ -170,7 +170,7 @@ namespace ScriptEditor
 				{
 					if ( ! ch.BD_Branch.ContainsKey ( tn.Name ) )
 					{
-						throw new Exception( "◆BranchName : " + rut.Name + "[" + iBrc + "]-> " + tn.Name );
+						throw new Exception( "◆Route : " + rut.Name + "[" + iBrc + "]-> " + tn.Name );
 					}
 				}
 				++ iRut;

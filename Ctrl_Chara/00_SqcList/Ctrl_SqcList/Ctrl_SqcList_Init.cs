@@ -54,7 +54,15 @@ namespace ScriptEditor
 
 				//Ctrl_SqcListは元のキャラデータとは異なるSqcListDataを編集しているため
 				//元データに反映させてからアップデートする
-				EditData.ApplyData_Action ();
+				
+				if ( flag_sqc_derived == CTRL_SQC.ACTION )
+				{
+					EditData.ApplyData_Action ();
+				}
+				else
+				{
+					EditData.ApplyData_Effect ();
+				}
 
 				//次シークエンスコンボボックスも更新する
 				ctrl_ImageTable1.UpdateData ();
