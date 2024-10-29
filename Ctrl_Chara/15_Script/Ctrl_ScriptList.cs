@@ -39,7 +39,8 @@ namespace ScriptEditor
 			{
 				sfd.DefaultExt = "txt";
 				sfd.InitialDirectory = Directory.GetCurrentDirectory ();
-				sfd.FileName = "ScriptList.txt";
+				string name = EditCompend.SelectedSequence.Name;
+				sfd.FileName = name + ".txt";
 
 				if ( sfd.ShowDialog () == DialogResult.OK )
 				{

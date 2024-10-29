@@ -84,6 +84,7 @@ namespace ScriptEditor
 			}
 			else
 			{
+				if ( this.Items.Count == 0 ) { return; }
 				this.SelectedIndex = 0;	//該当なし
 				this.BackColor = Color.Red;
 			}

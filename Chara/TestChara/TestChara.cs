@@ -127,7 +127,7 @@ namespace ScriptEditor
 					//イメージ
 					if ( ! bd_img.ContainsKey ( scp.ImgName ) )
 					{
-						throw new Exception ( "◆ImageName : " + sqc.Name + "[" + i + "]-> " + scp.ImgName );
+						throw new Exception ( "◆ImageName in Script : " + sqc.Name + "[" + i + "]-> " + scp.ImgName );
 					}
 
 					//ルート
@@ -136,7 +136,7 @@ namespace ScriptEditor
 						noname = tn.Name;
 						if ( ! ch.BD_Route.ContainsKey ( tn.Name ) )
 						{
-							throw new Exception ( "◆RouteName : " + sqc.Name + "[" + i + "]-> " + tn.Name );
+							throw new Exception ( "◆Route in Script : " + sqc.Name + "[" + i + "]-> " + tn.Name );
 						}
 					}
 
