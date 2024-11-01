@@ -172,5 +172,26 @@ namespace ScriptEditor
 			EditData.ApplyData_Effect ();
 		}
 
+		//-------------------------------------------------
+		//外部から名前を指定して選択状態にする
+		public void SelectFromName ( string sqcName )
+		{
+			//対象データからインデックスを取得
+			int index = SqcListData.L_Sqc.IndexOf ( sqcName );
+
+			//ELB
+			ELB_Sqc.GetListBox ().SelectedIndex = index;
+
+			//編集
+			EditData.SelectFromName ( sqcName );
+
+			//表示の更新
+			ctrl_ImageTable1.ScrollPos ();
+		}
+
+		public string SelectedSqcName ()
+		{
+			return EditData.SelectedSqcName ();
+		}
 	}
 }

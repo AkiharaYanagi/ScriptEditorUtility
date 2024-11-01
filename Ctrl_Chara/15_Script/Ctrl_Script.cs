@@ -49,6 +49,7 @@ namespace ScriptEditor
 		private Cmpnt_Int cmpnt_Vib_S = new Cmpnt_Int ();
 		//Color
 		//Color time
+		private Cmpnt_Int cmpnt_DrctDmg = new Cmpnt_Int ();
 
 		private Cmpnt_Int cmpnt_Scaling_x = new Cmpnt_Int ();
 		private Cmpnt_Int cmpnt_Scaling_y = new Cmpnt_Int ();
@@ -106,6 +107,8 @@ namespace ScriptEditor
 			ls_ctrl_scpPrm.Add ( cmpnt_Vib_S );
 			//color
 			//color_time
+			ls_ctrl_scpPrm.Add ( cmpnt_DrctDmg );
+
 			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_x );
 			ls_ctrl_scpPrm.Add ( cmpnt_Scaling_y );
 			ls_ctrl_scpPrm.Add ( cmpnt_SE );
@@ -148,6 +151,7 @@ namespace ScriptEditor
 			cmpnt_Vib_S.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.Vibration_S=i, s=>s.StgPrm.Vibration_S ) );
 			//Color
 			//Color_time
+			cmpnt_DrctDmg.SetParam ( new SP_INT ( (s,i)=>s.BtlPrm.DirectDamage=i, s=>s.BtlPrm.DirectDamage ) );
 
 			cmpnt_Scaling_x.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingX(i), s=>s.StgPrm.Scaling.X ) );
 			cmpnt_Scaling_y.SetParam ( new SP_INT ( (s,i)=>s.StgPrm.SetScalingY(i), s=>s.StgPrm.Scaling.Y ) );
@@ -178,6 +182,7 @@ namespace ScriptEditor
 			cmpnt_blackOut.Location		= new Point ( BX1		, BY + PY * 1 );
 			cmpnt_vibration.Location	= new Point ( BX1		, BY + PY * 2 );
 			cmpnt_Vib_S.Location		= new Point ( BX2		, BY + PY * 2 );
+			cmpnt_DrctDmg.Location		= new Point ( BX2		, BY + PY * 3 );
 
 			cmpnt_Stop.Location			= new Point ( BX1		, BY + PY * 3 );
 			cmpnt_AftImg_N.Location		= new Point ( BX1		, BY + PY * 4 );

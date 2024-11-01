@@ -280,5 +280,19 @@ namespace ScriptEditor
 			SaveImage saveImage = new SaveImage ();
 			saveImage.Run ( Dt, imgDir, Compend );
 		}
+		
+
+		//シークエンス名から選択状態にする
+		public void SelectFromName ( string sqcName )
+		{
+			SelectedSqc = Dt.L_Sqc.IndexOf ( sqcName );
+		}
+
+		//選択中のシークエンス名を取得する
+		public string SelectedSqcName ()
+		{
+			return Dt.L_Sqc [ SelectedSqc ].Name; 
+		}
+
 	}
 }

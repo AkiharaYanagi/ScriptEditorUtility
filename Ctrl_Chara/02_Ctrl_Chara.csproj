@@ -322,6 +322,9 @@
     <EmbeddedResource Include="10_Compend\RB_Tool.resx">
       <DependentUpon>RB_Tool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="15_Script\Cmpnt_Int.resx">
+      <DependentUpon>Cmpnt_Int.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="15_Script\Ctrl_Image.resx">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </EmbeddedResource>

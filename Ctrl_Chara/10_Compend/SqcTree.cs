@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 
 namespace ScriptEditor
@@ -252,6 +253,47 @@ namespace ScriptEditor
 			}
 			treeView1.ExpandAll ();
 		}
+
+		//名前を指定して選択
+		public void SelectFromName ( string sqcName )
+		{
+			foreach ( TreeNode node in treeView1.Nodes )
+			{
+				TreeNode foundNode = FindNode ( node, sqcName );
+
+				if ( foundNode != null ) 
+				{
+					treeView1.SelectedNode = foundNode;
+					foundNode.EnsureVisible ();
+
+					//スクロールバーを横先頭に
+					//Point pt = treeView1.AutoScrollOffset;
+
+					break;
+				}
+			}
+		}
+
+		//ノードの名前検索再帰
+		private TreeNode FindNode ( TreeNode rootNode, string sqcNmae )
+		{
+			if (rootNode.Text == sqcNmae)
+			{
+				return rootNode;
+			}
+
+			foreach ( TreeNode node in rootNode.Nodes )
+			{
+				TreeNode foundNode = FindNode ( node, sqcNmae );
+				if ( foundNode != null )
+				{
+					return foundNode;
+				}
+			}
+
+			return null;
+		}
+
 
 		//==============================================================
 		//コンテキストメニュ

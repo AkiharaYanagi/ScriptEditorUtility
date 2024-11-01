@@ -127,5 +127,12 @@ namespace ScriptEditor
 			sqc_tree.UpdateData ();
 			sqc_tree.SelectTop ();
 		}
+
+
+		//シークエンス名から選択
+		public void SelectFromName ( string sqcName )
+		{
+			sqc_tree.SelectFromName ( sqcName );
+		}
 	}
 }
