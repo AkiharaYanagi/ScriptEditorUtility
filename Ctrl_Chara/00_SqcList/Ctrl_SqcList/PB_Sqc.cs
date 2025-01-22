@@ -286,7 +286,7 @@ namespace ScriptEditor
 				{
 					//描画のため個数制限
 					if ( ns < pnl_yn ) { ++ ns; continue; }
-					if ( pnl_yn + 6 < ns ) { break; }
+					if ( pnl_yn + ConstSqcListPaint.DISP_LIMIT_NUM_Y < ns ) { break; }
 
 
 					int y = ns * CH;
@@ -309,7 +309,7 @@ namespace ScriptEditor
 					{
 						//描画のため個数制限
 						if ( nI < pnl_xn ) { ++ nI; continue; }
-						if ( pnl_xn + 6 < nI ) { break; }
+						if ( pnl_xn + ConstSqcListPaint.DISP_LIMIT_NUM_X < nI ) { break; }
 
 						//g.DrawImage ( imgDt.Img, new Rectangle (CW + nI * CW, y, CW, CH ) );
 						g.DrawImage ( imgDt.Thumbnail, new Rectangle (CW + nI * CW, y, CW, CH ) );

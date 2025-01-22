@@ -275,6 +275,16 @@ namespace ScriptEditor
 		protected override void OnMouseUp ( MouseEventArgs e )
 		{
 			bDrag = false;
+
+			//選択範囲をステータスに表示
+			int start = EditCompend.SelectedSpanStart;
+			int end = EditCompend.SelectedSpanEnd;
+			string strSpan = " : [" + start + " - " + end + "] (" + (1 + end - start) + "個)";
+
+			Script s = EditCompend.SelectedScript;
+			string strScp = "Frame:" + s.Frame.ToString () + ", Group[" + s.Group + "]";
+			STS_TXT.Trace ( strScp + strSpan );
+
 			Invalidate ();
 			base.OnMouseUp ( e );
 		}

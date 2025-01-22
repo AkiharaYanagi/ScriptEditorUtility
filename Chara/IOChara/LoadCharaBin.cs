@@ -121,20 +121,17 @@ namespace ScriptEditor
 
 				//読込
 				buffer = br.ReadBytes ( size );
-				MemoryStream ms = new MemoryStream ( buffer );
+				using (MemoryStream ms = new MemoryStream ( buffer ))
+				{
+					
 				Image img = Image.FromStream ( ms );
 
 				//イメージデータ作成
-#if false
-				ImageData imgdt = new ImageData ()
-				{
-					Img = img,
-					Name = name,
-				};
-#endif
 				//コンストラクタで引数からサムネイルを作成
 				ImageData imgdt = new ImageData ( name, img );
 				bd_img.Add ( imgdt );
+				
+				}	//using
 			}
 		}
 

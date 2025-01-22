@@ -6,11 +6,14 @@ namespace ScriptEditor
 	// INameを継承し、BindingDictionaryで扱う
 	public class ImageData : IName
 	{
+		public const int THUM_W = 50;
+		public const int THUM_H = 50;
+
 		//イメージ
 		public Image Img { set; get; }
 
 		//表示用サムネイル
-		public Bitmap Thumbnail { set; get; } = new Bitmap ( 100, 100 );
+		public Bitmap Thumbnail { set; get; } = new Bitmap ( THUM_W, THUM_H );
 
 		//名前
 		public string Name { set; get; }
@@ -49,7 +52,7 @@ namespace ScriptEditor
 			if ( img is null ) { return; }
 
 			Graphics g = Graphics.FromImage ( Thumbnail );
-			g.DrawImage ( img, new Rectangle ( 0, 0 , 100, 100 ) );
+			g.DrawImage ( img, new Rectangle ( 0, 0 , THUM_W, THUM_H ) );
 			g.Dispose ();
 		}
 	}
