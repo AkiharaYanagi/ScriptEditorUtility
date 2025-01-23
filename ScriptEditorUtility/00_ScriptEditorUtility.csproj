@@ -95,6 +95,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CSharp\TName.cs" />
+    <Compile Include="Windows\WinUtility.cs" />
     <Compile Include="Windows\XML_IO.cs" />
   </ItemGroup>
   <ItemGroup>

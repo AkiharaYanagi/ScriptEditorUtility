@@ -83,9 +83,9 @@ namespace ScriptEditor
 			//一つ前のメインイメージをゴースト表示
 			int index = EditCompend.SelectedScript.Frame;
 			List < Script > L_Scp =	EditCompend.SelectedSequence.ListScript;
+
 			//０のときは表示しない
 			if ( index > 0 && index - 1 < L_Scp.Count )
-
 			{
 				Script preScp = L_Scp [ index - 1 ];
 				ImageData preImgDt = Bd_Imgd.Get ( preScp.ImgName );
@@ -138,7 +138,13 @@ namespace ScriptEditor
 			{
 				img = MakeDummy ( imgname );
 			}
-			else { img = imgd.Img; }
+			else
+			{
+//				img = imgd.Img; 
+
+				//パスからファイル読込でイメージを作成
+				img = imgd.GetImg ();		
+			}
 
 			int x = PtPbImageBase.X + pos.X;
 			int y = PtPbImageBase.Y + pos.Y;

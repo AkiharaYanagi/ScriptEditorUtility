@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
+using System.Drawing.Imaging;
 
 
 
@@ -150,22 +151,44 @@ namespace ScriptEditor
 				SequenceData sqcDt = ELB_Sqc.GetList () [ index ];
 				foreach ( string path in filepaths )
 				{
-					//データに設定
+					//イメージデータに設定
+
+					//保存用パス
+					string save_path = EditChara.Inst.Settings.LastFilepath;
+					string save_dir = Path.GetDirectoryName ( save_path );
+
+					string chName_bin = Path.GetFileNameWithoutExtension ( save_path );
+					int ln = chName_bin.Length;
+					string chName = chName_bin.Substring ( 0, ln - 4 );
+					string dir_img = save_dir + "\\" + chName + "_img";
+
+
 					//@info リソース使用時にファイル削除ができないのでStreamを用いる
 					//Image img = Image.FromFile (path);
 					//sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
 					FileStream fs = new FileStream ( path, FileMode.Open, FileAccess.Read );
 					Image img = Image.FromStream ( fs );
 
-					//サイズ縮小
-					Bitmap thumbBmp = new Bitmap ( img );
-					Image thumImg = new Bitmap ( thumbBmp, new Size ( 100, 100 ) );
+					//サムネイル サイズ縮小
+					Bitmap thumImg = new Bitmap ( img, new Size ( 100, 100 ) );
 
 					//個数で名前を指定
 					int n = sqcDt.BD_ImgDt.Count();
-					if ( 99 < n ) { n = 0; }
+					if ( 99 < n ) { n = 0; }	//※100以上は桁数の問題もあり非対応
 					string name = sqcDt.Name + "_" + n.ToString ( "00" ) + ".png";
-					sqcDt.BD_ImgDt.Add ( new ImageData ( name, thumbBmp ) );
+					
+					//ファイルに書出
+					string img_save_path = dir_img + "\\" + name;
+					Directory.CreateDirectory ( dir_img );
+					img.Save ( img_save_path, ImageFormat.Png );
+
+					//イメージデータ
+//					ImageData imgdt = new ImageData ( name, img );
+					ImageData imgdt = new ImageData ( name );	//イメージは仮■で埋め
+					imgdt.Path = img_save_path;
+					imgdt.Thumbnail = thumImg;
+					sqcDt.BD_ImgDt.Add ( imgdt );
+					
 
 					fs.Close ();
 				}

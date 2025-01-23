@@ -27,12 +27,7 @@ namespace ScriptEditor
 
 			//-------------------------------------------------------
 			//既存を全削除
-			IEnumerable < string > files = Directory.EnumerateFiles ( dirname, "*" );
-			foreach ( string s in files )
-			{
-				FileInfo f = new FileInfo ( s );
-				f.Delete ();
-			}
+			WinUtility.DeleteAllFile ( dirname );
 
 			//-------------------------------------------------------
 			//名前を付けてファイルとして保存

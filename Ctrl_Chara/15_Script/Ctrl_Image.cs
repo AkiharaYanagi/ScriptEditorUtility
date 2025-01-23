@@ -61,7 +61,8 @@ namespace ScriptEditor
 			if ( null == Lb_Image.SelectedItem ) { return; }
 
 			//画像の更新
-			pbArchiveImage.Image = ( ( ImageData ) Lb_Image.SelectedItem ).Img;
+			ImageData imgdt = ( ImageData ) Lb_Image.SelectedItem;
+			pbArchiveImage.Image = imgdt.GetImg ();
 		}
 
 		//キャンセル

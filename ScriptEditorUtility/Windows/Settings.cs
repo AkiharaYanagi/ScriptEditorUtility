@@ -11,8 +11,8 @@ namespace ScriptEditor
 	{
 //		public string SettingFilepath { set; get; } = "setting.xml";	//自身のファイルパス
 
-		public string LastDirectory { set; get; } = "";			//前回のディレクトリ
-		public string LastFilepath { set; get; } = "";         //前回のファイルパス
+		public string LastDirectory { set; get; } = "";		//前回のディレクトリ
+		public string LastFilepath { set; get; } = "";		//前回(今回の最新)のファイルパス
 
 		public Settings ()
 		{

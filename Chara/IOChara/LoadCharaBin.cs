@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 
 
 namespace ScriptEditor
@@ -29,6 +30,8 @@ namespace ScriptEditor
 		//-------------------------------------------------------------
 		public void Do ( string filepath, Chara chara )
 		{
+			STS_TXT.Trace ( "読込開始" );
+
 			try
 			{
 				_Load ( filepath, chara );
@@ -46,6 +49,8 @@ namespace ScriptEditor
 				//MessageBox.Show ( "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace );
 				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
+
+			STS_TXT.Trace ( "◆◆ 読込完了" );
 
 			ErrMsg = "Load OK.";
 		}
@@ -72,6 +77,7 @@ namespace ScriptEditor
 			//初期化
 			chara.Clear ();
 
+
 			//ファイルストリーム開始
 			using ( var fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
 			using ( var br = new BinaryReader ( fstrm, Encoding.UTF8 ) )
@@ -92,20 +98,30 @@ namespace ScriptEditor
 				LoadBinRoute ( br, chara );
 
 				//ビヘイビア
-				LoadImage ( br, chara.behavior.BD_Image );		   
+				LoadImage ( filepath, br, chara.behavior.BD_Image );		
 				//ガーニッシュ
-				LoadImage ( br, chara.garnish.BD_Image );
-				
-				//スクリプトにおけるイメージ名の再設定
-				//Respecift_ImageName ( chara );
-			}
+				LoadImage ( filepath, br, chara.garnish.BD_Image );
+			}	//using
+		
 		}
 
-		public void LoadImage ( BinaryReader br, BD_Img bd_img )
+
+
+		public void LoadImage ( string filepath, BinaryReader br, BD_Img bd_img )
 		{
 			//イメージ個数
 			uint n = br.ReadUInt32 ();
 
+			//ディレクトリ名
+			string dir = Path.GetDirectoryName ( filepath );
+			string chName_bin = Path.GetFileNameWithoutExtension ( filepath );
+			int ln = chName_bin.Length;
+			string chName = chName_bin.Substring ( 0, ln - 4 );
+			string dir_img = dir + "\\" + chName + "_img";
+			Directory.CreateDirectory ( dir_img );
+
+
+			//各イメージ
 			for ( uint ui = 0; ui < n; ++ ui )
 			{
 				//名前 [utf-8] ( byte 名前のサイズ, 実データ )
@@ -121,17 +137,61 @@ namespace ScriptEditor
 
 				//読込
 				buffer = br.ReadBytes ( size );
-				using (MemoryStream ms = new MemoryStream ( buffer ))
+
+
+
+				//==============================
+				//◆ ver0.21 
+				//Imageを外部ファイルに書出
+				//必要時にディスクから読み出す
+				//windowsディレクトリ "filename_img\\img000.png"
+				//==============================
+
+				using ( MemoryStream ms = new MemoryStream ( buffer ) )
 				{
-					
+
+				//img変換
+				string img_path = dir_img + "\\" + name;
 				Image img = Image.FromStream ( ms );
+				img.Save ( img_path, ImageFormat.Png );
+//				img.Save ( name, ImageFormat.Png );
+
+				//コンストラクタで引数からサムネイルを作成
+				Image imgThum = new Bitmap ( img, 50, 50 );
+
+#if false
+				//仮■で埋め
+				Image imgBmp = new Bitmap ( 10, 10 );
+				Graphics gBmp = Graphics.FromImage ( imgBmp );
+				gBmp.FillRectangle ( Brushes.Yellow, new Rectangle ( 0, 0, imgBmp.Width, imgBmp.Height ) );
+				gBmp.Dispose ();
+#endif
 
 				//イメージデータ作成
-				//コンストラクタで引数からサムネイルを作成
-				ImageData imgdt = new ImageData ( name, img );
+//				ImageData imgdt = new ImageData ( name, imgBmp );
+				ImageData imgdt = new ImageData ( name );
+				imgdt.Thumbnail = (Bitmap)imgThum;
+				imgdt.Path = img_path;
+				bd_img.Add ( imgdt );
+
+				}	//using
+
+
+
+
+#if false
+				using (MemoryStream ms = new MemoryStream ( buffer ))
+				{
+				Image img = Image.FromStream ( ms );
+
+
+					//イメージデータ作成
+					//コンストラクタで引数からサムネイルを作成
+					ImageData imgdt = new ImageData ( name, img );
 				bd_img.Add ( imgdt );
 				
 				}	//using
+#endif
 			}
 		}
 

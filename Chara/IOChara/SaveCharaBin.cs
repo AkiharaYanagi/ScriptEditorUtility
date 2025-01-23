@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Drawing.Text;
 
 
 namespace ScriptEditor
@@ -62,18 +63,33 @@ namespace ScriptEditor
 			SaveBinGarnish ( bw, chara );	//garnish
 			SaveBinCommand ( bw, chara );	//Command
 			SaveBinBranch ( bw, chara );	//Branch
-			SaveBinRoute ( bw, chara );		//Route
+			SaveBinRoute ( bw, chara );     //Route
 
 			long script_size = ms.Length; 
 
-			//イメージ部
-//			WriteListImage ( bw, chara.behavior.BD_Image );
-//			WriteListImage ( bw, chara.garnish.BD_Image );
+#if false
+				//イメージ部
+				WriteListImage ( bw, chara.behavior.BD_Image );
+			WriteListImage ( bw, chara.garnish.BD_Image );
+#endif
 
 			//--------------------------------------------------------
 			bw.Flush ();
 			//--------------------------------------------------------
 
+			//一回、書き出してから追加する
+			//イメージ部
+			string img_dir = Path.GetDirectoryName ( filepath );
+			string img_name = Path.GetFileNameWithoutExtension ( filepath );
+			string img_name_sub = img_name.Substring ( 0, img_name.Length - 4 );
+
+			string img_bhv_path = img_name_sub + "_img_bhv" + ".bin";
+			_WriteListImage ( img_bhv_path, chara.behavior.BD_Image );
+
+			string img_gns_path = img_name_sub + "_img_gns" + ".bin";
+			_WriteListImage ( img_gns_path, chara.garnish.BD_Image );
+		
+			
 #if false
 
 				//最後にファイルに書出
@@ -111,15 +127,101 @@ namespace ScriptEditor
 			bwFl.Write ( byte_VER, 0, byte_VER.Length );
 
 			//サイズ(uint)4,294,967,296[byte]まで
-			byte[] byte_Length = BitConverter.GetBytes ( (uint) ms.Length );
+
+			FileInfo fI_bhv = new FileInfo ( img_bhv_path );
+			FileInfo fI_gns = new FileInfo ( img_gns_path );
+			uint mem_size = (uint) ( ms.Length + fI_bhv.Length + fI_gns.Length );
+			byte[] byte_Length = BitConverter.GetBytes ( mem_size );
 			bwFl.Write ( byte_Length, 0, byte_Length.Length );
 
-			bwFl.Write ( ms.ToArray(), 0, (int)ms.Length );
+			//メモリストリーム
+			ms.Seek ( 0, SeekOrigin.Begin );
+//			bwFl.Write ( ms.ToArray(), 0, (int)ms.Length );
+			ms.CopyTo ( bwFl );
+
+
+			//イメージファイルから追加
+			using ( FileStream fsBhv = new FileStream ( img_bhv_path, FileMode.Open ) )
+			{
+				long lnBhv = fsBhv.Length;
+				fsBhv.CopyTo ( bwFl );
+			}
+			using ( FileStream fsGns = new FileStream ( img_gns_path, FileMode.Open ) )
+			{
+				long lnGns = fsGns.Length;
+				fsGns.CopyTo ( bwFl );
+			}
+#if false
+#endif
 
 			}	//using
 
+			}	//using
+			
+		}
+
+
+		private void _WriteListImage ( string path, BD_ImgDt bdImg )
+		{
+			using ( FileStream fStrm = new FileStream ( path, FileMode.Create ) )
+			using ( BufferedStream bfStrm = new BufferedStream ( fStrm ) )
+			{
+
+			//イメージ個数
+			uint uiCnt = (uint)bdImg.Count ();
+			byte [] byteNum = BitConverter.GetBytes ( uiCnt );
+			bfStrm.Write ( byteNum, 0, byteNum.Length );
+
+
+				//実データ
+				foreach (ImageData imgdt in bdImg.GetEnumerable ())
+				{
+#if false
+				//イメージを一時領域に書出
+				using ( MemoryStream msImg = new MemoryStream () )
+				{			
+				//名前
+				bw.Write ( id.Name );		//string (length , [UTF8])
+
+				//------------
+				//@info 先にメモリに書き出してmsImg.Lengthにサイズを記録する
+				//実データ
+				id.Img.Save ( msImg, ImageFormat.Png );
+
+				//サイズ
+				bw.Write ( (uint)msImg.Length );
+
+				msImg.Seek ( 0, SeekOrigin.Begin );
+				while ( ( numBytes = msImg.Read ( buffer, 0, size ) ) > 0 )
+				{ 
+					bw.Write ( buffer, 0, numBytes );
+				}
+
+				}	//using
+				bw.Flush ();	//一時書出
+
+#endif
+
+					_WriteImage ( bfStrm, imgdt );
+				}
 			}	//using
 		}
+
+
+		private void _WriteImage ( BufferedStream bfStrm, ImageData imgdt )
+		{
+			using ( MemoryStream ms = new MemoryStream () )
+			{
+				Image img = imgdt.GetImg ();
+				img.Save ( ms, ImageFormat.Png );
+
+				ms.Seek ( 0, SeekOrigin.Begin );
+				ms.CopyTo ( bfStrm );
+			}
+		}
+
+
+
 
 		private void WriteListImage ( BinaryWriter bw, BD_ImgDt bdImg )
 		{
@@ -156,7 +258,7 @@ namespace ScriptEditor
 
 #endif
 
-//				WriteImage ( bw, id );
+				WriteImage ( bw, id );
 			}
 		}
 
@@ -195,7 +297,7 @@ namespace ScriptEditor
 			bw.Write ( buffer, 0, buffer.Length );
 
 #if false
-				msImg.Seek ( 0, SeekOrigin.Begin );
+			msImg.Seek ( 0, SeekOrigin.Begin );
 			while ( ( numBytes = msImg.Read ( buffer, 0, size ) ) > 0 )
 			{ 
 				bw.Write ( buffer, 0, numBytes );

@@ -9,8 +9,17 @@ namespace ScriptEditor
 		public const int THUM_W = 50;
 		public const int THUM_H = 50;
 
+
+
+
 		//イメージ
-		public Image Img { set; get; }
+		public Image Img { set; get; } = null;
+
+
+		//フルパスを保存し、描画に必要なときのみ読み込む
+		public string Path { set; get; } = "pass\\img.png";
+
+
 
 		//表示用サムネイル
 		public Bitmap Thumbnail { set; get; } = new Bitmap ( THUM_W, THUM_H );
@@ -30,8 +39,20 @@ namespace ScriptEditor
 		{
 			Name = name;
 			Img = img;
-
 			MakeThumbnail ( img );
+		}
+		public ImageData ( string name )
+		{
+			Name = name;
+
+			//仮■で埋め
+			Bitmap imgBmp = new Bitmap ( 10, 10 );
+			Graphics gBmp = Graphics.FromImage ( imgBmp );
+			gBmp.FillRectangle ( Brushes.Yellow, new Rectangle ( 0, 0, imgBmp.Width, imgBmp.Height ) );
+			gBmp.Dispose ();
+
+			Img = imgBmp;
+			Thumbnail = imgBmp;
 		}
 		public ImageData ( ImageData imageData )
 		{
@@ -54,6 +75,12 @@ namespace ScriptEditor
 			Graphics g = Graphics.FromImage ( Thumbnail );
 			g.DrawImage ( img, new Rectangle ( 0, 0 , THUM_W, THUM_H ) );
 			g.Dispose ();
+		}
+
+		//Image取得
+		public Image GetImg ()
+		{
+			return Image.FromFile ( Path );
 		}
 	}
 	

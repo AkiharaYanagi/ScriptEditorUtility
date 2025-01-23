@@ -20,6 +20,9 @@ namespace ScriptEditor
 		//編集中のキャラ
 		public Chara Chara { get; set; } = new Chara ();
 
+		//ファイルパスセッティング
+		public Settings Settings { get; set; } = new Settings ();
+
 		//アンドゥリドゥ用ヒストリー
 		public List< Chara > L_Chara = new List<Chara> ();
 		private int undo_pointer = -1; //初期値:-1は対象外
