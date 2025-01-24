@@ -22,10 +22,13 @@ namespace ScriptEditor
 		//データ編集
 		public EditSqcListData EditData { get; set; } = new EditSqcListData ();
 
-		//アクション指定
+		//アクション/エフェクト指定
 		private SQC_DRVD flag_sqc_derived = SQC_DRVD.ACTION;
 		public void SetAction () { flag_sqc_derived = SQC_DRVD.ACTION; pB_Sqc1.FlagAction = true; }
 		public void SetEffect () { flag_sqc_derived = SQC_DRVD.EFFECT; pB_Sqc1.FlagAction = false; }
+
+		public bool IsAction () { return flag_sqc_derived == SQC_DRVD.ACTION; }
+		public bool IsEffect () { return flag_sqc_derived == SQC_DRVD.EFFECT; }
 
 		//アクション設定フォーム
 		private readonly Form_Action form_act = new Form_Action();
@@ -156,17 +159,15 @@ namespace ScriptEditor
 					//保存用パス
 					string save_path = EditChara.Inst.Settings.LastFilepath;
 					string save_dir = Path.GetDirectoryName ( save_path );
-
-					string chName_bin = Path.GetFileNameWithoutExtension ( save_path );
-					int ln = chName_bin.Length;
-					string chName = chName_bin.Substring ( 0, ln - 4 );
+					string chName = Path.GetFileNameWithoutExtension ( save_path );
 					string dir_img = save_dir + "\\" + chName + "_img";
 
 
 					//@info リソース使用時にファイル削除ができないのでStreamを用いる
 					//Image img = Image.FromFile (path);
 					//sqcDt.L_ImgDt.Add ( new ImageData ( sqcDt.Name, img ) );
-					FileStream fs = new FileStream ( path, FileMode.Open, FileAccess.Read );
+					using (FileStream fs = new FileStream ( path, FileMode.Open, FileAccess.Read ))
+					{
 					Image img = Image.FromStream ( fs );
 
 					//サムネイル サイズ縮小
@@ -176,8 +177,9 @@ namespace ScriptEditor
 					int n = sqcDt.BD_ImgDt.Count();
 					if ( 99 < n ) { n = 0; }	//※100以上は桁数の問題もあり非対応
 					string name = sqcDt.Name + "_" + n.ToString ( "00" ) + ".png";
-					
-					//ファイルに書出
+
+
+					//イメージディレクトリのファイルに書出
 					string img_save_path = dir_img + "\\" + name;
 					Directory.CreateDirectory ( dir_img );
 					img.Save ( img_save_path, ImageFormat.Png );
@@ -188,10 +190,21 @@ namespace ScriptEditor
 					imgdt.Path = img_save_path;
 					imgdt.Thumbnail = thumImg;
 					sqcDt.BD_ImgDt.Add ( imgdt );
+					}
 					
-
-					fs.Close ();
 				}
+
+				//メインに反映
+				if ( IsAction () )
+				{
+					EditData.ApplyData_Action ();
+				}
+				if ( IsEffect () )
+				{
+					EditData.ApplyData_Effect ();
+				}
+
+
 
 				//ピクチャボックスのサイズ変更
 				pB_Sqc1.UpdateSize ();

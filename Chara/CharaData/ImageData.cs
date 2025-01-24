@@ -10,14 +10,15 @@ namespace ScriptEditor
 		public const int THUM_H = 50;
 
 
-
-
 		//イメージ
 		public Image Img { set; get; } = null;
 
 
-		//フルパスを保存し、描画に必要なときのみ読み込む
-		public string Path { set; get; } = "pass\\img.png";
+		//イメージディレクトリのフルパスを保存し、描画に必要なときのみ読み込む
+		public string Path { set; get; } = null;	//"pass\\img.png";
+
+		//イメージファイル(.img)と名前から読込
+		public string Img_file { set; get; } = null;	//"file.img"
 
 
 
@@ -80,7 +81,14 @@ namespace ScriptEditor
 		//Image取得
 		public Image GetImg ()
 		{
-			return Image.FromFile ( Path );
+			//ディレクトリ
+			if ( Path != null )
+			{
+				return Image.FromFile ( Path ); 
+			}
+
+			//無い(初期状態■かサムネイル)
+			return Img;
 		}
 	}
 	

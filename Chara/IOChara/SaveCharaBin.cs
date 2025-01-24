@@ -4,11 +4,13 @@ using System.IO;
 using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
-using System.Drawing.Text;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 
 namespace ScriptEditor
 {
+	using Utl = SaveCharaBin_Util;
 	using BD_ImgDt = BindingDictionary < ImageData >;
 
 	//==================================================================================
@@ -59,11 +61,11 @@ namespace ScriptEditor
 
 			//--------------------------------------------------------
 			//chara 各種データ書出
-			SaveBinBehavior ( bw, chara );	//behavior
-			SaveBinGarnish ( bw, chara );	//garnish
-			SaveBinCommand ( bw, chara );	//Command
-			SaveBinBranch ( bw, chara );	//Branch
-			SaveBinRoute ( bw, chara );     //Route
+			Utl.SaveBinBehavior ( bw, chara );	//behavior
+			Utl.SaveBinGarnish ( bw, chara );	//garnish
+			Utl.SaveBinCommand ( bw, chara );	//Command
+			Utl.SaveBinBranch ( bw, chara );	//Branch
+			Utl.SaveBinRoute ( bw, chara );     //Route
 
 			long script_size = ms.Length; 
 
@@ -83,10 +85,10 @@ namespace ScriptEditor
 			string img_name = Path.GetFileNameWithoutExtension ( filepath );
 			string img_name_sub = img_name.Substring ( 0, img_name.Length - 4 );
 
-			string img_bhv_path = img_name_sub + "_img_bhv" + ".bin";
+			string img_bhv_path = img_name_sub + "_img_bhv" + ".dat";
 			_WriteListImage ( img_bhv_path, chara.behavior.BD_Image );
 
-			string img_gns_path = img_name_sub + "_img_gns" + ".bin";
+			string img_gns_path = img_name_sub + "_img_gns" + ".dat";
 			_WriteListImage ( img_gns_path, chara.garnish.BD_Image );
 		
 			
@@ -211,10 +213,26 @@ namespace ScriptEditor
 		private void _WriteImage ( BufferedStream bfStrm, ImageData imgdt )
 		{
 			using ( MemoryStream ms = new MemoryStream () )
+			using ( BinaryWriter bw = new BinaryWriter ( ms, Encoding.UTF8 ) )
 			{
-				Image img = imgdt.GetImg ();
-				img.Save ( ms, ImageFormat.Png );
+				//名前
+				bw.Write ( imgdt.Name );		//string (length , [UTF8])
 
+				//イメージ作成と保存
+				using ( MemoryStream msImg = new  MemoryStream () )
+				{
+				Image img = imgdt.GetImg ();
+				img.Save ( msImg, ImageFormat.Png );
+
+				//サイズ
+				uint size = 0;
+				size = (uint)msImg.Length;
+				bw.Write ( size );
+
+				msImg.CopyTo ( ms );
+				}
+
+				//書き込み
 				ms.Seek ( 0, SeekOrigin.Begin );
 				ms.CopyTo ( bfStrm );
 			}

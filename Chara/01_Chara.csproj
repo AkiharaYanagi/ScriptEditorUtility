@@ -63,6 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOChara\LoadCharaImg.cs" />
+    <Compile Include="IOChara\LoadCharaImg_Func.cs" />
+    <Compile Include="IOChara\SaveCharaBin_Util.cs" />
+    <Compile Include="IOChara\SaveCharaImg.cs" />
     <Compile Include="IOChara\Text\BranchToText.cs" />
     <Compile Include="IOChara\Text\CommandToText.cs" />
     <Compile Include="IOChara\Text\RouteToText.cs" />
@@ -111,7 +115,6 @@
     <Compile Include="IOChara\LoadCharaBinFunc.cs" />
     <Compile Include="IOChara\LoadTextChara.cs" />
     <Compile Include="IOChara\SaveCharaBin.cs" />
-    <Compile Include="IOChara\SaveCharaBinFunc.cs" />
     <Compile Include="MakeChara\ConstCharaData.cs" />
     <Compile Include="MakeChara\MakeActionData.cs" />
     <Compile Include="MakeChara\MakeActionData_Part.cs" />

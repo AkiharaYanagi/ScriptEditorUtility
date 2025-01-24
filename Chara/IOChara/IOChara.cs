@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Diagnostics;
+using System.IO;
 
 
 namespace ScriptEditor
@@ -52,6 +53,44 @@ namespace ScriptEditor
 		public static Point AttrToPoint ( Element e, int enumName0, int enumName1 )
 		{
 			return new Point ( AttrToInt ( e, enumName0 ), AttrToInt ( e, enumName1 ) );
+		}
+
+		//===================================================
+
+		//イメージ別ディレクトリ名
+		public static string GetBhvImgDir ( string filepath )
+		{
+			string fileDir = Path.GetDirectoryName ( filepath );
+			string filename = Path.GetFileNameWithoutExtension ( filepath );
+			return fileDir + "\\" + filename + "_bhv_img";
+		}
+		public static string GetGnsImgDir ( string filepath )
+		{
+			string fileDir = Path.GetDirectoryName ( filepath );
+			string filename = Path.GetFileNameWithoutExtension ( filepath );
+			return fileDir + "\\" + filename + "_gns_img";
+		}
+
+		//イメージ別ファイル名
+		public static string GetScpPath ( string filepath )
+		{
+			string fileDir = Path.GetDirectoryName ( filepath );
+			string filename = Path.GetFileNameWithoutExtension ( filepath );
+			return fileDir + "\\" + filename + ".scp";
+		}
+
+		public static string GetBhvImgPath ( string filepath )
+		{
+			string fileDir = Path.GetDirectoryName ( filepath );
+			string filename = Path.GetFileNameWithoutExtension ( filepath );
+			return fileDir + "\\" + filename + "_bhv" + ".img";
+		}
+
+		public static string GetGnsImgPath ( string filepath )
+		{
+			string fileDir = Path.GetDirectoryName ( filepath );
+			string filename = Path.GetFileNameWithoutExtension ( filepath );
+			return fileDir + "\\" + filename + "_gns" + ".img";
 		}
 	}
 

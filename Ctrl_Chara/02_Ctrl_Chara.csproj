@@ -78,6 +78,12 @@
     <Compile Include="15_Script\Ctrl_Image.Designer.cs">
       <DependentUpon>Ctrl_Image.cs</DependentUpon>
     </Compile>
+    <Compile Include="50_SubForm\Ctrl_EditCompend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="50_SubForm\Ctrl_EditCompend.Designer.cs">
+      <DependentUpon>Ctrl_EditCompend.cs</DependentUpon>
+    </Compile>
     <Compile Include="50_SubForm\Ctrl_SubFormBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -233,12 +239,6 @@
     </Compile>
     <Compile Include="99_Common\Ctrl_Settings.cs" />
     <Compile Include="99_Common\IScriptParam.cs" />
-    <Compile Include="50_SubForm\Ctrl_EditCompend.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="50_SubForm\Ctrl_EditCompend.Designer.cs">
-      <DependentUpon>Ctrl_EditCompend.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

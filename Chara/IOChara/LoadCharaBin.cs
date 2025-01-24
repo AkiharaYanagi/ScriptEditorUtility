@@ -98,27 +98,32 @@ namespace ScriptEditor
 				LoadBinRoute ( br, chara );
 
 				//ビヘイビア
-				LoadImage ( filepath, br, chara.behavior.BD_Image );		
+				string imgfile_bhv = IOChara.GetBhvImgPath ( filepath );
+				string imgdir_bhv = IOChara.GetBhvImgDir ( filepath );
+				LoadImage ( imgfile_bhv, imgdir_bhv, br, chara.behavior.BD_Image );		
 				//ガーニッシュ
-				LoadImage ( filepath, br, chara.garnish.BD_Image );
+				string imgfile_gns = IOChara.GetGnsImgPath ( filepath );
+				string imgdir_gns = IOChara.GetGnsImgDir ( filepath );
+				LoadImage ( imgfile_gns, imgdir_gns, br, chara.garnish.BD_Image );
 			}	//using
 		
 		}
 
 
 
-		public void LoadImage ( string filepath, BinaryReader br, BD_Img bd_img )
+		public void LoadImage ( string filepath, string imgDir, BinaryReader br, BD_Img bd_img )
 		{
+			//画像はディレクトリに展開しておく
+
+			//EOF
+			if ( br.BaseStream.Position >= br.BaseStream.Length ) { return; }
+
 			//イメージ個数
 			uint n = br.ReadUInt32 ();
+			if ( n == 0 ) { return; }
 
-			//ディレクトリ名
-			string dir = Path.GetDirectoryName ( filepath );
-			string chName_bin = Path.GetFileNameWithoutExtension ( filepath );
-			int ln = chName_bin.Length;
-			string chName = chName_bin.Substring ( 0, ln - 4 );
-			string dir_img = dir + "\\" + chName + "_img";
-			Directory.CreateDirectory ( dir_img );
+			//ディレクトリ名(無いときに作成)
+			Directory.CreateDirectory ( imgDir );
 
 
 			//各イメージ
@@ -132,51 +137,29 @@ namespace ScriptEditor
 				//int size = (int)br.ReadUInt32 ();
 				int size = (int)usize; 
 
-				//一時領域
+				//一時領域読込
 				byte[] buffer = new byte [ size ];
-
-				//読込
 				buffer = br.ReadBytes ( size );
 
-
-
-				//==============================
-				//◆ ver0.21 
-				//Imageを外部ファイルに書出
-				//必要時にディスクから読み出す
-				//windowsディレクトリ "filename_img\\img000.png"
-				//==============================
 
 				using ( MemoryStream ms = new MemoryStream ( buffer ) )
 				{
 
 				//img変換
-				string img_path = dir_img + "\\" + name;
+				string img_path = imgDir + "\\" + name;
 				Image img = Image.FromStream ( ms );
 				img.Save ( img_path, ImageFormat.Png );
-//				img.Save ( name, ImageFormat.Png );
 
 				//コンストラクタで引数からサムネイルを作成
 				Image imgThum = new Bitmap ( img, 50, 50 );
 
-#if false
-				//仮■で埋め
-				Image imgBmp = new Bitmap ( 10, 10 );
-				Graphics gBmp = Graphics.FromImage ( imgBmp );
-				gBmp.FillRectangle ( Brushes.Yellow, new Rectangle ( 0, 0, imgBmp.Width, imgBmp.Height ) );
-				gBmp.Dispose ();
-#endif
-
 				//イメージデータ作成
-//				ImageData imgdt = new ImageData ( name, imgBmp );
 				ImageData imgdt = new ImageData ( name );
 				imgdt.Thumbnail = (Bitmap)imgThum;
 				imgdt.Path = img_path;
 				bd_img.Add ( imgdt );
 
 				}	//using
-
-
 
 
 #if false
@@ -195,6 +178,8 @@ namespace ScriptEditor
 			}
 		}
 
+
+#if false
 		//イメージ名の再指定
 		public void Respecift_ImageName ( Chara chara )
 		{
@@ -224,5 +209,7 @@ namespace ScriptEditor
 			}
 
 		}
+
+#endif
 	}
 }
