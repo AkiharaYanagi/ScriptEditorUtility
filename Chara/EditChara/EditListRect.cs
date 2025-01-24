@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace ScriptEditor
@@ -41,6 +42,19 @@ namespace ScriptEditor
 			if ( L_Rct.Count <= SelectedIndex ) { return; }
 
 			L_Rct [ SelectedIndex ] = r;
+		}
+		public void SetRect ( int x, int y, int w, int h )
+		{
+			if ( SelectedIndex < 0 ) { return; }
+			if ( L_Rct.Count <= SelectedIndex ) { return; }
+
+			//new を用いないで値を設定する
+			var rect = L_Rct [ SelectedIndex ];
+			rect.X = x;
+			rect.Y = y;
+			rect.Width = w;
+			rect.Height = h;
+			L_Rct [ SelectedIndex ] = rect;
 		}
 	}
 

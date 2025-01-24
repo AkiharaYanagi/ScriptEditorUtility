@@ -49,7 +49,7 @@ namespace ScriptEditor
 			//仮■で埋め
 			Bitmap imgBmp = new Bitmap ( 10, 10 );
 			Graphics gBmp = Graphics.FromImage ( imgBmp );
-			gBmp.FillRectangle ( Brushes.Yellow, new Rectangle ( 0, 0, imgBmp.Width, imgBmp.Height ) );
+			gBmp.FillRectangle ( Brushes.LightYellow, new Rectangle ( 0, 0, imgBmp.Width, imgBmp.Height ) );
 			gBmp.Dispose ();
 
 			Img = imgBmp;

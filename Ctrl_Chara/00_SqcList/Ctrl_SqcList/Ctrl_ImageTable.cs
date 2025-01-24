@@ -184,6 +184,9 @@ namespace ScriptEditor
 					Directory.CreateDirectory ( dir_img );
 					img.Save ( img_save_path, ImageFormat.Png );
 
+					//@todo 上書き時に例外発生
+						
+
 					//イメージデータ
 //					ImageData imgdt = new ImageData ( name, img );
 					ImageData imgdt = new ImageData ( name );	//イメージは仮■で埋め

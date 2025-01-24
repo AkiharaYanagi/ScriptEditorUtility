@@ -121,8 +121,11 @@ namespace ScriptEditor
 		{
 			base.MouseMove_L ();
 
-			Rectangle rct = new Rectangle ( startRectPt.X, startRectPt.Y, dragPt.X, dragPt.Y );
-			EditLRct.SetRect ( rct );
+			//Rectangle rct = new Rectangle ( startRectPt.X, startRectPt.Y, dragPt.X, dragPt.Y );
+			//EditLRct.SetRect ( rct );
+			
+			//new を用いないで値を設定する
+			EditLRct.SetRect ( startRectPt.X, startRectPt.Y, dragPt.X, dragPt.Y );
 		}
 	}
 

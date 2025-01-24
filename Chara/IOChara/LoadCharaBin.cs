@@ -151,11 +151,12 @@ namespace ScriptEditor
 				img.Save ( img_path, ImageFormat.Png );
 
 				//コンストラクタで引数からサムネイルを作成
-				Image imgThum = new Bitmap ( img, 50, 50 );
+				Bitmap imgThum = new Bitmap ( img, 50, 50 );
+				img.Dispose ();
 
 				//イメージデータ作成
 				ImageData imgdt = new ImageData ( name );
-				imgdt.Thumbnail = (Bitmap)imgThum;
+				imgdt.Thumbnail = imgThum;
 				imgdt.Path = img_path;
 				bd_img.Add ( imgdt );
 

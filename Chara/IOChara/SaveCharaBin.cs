@@ -76,19 +76,29 @@ namespace ScriptEditor
 #endif
 
 			//--------------------------------------------------------
+			//スクリプト部書出
 			bw.Flush ();
+
+			long ms_pos = ms.Position;
+			
+			using ( FileStream fs = new FileStream ( IOChara.GetScpPath( filepath ), FileMode.Create, FileAccess.Write ) )
+			using ( BufferedStream bwFl = new BufferedStream( fs ) )
+			{
+				ms.Seek ( 0, SeekOrigin.Begin );
+				ms.CopyTo ( bwFl );
+
+			}	//using FileStream
+			
+			ms.Seek ( ms_pos, SeekOrigin.Begin );
+		
 			//--------------------------------------------------------
 
-			//一回、書き出してから追加する
 			//イメージ部
-			string img_dir = Path.GetDirectoryName ( filepath );
-			string img_name = Path.GetFileNameWithoutExtension ( filepath );
-			string img_name_sub = img_name.Substring ( 0, img_name.Length - 4 );
-
-			string img_bhv_path = img_name_sub + "_img_bhv" + ".dat";
+			//一回、imgファイルに書き出してから追加する
+			string img_bhv_path = IOChara.GetBhvImgPath ( filepath );
 			_WriteListImage ( img_bhv_path, chara.behavior.BD_Image );
 
-			string img_gns_path = img_name_sub + "_img_gns" + ".dat";
+			string img_gns_path = IOChara.GetGnsImgPath ( filepath );
 			_WriteListImage ( img_gns_path, chara.garnish.BD_Image );
 		
 			
@@ -223,13 +233,14 @@ namespace ScriptEditor
 				{
 				Image img = imgdt.GetImg ();
 				img.Save ( msImg, ImageFormat.Png );
+				img.Dispose ();
 
 				//サイズ
-				uint size = 0;
-				size = (uint)msImg.Length;
-				bw.Write ( size );
+				bw.Write ( (uint)msImg.Length );
 
-				msImg.CopyTo ( ms );
+				//イメージ
+				//msImg.CopyTo ( ms );
+				bw.Write ( msImg.ToArray(), 0, (int)msImg.Length );
 				}
 
 				//書き込み

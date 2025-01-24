@@ -27,8 +27,6 @@ namespace ScriptEditor
 		//-------------------------------------------------------------
 		public void Do_dir ( string filepath, Chara chara )
 		{
-			STS_TXT.Trace ( "読込開始 ( scp + dir )" );
-
 			try
 			{
 				_Load_scp_dir ( filepath, chara );
@@ -38,15 +36,11 @@ namespace ScriptEditor
 				chara = new Chara ();		//空データ
 				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
-
-			STS_TXT.Trace ( "◆◆ 読込完了 ( scp + dir )" );
 			ErrMsg = "Load OK.";
 		}
 
 		public void Do_img ( string filepath, Chara chara )
 		{
-			STS_TXT.Trace ( "読込開始 ( scp + img )" );
-
 			try
 			{
 				_Load_scp_img ( filepath, chara );
@@ -56,8 +50,6 @@ namespace ScriptEditor
 				chara = new Chara ();		//空データ
 				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
 			}
-
-			STS_TXT.Trace ( "◆◆ 読込完了 ( scp + img )" );
 			ErrMsg = "Load OK.";
 		}
 
@@ -160,20 +152,23 @@ namespace ScriptEditor
 		{
 			//イメージディレクトリ
 			//ファイル列挙
-			string[] imgFilenames = Directory.GetFiles ( imgDir );
+			string[] imgFilepathes = Directory.GetFiles ( imgDir );
 			
-			foreach ( string filename in imgFilenames )
+			foreach ( string filepath in imgFilepathes )
 			{
+				//名前の取得
+				string name = Path.GetFileName ( filepath );
+
 				//img変換
-				Image img = Image.FromFile ( filename );
+				Image img = Image.FromFile ( filepath );
 
 				//サムネイルを作成
 				Bitmap imgThum = new Bitmap ( img, 50, 50 );
 
 				//イメージデータ作成
-				ImageData imgdt = new ImageData ( filename );
+				ImageData imgdt = new ImageData ( name );
 				imgdt.Thumbnail = imgThum;
-				imgdt.Path = imgDir + filename;
+				imgdt.Path = filepath;
 				bd_img.Add ( imgdt );
 			}
 		}
@@ -188,6 +183,13 @@ namespace ScriptEditor
 			//必要時にディスクから読み出す
 			//windowsディレクトリ "filename_img\\img000.png"
 			//==============================
+
+			//-------------------------------------------------------
+			//ディレクトリ作成
+			Directory.CreateDirectory ( imgDir );
+			//既存を全削除
+			WinUtility.DeleteAllFile ( imgDir );
+			//-------------------------------------------------------
 
 			using ( FileStream fs = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
 			using ( BinaryReader br = new BinaryReader ( fs ) )
@@ -213,7 +215,8 @@ namespace ScriptEditor
 				buffer = br.ReadBytes ( size );
 
 				//対象画像ファイルのパス
-				string imgName = imgDir + name;
+				string imgName = imgDir + "\\" + name;
+
 
 				//イメージの作成とディレクトリに展開
 				using ( MemoryStream ms = new MemoryStream ( buffer ) )
@@ -221,12 +224,16 @@ namespace ScriptEditor
 				//img変換
 				Image img = Image.FromStream ( ms );
 				img.Save ( imgName, ImageFormat.Png );
-				}	//using
+
+				//サムネイルを作成
+				Bitmap imgThum = new Bitmap ( img, 50, 50 );
 
 				//イメージデータ作成
 				ImageData imgdt = new ImageData ( name );
 				imgdt.Path = imgName;
+				imgdt.Thumbnail = imgThum;
 				bd_img.Add ( imgdt );
+				}	//using
 
 		}
 

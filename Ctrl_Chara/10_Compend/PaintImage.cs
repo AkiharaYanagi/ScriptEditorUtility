@@ -176,7 +176,11 @@ namespace ScriptEditor
 			{
 				img = MakeDummy ( imgname );
 			}
-			else { img = imgd.Img; }
+			else
+			{
+				//img = imgd.Img; 
+				img = imgd.GetImg (); 
+			}
 
 			int x = PtPbImageBase.X + pos.X;
 			int y = PtPbImageBase.Y + pos.Y;
@@ -220,7 +224,7 @@ namespace ScriptEditor
 				Point dragPt = PointUt.PtSub ( Cursor.Position, startPt );
 				PtPbImageBase = PointUt.PtAdd ( prePt, dragPt );
 
-				Invalidate ();
+				//Invalidate ();
 			}
 
 			base.OnMouseMove ( e );
