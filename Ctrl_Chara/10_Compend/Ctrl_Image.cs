@@ -181,6 +181,8 @@ namespace ScriptEditor
 				SelectingTool.MouseUp_L ();
 			}
 
+			paintImage.Invalidate ();
+
 			base.OnMouseUp ( e );
 		}
 	}
