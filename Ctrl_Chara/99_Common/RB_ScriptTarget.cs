@@ -8,8 +8,8 @@ namespace ScriptEditor
 	//スクリプト編集コンポーネントリスト において対象を切り替える
 	public partial class RB_ScriptTarget : UserControl
 	{
-		//対象指定
-		public EditTargetScript EditTarget { get; set; } = EditTargetScript.GROUP;
+		//対象指定 (初期値：SELECT)
+		public EditTargetScript EditTarget { get; set; } = EditTargetScript.SELECT;
 	
 		public List < IScriptParam > ls_ctrl_scpPrm { get; set; } = new List<IScriptParam> ();
 
@@ -24,6 +24,15 @@ namespace ScriptEditor
 
 			//初期位置
 			RB_TRG_SLC.Checked = true;
+			EditTarget = EditTargetScript.SELECT;
+		}
+
+		//コントロール設定
+		public void SetCtrl ( List < IScriptParam > l_ctrl )
+		{
+			ls_ctrl_scpPrm = l_ctrl;
+			foreach ( IScriptParam isp in ls_ctrl_scpPrm ) { isp.SetTarget_Select (); }
+			EditTarget = EditTargetScript.SELECT;
 		}
 
 		//ラジオボタンで編集範囲を設定

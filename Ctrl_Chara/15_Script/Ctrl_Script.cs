@@ -76,10 +76,6 @@ namespace ScriptEditor
 		//コンストラクタ
 		public _Ctrl_Script ()
 		{
-			//編集対象を切り替えるラジオボタン
-			rb_ScpTgt.ls_ctrl_scpPrm = ls_ctrl_scpPrm;
-			this.Controls.Add ( rb_ScpTgt );
-
 			//コントロール一連に登録
 			ls_ctrl_scpPrm.Add ( cmpnt_ClcSt );
 			ls_ctrl_scpPrm.Add ( cmpnt_px );
@@ -198,11 +194,18 @@ namespace ScriptEditor
 			cb_VC.Location = new Point ( BX1		, BY + PY * 10 );
 
 
+			//編集対象を切り替えるラジオボタン
+			//rb_ScpTgt.ls_ctrl_scpPrm = ls_ctrl_scpPrm;
+			rb_ScpTgt.SetCtrl ( ls_ctrl_scpPrm );	//編集対象を選択範囲に設定
+			this.Controls.Add ( rb_ScpTgt );
+
+#if false
 			//初期化
 			foreach ( IScriptParam iscp in ls_ctrl_scpPrm )
 			{
 				iscp.SetTarget_Group ();
 			}
+#endif
 
 			//デフォルトの初期化
 			InitializeComponent ();
