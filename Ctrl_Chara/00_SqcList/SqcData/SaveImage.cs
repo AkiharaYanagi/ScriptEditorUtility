@@ -46,7 +46,8 @@ namespace ScriptEditor
 					string s1 = sd.Name + "_" ;
 					string s2 = img_index.ToString ("00") + ".png";
 					string filepath = dirname + "\\" + s0 + s1 + s2;
-					id.Img.Save ( filepath, ImageFormat.Png );
+//					id.Img.Save ( filepath, ImageFormat.Png );
+					id.GetImg().Save ( filepath, ImageFormat.Png );
 
 					L_str.Add ( s0 + s1 + s2 );
 
