@@ -24,12 +24,19 @@ namespace ScriptEditor
 		{
 			using ( Brush br = new SolidBrush ( clr ) )
 			{
+			int count = 0;
 			foreach ( Rectangle r in lRect )
 			{
 				int x = ptBase.X + r.X;
 				int y = ptBase.Y + r.Y;
 				Rectangle drawRect = new Rectangle ( x, y, r.Width, r.Height );
 				g.FillRectangle ( br, drawRect );
+
+				if (count == 0)
+				{
+//					g.DrawRectangle ( Pens.White, drawRect );
+				}
+				++ count;
 			}
 			}
 		}

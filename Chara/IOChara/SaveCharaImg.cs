@@ -103,11 +103,20 @@ namespace ScriptEditor
 			//--------------------------------------------------------
 			bw.Flush ();
 			//--------------------------------------------------------
-
 			//一時ファイル書出
 			using ( FileStream fs = new FileStream ( scpFilePath, FileMode.Create, FileAccess.Write ) )
 			using ( BufferedStream bwFl = new BufferedStream( fs ) )
 			{
+				//バージョン(uint)
+				byte[] byte_VER = BitConverter.GetBytes ( IO_CONST.VER );
+				bwFl.Write ( byte_VER, 0, byte_VER.Length );
+
+				//サイズ(uint)4,294,967,296[byte]まで
+				uint mem_size = (uint)ms.Length;
+				byte[] byte_Length = BitConverter.GetBytes ( mem_size );
+				bwFl.Write ( byte_Length, 0, byte_Length.Length );
+
+				//スクリプトを書いたMemoryStreamを先頭に戻してコピー
 				ms.Seek ( 0, SeekOrigin.Begin );
 				ms.CopyTo ( bwFl );
 

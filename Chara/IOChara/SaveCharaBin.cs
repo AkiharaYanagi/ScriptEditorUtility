@@ -139,7 +139,6 @@ namespace ScriptEditor
 			bwFl.Write ( byte_VER, 0, byte_VER.Length );
 
 			//サイズ(uint)4,294,967,296[byte]まで
-
 			FileInfo fI_bhv = new FileInfo ( img_bhv_path );
 			FileInfo fI_gns = new FileInfo ( img_gns_path );
 			uint mem_size = (uint) ( ms.Length + fI_bhv.Length + fI_gns.Length );
