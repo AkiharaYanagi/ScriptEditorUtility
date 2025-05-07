@@ -122,6 +122,13 @@ namespace ScriptEditor
 			using ( var fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
 			using ( var br = new BinaryReader ( fstrm, Encoding.UTF8 ) )
 			{
+
+				//バージョン(uint)
+				uint ver = br.ReadUInt32 ();
+
+				//サイズ(uint)
+				uint size = br.ReadUInt32 ();
+
 				//キャラデータ
 				LoadBinBehavior ( br, chara );
 				LoadBinGarnish ( br, chara );
@@ -181,7 +188,7 @@ namespace ScriptEditor
 			//◆ ver0.21 
 			//Imageを外部ファイルに書出
 			//必要時にディスクから読み出す
-			//windowsディレクトリ "filename_img\\img000.png"
+			//windowsディレクトリ "img\\cahra_'name'_img\\img000.png"
 			//==============================
 
 			//-------------------------------------------------------

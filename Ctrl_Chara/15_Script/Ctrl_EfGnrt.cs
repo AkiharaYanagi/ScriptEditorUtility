@@ -55,7 +55,7 @@ namespace ScriptEditor
 		//キャラデータ設定
 		public void SetCharaData ( Chara ch )
 		{
-			//エフェクト固定
+			//エフェクト指定コンボボックスを更新
 			CB_L_Effect.SetCompend ( ch.garnish );
 		}
 
@@ -63,6 +63,11 @@ namespace ScriptEditor
 		public void SetEditCompend ( EditCompend ec )
 		{
 			EditCompend = ec;
+
+			//エフェクト指定コンボボックスを更新
+			Chara ch = EditChara.Inst.Chara;
+			CB_L_Effect.SetCompend ( ch.garnish );
+
 		}
 
 
@@ -96,7 +101,6 @@ namespace ScriptEditor
 		public void UpdateData ()
 		{
 			EL_EfGnrt.UpdateData ();
-
 			
 			if ( EL_EfGnrt.Count () > 0 )
 			{

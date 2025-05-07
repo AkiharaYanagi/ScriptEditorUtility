@@ -62,13 +62,13 @@ namespace ScriptEditor
 		{
 			string fileDir = Path.GetDirectoryName ( filepath );
 			string filename = Path.GetFileNameWithoutExtension ( filepath );
-			return fileDir + "\\" + filename + "_bhv_img";
+			return fileDir + "\\img\\" + filename + "_bhv_img";
 		}
 		public static string GetGnsImgDir ( string filepath )
 		{
 			string fileDir = Path.GetDirectoryName ( filepath );
 			string filename = Path.GetFileNameWithoutExtension ( filepath );
-			return fileDir + "\\" + filename + "_gns_img";
+			return fileDir + "\\img\\" + filename + "_gns_img";
 		}
 
 		//イメージ別ファイル名
@@ -76,7 +76,7 @@ namespace ScriptEditor
 		{
 			string fileDir = Path.GetDirectoryName ( filepath );
 			string filename = Path.GetFileNameWithoutExtension ( filepath );
-			return fileDir + "\\" + filename + ".scp";
+			return fileDir + "\\img\\" + filename + ".scp";
 		}
 
 		public static string GetBhvImgPath ( string filepath )

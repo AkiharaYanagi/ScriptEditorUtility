@@ -69,30 +69,14 @@ namespace ScriptEditor
 
 			long script_size = ms.Length; 
 
+			//--------------------------------------------------------
+
+
 #if false
-				//イメージ部
-				WriteListImage ( bw, chara.behavior.BD_Image );
+			//イメージ部
+			WriteListImage ( bw, chara.behavior.BD_Image );
 			WriteListImage ( bw, chara.garnish.BD_Image );
 #endif
-
-			//--------------------------------------------------------
-			//スクリプト部書出
-			bw.Flush ();
-
-			long ms_pos = ms.Position;
-			
-			using ( FileStream fs = new FileStream ( IOChara.GetScpPath( filepath ), FileMode.Create, FileAccess.Write ) )
-			using ( BufferedStream bwFl = new BufferedStream( fs ) )
-			{
-				ms.Seek ( 0, SeekOrigin.Begin );
-				ms.CopyTo ( bwFl );
-
-			}	//using FileStream
-			
-			ms.Seek ( ms_pos, SeekOrigin.Begin );
-		
-			//--------------------------------------------------------
-
 			//イメージ部
 			//一回、imgファイルに書き出してから追加する
 			string img_bhv_path = IOChara.GetBhvImgPath ( filepath );
@@ -101,6 +85,33 @@ namespace ScriptEditor
 			string img_gns_path = IOChara.GetGnsImgPath ( filepath );
 			_WriteListImage ( img_gns_path, chara.garnish.BD_Image );
 		
+
+			//--------------------------------------------------------
+			//スクリプト部書出
+			bw.Flush ();
+		
+			//long ms_pos = ms.Position;
+			
+			using ( FileStream fs = new FileStream ( IOChara.GetScpPath( filepath ), FileMode.Create, FileAccess.Write ) )
+			using ( BufferedStream bwFl = new BufferedStream( fs ) )
+			{
+				//バージョン(uint)
+				byte[] byte_VER = BitConverter.GetBytes ( IO_CONST.VER );
+				bwFl.Write ( byte_VER, 0, byte_VER.Length );
+
+				//サイズ(uint)4,294,967,296[byte]まで
+				FileInfo fI_bhv = new FileInfo ( img_bhv_path );
+				FileInfo fI_gns = new FileInfo ( img_gns_path );
+				uint mem_size = (uint) ( ms.Length + fI_bhv.Length + fI_gns.Length );
+				byte[] byte_Length = BitConverter.GetBytes ( mem_size );
+				bwFl.Write ( byte_Length, 0, byte_Length.Length );
+
+				ms.Seek ( 0, SeekOrigin.Begin );
+				ms.CopyTo ( bwFl );
+
+			}	//using FileStream
+			
+			//ms.Seek ( ms_pos, SeekOrigin.Begin );
 			
 #if false
 
