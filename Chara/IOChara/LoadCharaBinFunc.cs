@@ -392,13 +392,63 @@ namespace ScriptEditor
 				chara.BD_Route.Add ( rut );
 			}
 
+
 			//スクリプトにおけるルート名の再設定
+#if false
 			foreach ( Action act in chara.behavior.BD_Sequence.GetEnumerable () )
 			{
 				foreach ( Script scp in act.ListScript )
 				{
 					//名前だけのリストを作成
-					List < string > L_name = new List<string> ();
+					List<string> L_name = new List<string> ();
+					foreach ( TName t in scp.BD_RutName.GetEnumerable () )
+					{
+						int id = GetIndex ( t.Name, "Rut_" );
+						L_name.Add ( chara.BD_Route [ id ].Name );
+					}
+
+					//クリアして再追加
+					scp.BD_RutName.Clear ();
+					foreach ( string name in L_name )
+					{
+						scp.BD_RutName.Add ( new TName ( name ) );
+					}
+				}
+			}
+			foreach ( Action act in chara.garnish.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in act.ListScript )
+				{
+					//名前だけのリストを作成
+					List<string> L_name = new List<string> ();
+					foreach ( TName t in scp.BD_RutName.GetEnumerable () )
+					{
+						int id = GetIndex ( t.Name, "Rut_" );
+						L_name.Add ( chara.BD_Route [ id ].Name );
+					}
+
+					//クリアして再追加
+					scp.BD_RutName.Clear ();
+					foreach ( string name in L_name )
+					{
+						scp.BD_RutName.Add ( new TName ( name ) );
+					}
+				}
+			}
+#endif
+			AssignRouteName ( chara, chara.behavior );
+			AssignRouteName ( chara, chara.garnish );
+		}
+
+		//スクリプトにおけるルート名の再設定
+		private void AssignRouteName ( Chara chara, Compend cmpd )
+		{
+			foreach ( Sequence sqc in cmpd.BD_Sequence.GetEnumerable () )
+			{
+				foreach ( Script scp in sqc.ListScript )
+				{
+					//名前だけのリストを作成
+					List<string> L_name = new List<string> ();
 					foreach ( TName t in scp.BD_RutName.GetEnumerable () )
 					{
 						int id = GetIndex ( t.Name, "Rut_" );
@@ -414,8 +464,8 @@ namespace ScriptEditor
 				}
 			}
 
-		}
 
+		}
 
 		//----------------------
 		//str_indexからheadを除き、Int.Parse()して返す

@@ -33,6 +33,7 @@
             this.pbArchiveImage = new System.Windows.Forms.PictureBox();
             this.Lb_Image = new System.Windows.Forms.ListBox();
             this.Btn_Stream = new System.Windows.Forms.Button();
+            this.Btn_MakeStream = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbArchiveImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             // 
             // Btn_Stream
             // 
-            this.Btn_Stream.Location = new System.Drawing.Point(483, 9);
+            this.Btn_Stream.Location = new System.Drawing.Point(493, 9);
             this.Btn_Stream.Name = "Btn_Stream";
             this.Btn_Stream.Size = new System.Drawing.Size(132, 35);
             this.Btn_Stream.TabIndex = 11;
@@ -93,10 +94,21 @@
             this.Btn_Stream.UseVisualStyleBackColor = true;
             this.Btn_Stream.Click += new System.EventHandler(this.Btn_Stream_Click);
             // 
+            // Btn_MakeStream
+            // 
+            this.Btn_MakeStream.Location = new System.Drawing.Point(355, 9);
+            this.Btn_MakeStream.Name = "Btn_MakeStream";
+            this.Btn_MakeStream.Size = new System.Drawing.Size(132, 35);
+            this.Btn_MakeStream.TabIndex = 11;
+            this.Btn_MakeStream.Text = "同名作成";
+            this.Btn_MakeStream.UseVisualStyleBackColor = true;
+            this.Btn_MakeStream.Click += new System.EventHandler(this.Btn_MakeStream_Click);
+            // 
             // Ctrl_Image
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Btn_MakeStream);
             this.Controls.Add(this.Btn_Stream);
             this.Controls.Add(this.Btn_ArchiveOK);
             this.Controls.Add(this.btn_Cancel);
@@ -116,5 +128,6 @@
 		private System.Windows.Forms.PictureBox pbArchiveImage;
 		private System.Windows.Forms.ListBox Lb_Image;
 		private System.Windows.Forms.Button Btn_Stream;
+		private System.Windows.Forms.Button Btn_MakeStream;
 	}
 }

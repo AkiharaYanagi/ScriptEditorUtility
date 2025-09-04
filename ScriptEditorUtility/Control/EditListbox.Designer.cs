@@ -35,13 +35,13 @@
 			this.Btn_Down = new System.Windows.Forms.Button();
 			this.Tb_Name = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.Btn_Tail = new System.Windows.Forms.Button();
+			this.Btn_Top = new System.Windows.Forms.Button();
 			this.Btn_SaveOne = new System.Windows.Forms.Button();
 			this.Btn_LoadOne = new System.Windows.Forms.Button();
 			this.Btn_SaveAll = new System.Windows.Forms.Button();
 			this.Btn_LoadAll = new System.Windows.Forms.Button();
 			this.Btn_Folder = new System.Windows.Forms.Button();
-			this.Btn_Top = new System.Windows.Forms.Button();
-			this.Btn_Tail = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -128,6 +128,28 @@
 			this.panel1.Size = new System.Drawing.Size(208, 409);
 			this.panel1.TabIndex = 5;
 			// 
+			// Btn_Tail
+			// 
+			this.Btn_Tail.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Tail.Location = new System.Drawing.Point(167, 386);
+			this.Btn_Tail.Name = "Btn_Tail";
+			this.Btn_Tail.Size = new System.Drawing.Size(30, 15);
+			this.Btn_Tail.TabIndex = 4;
+			this.Btn_Tail.Text = "↓↓";
+			this.Btn_Tail.UseVisualStyleBackColor = true;
+			this.Btn_Tail.Click += new System.EventHandler(this.Btn_Tail_Click);
+			// 
+			// Btn_Top
+			// 
+			this.Btn_Top.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Btn_Top.Location = new System.Drawing.Point(167, 10);
+			this.Btn_Top.Name = "Btn_Top";
+			this.Btn_Top.Size = new System.Drawing.Size(30, 15);
+			this.Btn_Top.TabIndex = 4;
+			this.Btn_Top.Text = "↑↑";
+			this.Btn_Top.UseVisualStyleBackColor = true;
+			this.Btn_Top.Click += new System.EventHandler(this.Btn_Top_Click);
+			// 
 			// Btn_SaveOne
 			// 
 			this.Btn_SaveOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
@@ -181,28 +203,6 @@
 			this.Btn_Folder.Text = "フォルダ";
 			this.Btn_Folder.UseVisualStyleBackColor = true;
 			this.Btn_Folder.Click += new System.EventHandler(this.Btn_Folder_Click);
-			// 
-			// Btn_Top
-			// 
-			this.Btn_Top.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Btn_Top.Location = new System.Drawing.Point(167, 10);
-			this.Btn_Top.Name = "Btn_Top";
-			this.Btn_Top.Size = new System.Drawing.Size(30, 15);
-			this.Btn_Top.TabIndex = 4;
-			this.Btn_Top.Text = "↑↑";
-			this.Btn_Top.UseVisualStyleBackColor = true;
-			this.Btn_Top.Click += new System.EventHandler(this.Btn_Top_Click);
-			// 
-			// Btn_Tail
-			// 
-			this.Btn_Tail.Font = new System.Drawing.Font("MS UI Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Btn_Tail.Location = new System.Drawing.Point(167, 386);
-			this.Btn_Tail.Name = "Btn_Tail";
-			this.Btn_Tail.Size = new System.Drawing.Size(30, 15);
-			this.Btn_Tail.TabIndex = 4;
-			this.Btn_Tail.Text = "↓↓";
-			this.Btn_Tail.UseVisualStyleBackColor = true;
-			this.Btn_Tail.Click += new System.EventHandler(this.Btn_Tail_Click);
 			// 
 			// EditListbox
 			// 

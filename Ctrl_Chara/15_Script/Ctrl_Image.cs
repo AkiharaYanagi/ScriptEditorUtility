@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.IO;
 
 
 namespace ScriptEditor
@@ -23,7 +24,13 @@ namespace ScriptEditor
 		//対象指定
 		private RB_ScriptTarget Rb_ScpTgt = new RB_ScriptTarget ();
 
+		//ツールチップ
+		private ToolTip ttip_BtnStrm = new ToolTip ();
+		private ToolTip ttip_BtnMkStrm = new ToolTip ();
 
+
+		//------------------------------------------------------------
+		//コンストラクタ
 		public Ctrl_Image ()
 		{
 			InitializeComponent ();
@@ -32,6 +39,10 @@ namespace ScriptEditor
 
 			Lb_Image.DisplayMember = "Name";
 			Lb_Image.ValueMember = "Image";
+
+
+			ttip_BtnStrm.SetToolTip ( Btn_Stream, "指定フレームから順番にイメージを設定します。" );
+			ttip_BtnMkStrm.SetToolTip ( Btn_MakeStream, "指定フレームから順番にフレームを作成しながらイメージを設定します。" );
 		}
 
 		public void SetParent ( EditorSubForm f )
@@ -173,5 +184,69 @@ namespace ScriptEditor
 			//全体更新
 			All_Ctrl.Inst.UpdateData ();
 		}
+
+		//同名作成
+		private void Btn_MakeStream_Click ( object sender, EventArgs e )
+		{
+			EditScript ES = EditCompend.EditScript;
+
+			//対象シークエンス
+			Sequence sqc = EditCompend.SelectedSequence;
+			if ( sqc is null ) { return; }
+			if ( sqc.ListScript.Count <= 0 ) { return; }
+
+			//対象フレーム
+			int start_frame = EditCompend.SelectedScript.Frame;
+			if ( start_frame == -1 ) { start_frame = 0; }
+
+
+			//イメージリスト
+			if ( Lb_Image.Items.Count <= 0 ) { return; }
+
+			//イメージリストの選択箇所からスタート
+			int nameIndex = Lb_Image.SelectedIndex;
+			int maxIndex = Lb_Image.Items.Count;
+
+			//開始シークエンス名
+			string start_name = index_to_sqc_name ( nameIndex );
+
+
+			//同名シークエンスと同じ名前の場合ループ続行
+			for ( int i = nameIndex; i < maxIndex; ++ i )
+			{
+				//終了条件
+				string name = index_to_sqc_name ( i );
+				if ( start_name != name ) { break; }
+
+				//初回以外シークエンスに追加して
+				if ( i != nameIndex )
+				{
+					//1つ前をコピーして作成
+					sqc.AddScript ( new Script ( sqc.ListScript [ start_frame - 1 ] ) );
+				}
+
+				 //フレームに設定
+				string set_name = ( (ImageData) Lb_Image.Items [ i ] ).Name;
+				Script scp = sqc.ListScript [ start_frame ];
+				
+				//グループは未使用を連続で指定
+				scp.Group = ES.GetUnusedGroup ();
+				scp.ImgName = set_name;
+				++ start_frame;	//次に移項
+			}
+
+
+			//全体更新
+			All_Ctrl.Inst.UpdateData ();
+		}
+
+		private string index_to_sqc_name ( int nameIndex )
+		{
+			string img_file_name = ( (ImageData) Lb_Image.Items [ nameIndex ] ).Name;
+			string img_name = Path.GetFileNameWithoutExtension ( img_file_name );
+			return img_name.Substring ( 0, img_name.Length - 3 );
+			//"sqc_name_00.png" -> "sqc_name"
+		}
+
 	}
 }

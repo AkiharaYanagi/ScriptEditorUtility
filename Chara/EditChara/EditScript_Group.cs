@@ -93,7 +93,7 @@ namespace ScriptEditor
 			}
 
 			//未使用グループ値を検索
-			int unusedGroup = GetUnusedIndex ( lsScp );
+			int unusedGroup = GetUnusedGroup ( lsScp );
 
 			//選択範囲のスクリプトをグループにする
 			count = 0;
@@ -111,7 +111,7 @@ namespace ScriptEditor
 		}
 
 		//０以外の未使用グループ値を検索
-		public int GetUnusedIndex ( LScp lsScp )
+		public int GetUnusedGroup ( LScp lsScp )
 		{
 			int unusedGroup = 0;
 
@@ -154,9 +154,9 @@ namespace ScriptEditor
 			//対象がすべて連番だったとき、+1した値を返す
 			return 1 + unusedGroup;
 		}
-		public int GetUnusedIndex ()
+		public int GetUnusedGroup ()
 		{
-			return GetUnusedIndex ( L_Scp );
+			return GetUnusedGroup ( L_Scp );
 		}
 
 		//グループの選択

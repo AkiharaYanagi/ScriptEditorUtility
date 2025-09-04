@@ -63,7 +63,7 @@ namespace ScriptEditor
 		public void MultiInsert ( Script scp )
 		{
 			//未使用グループを指定する
-			int group = EditScript.GetUnusedIndex ();
+			int group = EditScript.GetUnusedGroup ();
 
 			MultiInsert ( scp, group );
 		}
@@ -107,7 +107,7 @@ namespace ScriptEditor
 					temp_group = ls [i].Group;
 
 					//未使用グループを指定する
-					now_group = EditScript.GetUnusedIndex ();
+					now_group = EditScript.GetUnusedGroup ();
 				}
 
 				//新規スクリプト
@@ -138,7 +138,7 @@ namespace ScriptEditor
 		public void MultiAdd ( Script scp )
 		{
 			//未使用グループを指定する
-			int group = EditScript.GetUnusedIndex ();
+			int group = EditScript.GetUnusedGroup ();
 
 			//範囲
 			int s = SelectedSpanStart;
@@ -196,7 +196,7 @@ namespace ScriptEditor
 					temp_group = ls [i].Group;
 
 					//未使用グループを指定する
-					now_group = EditScript.GetUnusedIndex ();
+					now_group = EditScript.GetUnusedGroup ();
 				}
 
 				//新規スクリプト
