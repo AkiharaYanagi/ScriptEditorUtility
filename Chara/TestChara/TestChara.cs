@@ -143,10 +143,10 @@ namespace ScriptEditor
 					//SE, VC
 					Check_SOUND_Name ( SOUND_DIR + SE_DIR, scp.StgPrm.SE_name, sqc, scp );
 					Check_SOUND_Name ( SOUND_DIR + VC_DIR, scp.StgPrm.VC_name, sqc, scp );
-				}
 
-				//インデックス
-				++ i;
+					//インデックス
+					++ i;
+				}
 			}
 
 

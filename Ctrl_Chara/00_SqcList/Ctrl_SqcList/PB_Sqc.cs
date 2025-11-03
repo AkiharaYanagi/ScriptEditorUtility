@@ -292,7 +292,7 @@ namespace ScriptEditor
 					int y = ns * CH;
 
 					//シークエンスデータ
-					DrawSequence(g, sqcDt.Sqc.Name + "[" + sqcDt.nScript + "]", FONT0, 0 + y);
+					DrawSequence(g, "" + ns + ":" + sqcDt.Sqc.Name + "[" + sqcDt.nScript + "]", FONT0, 0 + y);
 					DrawSequence(g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 20 + y);
 					if ( FlagAction )
 					{

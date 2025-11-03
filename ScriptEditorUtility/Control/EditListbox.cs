@@ -73,6 +73,9 @@ namespace ScriptEditor
 			Tb_Name.TextChanged += new EventHandler ( Tb_Name_TextChanged );
 
 			this.DoubleBuffered = true;
+
+			TB_N_Up.Text = "10";
+			TB_N_Down.Text = "10";
 		}
 
 		//データ設置
@@ -99,6 +102,7 @@ namespace ScriptEditor
 
 			T t = (T)listBox1.SelectedItem;
 			Tb_Name.Text = t.Name;
+			Lbl_i_n.Text = string.Format ( "{0} / {1}", listBox1.SelectedIndex, listBox1.Items.Count );
 
 			UpdateData?.Invoke ();
 		}
@@ -173,12 +177,14 @@ namespace ScriptEditor
 				BD_T.Insert ( slct + 1, New_T () );
 
 				//選択位置を次にする
+				listBox1.SelectedIndices.Clear ();
 				listBox1.SelectedIndex = slct + 1;
 			}
 			else
 			{
 				//選択位置が末尾のとき、さらに後に追加
 				BD_T.Add ( New_T () );
+				listBox1.SelectedIndices.Clear ();
 				listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			}
 
@@ -212,6 +218,7 @@ namespace ScriptEditor
 			BD_T.Up ( listBox1.SelectedIndex );
 
 			//選択を１つ前へ
+			listBox1.SelectedIndices.Clear ();
 			listBox1.SelectedIndex = i;
 
 			//変更時イベント
@@ -235,6 +242,7 @@ namespace ScriptEditor
 			BD_T.Down ( listBox1.SelectedIndex );
 
 			//選択を１つ次へ
+			listBox1.SelectedIndices.Clear ();
 			listBox1.SelectedIndex = i - 1;
 
 			//変更時イベント
@@ -254,6 +262,7 @@ namespace ScriptEditor
 			//--------------------------------------------------------------------
 
 			BD_T.Top ( listBox1.SelectedIndex );
+			listBox1.SelectedIndices.Clear ();
 			listBox1.SelectedIndex = 0;
 		}
 
@@ -268,6 +277,7 @@ namespace ScriptEditor
 			//--------------------------------------------------------------------
 
 			BD_T.Tail ( listBox1.SelectedIndex );
+			listBox1.SelectedIndices.Clear ();
 			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 		}
 
@@ -289,6 +299,7 @@ namespace ScriptEditor
 		{
 			if  ( listBox1.SelectedItem is null ) { return; }
 			Tb_Name.Text = ((T)listBox1.SelectedItem).Name;
+			Lbl_i_n.Text = string.Format ( "{0} / {1}", listBox1.SelectedIndex, listBox1.Items.Count );
 			SelectedIndexChanged?.Invoke ();
 		}
 
@@ -326,6 +337,7 @@ namespace ScriptEditor
 			if ( t is null ) { return; }
 			if ( t.Name == Tb_Name.Text ) { return; }
 
+			
 			
 			BD_T.ChangeName ( t.Name, Tb_Name.Text );
 
@@ -568,6 +580,146 @@ namespace ScriptEditor
 					//最後の改行(単体保存の繰り返しのため)
 					sw.Write ( '\n' );
 				}
+			}
+		}
+
+		private void BTN_N_Up_Click ( object sender, EventArgs e )
+		{
+			int n = 0;
+			try
+			{
+				n = int.Parse ( TB_N_Up.Text );
+			}
+			catch
+			{
+				return;
+			}
+
+			//--------------------------------------------------------------------
+			//動作条件　下記の条件時は何もしない
+			if ( listBox1.Items.Count <= n ) { return; }        //対象個数がn以下
+			if ( listBox1.SelectedItems.Count <= 0 ) { return; } //選択されていない
+			if ( listBox1.SelectedIndex < n ) { return; }      //選択がn未満のとき
+
+
+			//１つ選択時
+			if ( listBox1.SelectedItems.Count == 1 )
+			{
+				//現在選択位置iと移動先n
+				int i = listBox1.SelectedIndex;
+				BD_T.N_Up ( i, n );
+				//選択をn前へ
+				listBox1.SelectedIndices.Clear ();
+				listBox1.SelectedIndex = i - n;
+				//変更時イベント
+				Listbox_Changed?.Invoke ();
+				listBox1.Invalidate ();
+			}
+			else
+			{
+				//複数選択時
+				//選択インデックスを配列で取得
+				int[] selects = new int[listBox1.SelectedItems.Count];
+				listBox1.SelectedIndices.CopyTo ( selects, 0 );
+				//前から処理
+				for ( int idx = 0; idx < selects.Length; idx++ )
+				{
+					int i = selects[idx];
+					BD_T.N_Up ( i, n );
+				}
+				//選択をn前へ
+				listBox1.SelectedIndices.Clear ();
+				for ( int idx = 0; idx < selects.Length; idx++ )
+				{
+					listBox1.SelectedIndices.Add ( selects[idx] - n );
+				}
+				//変更時イベント
+				Listbox_Changed?.Invoke ();
+				listBox1.Invalidate ();
+			}
+
+#if false
+			//現在選択位置iと移動先n
+			int i = listBox1.SelectedIndex;
+			BD_T.N_Up ( i, n );
+
+			//選択を指定位置へ
+			listBox1.SelectedIndices.Clear ();
+			listBox1.SelectedIndex = i - n;
+
+
+			//変更時イベント
+			Listbox_Changed?.Invoke ();
+			//更新
+			listBox1.Invalidate ();
+
+#endif
+		}
+
+		private void BTN_N_Down_Click ( object sender, EventArgs e )
+		{
+			int n = 0;
+			try
+			{
+				n = int.Parse ( TB_N_Down.Text );
+			}
+			catch
+			{
+				return;
+			}
+
+			//--------------------------------------------------------------------
+			//動作条件　下記の条件時は何もしない
+			int count = listBox1.Items.Count;
+			int select = listBox1.SelectedIndex;
+			if ( listBox1.Items.Count <= n ) { return; }        //対象個数がn以下
+			if ( listBox1.SelectedItems.Count <= 0 ) { return; }  //選択されていない
+			if ( count <= select + n ) { return; }  //n移動すると末尾を超える
+
+
+			//１つ選択時
+			if ( listBox1.SelectedItems.Count == 1 )
+			{
+				//現在選択位置iと移動先n
+				int i = listBox1.SelectedIndex;
+				BD_T.N_Down ( i, n );
+
+				//選択をn次へ
+				listBox1.SelectedIndices.Clear ();
+				listBox1.SelectedIndex = i + n;
+
+				//変更時イベント
+				Listbox_Changed?.Invoke ();
+
+				listBox1.Invalidate ();
+			}
+			else
+			{
+				//複数選択時
+				//選択インデックスを配列で取得
+				int[] selects = new int[listBox1.SelectedItems.Count];
+				listBox1.SelectedIndices.CopyTo ( selects, 0 );
+
+				//選択の末尾が超えるとき何もしない
+				if ( count <= selects[selects.Length - 1] + n ) { return; }
+
+
+				//後ろから処理
+				for ( int idx = selects.Length - 1; 0 <= idx; idx-- )
+				{
+					int i = selects[idx];
+					BD_T.N_Down ( i, n );
+				}
+				//選択をn次へ
+				listBox1.SelectedIndices.Clear ();
+				for ( int idx = 0; idx < selects.Length; idx++ )
+				{
+					listBox1.SelectedIndices.Add ( selects[idx] + n );
+				}
+				//変更時イベント
+				Listbox_Changed?.Invoke ();
+				listBox1.Invalidate ();
+
 			}
 		}
 	}

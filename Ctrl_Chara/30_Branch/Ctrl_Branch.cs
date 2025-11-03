@@ -121,7 +121,7 @@ namespace ScriptEditor
 		//プレデータ読込
 		public void LoadPreData ()
 		{
-			EL_Branch.LoadData ( Ctrl_Stgs.File_BranchList );
+	//		EL_Branch.LoadData ( Ctrl_Stgs.File_BranchList );
 		}
 
 		public void SelectSequence ( string name )

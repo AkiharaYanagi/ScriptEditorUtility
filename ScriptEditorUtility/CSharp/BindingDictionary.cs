@@ -269,20 +269,20 @@ namespace ScriptEditor
 			return BL_t.Count;
 		}
 
-//		public int Count { get; } = 0;
+		//		public int Count { get; } = 0;
 
 		//前へ移動
 		public void Up ( int index )
 		{
 			//------------------------------------
 			//条件
-			int count = Count();
-			if ( count < 2 ) { return; }		//２つ未満
-			if ( count <= index ) { return; }	//指定位置が個数以上
-			if ( index == 0 ) { return; }	//先頭
+			int count = Count ();
+			if ( count < 2 ) { return; }        //２つ未満
+			if ( count <= index ) { return; }   //指定位置が個数以上
+			if ( index == 0 ) { return; }   //先頭
 
 			//------------------------------------
-			int prev_index = index - 1;	//1つ前の位置
+			int prev_index = index - 1; //1つ前の位置
 
 			//バインディングリスト内の位置を更新
 			//１つ前の位置に自身をコピー
@@ -299,17 +299,61 @@ namespace ScriptEditor
 		{
 			//------------------------------------
 			//条件
-			int count = Count();
-			if ( count < 2 ) { return; }		//２つ未満
-			if ( count <= index ) { return; }	//指定位置が個数以上
-			if ( index == count - 1 ) { return; }	//末尾
-			//------------------------------------
+			int count = Count ();
+			if ( count < 2 ) { return; }        //２つ未満
+			if ( count <= index ) { return; }   //指定位置が個数以上
+			if ( index == count - 1 ) { return; }   //末尾
+													//------------------------------------
 
-			int next_index = index + 2;	//1つ次の位置
+			int next_index = index + 2; //1つ次の位置
 
 			//バインディングリスト内の位置を更新
 			//１つ次の位置に自身をコピー
 			BL_t.Insert ( next_index, BL_t [ index ] );
+
+			//元の位置の後を削除
+			BL_t.RemoveAt ( index );
+
+			//ディクショナリは変更無し
+		}
+
+		//指定ｎだけ前へ移動
+		public void N_Up ( int index, int n )
+		{
+			//------------------------------------
+			//条件
+			int count = Count ();
+			if ( count < n ) { return; }    //全体がn未満
+			if ( index < n ) { return; }   //選択がn未満のとき
+
+			//------------------------------------
+			int prev_n_index = index - n; //n前の位置
+
+			//バインディングリスト内の位置を更新
+			//n前の位置に自身をコピー
+			BL_t.Insert ( prev_n_index, BL_t [ index ] );
+
+			//元の位置の後を削除
+			BL_t.RemoveAt ( index + 1 );
+
+			//ディクショナリは変更無し
+		}
+
+		//後へ移動
+		public void N_Down ( int index, int n )
+		{
+			//------------------------------------
+			//条件
+			int count = Count ();
+			if ( count < n ) { return; }        //n未満
+			if ( count < index + n ) { return; }   //n足すとあふれる
+
+			//------------------------------------
+			int next_n_index = index + n + 1; //n + 1 次の位置
+
+			//バインディングリスト内の位置を更新
+			//１つ次の位置に自身をコピー
+			BL_t.Insert ( next_n_index, BL_t [ index ] );
 
 			//元の位置の後を削除
 			BL_t.RemoveAt ( index );

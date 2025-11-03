@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace ScriptEditor
@@ -181,7 +182,9 @@ namespace ScriptEditor
 				bw.Write ( (uint)scp.BD_RutName.Count() );
 				foreach ( TName tn in scp.BD_RutName.GetEnumerable () )
 				{
-					bw.Write ( (uint)chara.GetIndexOfRoute ( tn.Name ) );
+					uint indexRut = (uint)chara.GetIndexOfRoute ( tn.Name );
+//					Debug.WriteLine ( "" + indexRut + ":" + tn.Name );
+					bw.Write ( indexRut );
 				}
 
 				//枠

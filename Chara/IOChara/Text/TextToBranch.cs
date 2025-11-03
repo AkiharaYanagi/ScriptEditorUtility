@@ -30,7 +30,7 @@ namespace ScriptEditor
 			brc.NameCommand = str_spl[2];
 			brc.NameSequence = str_spl[3];
 			brc.Frame = int.Parse ( str_spl[4] );
-			brc.Other = bool.Parse ( str_spl [5] );
+			//brc.Other = bool.Parse ( str_spl [5] );
 		}
 	}
 }
