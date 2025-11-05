@@ -32,7 +32,10 @@ namespace ScriptEditor
 
 		//コントロール実体
 		private ELB_Sqc ELB_Sqc = new ELB_Sqc ();
-		
+
+		//最後に選んだシークエンス名(タブ移動時に利用)
+		private string last_selected_sqc_name = "";
+
 		//----------------------------------------------------------------------
 
 		//コンストラクタ
@@ -180,6 +183,7 @@ namespace ScriptEditor
 			int index = SqcListData.L_Sqc.IndexOf ( sqcName );
 
 			//ELB
+			ELB_Sqc.GetListBox ().ClearSelected();
 			ELB_Sqc.GetListBox ().SelectedIndex = index;
 
 			//編集
@@ -191,7 +195,18 @@ namespace ScriptEditor
 
 		public string SelectedSqcName ()
 		{
-			return EditData.SelectedSqcName ();
+			return ELB_Sqc.Get ().Name;
+//			return EditData.SelectedSqcName ();
+		}
+
+		public void SaveSelectedSqcName ()
+		{
+			last_selected_sqc_name = SelectedSqcName ();
+		}
+
+		public string GetLastSelectedSqcName ()
+		{
+			return last_selected_sqc_name;
 		}
 	}
 }

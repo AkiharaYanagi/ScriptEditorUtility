@@ -292,13 +292,14 @@ namespace ScriptEditor
 					int y = ns * CH;
 
 					//シークエンスデータ
-					DrawSequence(g, "" + ns + ":" + sqcDt.Sqc.Name + "[" + sqcDt.nScript + "]", FONT0, 0 + y);
-					DrawSequence(g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 20 + y);
+					DrawSequence ( g, sqcDt.Sqc.Name, FONT0, 0 + y );
+					DrawSequence ( g, "" + ns + ":" + "[" + sqcDt.nScript + "]", FONT0, 20 + y );
+					DrawSequence ( g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 40 + y);
 					if ( FlagAction )
 					{
 						Action act = (Action)sqcDt.Sqc;
-						DrawSequence(g, "(" + act.Category.ToString() + ")", FONT1, 40 + y);
-						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 60 + y);
+						DrawSequence(g, "(" + act.Category.ToString() + ")", FONT1, 60 + y);
+						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 80 + y);
 					}
 
 #if false
@@ -347,7 +348,7 @@ namespace ScriptEditor
 		private void DrawSequence ( Graphics g, string str, Font f, float y )
 		{
 			RectangleF rectf = new RectangleF(new PointF(0, y), new SizeF(200, 20));
-			g.DrawString( str, f, Brushes.Black, rectf );
+			g.DrawString( str, f, Brushes.Black, 0, y );
 		}
 
 
@@ -392,6 +393,7 @@ namespace ScriptEditor
 						//選択
 						EditSLData.SelectedSqc = pt_y;
 						EditSLData.SelectedImage = pt_x;
+						ELB_Sqc.GetListBox ().ClearSelected ();
 						ELB_Sqc.GetListBox ().SelectedIndex = pt_y;
 					}
 				}
