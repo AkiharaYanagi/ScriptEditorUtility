@@ -90,9 +90,19 @@ namespace ScriptEditor
 			//スクリプト部書出
 			bw.Flush ();
 		
+			//@info FileMode.Createでもディレクトリが存在しないとき例外
+			// ->ディレクトリがなければ作成
+
 			//long ms_pos = ms.Position;
-			
-			using ( FileStream fs = new FileStream ( IOChara.GetScpPath( filepath ), FileMode.Create, FileAccess.Write ) )
+			string scp_filepath = IOChara.GetScpPath( filepath );
+			string scp_dir = Path.GetDirectoryName ( scp_filepath );
+			if ( ! Directory.Exists ( scp_dir ) )
+			{
+				Directory.CreateDirectory ( scp_dir );			
+			}
+
+
+			using ( FileStream fs = new FileStream ( scp_filepath, FileMode.Create, FileAccess.Write ) )
 			using ( BufferedStream bwFl = new BufferedStream( fs ) )
 			{
 				//バージョン(uint)

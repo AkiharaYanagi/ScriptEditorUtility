@@ -47,8 +47,25 @@ namespace ScriptEditor
 			}
 			catch ( ArgumentException e )
 			{
-				chara = new Chara ();		//空データ
-				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace ;
+				chara = new Chara ();       //空データ
+				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace;
+			}
+			ErrMsg = "Load OK.";
+		}
+
+		public void Do_scp ( string filepath, Chara chara )
+		{
+			//保存
+			Chara chara_pre = new Chara ( chara );
+
+			try
+			{
+				_Load_scp ( filepath, chara );
+			}
+			catch ( ArgumentException e )
+			{
+				chara = chara_pre;       //元データ
+				ErrMsg = "LoadChara : 読込データが不適正です\n" + e.Message + "\n" + e.StackTrace;
 			}
 			ErrMsg = "Load OK.";
 		}
@@ -146,6 +163,49 @@ namespace ScriptEditor
 			string imgfile_gns = IOChara.GetGnsImgPath ( filepath );
 			string imgdir_gns = IOChara.GetGnsImgDir ( filepath );
 			LoadImageFile ( imgfile_gns, imgdir_gns, chara.garnish.BD_Image );
+		}
+
+
+
+		//Imageを残し、scpのみ
+		private void _Load_scp ( string filepath, Chara chara )
+		{
+			//ファイルが存在しないとき何もしない
+			if ( !File.Exists ( filepath ) )
+			{
+				STS_TXT.Trace_Err ( filepath + "が見つかりません" );
+				throw new ArgumentException ( "ファイルが存在しませんでした。" );
+			}
+
+			//拡張子確認
+			if ( Path.GetExtension ( filepath ).CompareTo ( ".scp" ) != 0 )
+			{
+				STS_TXT.Trace_Err ( "拡張子が.scpと異なります。" );
+				throw new ArgumentException ( "拡張子が.scpと異なります。" );
+			}
+
+			//イメージを残しスクリプトのみをクリア
+			chara.ClearScript ();
+
+
+			//ファイルストリーム開始
+			using ( var fstrm = new FileStream ( filepath, FileMode.Open, FileAccess.Read ) )
+			using ( var br = new BinaryReader ( fstrm, Encoding.UTF8 ) )
+			{
+				//キャラデータ
+				LoadBinBehavior ( br, chara );
+				LoadBinGarnish ( br, chara );
+				LoadBinCommand ( br, chara );
+				LoadBinBranch ( br, chara );
+				LoadBinRoute ( br, chara );
+			}   //using
+
+#if false
+			//画像を別ディレクトリから取得
+			LoadImageDir ( IOChara.GetBhvImgDir ( filepath ), chara.behavior.BD_Image );
+			LoadImageDir ( IOChara.GetGnsImgDir ( filepath ), chara.garnish.BD_Image );
+
+#endif
 		}
 
 
