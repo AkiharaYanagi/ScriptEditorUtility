@@ -291,17 +291,6 @@ namespace ScriptEditor
 
 					int y = ns * CH;
 
-					//シークエンスデータ
-					DrawSequence ( g, sqcDt.Sqc.Name, FONT0, 0 + y );
-					DrawSequence ( g, "" + ns + ":" + "[" + sqcDt.nScript + "]", FONT0, 20 + y );
-					DrawSequence ( g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 40 + y);
-					if ( FlagAction )
-					{
-						Action act = (Action)sqcDt.Sqc;
-						DrawSequence(g, "(" + act.Category.ToString() + ")", FONT1, 60 + y);
-						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 80 + y);
-					}
-
 #if false
 #endif
 					//画像
@@ -318,6 +307,19 @@ namespace ScriptEditor
 						//g.FillRectangle ( Brushes.AliceBlue, new Rectangle (CW + nI * CW, y, CW, CH ) );
 
 						++ nI;
+					}
+
+					//シークエンスデータ
+					DrawSequence ( g, sqcDt.Sqc.Name, FONT0, 0 + y );
+					DrawSequence ( g, "" + ns + ":" + "[" + sqcDt.nScript + "]", FONT0, 20 + y );
+					DrawSequence ( g, "Img:" + sqcDt.BD_ImgDt.Count() , FONT1, 40 + y);
+					if ( FlagAction )
+					{
+						Action act = (Action)sqcDt.Sqc;
+						String cat = "(" + act.Category.ToString() + ")";
+						String pos = ",(" + act.Posture.ToString() +  ")";
+						DrawSequence(g, cat + pos , FONT1, 60 + y);
+						DrawSequence(g, "( -> " + act.NextActionName + ")", FONT1, 80 + y);
 					}
 
 					++ ns;
